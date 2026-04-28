@@ -1,0 +1,69 @@
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Productgegevens MyParcel tab met alle productniveau-velden">
+  <title>Productgegevens → MyParcel-tab met overschrijf-mogelijkheden per product</title>
+  <rect width="800" height="480" fill="#ffffff"/>
+  <g font-family="-apple-system, sans-serif" font-size="13" fill="#0f172a">
+    <rect x="12" y="12" width="120" height="28" rx="2" fill="#f1f5f9"/>
+    <text x="24" y="30" font-size="12">Algemeen</text>
+    <rect x="12" y="42" width="120" height="28" rx="2" fill="#f1f5f9"/>
+    <text x="24" y="60" font-size="12">Voorraad</text>
+    <rect x="12" y="72" width="120" height="28" rx="2" fill="#f1f5f9"/>
+    <text x="24" y="90" font-size="12">Verzending</text>
+    <rect x="12" y="102" width="120" height="28" rx="2" fill="#f1f5f9"/>
+    <text x="24" y="120" font-size="12">Attributen</text>
+    <rect x="12" y="132" width="120" height="28" rx="2" fill="#f1f5f9"/>
+    <text x="24" y="150" font-size="12">Geavanceerd</text>
+    <rect x="12" y="162" width="120" height="28" rx="2" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="24" y="180" font-size="12" font-weight="600" fill="#2563eb">MyParcel</text>
+
+    <text x="150" y="28" font-weight="700" font-size="15">MyParcel opties</text>
+    <text x="150" y="54" font-weight="600">Pakkettype</text>
+    <rect x="300" y="40" width="200" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="56" font-size="12">Standaard</text>
+
+    <text x="150" y="84" font-weight="600">In mailbox</text>
+    <rect x="300" y="70" width="60" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="86" font-size="12">-1</text>
+
+    <text x="150" y="114" font-weight="700" font-size="14">Product bezorgopties</text>
+
+    <text x="150" y="138" font-weight="600">Verzending vertragen</text>
+    <rect x="300" y="124" width="60" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="140" font-size="12">-1</text>
+
+    <text x="150" y="168" font-weight="600">Verzendopties uitschakelen</text>
+    <rect x="300" y="156" width="34" height="16" rx="8" fill="#2563eb"/>
+    <circle cx="326" cy="164" r="6" fill="#ffffff"/>
+    <rect x="344" y="156" width="14" height="16" rx="2" fill="#10b981"/>
+
+    <text x="150" y="198" font-weight="600">Pakautomaten uitsluiten</text>
+    <rect x="300" y="186" width="34" height="16" rx="8" fill="#cbd5e1"/>
+    <rect x="344" y="186" width="14" height="16" rx="2" fill="#cbd5e1"/>
+
+    <text x="150" y="228" font-weight="700" font-size="14">Product douane opties</text>
+
+    <text x="150" y="252" font-weight="600">Land van herkomst</text>
+    <rect x="300" y="238" width="200" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="254" font-size="12">Geen</text>
+
+    <text x="150" y="282" font-weight="600">Douane code</text>
+    <rect x="300" y="268" width="60" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="284" font-size="12">-1</text>
+
+    <text x="150" y="312" font-weight="700" font-size="14">Product export opties</text>
+
+    <g font-size="12">
+      <text x="150" y="336">Activeer leeftijdscontrole (18+)</text>
+      <rect x="344" y="324" width="14" height="16" rx="2" fill="#cbd5e1"/>
+      <text x="150" y="360">Activeer direct retour</text>
+      <rect x="344" y="348" width="14" height="16" rx="2" fill="#cbd5e1"/>
+      <text x="150" y="384">Activeer verzekering</text>
+      <rect x="344" y="372" width="14" height="16" rx="2" fill="#cbd5e1"/>
+      <text x="150" y="408">Activeer alleen ontvanger</text>
+      <rect x="344" y="396" width="14" height="16" rx="2" fill="#cbd5e1"/>
+      <text x="150" y="432">Activeer handtekening</text>
+      <rect x="344" y="420" width="14" height="16" rx="2" fill="#cbd5e1"/>
+      <text x="150" y="456">Pakautomaten uitsluiten</text>
+      <rect x="344" y="444" width="14" height="16" rx="2" fill="#cbd5e1"/>
+    </g>
+  </g>
+</svg>

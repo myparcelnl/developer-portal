@@ -1,0 +1,32 @@
+<svg viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyParcel Settings pagina met API key veld en Import knop">
+  <title>API-settings bovenaan de Settings-tab</title>
+  <rect width="800" height="260" fill="#ffffff"/>
+  <!-- Tabs row -->
+  <g font-family="-apple-system, sans-serif" font-size="12">
+    <rect x="20" y="16" width="108" height="30" rx="4" fill="#ffffff" stroke="#ff443d"/>
+    <text x="74" y="35" text-anchor="middle" fill="#ff443d" font-weight="600">General settings</text>
+    <rect x="130" y="16" width="110" height="30" rx="4" fill="#f4f6f8" stroke="#d6d9de"/>
+    <text x="185" y="35" text-anchor="middle" fill="#5a6773">PostNL settings</text>
+    <rect x="242" y="16" width="130" height="30" rx="4" fill="#f4f6f8" stroke="#d6d9de"/>
+    <text x="307" y="35" text-anchor="middle" fill="#5a6773">DHL For You settings</text>
+    <rect x="374" y="16" width="130" height="30" rx="4" fill="#f4f6f8" stroke="#d6d9de"/>
+    <text x="439" y="35" text-anchor="middle" fill="#5a6773">DHL Europlus settings</text>
+    <rect x="506" y="16" width="92" height="30" rx="4" fill="#f4f6f8" stroke="#d6d9de"/>
+    <text x="552" y="35" text-anchor="middle" fill="#5a6773">DPD settings</text>
+  </g>
+  <!-- Section header -->
+  <text x="20" y="80" font-family="-apple-system, sans-serif" font-size="16" fill="#13202f" font-weight="600">API settings</text>
+  <text x="20" y="102" font-family="-apple-system, sans-serif" font-size="12" fill="#5a6773">Go to the general settings in the back office of MyParcel to generate the API Key.</text>
+  <!-- API key field -->
+  <text x="20" y="134" font-family="-apple-system, sans-serif" font-size="13" fill="#13202f" font-weight="600">API key</text>
+  <rect x="20" y="142" width="640" height="36" rx="3" fill="#ffffff" stroke="#c8cdd4"/>
+  <text x="32" y="165" font-family="Menlo, monospace" font-size="13" fill="#13202f">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</text>
+  <circle cx="678" cy="160" r="8" fill="#e8ebef"/>
+  <text x="678" y="164" font-family="-apple-system, sans-serif" font-size="10" fill="#5a6773" text-anchor="middle">?</text>
+  <!-- Import button -->
+  <text x="20" y="210" font-family="-apple-system, sans-serif" font-size="13" fill="#13202f" font-weight="600">Import MyParcel Backoffice settings</text>
+  <rect x="20" y="218" width="76" height="30" rx="3" fill="#f4f6f8" stroke="#c8cdd4"/>
+  <text x="58" y="238" font-family="-apple-system, sans-serif" font-size="12" fill="#13202f" text-anchor="middle">Import</text>
+  <circle cx="112" cy="233" r="8" fill="#e8ebef"/>
+  <text x="112" y="237" font-family="-apple-system, sans-serif" font-size="10" fill="#5a6773" text-anchor="middle">?</text>
+</svg>

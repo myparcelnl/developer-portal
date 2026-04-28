@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shipments — MyParcel Developer Portal</title>
+  <link rel="stylesheet" href="../../css/developer-portal.css" />
+  <script>(function(){try{var t=localStorage.getItem("mp-theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}})();</script>
+</head>
+<body>
+
+  <mp-header></mp-header>
+
+  <div class="mp-docs-layout">
+    <aside class="mp-docs-sidebar">
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="Documentation">Documentation</div>
+        <a href="getting-started.html" class="mp-docs-sidebar__item" data-i18n="Getting started">Getting started</a>
+        <a href="authentication.html" class="mp-docs-sidebar__item" data-i18n="Authentication">Authentication</a>
+        <a href="shipments.html" class="mp-docs-sidebar__item mp-docs-sidebar__item--active" data-i18n="Shipments">Shipments</a>
+        <a href="delivery-options.html" class="mp-docs-sidebar__item" data-i18n="Delivery options">Delivery options</a>
+        <a href="webhooks.html" class="mp-docs-sidebar__item" data-i18n="Webhooks">Webhooks</a>
+        <a href="data-types.html" class="mp-docs-sidebar__item" data-i18n="Data types">Data types</a>
+      </div>
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="SDKs">SDKs</div>
+        <a href="php-sdk.html" class="mp-docs-sidebar__item" data-i18n="PHP SDK">PHP SDK</a>
+        <a href="javascript-sdk.html" class="mp-docs-sidebar__item" data-i18n="JavaScript SDK">JavaScript SDK</a>
+      </div>
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="Platform integrations">Platform integrations</div>
+        <a href="platforms/woocommerce.html" class="mp-docs-sidebar__item">WooCommerce</a>
+        <a href="platforms/coming-soon.html?p=Shopify" class="mp-docs-sidebar__item">Shopify</a>
+        <a href="platforms/magento2.html" class="mp-docs-sidebar__item">Magento 2</a>
+        <a href="platforms/prestashop.html" class="mp-docs-sidebar__item">PrestaShop</a>
+        <a href="platforms/coming-soon.html?p=Shopware" class="mp-docs-sidebar__item">Shopware</a>
+        <a href="platforms/coming-soon.html?p=Lightspeed" class="mp-docs-sidebar__item">Lightspeed</a>
+        <a href="platforms/coming-soon.html?p=Ecwid" class="mp-docs-sidebar__item">Ecwid</a>
+        <a href="platforms/coming-soon.html?p=Bol." class="mp-docs-sidebar__item">Bol.</a>
+        <a href="platforms/coming-soon.html?p=Wix" class="mp-docs-sidebar__item">Wix</a>
+        <a href="platforms/coming-soon.html?p=Amazon" class="mp-docs-sidebar__item">Amazon</a>
+        <a href="platforms/coming-soon.html?p=Etsy" class="mp-docs-sidebar__item">Etsy</a>
+        <a href="platforms/coming-soon.html?p=Chrome+extension" class="mp-docs-sidebar__item">Chrome extension</a>
+      </div>
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="Reference">Reference</div>
+        <a href="../myparcel-api.html" class="mp-docs-sidebar__item" data-i18n="MyParcel API">MyParcel API</a>
+        <a href="../order-api.html"    class="mp-docs-sidebar__item" data-i18n="Order API">Order API</a>
+        <a href="../iam-api.html"      class="mp-docs-sidebar__item" data-i18n="IAM API">IAM API</a>
+        <a href="../rule-api.html"     class="mp-docs-sidebar__item" data-i18n="Rule API">Rule API</a>
+        <a href="../address-api.html"  class="mp-docs-sidebar__item" data-i18n="Address API">Address API</a>
+        <a href="../printing-api.html" class="mp-docs-sidebar__item" data-i18n="Printing API">Printing API</a>
+        <a href="../product-api.html"  class="mp-docs-sidebar__item" data-i18n="Product API">Product API</a>
+      </div>
+    </aside>
+
+    <main class="mp-docs-content">
+      <nav class="mp-breadcrumb">
+        <a href="../../index.html" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
+        <span class="mp-breadcrumb__sep">/</span>
+        <a href="getting-started.html" class="mp-breadcrumb__link" data-i18n="Documentation">Documentation</a>
+        <span class="mp-breadcrumb__sep">/</span>
+        <span class="mp-breadcrumb__current" data-i18n="Shipments">Shipments</span>
+      </nav>
+
+      <h1 class="mp-docs-content__title" data-i18n="Shipments">Shipments</h1>
+      <p class="mp-docs-content__lede" data-i18n="A shipment represents one parcel travelling from your sender address to a recipient. Creating a shipment also generates the label and tracking URL.">
+        A shipment represents one parcel travelling from your sender
+        address to a recipient. Creating a shipment also generates the
+        label and tracking URL.
+      </p>
+
+      <h2 id="lifecycle" data-i18n="Lifecycle">Lifecycle</h2>
+      <p data-i18n="A shipment moves through these statuses:">
+        A shipment moves through these statuses:
+      </p>
+      <ul>
+        <li><code>pending</code> — <span data-i18n="created, label not yet printed.">created, label not yet printed.</span></li>
+        <li><code>printed</code> — <span data-i18n="label generated and ready to be handed over.">label generated and ready to be handed over.</span></li>
+        <li><code>handed_over</code> — <span data-i18n="scanned into the carrier network.">scanned into the carrier network.</span></li>
+        <li><code>delivered</code> — <span data-i18n="received by the recipient or a pickup point.">received by the recipient or a pickup point.</span></li>
+        <li><code>returned</code> — <span data-i18n="returned to sender.">returned to sender.</span></li>
+      </ul>
+
+      <h2 id="create" data-i18n="Create a shipment">Create a shipment</h2>
+      <p data-i18n="Send a POST to /shipments with a carrier, recipient and options.">
+        Send a POST to <code>/shipments</code> with a carrier,
+        recipient and options.
+      </p>
+      <pre class="mp-code-block"><code><span class="token-comment">POST /shipments</span>
+<span class="token-punct">{</span>
+  <span class="token-key">"carrier"</span><span class="token-punct">:</span> <span class="token-string">"postnl"</span><span class="token-punct">,</span>
+  <span class="token-key">"reference"</span><span class="token-punct">:</span> <span class="token-string">"ORDER-2026-01042"</span><span class="token-punct">,</span>
+  <span class="token-key">"recipient"</span><span class="token-punct">: {</span>
+    <span class="token-key">"name"</span><span class="token-punct">:</span> <span class="token-string">"J. de Vries"</span><span class="token-punct">,</span>
+    <span class="token-key">"street"</span><span class="token-punct">:</span> <span class="token-string">"Antwoordnummer 42"</span><span class="token-punct">,</span>
+    <span class="token-key">"postal_code"</span><span class="token-punct">:</span> <span class="token-string">"1012AB"</span><span class="token-punct">,</span>
+    <span class="token-key">"city"</span><span class="token-punct">:</span> <span class="token-string">"Amsterdam"</span><span class="token-punct">,</span>
+    <span class="token-key">"country"</span><span class="token-punct">:</span> <span class="token-string">"NL"</span>
+  <span class="token-punct">},</span>
+  <span class="token-key">"options"</span><span class="token-punct">: {</span>
+    <span class="token-key">"package_type"</span><span class="token-punct">:</span> <span class="token-string">"package"</span><span class="token-punct">,</span>
+    <span class="token-key">"signature"</span><span class="token-punct">:</span> <span class="token-boolean">true</span>
+  <span class="token-punct">}</span>
+<span class="token-punct">}</span></code></pre>
+
+      <h2 id="labels" data-i18n="Labels">Labels</h2>
+      <p data-i18n="Every created shipment exposes a label_url pointing to a PDF. Labels are A6 by default and can be batched into A4 sheets via /labels/print.">
+        Every created shipment exposes a <code>label_url</code>
+        pointing to a PDF. Labels are A6 by default and can be batched
+        into A4 sheets via <code>/labels/print</code>.
+      </p>
+
+      <h2 id="cancel" data-i18n="Cancelling">Cancelling</h2>
+      <p data-i18n="Shipments can be cancelled while they are pending or printed. Once handed over, cancellation is no longer possible — issue a return instead.">
+        Shipments can be cancelled while they are <code>pending</code>
+        or <code>printed</code>. Once <code>handed_over</code>, cancellation is
+        no longer possible — issue a return instead.
+      </p>
+      <p><a href="../myparcel-api.html#cancel-shipment" data-i18n="See DELETE /shipments/{id} →">See <code>DELETE /shipments/{id}</code> →</a></p>
+
+      <nav class="mp-docs-pager">
+        <a href="authentication.html" class="mp-docs-pager__link">
+          <span class="mp-docs-pager__label" data-i18n="Previous">Previous</span>
+          <span class="mp-docs-pager__title" data-i18n="Authentication">← Authentication</span>
+        </a>
+        <a href="delivery-options.html" class="mp-docs-pager__link mp-docs-pager__link--next">
+          <span class="mp-docs-pager__label" data-i18n="Next">Next</span>
+          <span class="mp-docs-pager__title" data-i18n="Delivery options">Delivery options →</span>
+        </a>
+      </nav>
+    </main>
+
+    <aside class="mp-docs-toc">
+      <div class="mp-docs-toc__label" data-i18n="On this page">On this page</div>
+      <ul>
+        <li><a href="#lifecycle" data-i18n="Lifecycle">Lifecycle</a></li>
+        <li><a href="#create" data-i18n="Create a shipment">Create a shipment</a></li>
+        <li><a href="#labels" data-i18n="Labels">Labels</a></li>
+        <li><a href="#cancel" data-i18n="Cancelling">Cancelling</a></li>
+      </ul>
+    </aside>
+  </div>
+
+
+  <!-- ============================================================
+       FOOTER (shared)
+  ============================================================ -->
+  <mp-footer></mp-footer>
+
+  <script src="../../js/translations.js"></script>
+  <script src="../../js/chrome.js"></script>
+  <script src="../../js/portal.js"></script>
+</body>
+</html>

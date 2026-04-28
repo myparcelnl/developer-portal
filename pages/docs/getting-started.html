@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting started — MyParcel Developer Portal</title>
+  <link rel="stylesheet" href="../../css/developer-portal.css" />
+  <script>(function(){try{var t=localStorage.getItem("mp-theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}})();</script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <mp-header></mp-header>
+
+  <div class="mp-docs-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="mp-docs-sidebar">
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="Documentation">Documentation</div>
+        <a href="getting-started.html" class="mp-docs-sidebar__item mp-docs-sidebar__item--active" data-i18n="Getting started">Getting started</a>
+        <a href="authentication.html" class="mp-docs-sidebar__item" data-i18n="Authentication">Authentication</a>
+        <a href="shipments.html" class="mp-docs-sidebar__item" data-i18n="Shipments">Shipments</a>
+        <a href="delivery-options.html" class="mp-docs-sidebar__item" data-i18n="Delivery options">Delivery options</a>
+        <a href="webhooks.html" class="mp-docs-sidebar__item" data-i18n="Webhooks">Webhooks</a>
+        <a href="data-types.html" class="mp-docs-sidebar__item" data-i18n="Data types">Data types</a>
+      </div>
+
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="SDKs">SDKs</div>
+        <a href="php-sdk.html" class="mp-docs-sidebar__item" data-i18n="PHP SDK">PHP SDK</a>
+        <a href="javascript-sdk.html" class="mp-docs-sidebar__item" data-i18n="JavaScript SDK">JavaScript SDK</a>
+      </div>
+
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="Platform integrations">Platform integrations</div>
+        <a href="platforms/woocommerce.html" class="mp-docs-sidebar__item">WooCommerce</a>
+        <a href="platforms/coming-soon.html?p=Shopify" class="mp-docs-sidebar__item">Shopify</a>
+        <a href="platforms/magento2.html" class="mp-docs-sidebar__item">Magento 2</a>
+        <a href="platforms/prestashop.html" class="mp-docs-sidebar__item">PrestaShop</a>
+        <a href="platforms/coming-soon.html?p=Shopware" class="mp-docs-sidebar__item">Shopware</a>
+        <a href="platforms/coming-soon.html?p=Lightspeed" class="mp-docs-sidebar__item">Lightspeed</a>
+        <a href="platforms/coming-soon.html?p=Ecwid" class="mp-docs-sidebar__item">Ecwid</a>
+        <a href="platforms/coming-soon.html?p=Bol." class="mp-docs-sidebar__item">Bol.</a>
+        <a href="platforms/coming-soon.html?p=Wix" class="mp-docs-sidebar__item">Wix</a>
+        <a href="platforms/coming-soon.html?p=Amazon" class="mp-docs-sidebar__item">Amazon</a>
+        <a href="platforms/coming-soon.html?p=Etsy" class="mp-docs-sidebar__item">Etsy</a>
+        <a href="platforms/coming-soon.html?p=Chrome+extension" class="mp-docs-sidebar__item">Chrome extension</a>
+      </div>
+
+      <div class="mp-docs-sidebar__group">
+        <div class="mp-docs-sidebar__label" data-i18n="Reference">Reference</div>
+        <a href="../myparcel-api.html" class="mp-docs-sidebar__item" data-i18n="MyParcel API">MyParcel API</a>
+        <a href="../order-api.html"    class="mp-docs-sidebar__item" data-i18n="Order API">Order API</a>
+        <a href="../iam-api.html"      class="mp-docs-sidebar__item" data-i18n="IAM API">IAM API</a>
+        <a href="../rule-api.html"     class="mp-docs-sidebar__item" data-i18n="Rule API">Rule API</a>
+        <a href="../address-api.html"  class="mp-docs-sidebar__item" data-i18n="Address API">Address API</a>
+        <a href="../printing-api.html" class="mp-docs-sidebar__item" data-i18n="Printing API">Printing API</a>
+        <a href="../product-api.html"  class="mp-docs-sidebar__item" data-i18n="Product API">Product API</a>
+      </div>
+    </aside>
+
+    <!-- MIDDLE CONTENT -->
+    <main class="mp-docs-content">
+      <nav class="mp-breadcrumb">
+        <a href="../../index.html" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
+        <span class="mp-breadcrumb__sep">/</span>
+        <a href="getting-started.html" class="mp-breadcrumb__link" data-i18n="Documentation">Documentation</a>
+        <span class="mp-breadcrumb__sep">/</span>
+        <span class="mp-breadcrumb__current" data-i18n="Getting started">Getting started</span>
+      </nav>
+
+      <h1 class="mp-docs-content__title" data-i18n="Getting started with MyParcel">Getting started with MyParcel</h1>
+      <p class="mp-docs-content__lede" data-i18n="Start shipping from your platform in minutes. Create an account, obtain an API token and send your first shipment with a single HTTP call.">
+        Start shipping from your platform in minutes. Create an account,
+        obtain an API token and send your first shipment with a single
+        HTTP call.
+      </p>
+
+      <div class="mp-callout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <div>
+          <strong data-i18n="New to MyParcel?">New to MyParcel?</strong>
+          <span data-i18n="Sign up for a free sandbox account at myparcel.nl/register. Sandbox shipments are never handed over to carriers.">
+            Sign up for a free sandbox account at
+            <a href="https://www.myparcel.nl/register" target="_blank" rel="noopener">myparcel.nl/register</a>.
+            Sandbox shipments are never handed over to carriers.
+          </span>
+        </div>
+      </div>
+
+      <h2 id="overview" data-i18n="Overview">Overview</h2>
+      <p data-i18n="MyParcel exposes a single HTTP API at api.myparcel.nl. It covers authentication, shipments, orders, carriers, delivery options and webhooks.">
+        MyParcel exposes a single HTTP API at
+        <a href="../myparcel-api.html"><code>api.myparcel.nl</code></a>.
+        It covers authentication, shipments, orders, carriers,
+        delivery options and webhooks.
+      </p>
+      <p data-i18n="The reference is auto-documented here from the OpenAPI spec — so it never drifts from the deployed platform.">
+        The reference is auto-documented here from the OpenAPI spec —
+        so it never drifts from the deployed platform.
+      </p>
+
+      <h2 id="step-1" data-i18n="Step 1 · Get credentials">Step 1 · Get credentials</h2>
+      <p data-i18n="After signing up, generate a client_id and client_secret in the MyParcel backoffice under Settings → API access.">
+        After signing up, generate a <code>client_id</code> and
+        <code>client_secret</code> in the MyParcel backoffice under
+        <strong>Settings → API access</strong>.
+      </p>
+      <p data-i18n="Keep the secret on your server. Never ship it to a browser.">
+        Keep the secret on your server. Never ship it to a browser.
+      </p>
+
+      <h2 id="step-2" data-i18n="Step 2 · Exchange for a token">Step 2 · Exchange for a token</h2>
+      <p data-i18n="Exchange your credentials for a bearer token. The token is valid for 1 hour.">
+        Exchange your credentials for a bearer token. The token is
+        valid for 1 hour.
+      </p>
+      <pre class="mp-code-block"><code><span class="token-comment">// POST https://api.myparcel.nl/oauth/token</span>
+<span class="token-punct">{</span>
+  <span class="token-key">"grant_type"</span><span class="token-punct">:</span> <span class="token-string">"client_credentials"</span><span class="token-punct">,</span>
+  <span class="token-key">"client_id"</span><span class="token-punct">:</span> <span class="token-string">"mp_client_AB12CD34"</span><span class="token-punct">,</span>
+  <span class="token-key">"client_secret"</span><span class="token-punct">:</span> <span class="token-string">"…"</span><span class="token-punct">,</span>
+  <span class="token-key">"scope"</span><span class="token-punct">:</span> <span class="token-string">"shipments.read shipments.write"</span>
+<span class="token-punct">}</span></code></pre>
+
+      <h2 id="step-3" data-i18n="Step 3 · Create your first shipment">Step 3 · Create your first shipment</h2>
+      <p data-i18n="With the token in hand, call the MyParcel API to create a shipment. Labels and tracking URLs are returned immediately.">
+        With the token in hand, call the MyParcel API to create a
+        shipment. Labels and tracking URLs are returned immediately.
+      </p>
+      <pre class="mp-code-block"><code><span class="token-comment">// POST https://api.myparcel.nl/shipments</span>
+<span class="token-comment">// Authorization: bearer …</span>
+<span class="token-punct">{</span>
+  <span class="token-key">"carrier"</span><span class="token-punct">:</span> <span class="token-string">"postnl"</span><span class="token-punct">,</span>
+  <span class="token-key">"recipient"</span><span class="token-punct">: {</span>
+    <span class="token-key">"name"</span><span class="token-punct">:</span> <span class="token-string">"J. de Vries"</span><span class="token-punct">,</span>
+    <span class="token-key">"street"</span><span class="token-punct">:</span> <span class="token-string">"Antwoordnummer 42"</span><span class="token-punct">,</span>
+    <span class="token-key">"postal_code"</span><span class="token-punct">:</span> <span class="token-string">"1012AB"</span><span class="token-punct">,</span>
+    <span class="token-key">"city"</span><span class="token-punct">:</span> <span class="token-string">"Amsterdam"</span><span class="token-punct">,</span>
+    <span class="token-key">"country"</span><span class="token-punct">:</span> <span class="token-string">"NL"</span>
+  <span class="token-punct">},</span>
+  <span class="token-key">"options"</span><span class="token-punct">: {</span>
+    <span class="token-key">"package_type"</span><span class="token-punct">:</span> <span class="token-string">"package"</span><span class="token-punct">,</span>
+    <span class="token-key">"signature"</span><span class="token-punct">:</span> <span class="token-boolean">true</span>
+  <span class="token-punct">}</span>
+<span class="token-punct">}</span></code></pre>
+
+      <h2 id="next-steps" data-i18n="Next steps">Next steps</h2>
+      <p data-i18n="Pick whichever path matches your integration:">
+        Pick whichever path matches your integration:
+      </p>
+      <ul>
+        <li><a href="authentication.html" data-i18n="Authentication in depth">Authentication in depth</a> — <span data-i18n="scopes, refresh tokens, revocation.">scopes, refresh tokens, revocation.</span></li>
+        <li><a href="delivery-options.html" data-i18n="Delivery options">Delivery options</a> — <span data-i18n="pickup points, evening delivery, signed-for.">pickup points, evening delivery, signed-for.</span></li>
+        <li><a href="webhooks.html" data-i18n="Webhooks">Webhooks</a> — <span data-i18n="get notified when a shipment is handed over or delivered.">get notified when a shipment is handed over or delivered.</span></li>
+        <li><a href="php-sdk.html" data-i18n="PHP SDK">PHP SDK</a> / <a href="javascript-sdk.html" data-i18n="JavaScript SDK">JavaScript SDK</a> — <span data-i18n="skip the raw HTTP and use our libraries.">skip the raw HTTP and use our libraries.</span></li>
+        <li><a href="platforms/woocommerce.html">WooCommerce</a>, <a href="platforms/coming-soon.html?p=Shopify">Shopify</a> <span data-i18n="or another e-commerce plugin — install, configure, done.">or another e-commerce plugin — install, configure, done.</span></li>
+      </ul>
+
+      <!-- Pager -->
+      <nav class="mp-docs-pager">
+        <span></span>
+        <a href="authentication.html" class="mp-docs-pager__link mp-docs-pager__link--next">
+          <span class="mp-docs-pager__label" data-i18n="Next">Next</span>
+          <span class="mp-docs-pager__title" data-i18n="Authentication">Authentication →</span>
+        </a>
+      </nav>
+    </main>
+
+    <!-- RIGHT TOC -->
+    <aside class="mp-docs-toc">
+      <div class="mp-docs-toc__label" data-i18n="On this page">On this page</div>
+      <ul>
+        <li><a href="#overview" data-i18n="Overview">Overview</a></li>
+        <li><a href="#step-1" data-i18n="Step 1 · Get credentials">Step 1 · Get credentials</a></li>
+        <li><a href="#step-2" data-i18n="Step 2 · Exchange for a token">Step 2 · Exchange for a token</a></li>
+        <li><a href="#step-3" data-i18n="Step 3 · Create your first shipment">Step 3 · Create your first shipment</a></li>
+        <li><a href="#next-steps" data-i18n="Next steps">Next steps</a></li>
+      </ul>
+    </aside>
+
+  </div>
+
+
+  <!-- ============================================================
+       FOOTER (shared)
+  ============================================================ -->
+  <mp-footer></mp-footer>
+
+  <script src="../../js/translations.js"></script>
+  <script src="../../js/chrome.js"></script>
+  <script src="../../js/portal.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyParcel-blok met bezorgopties in de Magento-checkout">
+  <title>MyParcel-blok in de checkout</title>
+  <rect width="800" height="520" fill="#ffffff"/>
+  <rect x="20" y="20" width="760" height="480" rx="6" fill="#fafbfc" stroke="#e8ebef"/>
+  <!-- Title -->
+  <text x="40" y="56" font-family="-apple-system, sans-serif" font-size="18" fill="#13202f" font-weight="600">Thuis of op het werk bezorgd</text>
+
+  <!-- Tabs home / pickup -->
+  <g font-family="-apple-system, sans-serif" font-size="13">
+    <rect x="40" y="72" width="160" height="34" rx="4" fill="#ff443d"/>
+    <text x="120" y="94" text-anchor="middle" fill="#ffffff" font-weight="600">Thuis bezorgen</text>
+    <rect x="204" y="72" width="170" height="34" rx="4" fill="#ffffff" stroke="#c8cdd4"/>
+    <text x="289" y="94" text-anchor="middle" fill="#5a6773">Ophalen bij een PostNL locatie</text>
+  </g>
+
+  <!-- Delivery date picker -->
+  <g font-family="-apple-system, sans-serif" font-size="12">
+    <rect x="40" y="126" width="710" height="50" rx="4" fill="#ffffff" stroke="#e8ebef"/>
+    <text x="56" y="148" fill="#13202f" font-weight="600">vrijdag 25 april</text>
+    <text x="56" y="164" fill="#5a6773">Kies je bezorgdag</text>
+    <text x="730" y="156" fill="#5a6773" text-anchor="end">▾</text>
+  </g>
+
+  <!-- Delivery time options -->
+  <g font-family="-apple-system, sans-serif" font-size="13">
+    <!-- Ochtend -->
+    <rect x="40" y="192" width="228" height="74" rx="4" fill="#ffffff" stroke="#e8ebef"/>
+    <circle cx="60" cy="212" r="7" fill="#ffffff" stroke="#c8cdd4" stroke-width="2"/>
+    <text x="78" y="218" fill="#13202f" font-weight="600">Ochtendlevering</text>
+    <text x="78" y="238" fill="#5a6773" font-size="12">Vóór 12:00</text>
+    <text x="78" y="258" fill="#13202f" font-weight="600">+ € 10,00</text>
+
+    <!-- Standaard -->
+    <rect x="278" y="192" width="228" height="74" rx="4" fill="#fff0ef" stroke="#ff443d" stroke-width="2"/>
+    <circle cx="298" cy="212" r="7" fill="#ff443d"/>
+    <circle cx="298" cy="212" r="3" fill="#ffffff"/>
+    <text x="316" y="218" fill="#13202f" font-weight="600">Standaardlevering</text>
+    <text x="316" y="238" fill="#5a6773" font-size="12">Tijdens kantooruren</text>
+    <text x="316" y="258" fill="#13202f" font-weight="600">Gratis</text>
+
+    <!-- Avond -->
+    <rect x="516" y="192" width="228" height="74" rx="4" fill="#ffffff" stroke="#e8ebef"/>
+    <circle cx="536" cy="212" r="7" fill="#ffffff" stroke="#c8cdd4" stroke-width="2"/>
+    <text x="554" y="218" fill="#13202f" font-weight="600">Avondlevering</text>
+    <text x="554" y="238" fill="#5a6773" font-size="12">18:00 – 22:00</text>
+    <text x="554" y="258" fill="#13202f" font-weight="600">+ € 1,25</text>
+  </g>
+
+  <!-- Extra options -->
+  <text x="40" y="300" font-family="-apple-system, sans-serif" font-size="14" fill="#13202f" font-weight="600">Extra opties</text>
+  <g font-family="-apple-system, sans-serif" font-size="13">
+    <!-- Signature -->
+    <rect x="40" y="314" width="350" height="40" rx="4" fill="#ffffff" stroke="#e8ebef"/>
+    <rect x="56" y="328" width="14" height="14" rx="2" fill="#ffffff" stroke="#c8cdd4"/>
+    <text x="80" y="339" fill="#13202f">Handtekening voor ontvangst</text>
+    <text x="376" y="339" fill="#13202f" text-anchor="end">+ € 0,36</text>
+    <!-- Only recipient -->
+    <rect x="400" y="314" width="350" height="40" rx="4" fill="#ffffff" stroke="#e8ebef"/>
+    <rect x="416" y="328" width="14" height="14" rx="2" fill="#ffffff" stroke="#c8cdd4"/>
+    <text x="440" y="339" fill="#13202f">Niet bij de buren bezorgen</text>
+    <text x="736" y="339" fill="#13202f" text-anchor="end">+ € 0,29</text>
+  </g>
+
+  <!-- Footer / legend -->
+  <text x="40" y="404" font-family="-apple-system, sans-serif" font-size="12" fill="#5a6773">Wat de klant ziet is afhankelijk van de actieve vervoerders, producten in het winkelwagentje</text>
+  <text x="40" y="422" font-family="-apple-system, sans-serif" font-size="12" fill="#5a6773">en product-specifieke overrides. Pakketautomaten verschijnen alleen als ‘Exclude parcel lockers’ uit staat.</text>
+
+  <!-- Continue button -->
+  <rect x="600" y="452" width="150" height="40" rx="4" fill="#ff443d"/>
+  <text x="675" y="478" font-family="-apple-system, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="600">Ga verder →</text>
+</svg>

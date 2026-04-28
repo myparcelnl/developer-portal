@@ -1,0 +1,51 @@
+<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyParcel metabox op de order-detailpagina">
+  <title>De MyParcel-box op de order-detailpagina met vervoerder, pakkettype, bezorgwijze en actieknoppen</title>
+  <rect width="800" height="520" fill="#ffffff"/>
+  <g font-family="-apple-system, sans-serif" font-size="13" fill="#0f172a">
+    <rect x="0" y="0" width="800" height="36" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="16" y="23" font-weight="700">MyParcel</text>
+    <text x="760" y="23" font-size="14" fill="#64748b">▴</text>
+
+    <rect x="0" y="36" width="800" height="28" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="16" y="55" font-weight="600">Verzendopties #5999</text>
+
+    <text x="16" y="92" font-weight="600">Vervoerder</text>
+    <g font-size="12">
+      <circle cx="240" cy="86" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="90">Cheap Cargo</text>
+      <circle cx="240" cy="108" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="112">DPD</text>
+      <circle cx="240" cy="130" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="134">UPS Standard</text>
+      <circle cx="240" cy="152" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="156">UPS Express Saver</text>
+      <circle cx="240" cy="174" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="178">DHL Europlus</text>
+      <circle cx="240" cy="196" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="200">DHL Parcel Connect</text>
+      <circle cx="240" cy="218" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="222">PostNL</text>
+      <circle cx="240" cy="240" r="6" fill="#2563eb"/><text x="254" y="244" font-weight="600">GLS</text>
+      <circle cx="240" cy="262" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="266">DHL For You</text>
+      <circle cx="240" cy="284" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="288">Trunkrs</text>
+    </g>
+
+    <text x="16" y="318" font-weight="600">Pakkettype</text>
+    <circle cx="240" cy="314" r="6" fill="#2563eb"/>
+    <text x="254" y="318">Pakket</text>
+
+    <text x="16" y="346" font-weight="600">Bezorgwijze</text>
+    <circle cx="240" cy="342" r="6" fill="#2563eb"/><text x="254" y="346">Standaard bezorging</text>
+    <circle cx="240" cy="362" r="6" fill="#ffffff" stroke="#cbd5e1"/><text x="254" y="366">Afhalen</text>
+
+    <text x="16" y="398" font-weight="600">Aantal labels</text>
+    <rect x="240" y="384" width="60" height="22" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="250" y="400">1</text>
+
+    <text x="16" y="426" font-weight="600">Verzekering</text>
+    <rect x="240" y="412" width="200" height="22" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="250" y="428">Standaard</text>
+
+    <rect x="16" y="455" width="82" height="30" rx="4" fill="#ffffff" stroke="#2563eb"/>
+    <text x="57" y="474" text-anchor="middle" fill="#2563eb" font-weight="600">✓ Opslaan</text>
+    <rect x="104" y="455" width="100" height="30" rx="4" fill="#ffffff" stroke="#2563eb"/>
+    <text x="154" y="474" text-anchor="middle" fill="#2563eb">⬆ Exporteren</text>
+    <rect x="210" y="455" width="80" height="30" rx="4" fill="#ffffff" stroke="#2563eb"/>
+    <text x="250" y="474" text-anchor="middle" fill="#2563eb">🖨 Printen</text>
+    <rect x="296" y="455" width="140" height="30" rx="4" fill="#ffffff" stroke="#2563eb"/>
+    <text x="366" y="474" text-anchor="middle" fill="#2563eb">Exporteer en print</text>
+  </g>
+</svg>

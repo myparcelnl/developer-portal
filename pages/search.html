@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search — MyParcel Developer Portal</title>
+  <link rel="stylesheet" href="../css/developer-portal.css" />
+  <script>(function(){try{var t=localStorage.getItem("mp-theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}})();</script>
+  <style>
+    /* Search-specific tweaks — keep inline to avoid touching the main stylesheet */
+    .mp-search-header {
+      padding: 28px 24px 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .mp-search-query {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mp-mono);
+      font-size: 11px;
+      background: var(--mp-mint);
+      color: var(--mp-fresh);
+      padding: 3px 10px;
+      border-radius: var(--mp-radius-pill);
+    }
+    .mp-search-meta {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 8px;
+    }
+    .mp-results {
+      padding: 16px 24px 48px;
+      max-width: 820px;
+    }
+    .mp-result {
+      display: block;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--mp-radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .mp-result:hover {
+      border-color: var(--mp-fresh);
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(15, 120, 89, 0.08);
+    }
+    .mp-result__top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .mp-result__api {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mp-fresh);
+    }
+    .mp-result__path {
+      font-family: var(--mp-mono);
+      font-size: 13px;
+      color: var(--mp-deep);
+      font-weight: 500;
+    }
+    .mp-result__desc {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.55;
+    }
+    mark {
+      background: rgba(250, 216, 37, 0.45);
+      color: inherit;
+      padding: 0 1px;
+      border-radius: 2px;
+    }
+    .mp-search-empty {
+      padding: 48px 24px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+  <mp-header></mp-header>
+
+  <header class="mp-search-header">
+    <nav class="mp-breadcrumb">
+      <a href="../index.html" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
+      <span class="mp-breadcrumb__sep">/</span>
+      <span class="mp-breadcrumb__current" data-i18n="Search results">Search results</span>
+    </nav>
+    <h1 class="mp-ref-title" style="margin-bottom:10px;">
+      <span data-i18n="Results for">Results for</span>
+      <span class="mp-search-query" id="mp-search-query">shipment</span>
+    </h1>
+    <div class="mp-search-meta" id="mp-search-meta">
+      <span id="mp-search-count">—</span>
+      <span data-i18n="results across 2 specs">results across 2 specs</span>
+    </div>
+  </header>
+
+  <section class="mp-results" id="mp-results-container">
+    <!-- Populated by portal.js based on ?q=… -->
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER (shared)
+  ============================================================ -->
+  <mp-footer></mp-footer>
+
+  <script src="../js/translations.js"></script>
+  <script src="../js/chrome.js"></script>
+  <script src="../js/portal.js"></script>
+</body>
+</html>

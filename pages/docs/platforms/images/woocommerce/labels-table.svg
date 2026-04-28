@@ -1,0 +1,19 @@
+<svg viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Labels-tabel op de order met Track and Trace, status en acties">
+  <title>Labels-tabel onder de MyParcel-box op de order-detailpagina</title>
+  <rect width="800" height="100" fill="#ffffff"/>
+  <g font-family="-apple-system, sans-serif" font-size="12" fill="#0f172a">
+    <text x="16" y="20" font-weight="700" font-size="14">Labels</text>
+    <rect x="0" y="28" width="800" height="26" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="56" y="44" font-weight="600">Track &amp; Trace</text>
+    <text x="280" y="44" font-weight="600">Status</text>
+    <text x="440" y="44" font-weight="600">Laatst bijgewerkt</text>
+    <text x="700" y="44" font-weight="600">Acties</text>
+    <line x1="0" y1="54" x2="800" y2="54" stroke="#e2e8f0"/>
+    <rect x="16" y="60" width="14" height="14" rx="2" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="56" y="72" fill="#2563eb">00KTG13F</text>
+    <text x="280" y="72">Voorgemeld</text>
+    <text x="440" y="72">4 dagen geleden</text>
+    <rect x="690" y="62" width="32" height="18" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="706" y="75" text-anchor="middle" fill="#64748b">▾</text>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+<svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Labels-tab met Omschrijving, Meteen afdrukken, Label positie opvragen en Standaardwaarden">
+  <title>Labels-tab met Omschrijving, Meteen afdrukken, Label positie opvragen en Standaardwaarden</title>
+  <rect width="800" height="320" fill="#ffffff"/>
+  <g font-family="-apple-system, sans-serif" font-size="13" fill="#0f172a">
+    <text x="32" y="28" font-weight="600">Omschrijving</text>
+    <rect x="230" y="12" width="300" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="240" y="30" font-size="12" fill="#64748b">[DELIVERY_DATE]</text>
+    <text x="230" y="56" font-size="11" fill="#64748b">Beschikbare variabelen:</text>
+    <text x="230" y="72" font-size="11" fill="#64748b">[DELIVERY_DATE] · [ORDER_ID] · [PRODUCT_ID]</text>
+    <text x="230" y="86" font-size="11" fill="#64748b">[PRODUCT_NAME] · [PRODUCT_QTY] · [PRODUCT_SKU]</text>
+    <text x="230" y="100" font-size="11" fill="#64748b">[CUSTOMER_NOTE]</text>
+
+    <text x="32" y="130" font-weight="600">Meteen afdrukken</text>
+    <rect x="230" y="118" width="34" height="16" rx="8" fill="#cbd5e1"/>
+    <circle cx="238" cy="126" r="6" fill="#ffffff"/>
+
+    <text x="32" y="160" font-weight="600">Label positie opvragen</text>
+    <rect x="230" y="148" width="34" height="16" rx="8" fill="#cbd5e1"/>
+    <circle cx="238" cy="156" r="6" fill="#ffffff"/>
+
+    <line x1="32" y1="180" x2="768" y2="180" stroke="#e2e8f0"/>
+    <text x="32" y="202" font-weight="700" font-size="15">Standaardwaarden</text>
+    <text x="32" y="220" font-size="12" fill="#64748b">Worden standaard gebruikt bij het printen van zendingen.</text>
+
+    <text x="32" y="250" font-weight="600">Label uitvoer</text>
+    <circle cx="232" cy="246" r="6" fill="#2563eb"/>
+    <text x="248" y="251">Open label in nieuw tabblad</text>
+    <circle cx="232" cy="268" r="6" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="248" y="273">Download label</text>
+
+    <text x="32" y="300" font-weight="600">Label formaat</text>
+    <circle cx="432" cy="246" r="6" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="448" y="251">A4 (4 per pagina)</text>
+    <circle cx="432" cy="268" r="6" fill="#2563eb"/>
+    <text x="448" y="273">A6 (labelprinter)</text>
+  </g>
+</svg>

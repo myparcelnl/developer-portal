@@ -1,0 +1,26 @@
+<svg viewBox="0 0 800 62" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vervoerders sub-tabs met PostNL actief">
+  <title>De carrier-subtabs. Hier: PostNL actief.</title>
+  <rect width="800" height="62" fill="#ffffff"/>
+  <g font-family="-apple-system, sans-serif" font-size="12" fill="#0f172a">
+    <rect x="12" y="16" width="80" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="52" y="35" text-anchor="middle">CheapCargo</text>
+    <rect x="96" y="16" width="50" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="121" y="35" text-anchor="middle">DPD</text>
+    <rect x="150" y="16" width="50" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="175" y="35" text-anchor="middle">DPD</text>
+    <rect x="204" y="16" width="90" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="249" y="35" text-anchor="middle">UPS Standard</text>
+    <rect x="298" y="16" width="110" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="353" y="35" text-anchor="middle">UPS Express Saver</text>
+    <rect x="412" y="16" width="90" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="457" y="35" text-anchor="middle">DHL Europlus</text>
+    <rect x="506" y="16" width="120" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="566" y="35" text-anchor="middle">DHL Parcel Connect</text>
+    <rect x="630" y="16" width="60" height="30" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="660" y="35" text-anchor="middle" font-weight="600">PostNL</text>
+    <rect x="694" y="16" width="40" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="714" y="35" text-anchor="middle">GLS</text>
+    <rect x="738" y="16" width="50" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="763" y="35" text-anchor="middle">DHL FY</text>
+  </g>
+</svg>

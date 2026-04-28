@@ -1,0 +1,50 @@
+<svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Checkout-tab met adresvelden en bezorgopties-widget">
+  <title>Checkout-tab met adresvelden, bezorgopties-widget, mapping verzendmethoden en afhaalpunten</title>
+  <rect width="800" height="350" fill="#ffffff"/>
+  <g font-family="-apple-system, sans-serif" font-size="13" fill="#0f172a">
+    <text x="32" y="28" font-weight="600">Gebruik aparte adresvelden</text>
+    <rect x="300" y="16" width="34" height="16" rx="8" fill="#2563eb"/>
+    <circle cx="326" cy="24" r="6" fill="#ffffff"/>
+
+    <text x="32" y="58" font-weight="600">MyParcel Adressenwidget (BETA)</text>
+    <rect x="300" y="46" width="34" height="16" rx="8" fill="#2563eb"/>
+    <circle cx="326" cy="54" r="6" fill="#ffffff"/>
+
+    <line x1="32" y1="80" x2="768" y2="80" stroke="#e2e8f0"/>
+    <text x="32" y="102" font-weight="700" font-size="15">Bezorgopties</text>
+
+    <text x="32" y="130" font-weight="600">Bezorgopties tonen</text>
+    <rect x="300" y="118" width="34" height="16" rx="8" fill="#2563eb"/>
+    <circle cx="326" cy="126" r="6" fill="#ffffff"/>
+
+    <text x="32" y="160" font-weight="600">Positie in checkout</text>
+    <rect x="300" y="144" width="200" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="162">Na factuuradres</text>
+
+    <text x="32" y="200" font-weight="600">Toegestane verzendmethoden</text>
+    <g>
+      <rect x="300" y="184" width="110" height="22" rx="2" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="305" y="199" font-size="11">Standaard</text>
+      <rect x="418" y="184" width="80" height="22" rx="2" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="424" y="199" font-size="11">Pakket</text>
+      <rect x="504" y="184" width="100" height="22" rx="2" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="510" y="199" font-size="11">Klein pakket</text>
+      <rect x="300" y="212" width="130" height="22" rx="2" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="305" y="227" font-size="11">Brievenbuspakket</text>
+      <rect x="438" y="212" width="120" height="22" rx="2" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="444" y="227" font-size="11">Digitale postzegel</text>
+    </g>
+
+    <text x="32" y="260" font-weight="600">Prijs type</text>
+    <rect x="300" y="244" width="200" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="262">Inbegrepen</text>
+
+    <text x="32" y="294" font-weight="600">Standaard weergave</text>
+    <rect x="300" y="278" width="200" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="310" y="296">Kaart</text>
+
+    <text x="32" y="328" font-weight="600">Pakautomaten uitsluiten</text>
+    <rect x="300" y="316" width="34" height="16" rx="8" fill="#cbd5e1"/>
+    <circle cx="310" cy="324" r="6" fill="#ffffff"/>
+  </g>
+</svg>
