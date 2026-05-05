@@ -2,27 +2,22 @@ import { ref } from 'vue';
 
 export type Theme = 'light' | 'dark';
 
-const STORAGE_KEY = 'mp-theme';
+// Use the same key the VuePress default theme manages, so its post-hydration
+// runtime stays in sync with whatever our toggle writes. Otherwise the
+// default theme's reactive color-mode would clobber our value on every
+// reload.
+const STORAGE_KEY = 'vuepress-color-scheme';
 const theme = ref<Theme>('light');
 
 if (typeof window !== 'undefined') {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === 'dark' || stored === 'light') {
-      theme.value = stored;
-    } else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
-      theme.value = 'dark';
-    }
+    if (localStorage.getItem(STORAGE_KEY) === 'dark') theme.value = 'dark';
   } catch {}
 }
 
 function apply(next: Theme) {
   if (typeof document === 'undefined') return;
-  if (next === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-  }
+  document.documentElement.setAttribute('data-theme', next);
 }
 
 export function useTheme() {
