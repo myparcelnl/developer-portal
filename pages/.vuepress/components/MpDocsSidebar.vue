@@ -14,7 +14,8 @@ interface SidebarGroup {
 defineProps<{ groups: SidebarGroup[] }>();
 
 const page = usePageData();
-const currentPath = computed(() => page.value.path);
+const BASE = '/beta-developer-portal';
+const currentPath = computed(() => BASE + page.value.path);
 </script>
 
 <template>

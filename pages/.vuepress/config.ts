@@ -14,13 +14,6 @@ export default defineUserConfig({
   bundler: viteBundler(),
   clientConfigFile: path.resolve(__dirname, './client.ts'),
 
-  head: [
-    [
-      'script',
-      {},
-      `(function(){try{var t=localStorage.getItem('mp-theme');if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`,
-    ],
-  ],
 
   // The default theme still ships the navbar/sidebar/etc. but we hide them
   // from CSS and override its `Layout` slot with our own component.
@@ -35,5 +28,17 @@ export default defineUserConfig({
     editLink: false,
     lastUpdated: false,
     contributors: false,
+
   }),
+
+  // The default theme injects a pre-paint script that defaults to dark when
+  // localStorage is empty and the OS prefers dark. We always want light by
+  // default, so seed the storage and reset data-theme before first paint.
+  head: [
+    [
+      'script',
+      {},
+      `(function(){try{if(!localStorage.getItem('vuepress-color-scheme')){localStorage.setItem('vuepress-color-scheme','light');document.documentElement.dataset.theme='light';}}catch(e){}})();`,
+    ],
+  ],
 });

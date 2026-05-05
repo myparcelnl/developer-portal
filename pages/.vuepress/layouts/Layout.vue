@@ -36,12 +36,12 @@ const isContact = computed(() => page.value.path === '/contact.html');
 
 const breadcrumbTrail = computed(() => {
   const trail: { text: string; link?: string }[] = [
-    { text: 'Home', link: '/' },
+    { text: 'Home', link: '/beta-developer-portal/' },
   ];
   if (isDocs.value) {
-    trail.push({ text: 'Documentation', link: '/guides/getting-started.html' });
+    trail.push({ text: 'Documentation', link: '/beta-developer-portal/guides/getting-started.html' });
   } else if (page.value.path.endsWith('-api.html') || page.value.path === '/api/') {
-    trail.push({ text: 'API Reference', link: '/api/' });
+    trail.push({ text: 'API Reference', link: '/beta-developer-portal/api/' });
   }
   trail.push({ text: page.value.title });
   return trail;
@@ -49,8 +49,9 @@ const breadcrumbTrail = computed(() => {
 
 // Find prev/next inside the docs sidebar for the pager.
 const flatDocs = docsSidebar.flatMap((g) => g.items);
+const BASE = '/beta-developer-portal';
 const currentIdx = computed(() =>
-  flatDocs.findIndex((i) => i.link === page.value.path),
+  flatDocs.findIndex((i) => i.link === BASE + page.value.path),
 );
 const prev = computed(() =>
   currentIdx.value > 0 ? flatDocs[currentIdx.value - 1] : null,
