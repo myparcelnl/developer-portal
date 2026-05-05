@@ -9,6 +9,7 @@ export default defineUserConfig({
   lang: 'en-US',
   title: 'MyParcel Developer Portal',
   description: 'Guides, SDKs, plugins and auto-generated API reference for MyParcel.',
+  base: '/beta-developer-portal/',
 
   bundler: viteBundler(),
   clientConfigFile: path.resolve(__dirname, './client.ts'),
