@@ -14,6 +14,14 @@ export default defineUserConfig({
   bundler: viteBundler(),
   clientConfigFile: path.resolve(__dirname, './client.ts'),
 
+  head: [
+    [
+      'script',
+      {},
+      `(function(){try{var t=localStorage.getItem('mp-theme');if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`,
+    ],
+  ],
+
   // The default theme still ships the navbar/sidebar/etc. but we hide them
   // from CSS and override its `Layout` slot with our own component.
   theme: defaultTheme({

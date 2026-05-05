@@ -3,6 +3,9 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { usePageData, useRouter } from 'vuepress/client';
 import MpSearch from './MpSearch.vue';
 import MpLangDropdown from './MpLangDropdown.vue';
+import { useTheme } from '../composables/useTheme';
+
+const { theme, toggleTheme, syncFromDom } = useTheme();
 
 const page = usePageData();
 const router = useRouter();
@@ -75,6 +78,7 @@ let unwatchRoute: (() => void) | null = null;
 onMounted(() => {
   document.addEventListener('keydown', onEsc);
   unwatchRoute = router.afterEach(() => closeMobile());
+  syncFromDom();
 });
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', onEsc);
@@ -118,6 +122,24 @@ onBeforeUnmount(() => {
       <a href="/beta-developer-portal/about.html" class="mp-nav__link" :class="{ 'is-active': isAbout }">About</a>
       <a href="/beta-developer-portal/contact.html" class="mp-nav__link" :class="{ 'is-active': isContact }">Contact</a>
     </div>
+
+    <ClientOnly>
+      <button
+        type="button"
+        class="mp-theme-toggle"
+        :aria-label="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+        :title="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+        @click="toggleTheme"
+      >
+        <svg v-if="theme === 'dark'" class="mp-theme-toggle__sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg v-else class="mp-theme-toggle__moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </ClientOnly>
 
     <MpLangDropdown />
 
