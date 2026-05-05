@@ -136,6 +136,7 @@ onBeforeUnmount(() => {
     </button>
   </nav>
 
+  <ClientOnly>
   <Teleport to="body">
     <Transition name="mp-mobile-drawer">
       <div
@@ -235,6 +236,7 @@ onBeforeUnmount(() => {
       </aside>
     </Transition>
   </Teleport>
+  </ClientOnly>
 </template>
 
 <style scoped>
