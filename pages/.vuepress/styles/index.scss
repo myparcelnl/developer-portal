@@ -1,0 +1,1523 @@
+// MyParcel Developer Portal — original portal stylesheet, fronted as VuePress
+// global styling. The custom Layout components emit the same DOM the
+// original CSS expects (`mp-nav`, `mp-docs-layout`, etc.).
+@use './developer-portal.css';
+
+// Tame VuePress default-theme chrome that overlaps with our own header.
+// We're hiding the default navbar/sidebar and rendering the MyParcel ones.
+.vp-navbar,
+.vp-sidebar,
+.vp-toggle-sidebar-button,
+.vp-page-meta {
+  display: none !important;
+}
+
+.vp-page,
+.theme-container {
+  padding-top: 0 !important;
+}
+
+// Make sure markdown content lives inside the .mp-docs-content / .mp-standalone
+// frame defined in developer-portal.css — strip any leftover VuePress padding.
+.theme-default-content {
+  max-width: none;
+  padding: 0;
+}
+
+// ---------------------------------------------------------------------------
+//  Resizable code rail (right column on API pages, ≥1280px viewports)
+// ---------------------------------------------------------------------------
+:root {
+  --mp-code-rail-width: 440px;
+}
+.mp-ref-layout:has(.mp-code-rail) {
+  grid-template-columns:
+    var(--mp-sidebar-width)
+    minmax(0, 1fr)
+    var(--mp-code-rail-width) !important;
+}
+
+// Show the sticky rail (and hide the per-endpoint inline code panels) for any
+// viewport ≥900px — covers virtually every laptop screen.
+@media (min-width: 900px) {
+  .mp-endpoint__body--split .mp-endpoint__code { display: none !important; }
+  .mp-code-rail {
+    display: block !important;
+    position: sticky !important;
+    top: var(--mp-nav-height) !important;
+    height: calc(100vh - var(--mp-nav-height)) !important;
+    overflow-y: auto !important;
+    align-self: start !important;
+  }
+}
+@media (max-width: 899px) {
+  .mp-ref-layout:has(.mp-code-rail) {
+    grid-template-columns: var(--mp-sidebar-width) minmax(0, 1fr) !important;
+  }
+  .mp-code-rail { display: none !important; }
+  .mp-endpoint__body--split .mp-endpoint__code { display: block !important; }
+}
+.mp-code-rail { position: relative; }
+.mp-code-rail__content {
+  width: 100%;
+  height: 100%;
+}
+.mp-code-rail__resize {
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 16px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: background 0.12s;
+}
+// Always-visible vertical guide line so the handle's existence is obvious.
+.mp-code-rail__resize::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: var(--mp-border-soft);
+  transition: background 0.12s, width 0.12s;
+}
+.mp-code-rail__resize:hover::before,
+.mp-code-rail__resize:focus-visible::before,
+body.mp-rail-dragging .mp-code-rail__resize::before {
+  background: var(--mp-fresh);
+  width: 3px;
+}
+.mp-code-rail__resize:hover,
+.mp-code-rail__resize:focus-visible,
+body.mp-rail-dragging .mp-code-rail__resize {
+  background: rgba(15, 120, 89, 0.06);
+  outline: none;
+}
+
+// Mint-pill grip with dot pattern, sticky to the handle's vertical centre
+.mp-code-rail__resize-grip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 32px;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-bg);
+  border: 1px solid var(--mp-border);
+  box-shadow: 0 2px 6px rgba(0, 38, 33, 0.10);
+  color: var(--mp-text-muted);
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s;
+}
+.mp-code-rail__resize:hover .mp-code-rail__resize-grip,
+.mp-code-rail__resize:focus-visible .mp-code-rail__resize-grip,
+body.mp-rail-dragging .mp-code-rail__resize-grip {
+  background: var(--mp-fresh);
+  border-color: var(--mp-fresh);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 120, 89, 0.32);
+  transform: scale(1.06);
+}
+
+// "Drag to resize" hint floats next to the grip on hover.
+.mp-code-rail__resize-label {
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: var(--mp-deep);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--mp-radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 11;
+}
+.mp-code-rail__resize-label::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--mp-deep);
+}
+.mp-code-rail__resize:hover .mp-code-rail__resize-label,
+.mp-code-rail__resize:focus-visible .mp-code-rail__resize-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+body.mp-rail-dragging {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+body.mp-rail-dragging iframe {
+  pointer-events: none !important;
+}
+
+// ---------------------------------------------------------------------------
+//  SHIP WITH — carrier logo gallery
+//  Uniform 180×96 tiles, soft shadow, hover lift. Logos never stretch:
+//  max 50% of the tile's height and 70% of its width, object-fit contain
+//  centres the artwork.
+// ---------------------------------------------------------------------------
+.mp-logo-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: var(--mp-space-4) !important;
+  align-items: stretch;
+}
+
+.mp-brand-logo--img {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 96px;
+  padding: var(--mp-space-4) var(--mp-space-5) !important;
+  background: #ffffff !important;
+  border: 1px solid var(--mp-border-soft) !important;
+  border-radius: var(--mp-radius-lg) !important;
+  box-shadow: 0 1px 2px rgba(0, 38, 33, 0.04);
+  transition:
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.18s,
+    box-shadow 0.18s,
+    background 0.18s !important;
+  position: relative;
+  overflow: hidden;
+}
+
+// Subtle mint backdrop shimmer that appears on hover — gives the logos a
+// premium, lit-up feel without being noisy.
+.mp-brand-logo--img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 20%, var(--mp-mint), transparent 60%),
+    radial-gradient(circle at 80% 90%, rgba(15, 120, 89, 0.08), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.mp-brand-logo--img:hover {
+  border-color: var(--mp-fresh) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 24px rgba(15, 120, 89, 0.12);
+}
+.mp-brand-logo--img:hover::before { opacity: 1; }
+.mp-brand-logo--img:focus-visible {
+  outline: 2px solid var(--mp-fresh);
+  outline-offset: 3px;
+}
+
+.mp-brand-logo--img img.mp-brand-logo__mark {
+  position: relative;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 75%;
+  max-height: 48px;
+  object-fit: contain;
+  filter: saturate(1) contrast(1);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mp-brand-logo--img:hover img.mp-brand-logo__mark {
+  transform: scale(1.04);
+}
+
+@media (max-width: 540px) {
+  .mp-logo-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: var(--mp-space-3) !important;
+  }
+  .mp-brand-logo--img {
+    min-height: 84px;
+  }
+  .mp-brand-logo--img img.mp-brand-logo__mark {
+    max-height: 38px;
+    max-width: 80%;
+  }
+}
+
+// Hub-header action row (e.g. Download OpenAPI specs button)
+.mp-ref-hub__actions {
+  margin-top: var(--mp-space-5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mp-space-3);
+}
+
+// ---------------------------------------------------------------------------
+//  API REFERENCE POLISH
+// ---------------------------------------------------------------------------
+
+// 1. Endpoint cards — clear visual separation, soft shadow on hover
+.mp-endpoint {
+  margin: var(--mp-space-4) 0;
+  border: 1px solid var(--mp-border-soft);
+  border-radius: var(--mp-radius-lg);
+  background: var(--mp-bg);
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+// Allow the sticky header (when open) to appear unclipped above the body.
+.mp-endpoint--open { overflow: visible; }
+.mp-endpoint__header {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+.mp-endpoint__header > * { min-width: 0; }
+.mp-endpoint__path {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mp-endpoint__summary {
+  flex: 1 1 0 !important;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 0 !important;   /* override global margin-left:auto so summary
+                                   doesn't collide with the path */
+  padding-left: var(--mp-space-3);
+  text-align: right;
+}
+.mp-endpoint__chevron {
+  flex-shrink: 0 !important;
+  margin-left: 0 !important;
+}
+
+// Below 900px: drop the inline summary to its own line under the path so
+// long REST paths can still breathe.
+@media (max-width: 900px) {
+  .mp-endpoint__header { flex-wrap: wrap !important; }
+  .mp-endpoint__path {
+    flex: 0 1 100% !important;
+    order: 2;
+  }
+  .mp-endpoint__summary {
+    flex: 0 1 100% !important;
+    order: 3;
+    text-align: left;
+    padding-left: 0;
+    color: var(--mp-text-muted) !important;
+    font-size: 12.5px !important;
+  }
+  .mp-endpoint__anchor,
+  .mp-endpoint__chevron { order: 1; }
+}
+
+// Cross-browser hide of native <details> markers in the API sidebar
+.mp-sidebar__api-summary {
+  list-style: none;
+}
+.mp-sidebar__api-summary::-webkit-details-marker { display: none; }
+.mp-sidebar__api-summary::marker { display: none; content: ''; }
+.mp-endpoint:hover {
+  border-color: var(--mp-border);
+  box-shadow: 0 1px 3px rgba(0, 38, 33, 0.05);
+}
+.mp-endpoint--open {
+  border-color: var(--mp-fresh);
+  box-shadow: 0 4px 12px rgba(15, 120, 89, 0.08);
+}
+.mp-endpoint--open .mp-endpoint__header {
+  background: var(--mp-mint);
+  border-bottom: 1px solid rgba(15, 120, 89, 0.18);
+}
+
+// 2. Sticky endpoint-header when open — keep the path visible while scrolling
+.mp-endpoint--open .mp-endpoint__header {
+  position: sticky;
+  top: var(--mp-nav-height);
+  z-index: 5;
+  border-radius: var(--mp-radius-lg) var(--mp-radius-lg) 0 0;
+}
+
+// 3. Section-labels in content (OVERVIEW, SHIPMENTS, …) as visible banners
+.mp-ref-content .mp-section-label {
+  position: sticky;
+  top: var(--mp-nav-height);
+  z-index: 4;
+  margin: var(--mp-space-8) 0 var(--mp-space-3);
+  padding: 8px 14px;
+  background: var(--mp-mint);
+  color: var(--mp-monstera);
+  border-left: 3px solid var(--mp-fresh);
+  border-radius: 0 var(--mp-radius-md) var(--mp-radius-md) 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+// 4. Sticky group-labels in the sidebar
+.mp-sidebar__group-label {
+  position: sticky;
+  top: 0;
+  background: var(--mp-mint);
+  z-index: 2;
+  padding: 6px 12px !important;
+  margin: 0 !important;
+  border-bottom: 1px solid rgba(15, 120, 89, 0.12);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mp-monstera);
+}
+
+// 5. Sidebar items — line-clamp on summary text (2 lines max)
+.mp-sidebar__item span:last-child {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal !important;
+  text-overflow: unset !important;
+  line-height: 1.35;
+}
+.mp-sidebar__item {
+  align-items: flex-start !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+// 6. Sidebar filter — compact, single-row, blends with the sidebar
+.mp-sidebar-filter {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  margin: 0 0 var(--mp-space-3);
+  padding: 0 12px;
+  background: var(--mp-mint);
+}
+.mp-sidebar-filter__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 4px 0 26px;
+  background: var(--mp-bg);
+  border: 1px solid transparent;
+  border-radius: var(--mp-radius-md);
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.mp-sidebar-filter__input-wrap:focus-within {
+  border-color: var(--mp-fresh);
+  box-shadow: 0 0 0 3px rgba(15, 120, 89, 0.10);
+}
+.mp-sidebar-filter__icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--mp-text-muted);
+  display: inline-flex;
+  pointer-events: none;
+}
+.mp-sidebar-filter input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  color: var(--mp-text);
+  padding: 0;
+  min-width: 0;
+  height: 100%;
+}
+.mp-sidebar-filter input::placeholder { color: var(--mp-text-faint); }
+.mp-sidebar-filter__clear {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--mp-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.mp-sidebar-filter__clear:hover {
+  background: var(--mp-mint);
+  color: var(--mp-fresh);
+}
+
+// 7. Parameters / Responses tables — modern, borderless, color-coded
+.mp-params {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  margin: var(--mp-space-3) 0 var(--mp-space-6) !important;
+  font-size: 13px !important;
+}
+.mp-params thead { background: transparent !important; }
+.mp-params th {
+  background: transparent !important;
+  color: var(--mp-text-muted) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  text-align: left !important;
+  padding: 6px 16px 8px 0 !important;
+  border: none !important;
+  border-bottom: 1px solid var(--mp-border) !important;
+}
+.mp-params td {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--mp-border-soft) !important;
+  padding: 12px 16px 12px 0 !important;
+  vertical-align: top !important;
+  color: var(--mp-text-body) !important;
+  line-height: 1.55 !important;
+}
+.mp-params tr:last-child td { border-bottom: none !important; }
+.mp-params tbody tr:hover td {
+  background: rgba(15, 120, 89, 0.04) !important;
+}
+
+// Parameter / status name in the first cell
+.mp-params__name {
+  font-family: var(--mp-mono);
+  font-weight: 600;
+  color: var(--mp-deep);
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+}
+// Type column — pill chip
+.mp-params td .mp-params__type:not(:empty) {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-mint);
+  color: var(--mp-monstera);
+  font-family: var(--mp-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+// Empty cell — fade out the em-dash inserted by useApiTables
+.mp-params td.is-empty {
+  color: var(--mp-text-faint) !important;
+  font-family: var(--mp-mono);
+}
+// Required marker — small uppercase pill chip
+.mp-params__required {
+  display: inline-block !important;
+  margin-left: 8px !important;
+  padding: 2px 8px !important;
+  width: auto !important;
+  height: auto !important;
+  background: rgba(255, 140, 0, 0.12) !important;
+  color: var(--mp-goldfish) !important;
+  border: 1px solid rgba(255, 140, 0, 0.32) !important;
+  border-radius: var(--mp-radius-pill) !important;
+  font-family: var(--mp-font) !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  vertical-align: middle;
+  line-height: 1.4 !important;
+}
+.mp-params__required::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--mp-goldfish);
+  margin-right: 5px;
+  vertical-align: 0.5px;
+}
+
+// Color-coded status pills (applied by useApiTables based on cell content)
+.mp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 11px;
+  border-radius: var(--mp-radius-pill);
+  font-family: var(--mp-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+.mp-status::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.mp-status--ok {
+  background: var(--mp-mint);
+  color: var(--mp-fresh);
+  border-color: rgba(15, 120, 89, 0.18);
+}
+.mp-status--info {
+  background: rgba(11, 108, 161, 0.08);
+  color: var(--mp-blue-01);
+  border-color: rgba(11, 108, 161, 0.16);
+}
+.mp-status--warn {
+  background: rgba(255, 140, 0, 0.10);
+  color: var(--mp-goldfish);
+  border-color: rgba(255, 140, 0, 0.20);
+}
+.mp-status--err {
+  background: rgba(184, 27, 35, 0.08);
+  color: var(--mp-red);
+  border-color: rgba(184, 27, 35, 0.18);
+}
+
+// Subtle "Parameters" / "Responses" label above each table
+.mp-params-label {
+  display: inline-block;
+  margin: var(--mp-space-5) 0 var(--mp-space-2) !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--mp-text-muted) !important;
+}
+
+// 8. Code-rail empty state — multi-line with snippet + tip
+.mp-code-rail__empty {
+  text-align: left !important;
+  padding: var(--mp-space-6) var(--mp-space-4) !important;
+  font-size: 13px;
+}
+.mp-code-rail__empty svg { margin-bottom: var(--mp-space-2) !important; }
+.mp-code-rail__empty pre {
+  margin-top: var(--mp-space-3);
+  padding: var(--mp-space-3) var(--mp-space-4);
+  background: var(--mp-deep);
+  color: #cbe6dc;
+  font-family: var(--mp-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  border-radius: var(--mp-radius-md);
+  overflow-x: auto;
+}
+.mp-code-rail__empty kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--mp-bg);
+  border: 1px solid var(--mp-border);
+  border-radius: 4px;
+  font-family: var(--mp-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--mp-text-muted);
+}
+.mp-code-rail__hint {
+  margin-top: var(--mp-space-4);
+  padding: 10px 12px;
+  background: var(--mp-bg);
+  border: 1px dashed var(--mp-border);
+  border-radius: var(--mp-radius-md);
+  color: var(--mp-text-body);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+// 9. (Removed older 1100px wrap rule — replaced by the inline-ellipsis fix
+//     above and the proper <900px stack at the bottom of this file.)
+
+// 10. Reduce sticky overlap on small screens (header takes full width, no rail)
+@media (max-width: 1000px) {
+  .mp-endpoint--open .mp-endpoint__header { position: static; }
+  .mp-ref-content .mp-section-label { position: static; }
+}
+
+// ---------------------------------------------------------------------------
+//  EXTRA POLISH
+// ---------------------------------------------------------------------------
+
+// Loading skeleton for async API bodies
+.mp-endpoint-skeleton {
+  margin: var(--mp-space-4) 0;
+  border: 1px solid var(--mp-border-soft);
+  border-radius: var(--mp-radius-lg);
+  background: var(--mp-bg);
+  overflow: hidden;
+  animation: mp-skeleton-pulse 1.4s ease-in-out infinite;
+}
+.mp-endpoint-skeleton__header {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  padding: 14px 18px;
+}
+.mp-endpoint-skeleton__method,
+.mp-endpoint-skeleton__path,
+.mp-endpoint-skeleton__summary {
+  display: inline-block;
+  height: 14px;
+  border-radius: var(--mp-radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--mp-bg-subtle) 0%,
+    var(--mp-mint) 50%,
+    var(--mp-bg-subtle) 100%
+  );
+  background-size: 200% 100%;
+  animation: mp-skeleton-shimmer 1.4s linear infinite;
+}
+.mp-endpoint-skeleton__method { width: 48px; }
+.mp-endpoint-skeleton__path   { width: 140px; }
+.mp-endpoint-skeleton__summary { flex: 1; max-width: 320px; }
+
+@keyframes mp-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.85; }
+}
+@keyframes mp-skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// ---------------------------------------------------------------------------
+//  Copy button on every code-block — always visible, language label moved aside
+// ---------------------------------------------------------------------------
+pre.mp-code-block { position: relative; }
+
+// Language label (originally at top:12px right:14px) — push it left so it
+// sits next to the copy button instead of overlapping it.
+pre.mp-code-block::after {
+  right: auto !important;
+  left: 56px !important;
+  top: 8px !important;
+}
+
+.mp-code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--mp-radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.92);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.12s;
+  z-index: 2;
+}
+.mp-code-copy:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.mp-code-copy:active { transform: translateY(0); }
+.mp-code-copy:focus-visible {
+  outline: 2px solid var(--mp-goldfish);
+  outline-offset: 2px;
+}
+.mp-code-copy.is-copied {
+  background: var(--mp-fresh);
+  color: #ffffff;
+  border-color: var(--mp-fresh);
+}
+
+// ---------------------------------------------------------------------------
+//  Endpoint anchor link (chain icon on hover)
+// ---------------------------------------------------------------------------
+.mp-endpoint__anchor {
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  margin-right: 6px;
+  border-radius: var(--mp-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--mp-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s, background 0.12s, color 0.12s, border-color 0.12s;
+}
+.mp-endpoint__header:hover .mp-endpoint__anchor,
+.mp-endpoint--open .mp-endpoint__anchor,
+.mp-endpoint__anchor:focus-visible {
+  opacity: 1;
+}
+.mp-endpoint__anchor:hover {
+  background: var(--mp-mint);
+  color: var(--mp-fresh);
+  border-color: rgba(15, 120, 89, 0.18);
+}
+.mp-endpoint__anchor.is-copied {
+  opacity: 1;
+  background: var(--mp-fresh);
+  color: #ffffff;
+  border-color: var(--mp-fresh);
+}
+
+// Empty endpoint summary fallback
+.mp-endpoint__summary.is-empty {
+  color: var(--mp-text-faint);
+  font-style: italic;
+}
+
+// ---------------------------------------------------------------------------
+//  Sidebar filter result counter — tiny line under the filter
+// ---------------------------------------------------------------------------
+.mp-sidebar-filter__count {
+  margin-top: 6px;
+  padding: 0 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--mp-text-muted);
+}
+.mp-sidebar-filter__count.is-empty {
+  color: var(--mp-goldfish);
+}
+
+// ---------------------------------------------------------------------------
+//  Enum value chips in parameter description cells
+// ---------------------------------------------------------------------------
+.mp-params__enums {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-left: 4px;
+}
+.mp-params__enum {
+  display: inline-block;
+  padding: 1px 8px;
+  background: var(--mp-bg-subtle);
+  border: 1px solid var(--mp-border);
+  border-radius: var(--mp-radius-pill);
+  font-family: var(--mp-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--mp-deep);
+}
+
+// ---------------------------------------------------------------------------
+//  Code-panel cross-fade between language tabs
+// ---------------------------------------------------------------------------
+.mp-code-panel {
+  opacity: 0;
+  transition: opacity 0.18s ease-out;
+}
+.mp-code-panel--active {
+  opacity: 1;
+}
+
+// ---------------------------------------------------------------------------
+//  Keyboard shortcuts hint chip + help popover + flash toast
+// ---------------------------------------------------------------------------
+.mp-shortcuts-hint {
+  position: fixed;
+  right: 80px;
+  bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--mp-bg);
+  border: 1px solid var(--mp-border);
+  border-radius: var(--mp-radius-pill);
+  color: var(--mp-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 38, 33, 0.08);
+  transition: border-color 0.12s, color 0.12s;
+  z-index: 55;
+}
+.mp-shortcuts-hint:hover {
+  border-color: var(--mp-fresh);
+  color: var(--mp-fresh);
+}
+.mp-shortcuts-hint kbd {
+  padding: 1px 6px;
+  background: var(--mp-bg-subtle);
+  border: 1px solid var(--mp-border);
+  border-radius: 4px;
+  font-family: var(--mp-mono);
+  font-size: 10px;
+}
+@media (max-width: 540px) {
+  .mp-shortcuts-hint { display: none; }
+}
+
+.mp-shortcuts {
+  position: fixed;
+  right: 24px;
+  bottom: 80px;
+  width: 240px;
+  background: var(--mp-bg);
+  border: 1px solid var(--mp-border);
+  border-radius: var(--mp-radius-lg);
+  padding: 14px 16px;
+  box-shadow: 0 16px 48px rgba(0, 38, 33, 0.18);
+  z-index: 70;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.16s, transform 0.16s;
+}
+.mp-shortcuts.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.mp-shortcuts__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mp-text-muted);
+  margin-bottom: 8px;
+}
+.mp-shortcuts ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mp-shortcuts li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--mp-text);
+}
+.mp-shortcuts kbd {
+  display: inline-block;
+  min-width: 24px;
+  text-align: center;
+  padding: 1px 6px;
+  background: var(--mp-bg-subtle);
+  border: 1px solid var(--mp-border);
+  border-radius: 4px;
+  font-family: var(--mp-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--mp-fresh);
+}
+
+.mp-flash {
+  position: fixed;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%);
+  background: var(--mp-deep);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--mp-radius-pill);
+  font-size: 13px;
+  box-shadow: 0 8px 24px rgba(0, 38, 33, 0.32);
+  z-index: 80;
+  opacity: 1;
+  transition: opacity 0.25s;
+}
+.mp-flash.is-leaving { opacity: 0; }
+
+// ---------------------------------------------------------------------------
+//  Mobile per-endpoint code collapse — below 1000px each endpoint hides its
+//  code section behind a "Show code" toggle.
+// ---------------------------------------------------------------------------
+@media (max-width: 1000px) {
+  .mp-endpoint--open .mp-endpoint__code:not(.is-mobile-open) > *:not(.mp-endpoint__code-toggle) {
+    display: none !important;
+  }
+  .mp-endpoint__code-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 4px;
+    padding: 6px 12px;
+    border: 1px solid var(--mp-border);
+    border-radius: var(--mp-radius-pill);
+    background: var(--mp-bg-subtle);
+    color: var(--mp-text);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+.mp-endpoint__code-toggle { display: none; }
+
+// ---------------------------------------------------------------------------
+//  Smooth-scroll target offset (so sticky navbar doesn't cover anchored items)
+// ---------------------------------------------------------------------------
+.mp-endpoint,
+.mp-section-label {
+  scroll-margin-top: calc(var(--mp-nav-height) + var(--mp-space-3));
+}
+
+// In-content jump-to-group TOC for API pages
+.mp-api-toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: var(--mp-space-6) 0 var(--mp-space-8);
+  padding: 12px 14px;
+  background: var(--mp-bg-subtle);
+  border: 1px solid var(--mp-border-soft);
+  border-radius: var(--mp-radius-lg);
+}
+.mp-api-toc__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mp-text-muted);
+  margin-right: 4px;
+}
+.mp-api-toc__chip {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--mp-bg);
+  border: 1px solid var(--mp-border);
+  border-radius: var(--mp-radius-pill);
+  color: var(--mp-text);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-decoration: none !important;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.mp-api-toc__chip:hover {
+  background: var(--mp-mint);
+  border-color: var(--mp-fresh);
+  color: var(--mp-fresh);
+}
+
+// Filter-match highlight in the API sidebar
+.mp-sidebar__item mark {
+  background: var(--mp-goldfish);
+  color: #ffffff;
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+// Pager polish — mint cards with arrow icon
+.mp-docs-pager {
+  margin-top: var(--mp-space-12);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--mp-space-4);
+}
+.mp-docs-pager__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mp-space-2);
+  padding: var(--mp-space-4) var(--mp-space-5);
+  border: 1px solid var(--mp-border);
+  border-radius: var(--mp-radius-lg);
+  background: var(--mp-bg);
+  text-decoration: none !important;
+  color: inherit;
+  transition: border-color 0.12s, box-shadow 0.12s, transform 0.12s;
+}
+.mp-docs-pager__link:hover {
+  border-color: var(--mp-fresh);
+  box-shadow: 0 6px 16px rgba(15, 120, 89, 0.12);
+  transform: translateY(-1px);
+}
+.mp-docs-pager__link--prev { text-align: left; }
+.mp-docs-pager__link--next { text-align: right; align-items: flex-end; }
+.mp-docs-pager__label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mp-text-muted);
+}
+.mp-docs-pager__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mp-fresh);
+}
+
+// Figure / caption look for screenshots in plugin manuals.
+// Markdown produces `<p><img>caption text</p>` — style the img + sibling text.
+.mp-docs-content__body p:has(> img:first-child) {
+  margin: var(--mp-space-6) 0;
+  text-align: center;
+}
+.mp-docs-content__body p:has(> img:first-child) > img {
+  display: block;
+  margin: 0 auto var(--mp-space-2);
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--mp-border-soft);
+  border-radius: var(--mp-radius-md);
+  background: var(--mp-bg-subtle);
+  padding: var(--mp-space-2);
+}
+.mp-docs-content__body p:has(> img:first-child)::after {
+  content: '';
+}
+.mp-docs-content__body p:has(> img:first-child) {
+  font-size: 12.5px;
+  color: var(--mp-text-muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+// ---------------------------------------------------------------------------
+//  Active state for top-navbar links (router-driven via JS adding `is-active`)
+// ---------------------------------------------------------------------------
+.mp-nav__link.is-active,
+.mp-nav__item.is-active > .mp-nav__link {
+  color: var(--mp-fresh);
+}
+.mp-nav__link.is-active::after,
+.mp-nav__item.is-active > .mp-nav__link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 2px;
+  background: var(--mp-fresh);
+  border-radius: 2px;
+}
+.mp-nav__link {
+  position: relative;
+}
+
+// ---------------------------------------------------------------------------
+//  Polish: visible focus rings for keyboard navigation
+// ---------------------------------------------------------------------------
+.mp-btn:focus-visible,
+.mp-nav__link:focus-visible,
+.mp-nav__search:focus-within,
+.mp-lang-dropdown__toggle:focus-visible,
+.mp-download-specs__toggle:focus-visible,
+.mp-sidebar__item:focus-visible,
+.mp-docs-sidebar__item:focus-visible {
+  outline: 2px solid var(--mp-fresh);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+// ---------------------------------------------------------------------------
+//  Markdown body styling for guide & platform pages
+//  VuePress renders standard <h2>/<p>/<ul>/<table> from markdown — wrap them
+//  with the same brand voice as the hand-coded mp-docs-content blocks.
+// ---------------------------------------------------------------------------
+.mp-docs-content__body,
+.mp-standalone .mp-docs-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--mp-text-body);
+
+  h2 {
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    color: var(--mp-fresh) !important;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin: var(--mp-space-10) 0 var(--mp-space-3) !important;
+    padding-bottom: var(--mp-space-3);
+    border-bottom: 2px solid var(--mp-fresh) !important;
+    scroll-margin-top: calc(var(--mp-nav-height) + var(--mp-space-4));
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 22px;
+    background: var(--mp-fresh);
+    border-radius: 2px;
+  }
+  h3 {
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    color: var(--mp-monstera) !important;
+    margin: var(--mp-space-8) 0 var(--mp-space-2) !important;
+    scroll-margin-top: calc(var(--mp-nav-height) + var(--mp-space-4));
+    line-height: 1.3;
+  }
+  h4 {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: var(--mp-deep) !important;
+    margin: var(--mp-space-6) 0 var(--mp-space-2) !important;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.35;
+  }
+
+  p {
+    margin: 0 0 var(--mp-space-4);
+  }
+
+  a:not(.header-anchor) {
+    color: var(--mp-fresh);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(15, 120, 89, 0.4);
+    transition: border-color 0.12s, color 0.12s;
+  }
+  a:not(.header-anchor):hover {
+    color: var(--mp-monstera);
+    border-bottom-color: var(--mp-monstera);
+  }
+
+  // VuePress wraps heading text in an .header-anchor link — keep the text
+  // ALWAYS visible and inherit the heading's brand colour. Only style the
+  // `#` permalink symbol (when injected as a separate child) more subtly.
+  h2 .header-anchor,
+  h3 .header-anchor,
+  h4 .header-anchor {
+    color: inherit !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    cursor: text !important;
+    pointer-events: none !important;
+  }
+  // Hide every standalone permalink-symbol VuePress may inject — the
+  // useDocsAnchors composable adds its own chain-icon button instead.
+  .header-anchor[aria-hidden='true'],
+  .header-anchor[aria-hidden='true']::before,
+  .header-anchor[aria-hidden='true']::after {
+    display: none !important;
+  }
+
+  // Chain-icon button injected by useDocsAnchors — same look-and-feel as
+  // the API endpoint anchor (hidden until heading hover, mint hover state,
+  // green check-feedback after copy).
+  h2, h3, h4 {
+    position: relative;
+  }
+  .mp-heading-anchor {
+    width: 26px;
+    height: 26px;
+    margin-left: 10px;
+    padding: 0;
+    border-radius: var(--mp-radius-sm);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--mp-text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    vertical-align: middle;
+    opacity: 0;
+    transition: opacity 0.12s, background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  h2:hover .mp-heading-anchor,
+  h3:hover .mp-heading-anchor,
+  h4:hover .mp-heading-anchor,
+  .mp-heading-anchor:focus-visible {
+    opacity: 1;
+  }
+  .mp-heading-anchor:hover {
+    background: var(--mp-mint);
+    color: var(--mp-fresh);
+    border-color: rgba(15, 120, 89, 0.18);
+  }
+  .mp-heading-anchor.is-copied {
+    opacity: 1;
+    background: var(--mp-fresh);
+    color: #ffffff;
+    border-color: var(--mp-fresh);
+  }
+
+  ul, ol {
+    margin: 0 0 var(--mp-space-4);
+    padding-left: var(--mp-space-6);
+  }
+  li {
+    margin-bottom: var(--mp-space-2);
+  }
+  li::marker { color: var(--mp-fresh); }
+
+  // Tables — borderless, breathable, with row dividers only
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--mp-space-5) 0 var(--mp-space-6);
+    font-size: 13.5px;
+  }
+  th {
+    color: var(--mp-text-muted);
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 14px 8px 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 2px solid var(--mp-border);
+  }
+  td {
+    padding: 12px 14px 12px 0;
+    border-bottom: 1px solid var(--mp-border-soft);
+    color: var(--mp-text-body);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--mp-bg-subtle); }
+
+  // Inline code
+  :not(pre) > code {
+    background: var(--mp-mint);
+    color: var(--mp-monstera);
+    font-family: var(--mp-mono);
+    font-size: 0.875em;
+    padding: 1px 6px;
+    border-radius: var(--mp-radius-sm);
+    border: 1px solid rgba(15, 120, 89, 0.12);
+  }
+
+  // VuePress-rendered fenced code blocks — align with the mp-code-block tone
+  div[class*='language-'] {
+    background: var(--mp-deep);
+    color: #cbe6dc;
+    border-radius: var(--mp-radius-md);
+    margin: var(--mp-space-5) 0;
+    padding: var(--mp-space-4) var(--mp-space-5);
+    overflow-x: auto;
+    box-shadow: 0 1px 2px rgba(0, 38, 33, 0.06);
+  }
+  div[class*='language-'] pre {
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    font-family: var(--mp-mono);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  div[class*='language-'] code {
+    background: transparent;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font-size: 13px;
+  }
+  div[class*='language-'] .token.comment   { color: #6c8c84; font-style: italic; }
+  div[class*='language-'] .token.string,
+  div[class*='language-'] .token.url       { color: #ffd29c; }
+  div[class*='language-'] .token.number,
+  div[class*='language-'] .token.boolean   { color: #ffb37a; }
+  div[class*='language-'] .token.keyword,
+  div[class*='language-'] .token.tag,
+  div[class*='language-'] .token.selector  { color: #82d8b0; }
+  div[class*='language-'] .token.property,
+  div[class*='language-'] .token.attr-name { color: #b4eedc; }
+  div[class*='language-'] .token.punctuation { color: #8aa39d; }
+  div[class*='language-'] .token.operator  { color: #d6e9e2; }
+
+  blockquote {
+    margin: var(--mp-space-5) 0;
+    padding: var(--mp-space-3) var(--mp-space-5);
+    border-left: 3px solid var(--mp-fresh);
+    background: var(--mp-bg-subtle);
+    color: var(--mp-text-body);
+    border-radius: 0 var(--mp-radius-md) var(--mp-radius-md) 0;
+  }
+
+  // Images followed by caption text — give a polished figure feel.
+  // (markdown produces <p><img/>caption</p>; we soften the caption.)
+  p:has(> img:first-child) {
+    text-align: center;
+    margin: var(--mp-space-6) 0;
+  }
+  p > img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--mp-border-soft);
+    border-radius: var(--mp-radius-md);
+    background: var(--mp-bg-subtle);
+    padding: var(--mp-space-2);
+    display: block;
+    margin: 0 auto var(--mp-space-2);
+  }
+}
+
+// ---------------------------------------------------------------------------
+//  Responsive polish — fill the gaps in the original mobile rules.
+// ---------------------------------------------------------------------------
+@media (max-width: 720px) {
+  // Hide the decorative hero art on phones — give the copy & CTAs full width.
+  .mp-hero__art { display: none !important; }
+  .mp-hero__inner { grid-template-columns: 1fr !important; }
+
+  // Hub headers wrap their meta neatly on small screens
+  .mp-ref-hub__meta {
+    flex-wrap: wrap;
+    gap: var(--mp-space-2);
+    font-size: 12px;
+  }
+
+  // Stats band: 2 cols instead of 4 on phones
+  .mp-stats__inner {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  // Logo grid wraps
+  .mp-logo-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--mp-space-4) !important;
+  }
+
+  // Platform-grid: 2 cols instead of 4
+  .mp-platform-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+// Search trigger as an icon-only button on mobile. At <=768px we replace the
+// wide bar with a clearly tappable 40×40 button next to the hamburger.
+@media (max-width: 768px) {
+  .mp-nav__search {
+    flex: 0 0 auto !important;
+    width: 40px;
+    max-width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: var(--mp-radius-md);
+    border: 1px solid var(--mp-border);
+    background: var(--mp-bg-subtle);
+  }
+  .mp-nav__search input {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: transparent;            /* hide value/placeholder */
+    caret-color: transparent;
+    cursor: pointer;
+  }
+  .mp-nav__search input::placeholder { color: transparent; }
+  .mp-nav__search-icon {
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: var(--mp-text);
+  }
+  .mp-nav__search-kbd { display: none !important; }
+}
+
+@media (max-width: 540px) {
+  .mp-download-specs__menu { width: calc(100vw - 24px); }
+  .mp-hero__title { font-size: 28px !important; }
+  .mp-hero__sub   { font-size: 14px !important; }
+}
+
+// ---------------------------------------------------------------------------
+//  Mobile-collapsible sidebars (docs + API)
+//  A toggle button is injected at the top of each sidebar by JS; clicking
+//  expands the sidebar contents. Default = collapsed on mobile.
+// ---------------------------------------------------------------------------
+.mp-sidebar-mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mp-docs-sidebar,
+  .mp-sidebar {
+    padding: var(--mp-space-3) var(--mp-space-4) !important;
+    border-bottom: 1px solid var(--mp-border) !important;
+    background: var(--mp-bg-subtle) !important;
+  }
+
+  .mp-sidebar-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--mp-border);
+    border-radius: var(--mp-radius-md);
+    background: var(--mp-bg);
+    color: var(--mp-text);
+    font: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.12s, background 0.12s;
+  }
+  .mp-sidebar-mobile-toggle:hover { border-color: var(--mp-fresh); }
+  .mp-sidebar-mobile-toggle__icon {
+    transition: transform 0.18s;
+    color: var(--mp-text-muted);
+  }
+  .is-mobile-open .mp-sidebar-mobile-toggle__icon {
+    transform: rotate(180deg);
+  }
+
+  // Hide everything else inside the sidebar until expanded
+  .mp-docs-sidebar > *:not(.mp-sidebar-mobile-toggle),
+  .mp-sidebar > *:not(.mp-sidebar-mobile-toggle) {
+    display: none !important;
+  }
+  .mp-docs-sidebar.is-mobile-open > *,
+  .mp-sidebar.is-mobile-open > * {
+    display: block !important;
+  }
+  .mp-docs-sidebar.is-mobile-open,
+  .mp-sidebar.is-mobile-open {
+    max-height: 75vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}

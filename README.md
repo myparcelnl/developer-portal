@@ -1,1 +1,3 @@
-live view: https://richardperdaan.github.io/beta-developer-portal/
+# MyParcel Developer Portal
+
+VuePress-ready documentation source. See [markdown/](markdown/).
