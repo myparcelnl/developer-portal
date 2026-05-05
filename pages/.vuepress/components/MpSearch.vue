@@ -166,6 +166,7 @@ onBeforeUnmount(() => {
     <kbd class="mp-nav__search-kbd" aria-hidden="true">⌘K</kbd>
   </div>
 
+  <ClientOnly>
   <Teleport to="body">
     <div v-if="open" class="mp-cmdk__overlay" @click.self="closeModal" @keydown="onKeydown">
       <div class="mp-cmdk" role="dialog" aria-label="Search">
@@ -241,6 +242,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </Teleport>
+  </ClientOnly>
 </template>
 
 <style scoped>
