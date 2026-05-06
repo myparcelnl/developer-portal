@@ -41,7 +41,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Ecwid', link: '/beta-developer-portal/platforms/coming-soon.html?p=Ecwid' },
       { text: 'Bol.', link: '/beta-developer-portal/platforms/coming-soon.html?p=Bol.' },
       { text: 'Wix', link: '/beta-developer-portal/platforms/coming-soon.html?p=Wix' },
-      { text: 'Amazon', link: '/beta-developer-portal/platforms/coming-soon.html?p=Amazon' },
+      { text: 'Amazon', link: '/beta-developer-portal/platforms/amazon.html' },
       { text: 'Etsy', link: '/beta-developer-portal/platforms/coming-soon.html?p=Etsy' },
       { text: 'Chrome extension', link: '/beta-developer-portal/platforms/coming-soon.html?p=Chrome+extension' },
     ],
