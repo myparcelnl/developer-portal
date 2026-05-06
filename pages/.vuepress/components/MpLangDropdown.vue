@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { usePageData } from 'vuepress/client';
 import { lang, setLang, type Lang } from '../composables/useI18n';
+import { detectLang, localizeCurrentPath } from '../sidebar';
+
+const page = usePageData();
 
 const flags: Record<Lang, string> = {
   en: `<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -51,7 +55,27 @@ function onDocClick(e: MouseEvent) {
 function pick(l: Lang) {
   setLang(l);
   open.value = false;
+  // If the current page exists in the target locale, navigate there.
+  // For pages we haven't translated, the URL stays at root; the data-i18n
+  // system will still swap the chrome (sidebar labels, header) to the new lang.
+  if (typeof window !== 'undefined') {
+    const next = localizeCurrentPath(window.location.pathname, l);
+    if (next !== window.location.pathname) {
+      window.location.href = next;
+    }
+  }
 }
+
+// On every navigation, sync the global lang to whichever locale the URL is in.
+// That way the language dropdown always reflects the page the user is on.
+watch(
+  () => page.value.path,
+  (p) => {
+    const detected = detectLang(p);
+    if (detected !== lang.value) setLang(detected);
+  },
+  { immediate: true },
+);
 
 const currentFlag = computed(() => flags[lang.value]);
 </script>

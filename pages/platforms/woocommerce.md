@@ -1,432 +1,432 @@
 ---
 title: WooCommerce
-description: "Van nul naar verzonden pakket op WooCommerce — installeer de plugin, koppel je MyParcel-account, kies een shop-profiel en je verstuurt vandaag nog je eerste label. Met snelstart, shop-profielen, settings-naslag, dagelijkse workflow en een diagnose-tabel."
+description: "From zero to a shipped parcel on WooCommerce — install the plugin, connect your MyParcel account, pick a shop profile and send your first label today. Includes quickstart, shop profiles, settings reference, daily workflow and a diagnostics table."
 ---
 
-::: tip In het kort
-De MyParcel-plugin verbindt je WooCommerce-shop met MyParcel. Klanten kiezen in de checkout een bezorgmoment of afhaalpunt, jij print labels vanuit WordPress en track & trace gaat automatisch naar de klant. Geen code nodig — alles via de WordPress-admin.
+::: tip In short
+The MyParcel plugin connects your WooCommerce shop to MyParcel. Customers pick a delivery moment or pickup point in the checkout, you print labels from WordPress, and Track & Trace is sent to the customer automatically. No code needed — everything runs from the WordPress admin.
 :::
 
-## Snelstart — in 15 minuten je eerste pakket
-Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je via [Wat zoek je?](#wat-zoek-je) hieronder.
+## Quickstart — your first parcel in 15 minutes
+Enough to ship your first real order today. For deeper configuration, see [Looking for…](#looking-for) below.
 
-1. **Account.** Heb je nog geen MyParcel-account? Maak er een aan via [myparcel.nl/register](https://www.myparcel.nl/register).
-2. **API-key kopiëren.** Log in op [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shopinstellingen → Integratie* → kopieer de API-key.
-3. **Plugin installeren.** In WordPress: **Plugins → Nieuwe plugin** → zoek op *MyParcel* → **Nu installeren** → **Activeren**.
-4. **Plugin koppelen.** Open **WooCommerce → MyParcel**, klik **API key wijzigen**, plak de key en klik **Opslaan**. De status-badge moet *Gekoppeld met MyParcel* tonen.
-5. **Eerste label.** Open een betaalde order, scroll naar het MyParcel-blok en klik **Exporteer en print**. Je PDF-label rolt eruit.
+1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.nl/register](https://www.myparcel.nl/register).
+2. **Copy the API key.** Log in to [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shop settings → Integration* → copy the API key.
+3. **Install the plugin.** In WordPress: **Plugins → Add new plugin** → search *MyParcel* → **Install now** → **Activate**.
+4. **Connect the plugin.** Open **WooCommerce → MyParcel**, click **Change API key**, paste the key and click **Save**. The status badge should show *Connected to MyParcel*.
+5. **First label.** Open a paid order, scroll to the MyParcel block and click **Export and print**. Your PDF label rolls out.
 
-::: tip Klaar als je dit ziet
-- Bovenaan de plugin: groene status *Gekoppeld met MyParcel*
-- Een testorder kun je exporteren naar MyParcel
-- Je PDF-label opent (of komt in de download-map)
+::: tip You're done when you see this
+- At the top of the plugin: a green *Connected to MyParcel* status
+- You can export a test order to MyParcel
+- Your PDF label opens (or lands in your downloads folder)
 :::
 
-## Wat zoek je?
-| Wat wil je doen? | Ga naar |
+## Looking for…
+| What do you want to do? | Go to |
 | --- | --- |
-| Voor het eerst opzetten | [Snelstart](#snelstart-in-15-minuten-je-eerste-pakket) |
-| Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
-| Een specifieke instelling opzoeken | [5 · Settings · Bestellingen](#5-settings-bestellingen) tot [9 · Settings · Vervoerders](#9-settings-vervoerders) |
-| Per product een afwijkende instelling | [10 · Productinstellingen](#10-productinstellingen) |
-| Wat een klant in de checkout ziet | [12 · De checkout-ervaring](#12-de-checkout-ervaring) |
-| Bulkverwerking voor 50+ orders/dag | [14 · Dagelijks gebruik](#14-dagelijks-gebruik) |
-| Iets werkt niet | [15 · Iets werkt niet — diagnose](#15-iets-werkt-niet-diagnose) |
-| Antwoord op een veelgestelde vraag | [16 · FAQ](#16-faq) |
+| First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
+| Recommended settings for your type of shop | [4 · Which shop profile are you?](#4-which-shop-profile-are-you) |
+| Look up a specific setting | [5 · Settings · Orders](#5-settings-orders) to [9 · Settings · Carriers](#9-settings-carriers) |
+| A different setting per product | [10 · Product settings](#10-product-settings) |
+| What the customer sees in the checkout | [13 · The checkout experience](#13-the-checkout-experience) |
+| Bulk processing for 50+ orders/day | [14 · Daily use](#14-daily-use) |
+| Something's not working | [15 · Something's not working — diagnostics](#15-somethings-not-working-diagnostics) |
+| Answer to a frequently asked question | [16 · FAQ](#16-faq) |
 
-## 1 · Voorbereiden in je MyParcel-account
-Voordat je in WooCommerce begint, regel je vier dingen in je MyParcel-backoffice:
+## 1 · Preparing your MyParcel account
+Before you start in WooCommerce, take care of four things in your MyParcel backoffice:
 
-1. **Factuur- en retouradres** — *Shopinstellingen → Algemeen*. Dit komt op al je labels.
-2. **Vervoerders activeren** — *Shopinstellingen → Vervoerders*. Alleen aangevinkte vervoerders verschijnen later in de plugin.
-3. **API key genereren** — *Shopinstellingen → Integratie*.
-4. **Orderinformatie importeren** (optioneel) — aanzetten als je [Ordermodus](#5-settings-bestellingen) wilt gebruiken.
+1. **Billing and return address** — *Shop settings → General*. This appears on every label.
+2. **Activate carriers** — *Shop settings → Carriers*. Only enabled carriers appear in the plugin later.
+3. **Generate an API key** — *Shop settings → Integration*.
+4. **Import order information** (optional) — turn on if you want to use [order mode](#5-settings-orders).
 
-## 2 · Plugin installeren
-1. In WordPress-admin: **Plugins → Nieuwe plugin**.
-2. Zoek op *MyParcel*.
-3. Bij *WooCommerce MyParcel* op **Nu installeren**, daarna **Activeren**.
-4. Er verschijnt een nieuw menu-item **WooCommerce → MyParcel**.
+## 2 · Installing the plugin
+1. In the WordPress admin: **Plugins → Add new plugin**.
+2. Search *MyParcel*.
+3. Find *WooCommerce MyParcel* and click **Install now**, then **Activate**.
+4. A new menu item **WooCommerce → MyParcel** appears.
 
-::: details Liever handmatig installeren?
-Download de release-ZIP via [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) en upload via **Plugins → Nieuwe plugin → Plugin uploaden**.
+::: details Prefer to install manually?
+Download the release ZIP from [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) and upload it via **Plugins → Add new plugin → Upload plugin**.
 :::
 
-## 3 · Plugin koppelen (API-key)
-Open **WooCommerce → MyParcel**. Bovenaan zie je drie knoppen — *API key wijzigen*, *Webhooks wijzigen*, *Debugopties* — plus de status-badge.
+## 3 · Connecting the plugin (API key)
+Open **WooCommerce → MyParcel**. At the top you'll see three buttons — *Change API key*, *Change webhooks*, *Debug options* — plus the status badge.
 
-![MyParcel koppelingsbalk: Gekoppeld met MyParcel + drie actieknoppen.](./images/woocommerce/connection-bar.svg) De koppelingsbalk verschijnt op élke plugin-pagina.
+![MyParcel connection bar: Connected to MyParcel + three action buttons.](./images/woocommerce/connection-bar.svg) The connection bar appears on every plugin page.
 
-1. Klik **API key wijzigen**.
-2. Plak de key uit je MyParcel-backoffice.
-3. Klik **Opslaan** — binnen enkele seconden wisselt de status naar *Gekoppeld met MyParcel*.
+1. Click **Change API key**.
+2. Paste the key from your MyParcel backoffice.
+3. Click **Save** — within seconds the status switches to *Connected to MyParcel*.
 
-::: warning Werkt het niet?
-Meest voorkomende oorzaken: niet op *Opslaan* geklikt · spatie meegekopieerd vóór/na de key · key van een andere shop · plugin draait op andere omgeving (live vs sandbox) dan je MyParcel-account.
+::: warning Not working?
+Most common causes: didn't click *Save* · a space copied before/after the key · key from a different shop · plugin runs on a different environment (live vs sandbox) than your MyParcel account.
 :::
 
-### Wat doet de plugin in je WordPress-admin?
-| Waar? | Wat kun je er? |
+### What does the plugin do in your WordPress admin?
+| Where? | What can you do? |
 | --- | --- |
-| **WooCommerce → MyParcel** | Settingspagina met vijf tabs (Bestellingen, Labels, Douane, Checkout, Vervoerders). |
-| **WooCommerce → Bestellingen** | Extra kolom *MyParcel* per order + bulk-acties voor exporteren & printen. |
-| **Order-detailpagina** | *MyParcel*-box om per order vervoerder/pakkettype/verzekering in te stellen en labels aan te maken. |
-| **Product-detailpagina** | *MyParcel*-tab in *Productgegevens* voor product-specifieke instellingen. |
+| **WooCommerce → MyParcel** | Settings page with five tabs (Orders, Labels, Customs, Checkout, Carriers). |
+| **WooCommerce → Orders** | Extra *MyParcel* column per order + bulk actions for exporting & printing. |
+| **Order detail page** | *MyParcel* box to set carrier/package type/insurance per order and create labels. |
+| **Product detail page** | *MyParcel* tab in *Product data* for product-specific settings. |
 
-## 4 · Welk shop-profiel ben jij?
-Vier typische profielen met aanbevolen settings. Eén kiezen, instellingen overnemen, dan met [5 · Settings](#5-settings-bestellingen) finetunen.
+## 4 · Which shop profile are you?
+Four typical profiles with recommended settings. Pick one, copy the settings, then fine-tune via [5 · Settings](#5-settings-orders).
 
-### Klein — paar orders per dag, alleen NL
-| Instelling | Aanbevolen | Waarom |
+### Small — a few orders per day, NL only
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Ordermodus | Aan | Volledige order naar MyParcel |
-| Concept zendingen | Aan | Houdt je in controle terwijl je leert |
-| Automatisch verwerken | Geen | Per order zelf op *Exporteren* klikken |
-| Label formaat | A4 (4 per pagina) | Geen labelprinter nodig |
-| Alleen PostNL | Aan | Standaard NL-vervoerder |
-| Verzekering — *Verzekeren vanaf €* | 250 | Pakketten boven €250 automatisch verzekerd |
+| Order mode | On | Full order to MyParcel |
+| Concept shipments | On | Keeps you in control while you learn |
+| Auto-process | None | Click *Export* yourself per order |
+| Label format | A4 (4 per page) | No label printer needed |
+| PostNL only | On | Standard NL carrier |
+| Insurance — *Insure from €* | 250 | Parcels above €250 are insured automatically |
 
-### Drukke shop — 50+ orders/dag
-| Instelling | Aanbevolen | Waarom |
+### Busy shop — 50+ orders/day
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Concept zendingen | Uit | Sneller — labels direct definitief |
-| Automatisch verwerken | *In behandeling* | Geen klikken meer per order |
-| Label formaat | A6 (Zebra/Brother labelprinter) | Sneller printen |
-| Meteen afdrukken | Aan | Print-flow zonder klikken |
-| Bulk-export | 2–3× per dag | Op de orderlijst |
-| Verwerkingstijd | 2 dagen in piek | Realistisch venster voor klant |
-| PostNL + DHL For You | Beide aan | Brede dekking |
+| Concept shipments | Off | Faster — labels are final immediately |
+| Auto-process | *Processing* | No more clicking per order |
+| Label format | A6 (Zebra/Brother label printer) | Faster printing |
+| Print immediately | On | Print flow without clicks |
+| Bulk export | 2–3× per day | From the order list |
+| Processing time | 2 days during peaks | Realistic window for the customer |
+| PostNL + DHL For You | Both on | Broad coverage |
 
-### Brievenbus-only — koffie, kaarten, cosmetica
-| Instelling | Aanbevolen | Waarom |
+### Mailbox-only — coffee, cards, cosmetics
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Verzendklasse `Brievenbus` | Aanmaken in *WooCommerce → Verzending → Verzendklasses* | Producten daaraan koppelen |
-| *Checkout → Toegestane verzendmethoden* | Methode → *Brievenbuspakket* | Eén methode per pakkettype |
-| Bezorgopties tonen | Uit | Bij brievenbus geen tijdkeuze |
-| Verzekering | Uit | Niet beschikbaar voor brievenbuspakje |
+| Shipping class `Mailbox` | Create in *WooCommerce → Shipping → Shipping classes* | Link products to it |
+| *Checkout → Allowed shipping methods* | Method → *Mailbox parcel* | One method per package type |
+| Show delivery options | Off | No time slot for mailbox |
+| Insurance | Off | Not available for mailbox parcels |
 
-### Dure sieraden / hoogwaardige producten
-| Instelling | Aanbevolen | Waarom |
+### Expensive jewellery / high-value products
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Standaard handtekening | Aan | Bezorger laat klant tekenen |
-| Standaard alleen ontvanger | Aan | Geen buren |
-| Verzekering | Vanaf €0, tot €2500, percentage 100% | Volledige dekking |
-| Avondbezorging + afhaalpunten | Uit | Vermindert verlies/diefstal |
-| Aparte adresvelden + Adressenwidget | Aan | Minimale typfouten |
+| Default signature | On | The courier asks the customer to sign |
+| Default only recipient | On | No neighbours |
+| Insurance | From €0, up to €2500, percentage 100% | Full coverage |
+| Evening delivery + pickup points | Off | Reduces loss/theft |
+| Separate address fields + Address widget | On | Minimises typos |
 
-### Internationaal verzenden
-| Instelling | Aanbevolen | Waarom |
+### Shipping internationally
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Deel klantinformatie | Aan | Telefoon vereist voor douane |
-| Douane-tab | Volledig invullen | HS-code, herkomstland, *Goederen* |
-| DHL Parcel Connect | Aan | Voor Europa |
-| UPS / DHL Express | Aan | Voor wereldwijd |
+| Share customer information | On | Phone is required for customs |
+| Customs tab | Fill in completely | HS code, country of origin, *Goods* |
+| DHL Parcel Connect | On | For Europe |
+| UPS / DHL Express | On | For worldwide |
 
-## 5 · Settings · Bestellingen
-De eerste en belangrijkste tab — hier bepaal je hoe orders door je shop stromen.
+## 5 · Settings · Orders
+The first and most important tab — this is where you set how orders flow through your shop.
 
-![Bestellingen-tab: Algemeen, Automatisering orderstatus, Track & Trace, Standaard gewichten, Bestelnotities.](./images/woocommerce/bestellingen.jpg)
+![Orders tab: General, Order status automation, Track & Trace, Default weights, Order notes.](./images/woocommerce/bestellingen.jpg)
 
-### Algemeen
-- **Ordermodus** — Aan: volledige order (klantdata, productregels, notities) naar MyParcel. Uit: alleen een label. *Aanbevolen aan*, mits *Orderinformatie importeren* in MyParcel ook aan staat.
-- **Concept zendingen** — Aan: zending blijft concept in MyParcel. Uit: direct aanmelden bij vervoerder. *Aan tijdens setup, uit als alles draait.*
-- **Automatisch verwerken** — Welke WooCommerce-status triggert automatische export? *Geen* / *Wachtend op betaling* / *In behandeling* / *Afgerond*. Begin met *Geen*.
-- **Stuur retour e-mail** — Klant krijgt automatisch een retour-link. *Aanbevolen voor mode/schoenen.*
-- **Klantadres opslaan in adresboek** — Adressen belanden in je MyParcel-adresboek.
-- **Deel klantinformatie** — E-mail + telefoon naar MyParcel. Nodig voor track & trace-mail én verplicht voor internationaal. *Aanbevolen aan.*
+### General
+- **Order mode** — On: full order (customer data, line items, notes) to MyParcel. Off: only a label. *Recommended on*, provided *Import order information* is also on in MyParcel.
+- **Concept shipments** — On: shipment stays as concept in MyParcel. Off: registered with the carrier directly. *On during setup, off once everything runs.*
+- **Auto-process** — Which WooCommerce status triggers an automatic export? *None* / *Pending payment* / *Processing* / *Completed*. Start with *None*.
+- **Send return email** — The customer automatically receives a return link. *Recommended for fashion/shoes.*
+- **Save customer address to address book** — Addresses end up in your MyParcel address book.
+- **Share customer information** — Email + phone to MyParcel. Required for Track & Trace email and mandatory for international. *Recommended on.*
 
-### Automatisering orderstatus
-Laat de WooCommerce-orderstatus automatisch meelopen met het verzendproces.
+### Order status automation
+Let the WooCommerce order status follow the shipping process automatically.
 
-- **Bestelstatus bij label aanmaken** — typisch *In behandeling*.
-- **Bestelstatus bij label scannen** — typisch *Afgerond*.
-- **Bestelstatus bij bezorging** — bij *Afgerond* (als nog niet eerder).
-- **Stuur notificatie na** — welke statusovergang een WooCommerce-mail triggert.
+- **Order status when label is created** — typically *Processing*.
+- **Order status when label is scanned** — typically *Completed*.
+- **Order status on delivery** — *Completed* (if not earlier).
+- **Send notification after** — which status transition triggers a WooCommerce email.
 
 ### Track & Trace
-- **Track & Trace in e-mail** — link in WooCommerce order-bevestiging. *Aanbevolen aan.*
-- **Track & Trace in account** — link op *Mijn account*-pagina van klant.
+- **Track & Trace in email** — link in the WooCommerce order confirmation. *Recommended on.*
+- **Track & Trace in account** — link on the customer's *My account* page.
 
-### Standaard gewichten
-Elk pakkettype heeft een leeg-gewicht. MyParcel telt dit op bij het productgewicht.
+### Default weights
+Each package type has an empty weight. MyParcel adds it on top of the product weight.
 
-| Pakkettype | Typisch leeg-gewicht |
+| Package type | Typical empty weight |
 | --- | --- |
-| Pakket (bruine doos) | 200 – 400 g |
-| Klein pakket | 100 – 200 g |
-| Brievenbuspakje | 50 – 100 g |
-| Digitale postzegel | 10 – 30 g |
+| Parcel (brown box) | 200 – 400 g |
+| Small package | 100 – 200 g |
+| Mailbox parcel | 50 – 100 g |
+| Digital stamp | 10 – 30 g |
 
-### Bestelnotities
-- **Barcode in notitie** — Track & Trace-code als orderopmerking.
-- **Barcode in notitie titel** — prefix vóór de code. Standaard: `Track & Trace code:`.
+### Order notes
+- **Barcode in note** — Track & Trace code as an order note.
+- **Barcode in note title** — prefix before the code. Default: `Track & Trace code:`.
 
 ## 6 · Settings · Labels
-Alles wat te maken heeft met het etiket zelf — tekst, formaat en print-gedrag.
+Everything about the label itself — text, format and print behaviour.
 
-![Labels-tab: Omschrijving (met variabelen), Meteen afdrukken, Label positie opvragen, Label uitvoer en Label formaat.](./images/woocommerce/labels-tab.svg)
+![Labels tab: Description (with variables), Print immediately, Ask label position, Label output and Label format.](./images/woocommerce/labels-tab.svg)
 
-### Omschrijving op het label
-Variabelen worden automatisch ingevuld bij het aanmaken van het label:
+### Description on the label
+Variables are filled in automatically when the label is created:
 
-| Variabele | Wordt |
+| Variable | Becomes |
 | --- | --- |
-| `[DELIVERY_DATE]` | Bezorgdatum |
-| `[ORDER_ID]` | WooCommerce-ordernummer |
-| `[PRODUCT_ID]` | Product-ID |
-| `[PRODUCT_NAME]` | Productnaam |
-| `[PRODUCT_QTY]` | Aantal |
+| `[DELIVERY_DATE]` | Delivery date |
+| `[ORDER_ID]` | WooCommerce order number |
+| `[PRODUCT_ID]` | Product ID |
+| `[PRODUCT_NAME]` | Product name |
+| `[PRODUCT_QTY]` | Quantity |
 | `[PRODUCT_SKU]` | SKU |
-| `[CUSTOMER_NOTE]` | Opmerking van de klant |
+| `[CUSTOMER_NOTE]` | Customer note |
 
-**Voorbeelden:** `Order [ORDER_ID]` · `[ORDER_ID] · [PRODUCT_QTY]× [PRODUCT_NAME]`
+**Examples:** `Order [ORDER_ID]` · `[ORDER_ID] · [PRODUCT_QTY]× [PRODUCT_NAME]`
 
-### Printgedrag
-- **Meteen afdrukken** — toon PDF direct na export.
-- **Label positie opvragen** — vraag telkens welke posities op een A4 je wilt gebruiken.
+### Print behaviour
+- **Print immediately** — show the PDF directly after export.
+- **Ask label position** — ask each time which positions on an A4 sheet to use.
 
-### Standaardwaarden
-- **Label uitvoer** — *Open in nieuw tabblad* (handmatig printen via browser) of *Download label*.
-- **Label formaat** — *A4 (4 per pagina)* voor standaardprinter, *A6 (labelprinter)* voor Zebra/Brother.
+### Defaults
+- **Label output** — *Open in new tab* (print manually via the browser) or *Download label*.
+- **Label format** — *A4 (4 per page)* for a standard printer, *A6 (label printer)* for Zebra/Brother.
 
-## 7 · Settings · Douane
-Verplicht bij zendingen buiten de EU (VK, Zwitserland, VS, Noorwegen, Canada…). Deze waarden komen op het CN22/CN23-formulier dat aan het label vastzit.
+## 7 · Settings · Customs
+Required for shipments outside the EU (UK, Switzerland, US, Norway, Canada…). These values appear on the CN22/CN23 form attached to the label.
 
-![Douane-tab met drie velden: Inhoud pakket, HS-code, Herkomstland.](./images/woocommerce/douane-tab.svg)
+![Customs tab with three fields: Package contents, HS code, Country of origin.](./images/woocommerce/douane-tab.svg)
 
-- **Inhoud pakket** — *Goederen* (standaard voor webshops), *Documenten*, *Cadeau*, *Commercieel monster*, *Retourzending*.
-- **HS-code** — geharmoniseerde douanecode. Zoek op [tarief.douane.nl](https://tarief.douane.nl). Voorbeelden: `6109.10` (T-shirts), `9503.00` (speelgoed), `3304.99` (make-up).
-- **Herkomstland** — waar het product vandaan komt (niet waar je het opslaat).
+- **Package contents** — *Goods* (default for webshops), *Documents*, *Gift*, *Commercial sample*, *Return shipment*.
+- **HS code** — harmonised customs code. Look up at [tarief.douane.nl](https://tarief.douane.nl). Examples: `6109.10` (T-shirts), `9503.00` (toys), `3304.99` (make-up).
+- **Country of origin** — where the product comes from (not where you store it).
 
 ## 8 · Settings · Checkout
-Wat je klant ziet en kan kiezen bij het afrekenen.
+What your customer sees and can choose at checkout.
 
-![Checkout-tab: adresvelden, bezorgopties-widget, mapping van verzendmethoden, prijsweergave, afhaalpunten.](./images/woocommerce/checkout-tab.svg)
+![Checkout tab: address fields, delivery options widget, mapping of shipping methods, price display, pickup points.](./images/woocommerce/checkout-tab.svg)
 
-### Adresvelden
-- **Gebruik aparte adresvelden** — splitst Straat in Straat + Huisnummer + Toevoeging. *Aanbevolen aan* — voorkomt onbestelbare pakketten.
-- **MyParcel Adressenwidget (BETA)** — autocomplete op NL-postcode + huisnummer.
+### Address fields
+- **Use separate address fields** — splits Street into Street + Number + Suffix. *Recommended on* — prevents undeliverable parcels.
+- **MyParcel Address widget (BETA)** — autocomplete for NL postal code + house number.
 
-### Bezorgopties
-- **Bezorgopties tonen** — master-schakelaar voor de checkout-widget. *Aanbevolen aan.*
-- **Bezorgopties tonen voor backorders** — ook tonen bij niet-op-voorraad producten.
-- **Positie in checkout** — *Na factuuradres*, *Na verzendadres*, of *Na orderopmerking*.
-- **Toegestane verzendmethoden** — koppel elke WooCommerce-verzendmethode aan een pakkettype (*Standaard*, *Pakket*, *Klein pakket*, *Brievenbuspakket*, *Digitale postzegel*, *Ongefrankeerd*). *Eén methode = één pakkettype.*
-- **Prijs type** — *Inbegrepen* (totaalprijs) of *Meerkosten* (alleen het verschil).
-- **Bezorgopties titel** — kop boven de widget.
-- **Custom CSS** — eigen styling.
+### Delivery options
+- **Show delivery options** — master switch for the checkout widget. *Recommended on.*
+- **Show delivery options for backorders** — also show for out-of-stock products.
+- **Position in checkout** — *After billing address*, *After shipping address*, or *After order note*.
+- **Allowed shipping methods** — link each WooCommerce shipping method to a package type (*Default*, *Parcel*, *Small package*, *Mailbox parcel*, *Digital stamp*, *Unfranked*). *One method = one package type.*
+- **Price type** — *Included* (total price) or *Surcharge* (only the difference).
+- **Delivery options title** — heading above the widget.
+- **Custom CSS** — your own styling.
 
-### Afhaalpunten
-- **Standaard weergave** — *Kaart* of *Lijst*.
-- **Gebruikers kunnen wisselen tussen lijst en kaart** — *Aanbevolen aan.*
-- **Pakautomaten uitsluiten** — verberg onbemande automaten.
-- **Gesloten dagen** — dagen waarop je niet verzendt.
+### Pickup points
+- **Default view** — *Map* or *List*.
+- **Users can switch between list and map** — *Recommended on.*
+- **Exclude parcel lockers** — hide unmanned lockers.
+- **Closed days** — days you don't ship.
 
-## 9 · Settings · Vervoerders
-Per vervoerder een eigen sub-tab. Welke verschijnen hangt af van wat je op je MyParcel-account hebt geactiveerd.
+## 9 · Settings · Carriers
+Each carrier has its own sub-tab. Which ones appear depends on what you've activated on your MyParcel account.
 
-![Carrier-subtabs: CheapCargo, DPD, UPS, DHL Europlus, DHL Parcel Connect, PostNL (actief), GLS, DHL For You.](./images/woocommerce/carrier-subtabs.svg)
+![Carrier sub-tabs: CheapCargo, DPD, UPS, DHL Europlus, DHL Parcel Connect, PostNL (active), GLS, DHL For You.](./images/woocommerce/carrier-subtabs.svg)
 
-::: tip Alle vervoerders gelijk opgebouwd
-Hieronder loop ik **PostNL** als voorbeeld door — DHL For You, DHL Parcel Connect, DPD, UPS, GLS en Trunkrs werken identiek (met elk hun eigen specifieke opties).
+::: tip All carriers are structured the same
+Below I walk through **PostNL** as an example — DHL For You, DHL Parcel Connect, DPD, UPS, GLS and Trunkrs work identically (each with their own specific options).
 :::
 
-### Standaard export instellingen
-- **Activeer leeftijdscontrole (18+)** — verplicht voor alcohol/tabak.
-- **Activeer handtekening** — bezorger laat tekenen.
-- **Activeer alleen ontvanger** — geen buren.
-- **Activeer direct retour** — ongeleverd direct terug naar jou.
-- **Activeer groter dan 100 × 70 × 58 cm** — grote pakketten (toeslag).
-- **Activeer tracked** / **Activeer ontvangstcode** — extra trackingopties.
+### Default export settings
+- **Enable age check (18+)** — required for alcohol/tobacco.
+- **Enable signature** — courier asks for a signature.
+- **Enable only recipient** — no neighbours.
+- **Enable direct return** — undelivered straight back to you.
+- **Enable larger than 100 × 70 × 58 cm** — large parcels (surcharge).
+- **Enable tracked** / **Enable receipt code** — extra tracking options.
 
-### Verzekering
-- **Activeer verzekering** — master-toggle.
-- **Verzekeren vanaf (€)** — drempelbedrag.
-- **Verzekeren tot** — maximumdekking NL.
-- **Verzekeren tot (EU)** / **(EU + Rest Wereld)** — maxima per regio.
-- **Verzekeren voor percentage** — bv. 100% van orderwaarde.
+### Insurance
+- **Enable insurance** — master toggle.
+- **Insure from (€)** — threshold amount.
+- **Insure up to** — max coverage NL.
+- **Insure up to (EU)** / **(EU + Rest of World)** — maximums per region.
+- **Insure for percentage** — e.g. 100% of the order value.
 
-::: details Bezorgopties — alle velden
-**Opties voor thuisbezorging**
-- **Thuisbezorging inschakelen** — master-toggle.
-- **Bezorgdagen venster** — 1 t/m 14 dagen vooruit.
-- **Verwerkingstijd** — werkdagen tussen bestelling en aanleveren.
-- **Sluitingstijd** — per dag instelbaar.
-- **Verzendmogelijkheden** — per dag aanvinken of je verzendt.
+::: details Delivery options — all fields
+**Home delivery options**
+- **Enable home delivery** — master toggle.
+- **Delivery days window** — 1 to 14 days ahead.
+- **Processing time** — working days between order and drop-off.
+- **Cut-off time** — configurable per day.
+- **Shipping options** — tick the days you ship.
 
-**Bezorgmomenten**
-- **Standaard bezorging** + Standaard bezorgprijs.
-- **Ochtendbezorging** + Prijs ochtendbezorging.
-- **Avondbezorging** + Prijs avondbezorging.
-- **Maandagbezorging** + Prijs maandagbezorging.
+**Delivery moments**
+- **Standard delivery** + standard delivery price.
+- **Morning delivery** + morning delivery price.
+- **Evening delivery** + evening delivery price.
+- **Monday delivery** + Monday delivery price.
 
-**Verzendopties**
-- **Alleen ontvanger** + toeslag.
-- **Handtekening** + toeslag.
-- **Prio (24 uur) toestaan** + toeslag — expresbezorging.
+**Shipping options**
+- **Only recipient** + surcharge.
+- **Signature** + surcharge.
+- **Allow Prio (24 hour)** + surcharge — express delivery.
 
-**Opties voor afhaallocaties**
-- **Afhaallocaties inschakelen**.
-- **Prijs afhalen** — positief = toeslag, negatief = korting.
+**Pickup location options**
+- **Enable pickup locations**.
+- **Pickup price** — positive = surcharge, negative = discount.
 :::
 
-::: warning Vergeet niet op te slaan
-Klik altijd op **Opslaan** onderaan elke vervoerder-tab vóór je naar een andere tab wisselt.
+::: warning Don't forget to save
+Always click **Save** at the bottom of each carrier tab before switching to another tab.
 :::
 
-## 10 · Productinstellingen
-Op elk product staat een extra tabblad **MyParcel** onder *Productgegevens*. Hier overschrijf je de globale instellingen uit [Vervoerders](#9-settings-vervoerders) en [Douane](#7-settings-douane) per product. Elk veld heeft een 🔒 slot-icoon — klik open om de globale waarde los te koppelen.
+## 10 · Product settings
+Every product has an extra **MyParcel** tab under *Product data*. Here you override the global settings from [Carriers](#9-settings-carriers) and [Customs](#7-settings-customs) per product. Each field has a 🔒 lock icon — click it open to detach from the global value.
 
-![Productgegevens → MyParcel-tab met pakkettype, In mailbox, bezorgopties, douane- en exportopties.](./images/woocommerce/product-tab.svg)
+![Product data → MyParcel tab with package type, In mailbox, delivery options, customs and export options.](./images/woocommerce/product-tab.svg)
 
-### MyParcel opties
-- **Pakkettype** — overschrijft het standaard pakkettype voor dit product.
-- **In mailbox** — hoeveel van dit product samen in één brievenbuspakje passen. `-1` = niet-mailbox. Voorbeeld: stickers waarvan er 50 in een brievenbuspakje passen → zet `50`. Bestelt klant 51 stuks, dan gaat de order automatisch als Pakket.
+### MyParcel options
+- **Package type** — overrides the default package type for this product.
+- **In mailbox** — how many of this product fit together in one mailbox parcel. `-1` = not mailbox. Example: stickers where 50 fit in a mailbox parcel → set `50`. If a customer orders 51, the order automatically becomes a Parcel.
 
-### Product bezorgopties
-- **Verzending vertragen** — extra werkdagen vóór dit product uit de deur kan. Voor made-to-order, externe magazijnen, etc.
-- **Verzendopties uitschakelen** — verbergt de hele MyParcel-bezorgwidget bij het afrekenen als dit product in het mandje zit. Voor virtuele producten of cadeaubonnen.
-- **Pakautomaten uitsluiten** — verbergt DHL/PostNL-pakautomaten als afhaalpunt voor dit product.
+### Product delivery options
+- **Delay shipping** — extra working days before this product can leave. For made-to-order, external warehouses, etc.
+- **Disable shipping options** — hides the entire MyParcel delivery widget at checkout when this product is in the cart. For virtual products or gift cards.
+- **Exclude parcel lockers** — hides DHL/PostNL parcel lockers as a pickup point for this product.
 
-### Product douane opties
-- **Land van herkomst** — specifieker dan de globale waarde. Bv. globaal *Nederland*, dropship-product *China*.
-- **Douane code (HS-code)** — product-specifieke HS-code.
+### Product customs options
+- **Country of origin** — more specific than the global value. E.g. globally *Netherlands*, dropship product *China*.
+- **Customs code (HS code)** — product-specific HS code.
 
-### Product export opties (allemaal met slot-override)
-- **Activeer leeftijdscontrole (18+)** — bv. voor alcohol.
-- **Activeer direct retour** — ongeleverd direct retour.
-- **Activeer verzekering** — dit product altijd verzekeren.
-- **Activeer groter dan 100 × 70 × 58 cm of zwaarder dan 23 kg** — voor oversized.
-- **Activeer alleen ontvanger** / **Activeer handtekening** / **Activeer Prio (24 uur)**.
-- **Activeer tracked** / **Activeer ontvangstcode**.
-- **Vers bezorgen** / **Bevroren bezorgen** — voor food-shops.
+### Product export options (all with lock-override)
+- **Enable age check (18+)** — e.g. for alcohol.
+- **Enable direct return** — undelivered straight back.
+- **Enable insurance** — always insure this product.
+- **Enable larger than 100 × 70 × 58 cm or heavier than 23 kg** — for oversized.
+- **Enable only recipient** / **Enable signature** / **Enable Prio (24 hour)**.
+- **Enable tracked** / **Enable receipt code**.
+- **Fresh delivery** / **Frozen delivery** — for food shops.
 
-::: tip Het slot-icoon 🔒
-Slot dicht = product gebruikt globale instelling. Slot open = product-specifieke waarde actief.
+::: tip The lock icon 🔒
+Lock closed = product uses the global setting. Lock open = product-specific value is active.
 :::
 
-## 11 · De bestellingenlijst
-Op **WooCommerce → Bestellingen** voegt de plugin een kolom *MyParcel* toe en bulk-acties. Per order zie je in één oogopslag of het al aangemaakt is en welke status het heeft.
+## 11 · The orders list
+On **WooCommerce → Orders** the plugin adds a *MyParcel* column and bulk actions. At a glance, you see whether each order has been created and what status it has.
 
-![Orderlijst met extra MyParcel-kolom — barcode + Printen-knop bij geëxporteerde orders, Exporteren-knop bij nieuwe.](./images/woocommerce/orderlist-column.svg)
+![Order list with extra MyParcel column — barcode + Print button on exported orders, Export button on new ones.](./images/woocommerce/orderlist-column.svg)
 
-### Bulkacties
-Vink orders aan en kies in de *Bulkacties*-dropdown:
+### Bulk actions
+Tick orders and pick from the *Bulk actions* dropdown:
 
-- **MyParcel: Exporteren** — maakt zendingen aan bij MyParcel (concept of direct).
-- **MyParcel: Exporteren & Printen** — als hierboven, plus meteen een gecombineerd PDF.
+- **MyParcel: Export** — creates shipments at MyParcel (concept or direct).
+- **MyParcel: Export & Print** — same as above, plus a combined PDF.
 
-::: tip Bulk-flow voor 50+ orders/dag
-Verwerk al je dag-orders in één klik. Combineer met *Automatisch verwerken* op *In behandeling* en de plugin werkt vrijwel volledig zelfstandig.
+::: tip Bulk flow for 50+ orders/day
+Process all your daily orders in one click. Combine with *Auto-process* on *Processing* and the plugin runs almost entirely on its own.
 :::
 
-## 12 · De order-detailpagina
-Op de detailpagina van een individuele order verschijnt een **MyParcel**-box waarin je álle verzendopties voor die order fijnregelt.
+## 12 · The order detail page
+On the detail page of an individual order a **MyParcel** box appears in which you fine-tune all shipping options for that order.
 
-![MyParcel-box op order-detailpagina met radio-knoppen voor vervoerder, pakkettype, bezorgwijze, aantal labels, verzekering en vier actieknoppen.](./images/woocommerce/order-metabox.svg)
+![MyParcel box on order detail page with radio buttons for carrier, package type, delivery method, number of labels, insurance and four action buttons.](./images/woocommerce/order-metabox.svg)
 
-### Wat staat er in de box?
-- **Vervoerder** — radio met alle beschikbare vervoerders. MyParcel kiest automatisch de meest geschikte; je kunt per order overriden.
-- **Pakkettype** — overschrijven voor deze order (bv. brievenbuspakje voor een kleine bestelling).
-- **Bezorgwijze** — *Standaard bezorging* of *Afhalen* bij een afhaalpunt.
-- **Aantal labels** — splits een grote bestelling over meerdere pakketten? Zet `2` of `3`.
-- **Verzekering** — override de globale regels voor deze order.
-- **Zaterdagbezorging** / **Handtekening vereist** — toggles met slot.
+### What's in the box?
+- **Carrier** — radio with all available carriers. MyParcel auto-picks the most suitable one; you can override per order.
+- **Package type** — override for this order (e.g. mailbox parcel for a small order).
+- **Delivery method** — *Standard delivery* or *Pickup* at a pickup point.
+- **Number of labels** — split a large order across multiple parcels? Set `2` or `3`.
+- **Insurance** — override the global rules for this order.
+- **Saturday delivery** / **Signature required** — toggles with lock.
 
-### De vier actieknoppen
-- **Opslaan** — bewaart instellingen zonder de zending aan te melden.
-- **Exporteren** — meldt de zending aan bij MyParcel. Genereert een barcode.
-- **Printen** — print het label van een al geëxporteerde zending.
-- **Exporteer en print** — alles in één klik.
+### The four action buttons
+- **Save** — stores settings without registering the shipment.
+- **Export** — registers the shipment with MyParcel. Generates a barcode.
+- **Print** — prints the label of an already exported shipment.
+- **Export and print** — everything in one click.
 
-### De Labels-tabel onderaan de box
-Zodra een order is geëxporteerd verschijnt onder de knoppen een tabel met alle labels.
+### The Labels table at the bottom of the box
+Once an order has been exported, a table with all labels appears below the buttons.
 
-![Labels-tabel onder de MyParcel-box: Track & Trace, Status, Laatst bijgewerkt, Acties.](./images/woocommerce/labels-table.svg)
+![Labels table under the MyParcel box: Track & Trace, Status, Last updated, Actions.](./images/woocommerce/labels-table.svg)
 
-::: tip Acties-dropdown per label
-*Label herprinten* · *Retourlabel genereren* · *Zending annuleren* (alleen mogelijk zolang het pakket nog niet is gescand door de vervoerder).
+::: tip Actions dropdown per label
+*Reprint label* · *Generate return label* · *Cancel shipment* (only possible while the parcel hasn't been scanned by the carrier yet).
 :::
 
-## 13 · De checkout-ervaring
-Wat je klant ziet zodra het bezorgadres is ingevuld — verschijnt zodra ten minste één vervoerder is ingeschakeld én de WooCommerce-verzendmethode aan een MyParcel-pakkettype is gekoppeld ([§8](#8-settings-checkout)).
+## 13 · The checkout experience
+What your customer sees once the delivery address is filled in — appears as soon as at least one carrier is enabled and the WooCommerce shipping method is linked to a MyParcel package type ([§8](#8-settings-checkout)).
 
-De klant kiest een vervoerder en bezorgmoment uit een **datum-carrousel**, een **tijdvak** en eventueel **extra opties** (handtekening, alleen ontvanger). Onder thuisbezorging staat een **Ophalen bij een afhaallocatie**-blok met interactieve kaart, openingstijden en lijst/kaart-toggle.
+The customer picks a carrier and delivery moment from a **date carousel**, a **time slot** and optional **extra options** (signature, only recipient). Below home delivery, a **Pickup at a pickup location** block appears with an interactive map, opening hours and a list/map toggle.
 
-## 14 · Dagelijks gebruik
+## 14 · Daily use
 
 ### Workflow 1 — per order
-1. Open *WooCommerce → Bestellingen* en klik een order.
-2. Onderaan: **MyParcel**-box → kies vervoerder, pakkettype, etc.
-3. Klik **Exporteer en print**.
-4. PDF wordt geopend/gedownload — plak het label op de doos.
+1. Open *WooCommerce → Orders* and click an order.
+2. At the bottom: the **MyParcel** box → choose carrier, package type, etc.
+3. Click **Export and print**.
+4. The PDF opens or downloads — stick the label on the box.
 
-### Workflow 2 — bulk (10+ orders/dag)
-1. Op de orderlijst, vink orders aan.
-2. *Bulkacties* → **MyParcel: Exporteren & Printen**.
-3. Klik *Toepassen*. Eén gecombineerd PDF met alle labels.
+### Workflow 2 — bulk (10+ orders/day)
+1. From the order list, tick orders.
+2. *Bulk actions* → **MyParcel: Export & Print**.
+3. Click *Apply*. One combined PDF with all labels.
 
-::: tip Belasting-moment
-Je wordt pas belast wanneer een zending daadwerkelijk aan de vervoerder wordt overgedragen. Digitale postzegels zijn de uitzondering — die worden bij export direct afgerekend.
+::: tip When you're billed
+You're only billed once a shipment is actually handed over to the carrier. Digital stamps are the exception — they are charged immediately on export.
 :::
 
-### Retouren
-Drie manieren, van meest naar minst geautomatiseerd:
+### Returns
+Three ways, from most to least automated:
 
-1. **Automatische retour-mail** — *Bestellingen → Algemeen → Stuur retour e-mail* aan. Bij elke export ontvangt klant een retour-link.
-2. **Handmatig retour-label** — in de MyParcel-box op de order, kies *Retour genereren*. Stuur het label zelf naar de klant.
-3. **Retour-portaal** — zet in je MyParcel-backoffice aan. Klant gaat naar een URL, vult ordernummer in, krijgt meteen een label.
+1. **Automatic return email** — *Orders → General → Send return email* on. With every export the customer receives a return link.
+2. **Manual return label** — in the MyParcel box on the order, choose *Generate return*. Send the label to the customer yourself.
+3. **Return portal** — enable in your MyParcel backoffice. The customer goes to a URL, enters the order number, and gets a label instantly.
 
-## 15 · Iets werkt niet — diagnose
-Werkt iets niet zoals verwacht? Loop deze tabel van boven naar onder door — drie op de vier issues zijn binnen 5 minuten opgelost.
+## 15 · Something's not working — diagnostics
+Something not behaving as expected? Run through this table top to bottom — three out of four issues are fixed within 5 minutes.
 
-| Symptoom | Wat te checken |
+| Symptom | What to check |
 | --- | --- |
-| **Geen status-badge of *Niet gekoppeld*** | (1) Plugin geactiveerd? (2) WooCommerce 7.0+ en PHP 8.1+? (*WooCommerce → Status*) (3) Server-, LiteSpeed/Redis- én browser-cache geleegd? |
-| **Widget verschijnt niet op checkout** | (1) [§8](#8-settings-checkout): *Bezorgopties tonen* aan? (2) Elke verzendmethode gekoppeld aan een pakkettype? (3) Standaard shortcode-checkout (`[woocommerce_checkout]`)? (4) JS-error in browser-console (F12)? |
-| **Labels worden niet aangemaakt** | (1) Status-badge nog groen? (2) Order heeft een verzend- + klantadres? (3) Verzendmethode aanwezig (lokaal afhalen telt niet)? (4) Product-gewicht ingevuld? (5) Foutmelding bij de zending in de MyParcel-backoffice? |
-| **Track & trace niet in de e-mail** | (1) [§5](#5-settings-bestellingen): *Track & Trace in e-mail* aan? (2) Order al geëxporteerd? Zonder barcode geen link. (3) Mail verstuurd? (*WooCommerce → Status → Logs*) (4) Spam-folder van klant? |
-| **Adres verkeerd op het label** | (1) Zet *Gebruik aparte adresvelden* aan ([§8](#8-settings-checkout)). (2) Gebruik de *MyParcel Adressenwidget* voor NL. (3) Het label toont het *Verzendadres*, niet het factuuradres. |
-| **Alles wordt Pakket, nooit Brievenbus** | (1) [§8](#8-settings-checkout): brievenbus-methode mag niet óók onder *Pakket* staan. (2) Eén verzendmethode = één pakkettype. (3) Gebruik verzendklasses om producten aan pakkettypes te koppelen. |
-| **Conflict met andere plugin** | Deactiveer andere shipping-/checkout-plugins één voor één om te isoleren. Postcode-checker plugins kunnen straat/huisnummer-velden splitsen die MyParcel verwacht. |
+| **No status badge or *Not connected*** | (1) Plugin activated? (2) WooCommerce 7.0+ and PHP 8.1+? (*WooCommerce → Status*) (3) Server, LiteSpeed/Redis and browser cache cleared? |
+| **Widget doesn't appear at checkout** | (1) [§8](#8-settings-checkout): *Show delivery options* on? (2) Each shipping method linked to a package type? (3) Standard shortcode checkout (`[woocommerce_checkout]`)? (4) JS error in browser console (F12)? |
+| **Labels are not created** | (1) Status badge still green? (2) Order has a shipping + customer address? (3) Shipping method present (local pickup doesn't count)? (4) Product weight filled in? (5) Error message on the shipment in the MyParcel backoffice? |
+| **Track & Trace not in the email** | (1) [§5](#5-settings-orders): *Track & Trace in email* on? (2) Order already exported? Without a barcode there's no link. (3) Mail sent? (*WooCommerce → Status → Logs*) (4) Customer's spam folder? |
+| **Wrong address on the label** | (1) Turn on *Use separate address fields* ([§8](#8-settings-checkout)). (2) Use the *MyParcel Address widget* for NL. (3) The label shows the *Shipping address*, not the billing address. |
+| **Everything becomes Parcel, never Mailbox** | (1) [§8](#8-settings-checkout): the mailbox method shouldn't also sit under *Parcel*. (2) One shipping method = one package type. (3) Use shipping classes to link products to package types. |
+| **Conflict with another plugin** | Deactivate other shipping/checkout plugins one by one to isolate. Postal-code-checker plugins can split street/number fields that MyParcel expects. |
 
 ## 16 · FAQ
 
-### Kost de plugin geld?
-Nee. Je betaalt alleen voor de zendingen via MyParcel.
+### Does the plugin cost money?
+No. You only pay for the shipments via MyParcel.
 
-### Kan ik twee MyParcel-accounts aan één WooCommerce-shop koppelen?
-Niet uit de doos — één API key per shop. Voor twee merken: draai twee aparte WooCommerce-shops.
+### Can I link two MyParcel accounts to a single WooCommerce shop?
+Not out of the box — one API key per shop. For two brands: run two separate WooCommerce shops.
 
-### Hoe verander ik mijn afzenderadres op het label?
-Dat staat in je MyParcel-backoffice (*Shopinstellingen → Algemeen → Adresgegevens*), niet in de plugin. Wijzigingen zijn direct actief.
+### How do I change the sender address on the label?
+That's set in your MyParcel backoffice (*Shop settings → General → Address details*), not in the plugin. Changes apply immediately.
 
-### Welke statussen voor "Automatisch verwerken"?
-Mollie/iDEAL? Orders gaan direct naar *In behandeling*. Overboeking en handmatige verwerking? *Afgerond*.
+### Which statuses for "Auto-process"?
+Mollie/iDEAL? Orders go straight to *Processing*. Bank transfer and manual processing? *Completed*.
 
-### Kan ik meer dan 4 labels per A4 printen?
-Nee — A4 is altijd 4 per pagina. Overweeg een A6-labelprinter bij 20+ orders/dag.
+### Can I print more than 4 labels per A4?
+No — A4 is always 4 per page. Consider an A6 label printer at 20+ orders/day.
 
-### Werkt het met Afterpay/Klarna?
-Ja — MyParcel staat los van je betaalprovider.
+### Does it work with Afterpay/Klarna?
+Yes — MyParcel is independent from your payment provider.
 
-### Klant kiest een afhaalpunt — hoe zie ik dat op het label?
-Het afhaalpunt wordt automatisch als ontvangstadres meegestuurd naar MyParcel.
+### Customer picks a pickup point — how do I see it on the label?
+The pickup point is sent as the recipient address to MyParcel automatically.
 
-### Avondbezorging is niet zichtbaar voor bepaalde adressen
-Adres-afhankelijk — bepaald door de vervoerder, niet de plugin.
+### Evening delivery isn't visible for some addresses
+Address-dependent — determined by the carrier, not the plugin.
 
-### Ik zie dubbele DPD-tabs
-Geen bug — MyParcel onderscheidt twee DPD-contracten. Zet alleen je actieve contract aan.
+### I see duplicate DPD tabs
+Not a bug — MyParcel distinguishes two DPD contracts. Only enable your active contract.
 
-### Kan ik pakketten laten ophalen door de vervoerder?
-Ja — onder *Vervoerders → \[carrier\] → Activeer pakket laten ophalen door vervoerder*.
+### Can I have parcels picked up by the carrier?
+Yes — under *Carriers → \[carrier\] → Enable carrier pickup*.
 
-### Plugin-update gedaan en nu werkt iets niet meer
-Rol terug via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) of de GitHub-release. Meld de bug op [github.com/myparcelnl/woocommerce/issues](https://github.com/myparcelnl/woocommerce/issues).
+### I updated the plugin and now something isn't working
+Roll back via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) or the GitHub release. Report the bug at [github.com/myparcelnl/woocommerce/issues](https://github.com/myparcelnl/woocommerce/issues).
 
-## Bronnen & support
-- [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — broncode, releases, issues.
-- [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — plugin-listing.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
-- [Contact MyParcel-support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+## Resources & support
+- [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — source code, releases, issues.
+- [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — plugin listing.
+- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, billing.
+- [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
