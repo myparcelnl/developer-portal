@@ -4,6 +4,7 @@ import { usePageData, useRouter } from 'vuepress/client';
 import MpSearch from './MpSearch.vue';
 import MpLangDropdown from './MpLangDropdown.vue';
 import { useTheme } from '../composables/useTheme';
+import { detectLang, toSlugPath, BASE } from '../sidebar';
 
 const { theme, toggleTheme, syncFromDom } = useTheme();
 
@@ -11,9 +12,15 @@ const page = usePageData();
 const router = useRouter();
 const path = computed(() => page.value.path);
 
+// Slug-stripped path so /guides/foo and /nl/guides/foo behave identically.
+const slug = computed(() => toSlugPath(path.value));
+const lang = computed(() => detectLang(path.value));
+const localePrefix = computed(() => (lang.value === 'en' ? '' : `/${lang.value}`));
+const docsHomeHref = computed(() => `${BASE}${localePrefix.value}/guides/getting-started.html`);
+
 function isActive(prefix: string, exact = false): boolean {
-  if (exact) return path.value === prefix;
-  return path.value === prefix || path.value.startsWith(prefix);
+  if (exact) return slug.value === prefix;
+  return slug.value === prefix || slug.value.startsWith(prefix);
 }
 
 const isHome = computed(() => isActive('/', true));
@@ -100,7 +107,7 @@ onBeforeUnmount(() => {
 
     <div class="mp-nav__links">
       <a href="/beta-developer-portal/" class="mp-nav__link" :class="{ 'is-active': isHome }">Home</a>
-      <a href="/beta-developer-portal/guides/getting-started.html" class="mp-nav__link" :class="{ 'is-active': isGuides }">Documentation</a>
+      <a :href="docsHomeHref" class="mp-nav__link" :class="{ 'is-active': isGuides }">Documentation</a>
       <div
         class="mp-nav__item"
         :class="{ 'is-open': apiOpen, 'is-active': isApi }"
@@ -194,7 +201,7 @@ onBeforeUnmount(() => {
 
         <nav class="mp-mobile-drawer__nav">
           <a href="/beta-developer-portal/" class="mp-mobile-drawer__link" :class="{ 'is-active': isHome }">Home</a>
-          <a href="/beta-developer-portal/guides/getting-started.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isGuides }">Documentation</a>
+          <a :href="docsHomeHref" class="mp-mobile-drawer__link" :class="{ 'is-active': isGuides }">Documentation</a>
 
           <div class="mp-mobile-drawer__group">
             <button

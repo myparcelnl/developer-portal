@@ -1,364 +1,364 @@
 ---
 title: PrestaShop
-description: "Van nul naar verzonden pakket op PrestaShop — installeer de plugin, koppel je MyParcel-account, kies een shop-profiel en je verstuurt vandaag nog je eerste label. Met snelstart, shop-profielen, settings-naslag, dagelijkse workflow en een diagnose-tabel."
+description: "From zero to a shipped parcel on PrestaShop — install the plugin, connect your MyParcel account, pick a shop profile and send your first label today. Includes quickstart, shop profiles, settings reference, daily workflow and a diagnostics table."
 ---
 
-::: tip In het kort
-De MyParcel-plugin verbindt je PrestaShop-shop met MyParcel. Klanten kiezen in de checkout een bezorgmoment of afhaalpunt, jij print labels vanuit PrestaShop en track & trace gaat automatisch naar de klant. Geen code nodig — alles via de back-office.
+::: tip In short
+The MyParcel plugin connects your PrestaShop shop to MyParcel. Customers pick a delivery moment or pickup point in the checkout, you print labels from PrestaShop, and Track & Trace is sent to the customer automatically. No code needed — everything runs from the back office.
 :::
 
-## Snelstart — in 15 minuten je eerste pakket
-Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je later via [Wat zoek je?](#wat-zoek-je) hieronder.
+## Quickstart — your first parcel in 15 minutes
+Enough to ship your first real order today. For deeper configuration, see [Looking for…](#looking-for) below.
 
-1. **Account.** Heb je nog geen MyParcel-account? Maak er een aan via [myparcel.nl/register](https://www.myparcel.nl/register).
-2. **API-key kopiëren.** Log in op [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shopinstellingen → Integratie* → kopieer de API-key.
-3. **Plugin installeren.** Download de release-ZIP via [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases). In PrestaShop: **Modules → Module manager → Upload een module** → ZIP slepen.
-4. **Plugin koppelen.** Zoek na installatie op `myparcel`, klik **Configureer**, plak je API-key onder *API key wijzigen* en klik **Opslaan**. De status-badge bovenaan moet *Gekoppeld met MyParcel* tonen.
-5. **Eerste label.** Open een betaalde order, ga naar het MyParcel-blok onderaan, klik **Exporteren** en daarna **Print label**. Je PDF rolt eruit.
+1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.nl/register](https://www.myparcel.nl/register).
+2. **Copy the API key.** Log in to [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shop settings → Integration* → copy the API key.
+3. **Install the plugin.** Download the release ZIP from [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases). In PrestaShop: **Modules → Module manager → Upload a module** → drag the ZIP.
+4. **Connect the plugin.** After installation, search for `myparcel`, click **Configure**, paste your API key under *Change API key* and click **Save**. The status badge at the top should show *Connected to MyParcel*.
+5. **First label.** Open a paid order, go to the MyParcel block at the bottom, click **Export** and then **Print label**. Your PDF rolls out.
 
-::: tip Klaar als je dit ziet
-- Bovenaan de plugin: groene status *Gekoppeld met MyParcel*
-- Een testorder kun je exporteren naar MyParcel
-- Je PDF-label opent (of komt in de download-map)
+::: tip You're done when you see this
+- At the top of the plugin: a green *Connected to MyParcel* status
+- You can export a test order to MyParcel
+- Your PDF label opens (or lands in your downloads folder)
 :::
 
-## Wat zoek je?
-| Wat wil je doen? | Ga naar |
+## Looking for…
+| What do you want to do? | Go to |
 | --- | --- |
-| Voor het eerst opzetten | [Snelstart](#snelstart-in-15-minuten-je-eerste-pakket) |
-| Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
-| Een specifieke instelling opzoeken | [5 · Settings · Bestellingen](#5-settings-bestellingen) tot [9 · Settings · Vervoerders](#9-settings-vervoerders) |
-| Per product een afwijkende instelling | [10 · Productinstellingen](#10-productinstellingen) |
-| Wat een klant in de checkout ziet | [12 · De checkout-ervaring](#12-de-checkout-ervaring) |
-| 50+ orders per dag verwerken | [13 · Dagelijks gebruik](#13-dagelijks-gebruik) |
-| Iets werkt niet | [14 · Iets werkt niet — diagnose](#14-iets-werkt-niet-diagnose) |
-| Antwoord op een veelgestelde vraag | [15 · FAQ](#15-faq) |
+| First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
+| Recommended settings for your type of shop | [4 · Which shop profile are you?](#4-which-shop-profile-are-you) |
+| Look up a specific setting | [5 · Settings · Orders](#5-settings-orders) to [9 · Settings · Carriers](#9-settings-carriers) |
+| A different setting per product | [10 · Product settings](#10-product-settings) |
+| What the customer sees in the checkout | [12 · The checkout experience](#12-the-checkout-experience) |
+| Process 50+ orders per day | [13 · Daily use](#13-daily-use) |
+| Something's not working | [14 · Something's not working — diagnostics](#14-somethings-not-working-diagnostics) |
+| Answer to a frequently asked question | [15 · FAQ](#15-faq) |
 
-## 1 · Voorbereiden in je MyParcel-account
-Voordat je in PrestaShop begint, regel je vier dingen in je MyParcel-backoffice:
+## 1 · Preparing your MyParcel account
+Before you start in PrestaShop, take care of four things in your MyParcel backoffice:
 
-1. **Factuur- en retouradres** — *Shopinstellingen → Algemeen*. Dit komt op al je labels.
-2. **Vervoerders activeren** — *Shopinstellingen → Vervoerders*. Alleen aangevinkte vervoerders verschijnen later in de plugin.
-3. **API key genereren** — *Shopinstellingen → Integratie*.
-4. **Orderinformatie importeren** (optioneel) — aanzetten als je [Ordermodus](#5-settings-bestellingen) wilt gebruiken.
+1. **Billing and return address** — *Shop settings → General*. This appears on every label.
+2. **Activate carriers** — *Shop settings → Carriers*. Only enabled carriers appear in the plugin later.
+3. **Generate an API key** — *Shop settings → Integration*.
+4. **Import order information** (optional) — turn on if you want to use [order mode](#5-settings-orders).
 
-## 2 · Plugin installeren
-::: warning Versie-eisen
-Plugin 5.0.x werkt op **PrestaShop 1.7.8 t/m 8.x** met **PHP 7.4+** (8.1/8.2 aanbevolen). PrestaShop 9 wordt nog niet ondersteund — zie [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+## 2 · Installing the plugin
+::: warning Version requirements
+Plugin 5.0.x works on **PrestaShop 1.7.8 through 8.x** with **PHP 7.4+** (8.1/8.2 recommended). PrestaShop 9 isn't supported yet — see [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
 :::
 
-1. Download de release-ZIP via [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
-2. **Modules → Module manager → Upload een module** → sleep de ZIP.
-3. Wacht tot installatie klaar is, zoek op `myparcel` en klik **Configureer**.
+1. Download the release ZIP from [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
+2. **Modules → Module manager → Upload a module** → drag the ZIP.
+3. Wait for the install to finish, search for `myparcel` and click **Configure**.
 
-::: details Installatie mislukt met "Pdk instance must be set to use facades"
-Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Module Manager → Verwijderen*). Maak eerst een database-backup, leeg dan handmatig tabellen die met `ps_myparcelnl_` beginnen en installeer 5.0.x opnieuw.
+::: details Installation fails with "Pdk instance must be set to use facades"
+Remove earlier MyParcel modules completely (including database tables via *Module Manager → Uninstall*). Make a database backup first, then manually clear tables that start with `ps_myparcelnl_` and reinstall 5.0.x.
 :::
 
-## 3 · Plugin koppelen (API-key)
-Open **Modules → Module manager → MyParcelNL → Configureer**. Bovenaan zie je drie knoppen — *API key wijzigen*, *Webhooks wijzigen*, *Debugopties* — plus de status-badge.
+## 3 · Connecting the plugin (API key)
+Open **Modules → Module manager → MyParcelNL → Configure**. At the top you'll see three buttons — *Change API key*, *Change webhooks*, *Debug options* — plus the status badge.
 
-![MyParcel koppelingsbalk: Gekoppeld met MyParcel + drie actieknoppen.](./images/prestashop/01-connection-bar.png) De koppelingsbalk verschijnt op élke plugin-pagina.
+![MyParcel connection bar: Connected to MyParcel + three action buttons.](./images/prestashop/01-connection-bar.png) The connection bar appears on every plugin page.
 
-1. Klik **API key wijzigen**.
-2. Plak de key uit je MyParcel-backoffice.
-3. Klik **Opslaan** — binnen enkele seconden wisselt de status naar *Gekoppeld met MyParcel*.
+1. Click **Change API key**.
+2. Paste the key from your MyParcel backoffice.
+3. Click **Save** — within seconds the status switches to *Connected to MyParcel*.
 
-::: warning Werkt het niet?
-Meest voorkomende oorzaken: niet op *Opslaan* geklikt · spatie meegekopieerd vóór/na de key · key van een andere shop · shop draait op andere omgeving (live vs sandbox) dan je MyParcel-account.
+::: warning Not working?
+Most common causes: didn't click *Save* · a space copied before/after the key · key from a different shop · shop runs on a different environment (live vs sandbox) than your MyParcel account.
 :::
 
-## 4 · Welk shop-profiel ben jij?
-Drie typische profielen met aanbevolen settings. Eén kiezen, instellingen overnemen, dan met [5 · Settings](#5-settings-bestellingen) finetunen.
+## 4 · Which shop profile are you?
+Three typical profiles with recommended settings. Pick one, copy the settings, then fine-tune via [5 · Settings](#5-settings-orders).
 
-### Klein — 1–10 orders/dag, alleen NL
-| Instelling | Aanbevolen | Waarom |
+### Small — 1–10 orders/day, NL only
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Ordermodus | Aan | Volledige order naar MyParcel — beter voor afhaalpunten en buitenland later |
-| Concept zendingen | Aan | Houdt je in controle terwijl je leert |
-| Automatisch verwerken | Geen | Per order zelf op *Exporteren* klikken |
-| Label formaat | A4 (4 per pagina) | Geen labelprinter nodig |
-| Track & Trace in e-mail | Aan | Klant krijgt automatisch tracking |
-| PostNL — *Bezorgopties inschakelen* | Aan | Standaard NL-vervoerder |
-| Verzekering — *Verzekeren vanaf €* | 250 | Pakketten boven €250 automatisch verzekerd |
+| Order mode | On | Full order to MyParcel — better for pickup points and international later |
+| Concept shipments | On | Keeps you in control while you learn |
+| Auto-process | None | Click *Export* yourself per order |
+| Label format | A4 (4 per page) | No label printer needed |
+| Track & Trace in email | On | Customer gets tracking automatically |
+| PostNL — *Enable delivery options* | On | Standard NL carrier |
+| Insurance — *Insure from €* | 250 | Parcels above €250 are insured automatically |
 
-### Medium — 10–50 orders/dag, NL + BE
-| Instelling | Aanbevolen | Waarom |
+### Medium — 10–50 orders/day, NL + BE
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Concept zendingen | Uit | Sneller — labels direct definitief |
-| Automatisch verwerken | *In behandeling* (na betaling) | Geen klikken meer per order |
-| Label formaat | A6 (labelprinter) | Brother/Zebra labelprinter |
-| Meteen afdrukken | Aan | Print-flow zonder klikken |
-| PostNL + DHL Parcel Connect | Beide aan | NL én BE gedekt |
-| Verzekering | Vanaf €250, tot €500 | Schaalt mee met orderwaarde |
+| Concept shipments | Off | Faster — labels are final immediately |
+| Auto-process | *Processing* (after payment) | No more clicking per order |
+| Label format | A6 (label printer) | Brother/Zebra label printer |
+| Print immediately | On | Print flow without clicks |
+| PostNL + DHL Parcel Connect | Both on | NL and BE covered |
+| Insurance | From €250, up to €500 | Scales with order value |
 
-### Brievenbus-only — koffie, kaarten, cosmetica
-| Instelling | Aanbevolen | Waarom |
+### Mailbox-only — coffee, cards, cosmetics
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Per product *Pakkettype* | Brievenbuspakje | Verplicht — anders gaat alles als pakket |
-| Per product *in mailbox* | Realistisch (bv. 5) | Aantal stuks per brievenbuspakje |
-| Standaardgewicht *brievenbuspakje* | 50–100 g | Niet te hoog instellen — anders valt MyParcel terug op pakket |
-| Bezorgopties | Uit | Bij brievenbus geen tijdkeuze |
-| Verzekering | Uit | Niet beschikbaar voor brievenbuspakje |
+| Per product *Package type* | Mailbox parcel | Required — otherwise everything ships as a parcel |
+| Per product *in mailbox* | Realistic (e.g. 5) | Number of items per mailbox parcel |
+| Default weight *mailbox parcel* | 50–100 g | Don't set too high — otherwise MyParcel falls back to parcel |
+| Delivery options | Off | No time slot for mailbox |
+| Insurance | Off | Not available for mailbox parcels |
 
-::: tip Andere scenario's?
-Voor dure sieraden, internationaal, of speciale eisen — zie [15 · FAQ](#15-faq) of de shop-profielen in de [WooCommerce-handleiding](./woocommerce.html#14-veelvoorkomende-scenarios) (toepasbaar op alle platforms).
+::: tip Other scenarios?
+For expensive jewellery, international, or special requirements — see [15 · FAQ](#15-faq) or the shop profiles in the [WooCommerce manual](./woocommerce.html#4-which-shop-profile-are-you) (applicable across platforms).
 :::
 
-## 5 · Settings · Bestellingen
-De eerste tab — hier bepaal je hoe orders door je shop stromen.
+## 5 · Settings · Orders
+The first tab — this is where you set how orders flow through your shop.
 
-![Bestellingen-tab: Algemeen, Automatisering orderstatus, Track & Trace, Standaard gewichten, Bestelnotities.](./images/prestashop/02-bestellingen-tab.png)
+![Orders tab: General, Order status automation, Track & Trace, Default weights, Order notes.](./images/prestashop/02-bestellingen-tab.png)
 
-### Algemeen
-- **Ordermodus** — Aan: volledige order (klantdata, productregels, notities) naar MyParcel. Uit: alleen een label. *Aanbevolen aan*, mits *Orderinformatie importeren* in je MyParcel-account ook aan staat.
-- **Concept zendingen** — Aan: zending blijft concept in MyParcel, je kunt nog wijzigen. Uit: direct aanmelden bij vervoerder. *Aan tijdens setup, uit als alles stabiel draait.*
-- **Automatisch verwerken** — Welke PrestaShop-orderstatus triggert export? *Geen* / *Wachtend op betaling* / *In behandeling* / *Verzonden*. Begin met *Geen*.
-- **Stuur retour e-mail** — Klant krijgt automatisch een retour-link.
-- **Klantadres opslaan in adresboek** — Adressen belanden in je MyParcel-adresboek.
-- **Deel klantinformatie** — E-mail + telefoonnummer naar MyParcel. Nodig voor track & trace-mail vanaf MyParcel én voor internationale zendingen. *Aanbevolen aan.*
+### General
+- **Order mode** — On: full order (customer data, line items, notes) to MyParcel. Off: only a label. *Recommended on*, provided *Import order information* is also on in your MyParcel account.
+- **Concept shipments** — On: shipment stays as concept in MyParcel, you can still adjust. Off: registered with the carrier directly. *On during setup, off once everything runs steadily.*
+- **Auto-process** — Which PrestaShop order status triggers an export? *None* / *Pending payment* / *Processing* / *Shipped*. Start with *None*.
+- **Send return email** — The customer automatically receives a return link.
+- **Save customer address to address book** — Addresses end up in your MyParcel address book.
+- **Share customer information** — Email + phone number to MyParcel. Required for Track & Trace email from MyParcel and for international shipments. *Recommended on.*
 
-### Automatisering orderstatus
-Koppel MyParcel-events aan PrestaShop-statussen — pakketstatus blijft synchroon zonder handwerk.
+### Order status automation
+Link MyParcel events to PrestaShop statuses — parcel status stays in sync without manual work.
 
-- **Bestelstatus bij label aanmaken** — vaak *Verzending in voorbereiding*.
-- **Bestelstatus bij label scannen** — vaak *Verzonden*.
-- **Bestelstatus bij bezorging** — vaak *Afgeleverd*.
-- **Stuur notificatie na** — vanaf welke status een klantmail uitgaat. Zet op *Verzonden* zodat klanten direct hun track & trace ontvangen.
+- **Order status when label is created** — often *Shipment in preparation*.
+- **Order status when label is scanned** — often *Shipped*.
+- **Order status on delivery** — often *Delivered*.
+- **Send notification after** — from which status a customer email is sent. Set to *Shipped* so customers receive their Track & Trace immediately.
 
 ### Track & Trace
-- **Track & Trace in e-mail** — link in PrestaShop-bestelmails. *Aanbevolen aan.*
-- **Track & Trace in account** — ook zichtbaar in het klantaccount op de webshop.
+- **Track & Trace in email** — link in PrestaShop order emails. *Recommended on.*
+- **Track & Trace in account** — also visible in the customer account on the webshop.
 
-### Standaard gewichten
-Vangnet voor producten zonder gewicht in de catalogus.
+### Default weights
+A safety net for products without a weight in the catalogue.
 
-| Pakkettype | Typisch leeg-gewicht |
+| Package type | Typical empty weight |
 | --- | --- |
-| Pakket | 200 – 400 g |
-| Klein pakket | 100 – 200 g |
-| Brievenbuspakje | 50 – 100 g |
-| Digitale postzegel | 10 – 30 g |
+| Parcel | 200 – 400 g |
+| Small package | 100 – 200 g |
+| Mailbox parcel | 50 – 100 g |
+| Digital stamp | 10 – 30 g |
 
-### Bestelnotities
-- **Barcode in notitie** — track & trace-barcode automatisch in de ordernotitie. Handig voor pickers in het magazijn.
-- **Barcode in notitie titel** — kop boven de barcode, bv. *Track & Trace*.
+### Order notes
+- **Barcode in note** — Track & Trace barcode added to the order note automatically. Handy for warehouse pickers.
+- **Barcode in note title** — heading above the barcode, e.g. *Track & Trace*.
 
 ## 6 · Settings · Labels
-Hoe verzendlabels eruitzien én hoe ze afgedrukt worden.
+How shipping labels look and how they are printed.
 
-![Labels-tab: Omschrijving, Meteen afdrukken, Label positie opvragen en Standaardwaarden.](./images/prestashop/03-labels-tab.png)
+![Labels tab: Description, Print immediately, Ask label position and Defaults.](./images/prestashop/03-labels-tab.png)
 
-### Omschrijving op het label
-- **Omschrijving** — vrije tekst, bv. ordernummer of interne referentie.
+### Description on the label
+- **Description** — free text, e.g. order number or internal reference.
 
-### Printgedrag
-- **Meteen afdrukken** — label direct naar je printer-groep zodra je een zending exporteert. *Aanbevolen aan* met labelprinter.
-- **Label positie opvragen** — prompt voor formaat, uitvoer en positie per label. Aan voor flexibiliteit; uit voor snelheid bij vast formaat.
+### Print behaviour
+- **Print immediately** — label sent straight to your printer group as soon as you export a shipment. *Recommended on* with a label printer.
+- **Ask label position** — prompt for format, output and position per label. On for flexibility; off for speed with a fixed format.
 
-### Standaardwaarden
-- **Label uitvoer** — *Open in nieuw tabblad* (snelst voor handmatig) of *Download label*.
-- **Label formaat** — *A4 (4 per pagina)* of *A6 (labelprinter)*.
-- **Label positie(s) op A4** — meervoudige selectie *Linksboven*/*Rechtsboven*/*Linksonder*/*Rechtsonder* om vellen volledig te benutten.
+### Defaults
+- **Label output** — *Open in new tab* (fastest for manual) or *Download label*.
+- **Label format** — *A4 (4 per page)* or *A6 (label printer)*.
+- **Label position(s) on A4** — multi-select *Top left*/*Top right*/*Bottom left*/*Bottom right* to use sheets fully.
 
-## 7 · Settings · Douane
-Verplicht bij zendingen buiten de EU. Per product te overrulen — zie [10 · Productinstellingen](#10-productinstellingen).
+## 7 · Settings · Customs
+Required for shipments outside the EU. Can be overridden per product — see [10 · Product settings](#10-product-settings).
 
-![Douane-tab: Inhoud pakket, HS-code, Herkomstland.](./images/prestashop/04-douane-tab.png)
+![Customs tab: Package contents, HS code, Country of origin.](./images/prestashop/04-douane-tab.png)
 
-- **Inhoud pakket** — *Goederen* (standaard voor webshops), *Documenten*, *Cadeau*, *Commercieel monster*, *Retourzending*.
-- **HS-code** — geharmoniseerde douanecode. Zoek op [tarief.douane.nl](https://tarief.douane.nl). Voorbeelden: `6109.10` (T-shirts), `9503.00` (speelgoed), `3304.99` (make-up).
-- **Herkomstland** — waar het product vandaan komt (niet waar je het opslaat).
+- **Package contents** — *Goods* (default for webshops), *Documents*, *Gift*, *Commercial sample*, *Return shipment*.
+- **HS code** — harmonised customs code. Look up at [tarief.douane.nl](https://tarief.douane.nl). Examples: `6109.10` (T-shirts), `9503.00` (toys), `3304.99` (make-up).
+- **Country of origin** — where the product comes from (not where you store it).
 
 ## 8 · Settings · Checkout
-Wat je klant in de checkout ziet — of liever niet ziet.
+What your customer sees in the checkout — or rather doesn't see.
 
-![Checkout-tab: Bezorgopties, Prijs type, Standaard weergave, Gesloten dagen, Pakautomaten uitsluiten.](./images/prestashop/05-checkout-tab.png)
+![Checkout tab: Delivery options, Price type, Default view, Closed days, Exclude parcel lockers.](./images/prestashop/05-checkout-tab.png)
 
-### Bezorgopties
-- **Bezorgopties tonen** — hoofdschakelaar voor de MyParcel-checkout-widget. *Aanbevolen aan.*
-- **Bezorgopties tonen voor backorders** — uit: bij niet-voorradige producten verbergt de plugin de bezorgopties. Aan als levertijden zeker zijn.
-- **Prijs type** — *Inbegrepen* (in totaalprijs) of *Apart* (los getoond). *Inbegrepen voorkomt verrassingen.*
-- **Bezorgopties titel** — kop boven het MyParcel-blok. Bv. *Hoe wil je je pakket ontvangen?*
-- **Toon belastingvelden bij het afrekenen** — BTW-velden voor zakelijke bestellingen.
-- **Gesloten dagen** — datumkiezer voor feestdagen. Op deze dagen verbergt de checkout bezorgopties.
+### Delivery options
+- **Show delivery options** — main toggle for the MyParcel checkout widget. *Recommended on.*
+- **Show delivery options for backorders** — off: for out-of-stock products the plugin hides the delivery options. On if lead times are reliable.
+- **Price type** — *Included* (in total price) or *Separate* (shown apart). *Included avoids surprises.*
+- **Delivery options title** — heading above the MyParcel block. E.g. *How would you like your parcel?*
+- **Show tax fields at checkout** — VAT fields for business orders.
+- **Closed days** — date picker for holidays. On these days the checkout hides delivery options.
 
-### Afhaalpunten
-- **Standaard weergave** — *Lijst* (overzichtelijk) of *Kaart* (visueler).
-- **Gebruikers kunnen wisselen tussen lijst en kaart** — *Aanbevolen aan.*
-- **Pakautomaten uitsluiten** — verberg pakautomaten als bezorgoptie. Aan als producten te groot zijn.
+### Pickup points
+- **Default view** — *List* (clearer) or *Map* (more visual).
+- **Users can switch between list and map** — *Recommended on.*
+- **Exclude parcel lockers** — hide parcel lockers as a delivery option. On if products are too big.
 
-## 9 · Settings · Vervoerders
-De grootste tab. Sub-tabs voor élke vervoerder die je MyParcel-account ondersteunt: PostNL, DHL Parcel Connect, DHL Europlus, UPS Standard, UPS Express Saver, plus eventueel DHL For You / DPD / Bol Parcel Carrier afhankelijk van je contract.
+## 9 · Settings · Carriers
+The biggest tab. Sub-tabs for every carrier your MyParcel account supports: PostNL, DHL Parcel Connect, DHL Europlus, UPS Standard, UPS Express Saver, plus optionally DHL For You / DPD / Bol Parcel Carrier depending on your contract.
 
-![Carrier-subtabs binnen de Vervoerders-tab.](./images/prestashop/07-carrier-subtabs.png)
+![Carrier sub-tabs within the Carriers tab.](./images/prestashop/07-carrier-subtabs.png)
 
-::: tip Alle vervoerders gelijk opgebouwd
-Ik loop **PostNL** als voorbeeld door — andere vervoerders volgen exact dezelfde structuur, met eigen specifieke opties (bv. DHL heeft *Tracked*, Trunkrs heeft *Fresh*).
+::: tip All carriers are structured the same
+I walk through **PostNL** as an example — other carriers follow exactly the same structure, with their own specific options (e.g. DHL has *Tracked*, Trunkrs has *Fresh*).
 :::
 
-![Volledige PostNL-instellingen — Standaard export, Verzekering, Bezorgopties, Thuisbezorging, Afhaallocaties.](./images/prestashop/06-vervoerders-tab.png)
+![Full PostNL settings — Default export, Insurance, Delivery options, Home delivery, Pickup locations.](./images/prestashop/06-vervoerders-tab.png)
 
-### Standaard export instellingen
-Welke opties standaard meegegeven worden aan elke nieuwe zending.
+### Default export settings
+The options applied automatically to every new shipment.
 
-- **Activeer leeftijdscontrole (18+)** — voor alcohol/tabak/messen.
-- **Activeer handtekening** — voor waardevolle zendingen.
-- **Activeer alleen ontvanger** — geen buren.
-- **Activeer ontvangstcode** — extra zekerheid.
-- **Activeer groter dan 100 × 70 × 58 cm** — markeer oversized; vervoerderstoeslag mogelijk.
-- **Activeer direct retour** — automatisch retourlabel bij kleding/elektronica.
-- **Activeer verzekering** — schakelt verzekering aan.
+- **Enable age check (18+)** — for alcohol/tobacco/knives.
+- **Enable signature** — for valuable shipments.
+- **Enable only recipient** — no neighbours.
+- **Enable receipt code** — extra certainty.
+- **Enable larger than 100 × 70 × 58 cm** — flag oversized; carrier surcharge possible.
+- **Enable direct return** — automatic return label for clothing/electronics.
+- **Enable insurance** — turns insurance on.
 
-### Verzekering
-- **Verzekeren vanaf (€)** — drempelbedrag.
-- **Verzekeren tot** / **(NL)** / **(EU)** / **(EU + Rest Wereld)** — maxima per regio.
-- **Verzekeren voor percentage** — bv. 100% van orderwaarde.
+### Insurance
+- **Insure from (€)** — threshold amount.
+- **Insure up to** / **(NL)** / **(EU)** / **(EU + Rest of World)** — maximums per region.
+- **Insure for percentage** — e.g. 100% of the order value.
 
-### Standaard exportinstellingen voor retouren
-- **Standaard pakkettype** — Pakket / Klein pakket / Brievenbuspakje / Digitale postzegel.
-- **Activeer groter dan 100 × 70 × 58 cm** — voor oversized retouren.
+### Default export settings for returns
+- **Default package type** — Parcel / Small package / Mailbox parcel / Digital stamp.
+- **Enable larger than 100 × 70 × 58 cm** — for oversized returns.
 
-### Bezorgopties (hoofdschakelaar)
-- **Bezorgopties inschakelen** — zonder deze toggle verschijnt deze vervoerder helemaal niet in de checkout.
+### Delivery options (main toggle)
+- **Enable delivery options** — without this toggle the carrier doesn't appear in the checkout at all.
 
-::: details Opties voor thuisbezorging — alle velden
-- **Thuisbezorging inschakelen** — toon thuisbezorging als optie.
-- **Standaard pakkettype** — meestal *Pakket*.
-- **Klein pakket prijs**, **Brievenbuspakket prijs**, **Digitale postzegel prijs** — verzendprijzen per type.
-- **Activeer internationaal brievenbuspakje** + **Prijs** — voor brievenbuspakjes buiten NL/BE.
-- **Bezorgdagen venster** — aantal dagen vooruit waaruit klant kiest.
-- **Verwerkingstijd** — werkdagen die jij nodig hebt; rekent door in het venster.
-- **Verzendmogelijkheden** — vink dagen aan waarop je daadwerkelijk verstuurt.
-- **Standaard bezorging** + prijs — basisoptie zonder tijdkeuze.
-- **Ochtendbezorging** + prijs — vóór 12:00.
-- **Avondbezorging** + prijs — 18:00–22:00.
-- **Maandagbezorging** + prijs — voor zaterdag-afgifte.
-- **Zaterdagbezorging** + prijs.
-- **Handtekening** + prijs — handtekening met eventuele toeslag.
-- **Alleen ontvanger** + prijs — alleen-ontvanger met eventuele toeslag.
+::: details Home delivery options — all fields
+- **Enable home delivery** — show home delivery as an option.
+- **Default package type** — usually *Parcel*.
+- **Small package price**, **Mailbox parcel price**, **Digital stamp price** — shipping prices per type.
+- **Enable international mailbox parcel** + **Price** — for mailbox parcels outside NL/BE.
+- **Delivery days window** — number of days ahead the customer can pick from.
+- **Processing time** — working days you need; counts forward in the window.
+- **Shipping options** — tick the days you actually ship.
+- **Standard delivery** + price — base option without time slot.
+- **Morning delivery** + price — before 12:00.
+- **Evening delivery** + price — 18:00–22:00.
+- **Monday delivery** + price — for Saturday drop-off.
+- **Saturday delivery** + price.
+- **Signature** + price — signature with optional surcharge.
+- **Only recipient** + price — only-recipient with optional surcharge.
 :::
 
-::: details Opties voor afhaallocaties
-- **Afhaallocaties inschakelen** — klanten kunnen een afhaalpunt kiezen.
-- **Prijs afhalen** — vaak lager dan thuisbezorging.
+::: details Pickup location options
+- **Enable pickup locations** — customers can pick a pickup point.
+- **Pickup price** — often lower than home delivery.
 :::
 
-::: warning Vergeet niet op te slaan
-Klik altijd op **Opslaan** onderaan elke vervoerder-tab voordat je naar een andere tab wisselt. Anders zijn je wijzigingen weg.
+::: warning Don't forget to save
+Always click **Save** at the bottom of each carrier tab before switching to another tab. Otherwise your changes are lost.
 :::
 
-## 10 · Productinstellingen
-Open een product, ga naar **Modules** en klik **Configureer** bij MyParcelNL. Hier overrule je de globale [Vervoerders](#9-settings-vervoerders)- en [Douane](#7-settings-douane)-instellingen per product.
+## 10 · Product settings
+Open a product, go to **Modules** and click **Configure** at MyParcelNL. Here you override the global [Carriers](#9-settings-carriers) and [Customs](#7-settings-customs) settings per product.
 
-![Productpagina: MyParcel opties, Product bezorgopties, Product douane opties, Product export opties.](./images/prestashop/08-product-myparcel.png)
+![Product page: MyParcel options, Product delivery options, Product customs options, Product export options.](./images/prestashop/08-product-myparcel.png)
 
-### MyParcel opties
-- **Pakkettype** — *Standaard* of forceer een type voor dit product.
-- **in mailbox** — hoeveel van dit product passen in één brievenbuspakje. `5` = vijf passen erin. `-1` = standaard gebruiken. Bestelt klant méér dan past, dan gaat de order automatisch als Pakket.
+### MyParcel options
+- **Package type** — *Default* or force a type for this product.
+- **in mailbox** — how many of this product fit in one mailbox parcel. `5` = five fit. `-1` = use default. If a customer orders more than fits, the order automatically becomes a Parcel.
 
-### Product bezorgopties
-- **Verzending vertragen** — extra werkdagen voor producten op bestelling / dropship / made-to-order.
-- **Verzendopties uitschakelen** — verbergt de hele MyParcel-bezorgwidget als dit product in het mandje zit. Voor cadeaubonnen of digitale producten.
-- **Pakautomaten uitsluiten** — sluit pakautomaten uit voor dit product.
+### Product delivery options
+- **Delay shipping** — extra working days for made-to-order / dropship products.
+- **Disable shipping options** — hides the entire MyParcel delivery widget when this product is in the cart. For gift cards or digital products.
+- **Exclude parcel lockers** — exclude parcel lockers for this product.
 
-### Product douane opties
-- **Land van herkomst** — overrult [§7](#7-settings-douane). Bv. globaal *Nederland*, dropship-product *China*.
-- **Douane code** — product-specifieke HS-code.
+### Product customs options
+- **Country of origin** — overrides [§7](#7-settings-customs). E.g. globally *Netherlands*, dropship product *China*.
+- **Customs code** — product-specific HS code.
 
-### Product export opties
-- **Activeer leeftijdscontrole (18+)**, **Activeer verzekering**, **Activeer groter dan 100 × 70 × 58 cm**, **Activeer alleen ontvanger**, **Activeer handtekening**, **Activeer direct retour** — forceer per product.
+### Product export options
+- **Enable age check (18+)**, **Enable insurance**, **Enable larger than 100 × 70 × 58 cm**, **Enable only recipient**, **Enable signature**, **Enable direct return** — force per product.
 
-::: tip Slotje achter een optie?
-Die optie is alleen beschikbaar bij specifieke vervoerders of contracten. Klik het slotje voor uitleg.
+::: tip Lock icon next to an option?
+That option is only available for specific carriers or contracts. Click the lock for an explanation.
 :::
 
-## 11 · De order-detailpagina
-Open een individuele order. Onder de standaard PrestaShop-gegevens zie je een **MyParcel**-blok met:
+## 11 · The order detail page
+Open an individual order. Below the standard PrestaShop details you see a **MyParcel** block with:
 
-- Vervoerder en pakkettype voor deze zending
-- Verzekering aan/uit + verzekerd bedrag
-- Geselecteerde bezorgopties (avondbezorging, handtekening, alleen ontvanger…)
-- Knoppen: *Exporteren* · *Print label* · *Track & Trace bekijken*
+- Carrier and package type for this shipment
+- Insurance on/off + insured amount
+- Selected delivery options (evening delivery, signature, only recipient…)
+- Buttons: *Export* · *Print label* · *View Track & Trace*
 
-::: warning Sla wijzigingen op vóór printen
-Pas je een veld aan? **Sla op** voordat je een label print — anders verwerkt MyParcel de oude waarden.
+::: warning Save changes before printing
+Adjusted a field? **Save** before printing a label — otherwise MyParcel processes the old values.
 :::
 
-## 12 · De checkout-ervaring
-De MyParcel-checkout-widget verschijnt na het invullen van het bezorgadres, zodra ten minste één vervoerder is ingeschakeld én PrestaShop-vervoerders aan de juiste verzendzone gekoppeld zijn — zie [diagnose](#14-iets-werkt-niet-diagnose).
+## 12 · The checkout experience
+The MyParcel checkout widget appears once the delivery address is filled in, as soon as at least one carrier is enabled and PrestaShop carriers are linked to the right shipping zone — see [diagnostics](#14-somethings-not-working-diagnostics).
 
-Boven de widget kiest de klant een vervoerder + dienst (bv. *PostNL — Super snelle levering — €9,95 incl. btw*). Daaronder klapt **Levering thuis of op het werk** open met:
+Above the widget the customer picks a carrier + service (e.g. *PostNL — Super fast delivery — €9.95 incl. VAT*). Below it, **Home or work delivery** unfolds with:
 
-- **Datum-carrousel** met de eerstvolgende werkbare dagen.
-- **Tijdvak** voor aanbieding (bv. *10:45–13:15*).
-- **Extra opties** zoals *Handtekening (€2,00)* of *Alleen ontvanger* met aparte toeslagen.
+- **Date carousel** with the next available working days.
+- **Time slot** offered (e.g. *10:45–13:15*).
+- **Extra options** like *Signature (€2.00)* or *Only recipient* with separate surcharges.
 
-Onder thuisbezorging staat een tweede blok **Ophalen bij een afhaallocatie**, gemarkeerd *Meest duurzaam*. Bij openen verschijnt een interactieve kaart met PostNL/DHL-punten in de buurt, met openingstijden per dag. De klant kan switchen tussen *Lijst* en *Kaart* (mits ingeschakeld in [§8](#8-settings-checkout)).
+Below home delivery sits a second block **Pickup at a pickup location**, marked *Most sustainable*. When opened, an interactive map appears with PostNL/DHL points nearby, with opening hours per day. The customer can switch between *List* and *Map* (if enabled in [§8](#8-settings-checkout)).
 
-## 13 · Dagelijks gebruik
+## 13 · Daily use
 
 ### Workflow 1 — per order
-1. Open de order-detailpagina.
-2. Controleer pakkettype en bezorgopties in het MyParcel-blok.
-3. Klik **Exporteren** (concept) → controleer in MyParcel → klik **Print label**.
+1. Open the order detail page.
+2. Check package type and delivery options in the MyParcel block.
+3. Click **Export** (concept) → check in MyParcel → click **Print label**.
 
-### Workflow 2 — bulk (10+ orders/dag)
-1. Op **Bestellingen** filter je een tijdvak (bv. *Vandaag betaald*).
-2. Per order via het actiemenu **Exporteren** kiezen.
-3. In MyParcel zendingen verwerken (handmatig óf met *Automatisch verwerken* uit [§5](#5-settings-bestellingen)).
-4. Labels in bulk printen via MyParcel.
+### Workflow 2 — bulk (10+ orders/day)
+1. On **Orders** filter a time window (e.g. *Paid today*).
+2. Per order, choose **Export** from the action menu.
+3. Process shipments in MyParcel (manually or with *Auto-process* from [§5](#5-settings-orders)).
+4. Print labels in bulk via MyParcel.
 
-::: tip Volledig automatisch verzenden
-Met *Automatisch verwerken* op *In behandeling* en *Concept zendingen* uit, wordt elke betaalde order direct als label aangemaakt zonder tussenstap.
+::: tip Fully automatic shipping
+With *Auto-process* on *Processing* and *Concept shipments* off, every paid order is created as a label directly without an in-between step.
 :::
 
-### Retouren
-- **Activeer direct retour** ([§9](#9-settings-vervoerders)) of de [product-override](#10-productinstellingen) → automatisch retourlabel bij elke zending.
-- **Stuur retour e-mail** ([§5](#5-settings-bestellingen)) → klant kan zelfstandig een retourlabel opvragen.
+### Returns
+- **Enable direct return** ([§9](#9-settings-carriers)) or the [product override](#10-product-settings) → automatic return label with every shipment.
+- **Send return email** ([§5](#5-settings-orders)) → customer can request a return label themselves.
 
-## 14 · Iets werkt niet — diagnose
-Werkt iets niet zoals verwacht? Loop deze tabel van boven naar onder door — drie op de vier issues zijn binnen 5 minuten opgelost.
+## 14 · Something's not working — diagnostics
+Something not behaving as expected? Run through this table top to bottom — three out of four issues are fixed within 5 minutes.
 
-| Symptoom | Wat te checken |
+| Symptom | What to check |
 | --- | --- |
-| **Checkout: "Geen vervoerders beschikbaar"** | PrestaShop-vervoerders gekoppeld aan een verzendzone met prijzen voor het bezorgadres? Ga naar *Verzending → Vervoerders*. Pas daarna verschijnen MyParcel-bezorgopties. |
-| **Geen bezorgopties zichtbaar** | (1) [§8](#8-settings-checkout): *Bezorgopties tonen* aan? (2) [§9](#9-settings-vervoerders): minstens één vervoerder met *Bezorgopties inschakelen* aan? |
-| **Installatie mislukt — *"Pdk instance must be set to use facades"*** | Verwijder oudere MyParcel-modules volledig (incl. database-tabellen `ps_myparcelnl_*`) en installeer 5.0.x opnieuw. |
-| **Provincie-fout: *"state must be at most 2 characters"*** | NL-taalpakket maakt provincies als `NL-LI` (4 tekens). Pas in *Internationaal → Locaties → Provincies* de iso-codes naar 2 tekens. Zie [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
-| **"Invalid API key" terwijl koppeling werkt** | Sluit plugin-config volledig en open opnieuw. Bij blijvende problemen: kopieer de key opnieuw uit *backoffice.myparcel.nl → Shopinstellingen → Integratie*. |
-| **PostNL-instellingen worden niet opgeslagen** | Klik **Opslaan** onderaan élke tab vóór je wisselt. Check anders *Debugopties* op foutmeldingen. |
-| **Labels worden niet aangemaakt** | (1) [§5](#5-settings-bestellingen): *Concept zendingen* uit voor directe aanmaak. (2) [§6](#6-settings-labels): printer-groep correct? (3) [§9](#9-settings-vervoerders): vervoerder geselecteerd én *Bezorgopties inschakelen* aan? |
-| **Track & trace niet in e-mail** | (1) *Track & Trace in e-mail* aan ([§5](#5-settings-bestellingen)). (2) *Stuur notificatie na* op de juiste status (vaak *Verzonden*). (3) *Deel klantinformatie* aan — anders krijgt MyParcel het mailadres niet. |
-| **Alles wordt Pakket, nooit Brievenbus** | (1) [§10](#10-productinstellingen): *Pakkettype* op *Brievenbuspakje* + *in mailbox* op realistisch aantal. (2) [§5](#5-settings-bestellingen): *Standaardgewicht brievenbuspakje* niet te hoog (anders valt MyParcel terug op pakket). |
+| **Checkout: "No carriers available"** | PrestaShop carriers linked to a shipping zone with prices for the delivery address? Go to *Shipping → Carriers*. Only then do MyParcel delivery options appear. |
+| **No delivery options visible** | (1) [§8](#8-settings-checkout): *Show delivery options* on? (2) [§9](#9-settings-carriers): at least one carrier with *Enable delivery options* on? |
+| **Installation fails — *"Pdk instance must be set to use facades"*** | Remove older MyParcel modules completely (incl. database tables `ps_myparcelnl_*`) and reinstall 5.0.x. |
+| **Province error: *"state must be at most 2 characters"*** | NL language pack creates provinces as `NL-LI` (4 characters). In *International → Locations → Provinces*, change the iso codes to 2 characters. See [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
+| **"Invalid API key" while connection works** | Close plugin config completely and reopen. If the issue persists: copy the key again from *backoffice.myparcel.nl → Shop settings → Integration*. |
+| **PostNL settings not saved** | Click **Save** at the bottom of every tab before switching. Otherwise check *Debug options* for error messages. |
+| **Labels are not created** | (1) [§5](#5-settings-orders): *Concept shipments* off for direct creation. (2) [§6](#6-settings-labels): printer group correct? (3) [§9](#9-settings-carriers): carrier selected and *Enable delivery options* on? |
+| **Track & Trace not in email** | (1) *Track & Trace in email* on ([§5](#5-settings-orders)). (2) *Send notification after* on the right status (often *Shipped*). (3) *Share customer information* on — otherwise MyParcel doesn't get the email address. |
+| **Everything becomes Parcel, never Mailbox** | (1) [§10](#10-product-settings): *Package type* on *Mailbox parcel* + *in mailbox* on a realistic number. (2) [§5](#5-settings-orders): *Default weight mailbox parcel* not set too high (otherwise MyParcel falls back to parcel). |
 
 ## 15 · FAQ
 
-### Werkt de plugin op PrestaShop 9?
-Nog niet. Versie 5.0.x ondersteunt PrestaShop 1.7.8 t/m 8.x. PrestaShop 9-ondersteuning staat op de roadmap; volg [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+### Does the plugin work on PrestaShop 9?
+Not yet. Version 5.0.x supports PrestaShop 1.7.8 through 8.x. PrestaShop 9 support is on the roadmap; follow [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
 
-### Kan ik meerdere vervoerders tegelijk gebruiken?
-Ja. Activeer per vervoerder onder *Vervoerders → \[Vervoerdernaam\] → Bezorgopties → Bezorgopties inschakelen*.
+### Can I use multiple carriers at once?
+Yes. Activate per carrier under *Carriers → \[Carrier name\] → Delivery options → Enable delivery options*.
 
-### Hoe verander ik mijn afzenderadres op het label?
-Het afzenderadres komt uit je MyParcel-backoffice (*Shopinstellingen → Algemeen*), niet uit PrestaShop.
+### How do I change the sender address on the label?
+The sender address comes from your MyParcel backoffice (*Shop settings → General*), not from PrestaShop.
 
-### Welke statussen voor "Automatisch verwerken"?
-*In behandeling* of *Wachtend op betaling* werkt voor de meeste shops. Begin op *Geen* tijdens setup; activeer als de workflow stabiel draait.
+### Which statuses for "Auto-process"?
+*Processing* or *Pending payment* works for most shops. Start at *None* during setup; activate when the workflow runs steadily.
 
-### Klant kiest een afhaalpunt — hoe zie ik dat op het label?
-Het afhaalpunt verschijnt automatisch als bezorgadres op het MyParcel-label én in het MyParcel-blok op de order-detailpagina ([§11](#11-de-order-detailpagina)). In sommige PrestaShop-thema's komt het afhaalpunt niet terug op de PDF-factuur — thema-issue, geen plugin-bug ([issue #390](https://github.com/myparcelnl/prestashop/issues/390)).
+### Customer picks a pickup point — how do I see it on the label?
+The pickup point appears as the delivery address on the MyParcel label and in the MyParcel block on the order detail page ([§11](#11-the-order-detail-page)). In some PrestaShop themes the pickup point doesn't show on the PDF invoice — theme issue, not a plugin bug ([issue #390](https://github.com/myparcelnl/prestashop/issues/390)).
 
-### Plugin-update gedaan en nu werkt iets niet meer
-Open de plugin opnieuw, controleer de status-badge en doorloop [§14](#14-iets-werkt-niet-diagnose). Update-issues lossen vaak op door uit/in loggen of browser-cache legen.
+### I updated the plugin and now something isn't working
+Open the plugin again, check the status badge and run through [§14](#14-somethings-not-working-diagnostics). Update issues are often fixed by signing out/in or clearing the browser cache.
 
-### Kost de plugin geld?
-Nee. De plugin is gratis. Je betaalt alleen voor de zendingen via je MyParcel-tarief.
+### Does the plugin cost money?
+No. The plugin is free. You only pay for the shipments via your MyParcel rate.
 
-## Bronnen & support
-- [github.com/myparcelnl/prestashop ↗](https://github.com/myparcelnl/prestashop) — broncode, releases, issues.
-- [github.com/myparcelnl/prestashop/releases ↗](https://github.com/myparcelnl/prestashop/releases) — changelog & ZIP-downloads.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
-- [Contact MyParcel-support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+## Resources & support
+- [github.com/myparcelnl/prestashop ↗](https://github.com/myparcelnl/prestashop) — source code, releases, issues.
+- [github.com/myparcelnl/prestashop/releases ↗](https://github.com/myparcelnl/prestashop/releases) — changelog & ZIP downloads.
+- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, billing.
+- [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Deze handleiding is geschreven voor plugin-versie **5.0.x**. Bij nieuwere versies kunnen veld-namen of -volgorde licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.
+This manual is written for plugin version **5.0.x**. In newer versions field names or order may shift slightly; the overall plugin layout stays the same.

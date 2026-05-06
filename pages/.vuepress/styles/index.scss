@@ -1490,6 +1490,16 @@ pre.mp-code-block::after {
   div[class*='language-'] .token.punctuation { color: #8aa39d; }
   div[class*='language-'] .token.operator  { color: #d6e9e2; }
 
+  // VuePress' default theme injects an absolute-positioned line-numbers
+  // gutter (48px wide, left:0) on every fenced code block. Our compact
+  // dark code style doesn't reserve room for it, which makes the gutter
+  // overlap the first character of every line. The design does not show
+  // line numbers, so hide the gutter and the .line-numbers-mode hook.
+  div[class*='language-'].line-numbers-mode .line-numbers,
+  div[class*='language-'].line-numbers-mode .highlight-lines {
+    display: none;
+  }
+
   blockquote {
     margin: var(--mp-space-5) 0;
     padding: var(--mp-space-3) var(--mp-space-5);

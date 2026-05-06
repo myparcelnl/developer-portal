@@ -32,6 +32,26 @@ export default defineUserConfig({
   description: 'Guides, SDKs, plugins and auto-generated API reference for MyParcel.',
   base: '/beta-developer-portal/',
 
+  // Locale roots — content under these path prefixes uses the locale's lang.
+  // The actual translated markdown lives under pages/nl/ and pages/it/.
+  locales: {
+    '/': {
+      lang: 'en-US',
+      title: 'MyParcel Developer Portal',
+      description: 'Guides, SDKs, plugins and auto-generated API reference for MyParcel.',
+    },
+    '/nl/': {
+      lang: 'nl-NL',
+      title: 'MyParcel Developer Portal',
+      description: 'Handleidingen, SDK\'s, plugins en auto-gegenereerde API-referentie voor MyParcel.',
+    },
+    '/it/': {
+      lang: 'it-IT',
+      title: 'MyParcel Developer Portal',
+      description: 'Guide, SDK, plugin e riferimento API auto-generato per MyParcel.',
+    },
+  },
+
   bundler: viteBundler(),
   clientConfigFile: path.resolve(__dirname, './client.ts'),
 

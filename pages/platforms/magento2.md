@@ -1,50 +1,50 @@
 ---
 title: Magento 2
-description: "Van nul naar verzonden pakket op Magento 2 — installeer de plugin via Composer, koppel je MyParcel-account, kies een shop-profiel en verstuur vandaag nog je eerste label. Met snelstart, shop-profielen, settings-naslag, dagelijkse workflow en een diagnose-tabel."
+description: "From zero to a shipped parcel on Magento 2 — install the plugin via Composer, connect your MyParcel account, pick a shop profile and send your first label today. Includes quickstart, shop profiles, settings reference, daily workflow and a diagnostics table."
 ---
 
-::: tip In het kort
-De MyParcel-plugin verbindt je Magento 2-shop met MyParcel. Klanten kiezen in de checkout een bezorgmoment of afhaalpunt, jij print labels vanuit de Magento-admin en track & trace gaat automatisch naar de klant. Bedoeld voor shopeigenaren en shopbeheerders — geen developer-kennis nodig na de initiële Composer-installatie.
+::: tip In short
+The MyParcel plugin connects your Magento 2 shop to MyParcel. Customers pick a delivery moment or pickup point in the checkout, you print labels from the Magento admin, and Track & Trace is sent to the customer automatically. Built for shop owners and shop managers — no developer knowledge required after the initial Composer installation.
 :::
 
-## Snelstart — in 15 minuten je eerste pakket
-Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je via [Wat zoek je?](#wat-zoek-je) hieronder.
+## Quickstart — your first parcel in 15 minutes
+Enough to ship your first real order today. For deeper configuration, see [Looking for…](#looking-for) below.
 
-1. **Account.** Heb je nog geen MyParcel-account? Maak er een aan via [myparcel.nl/register](https://www.myparcel.nl/register).
-2. **API-key kopiëren.** Log in op [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shopinstellingen → Integratie* → kopieer de API-key.
-3. **Plugin installeren.** Laat je developer of hostingpartij `composer require myparcelnl/magento && bin/magento setup:upgrade && bin/magento setup:di:compile && bin/magento cache:flush` uitvoeren.
-4. **Plugin koppelen.** Open **Stores → Configuration → MyParcel → Settings**, plak je API-key in *API key*, klik **Save Config** en daarna **Import MyParcel Backoffice settings**.
-5. **Eerste label.** Open *Sales → Orders* → kies een betaalde order → **Print MyParcel Label** → controleer pakkettype/opties → **Create**.
+1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.nl/register](https://www.myparcel.nl/register).
+2. **Copy the API key.** Log in to [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shop settings → Integration* → copy the API key.
+3. **Install the plugin.** Have your developer or hosting partner run `composer require myparcelnl/magento && bin/magento setup:upgrade && bin/magento setup:di:compile && bin/magento cache:flush`.
+4. **Connect the plugin.** Open **Stores → Configuration → MyParcel → Settings**, paste your API key into *API key*, click **Save Config** and then **Import MyParcel Backoffice settings**.
+5. **First label.** Open *Sales → Orders* → pick a paid order → **Print MyParcel Label** → check package type/options → **Create**.
 
-::: tip Klaar als je dit ziet
-- Onder *Stores → Configuration → MyParcel*: je hebt een geldige API-key opgeslagen
-- Vervoerder-tabs verschijnen na *Import MyParcel Backoffice settings*
-- Een testorder kun je via **Print MyParcel Label** exporteren
+::: tip You're done when you see this
+- Under *Stores → Configuration → MyParcel*: you have a valid API key saved
+- Carrier tabs appear after *Import MyParcel Backoffice settings*
+- You can export a test order via **Print MyParcel Label**
 :::
 
-## Wat zoek je?
-| Wat wil je doen? | Ga naar |
+## Looking for…
+| What do you want to do? | Go to |
 | --- | --- |
-| Voor het eerst opzetten | [Snelstart](#snelstart-in-15-minuten-je-eerste-pakket) |
-| Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
-| Algemene plugin-instellingen | [5 · Settings · General](#5-settings-general) |
-| Vervoerder-specifieke opties | [6 · Settings · Vervoerders](#6-settings-vervoerders) |
-| Per product een afwijkende instelling | [7 · Productinstellingen](#7-productinstellingen) |
-| Wat een klant in de checkout ziet | [8 · De checkout-ervaring](#8-de-checkout-ervaring) |
-| Bulkverwerking voor 50+ orders/dag | [9 · Dagelijks gebruik](#9-dagelijks-gebruik) |
-| Iets werkt niet | [10 · Iets werkt niet — diagnose](#10-iets-werkt-niet-diagnose) |
-| Antwoord op een veelgestelde vraag | [11 · FAQ](#11-faq) |
+| First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
+| Recommended settings for your type of shop | [4 · Which shop profile are you?](#4-which-shop-profile-are-you) |
+| General plugin settings | [5 · Settings · General](#5-settings-general) |
+| Carrier-specific options | [6 · Settings · Carriers](#6-settings-carriers) |
+| A different setting per product | [7 · Product settings](#7-product-settings) |
+| What the customer sees in the checkout | [8 · The checkout experience](#8-the-checkout-experience) |
+| Bulk processing for 50+ orders/day | [9 · Daily use](#9-daily-use) |
+| Something's not working | [10 · Something's not working — diagnostics](#10-somethings-not-working-diagnostics) |
+| Answer to a frequently asked question | [11 · FAQ](#11-faq) |
 
-## 1 · Voorbereiden in je MyParcel-account
-Voordat je in Magento begint, regel je vier dingen in je MyParcel-backoffice:
+## 1 · Preparing your MyParcel account
+Before you start in Magento, take care of four things in your MyParcel backoffice:
 
-1. **Factuur- en retouradres** — *Shopinstellingen → Algemeen*. Dit komt op al je labels.
-2. **Vervoerders activeren** — *Shopinstellingen → Vervoerders*. Alleen aangevinkte vervoerders verschijnen later in de plugin.
-3. **API key genereren** — *Shopinstellingen → Integratie*.
-4. **Orderinformatie importeren** (optioneel) — aanzetten als je de [Ordermodus](#api-settings) wilt gebruiken.
+1. **Billing and return address** — *Shop settings → General*. This appears on every label.
+2. **Activate carriers** — *Shop settings → Carriers*. Only enabled carriers appear in the plugin later.
+3. **Generate an API key** — *Shop settings → Integration*.
+4. **Import order information** (optional) — turn on if you want to use [order mode](#api-settings).
 
-## 2 · Plugin installeren
-De Magento-plugin wordt via Composer geïnstalleerd. Laat je developer of hostingpartij de volgende commando's op de server uitvoeren:
+## 2 · Installing the plugin
+The Magento plugin is installed via Composer. Have your developer or hosting partner run the following commands on the server:
 
 ```bash
 composer require myparcelnl/magento
@@ -53,8 +53,8 @@ bin/magento setup:di:compile
 bin/magento cache:flush
 ```
 
-::: details Hyvä-checkout?
-Installeer naast bovenstaande ook de compatibility-module:
+::: details Hyvä checkout?
+Also install the compatibility module alongside the above:
 
 ```bash
 composer require hyva-themes/magento2-hyva-checkout-myparcelnl
@@ -62,139 +62,139 @@ bin/magento setup:upgrade
 ```
 :::
 
-::: warning Draait de oude PakjeGemak-module nog?
-Zet die uit voordat je met deze plugin start. Twee MyParcel-plugins tegelijk leidt tot dubbele labels.
+::: warning Is the old PakjeGemak module still running?
+Disable it before starting with this plugin. Two MyParcel plugins running simultaneously leads to duplicate labels.
 :::
 
-Na installatie vind je de plugin onder **Stores → Configuration → MyParcel**.
+After installation, find the plugin under **Stores → Configuration → MyParcel**.
 
-## 3 · Plugin koppelen (API-key)
-Open **Stores → Configuration → MyParcel → Settings** en plak je API-key bovenaan in het veld *API key*. Klik daarna op **Save Config**.
+## 3 · Connecting the plugin (API key)
+Open **Stores → Configuration → MyParcel → Settings** and paste your API key in the *API key* field at the top. Then click **Save Config**.
 
-1. Log in op de MyParcel-backoffice.
-2. Ga naar *Shopinstellingen → Integratie*.
-3. Kopieer de API-key (meestal 40 tekens).
-4. Plak deze in Magento en sla op.
+1. Log in to the MyParcel backoffice.
+2. Go to *Shop settings → Integration*.
+3. Copy the API key (usually 40 characters).
+4. Paste it into Magento and save.
 
-Met de knop **Import MyParcel Backoffice settings** haal je je contract- en vervoerderinstellingen in één klik op. Vervoerder-tabs verschijnen pas na deze import.
+The **Import MyParcel Backoffice settings** button fetches your contract and carrier settings in one click. Carrier tabs only appear after this import.
 
-![MyParcel Settings met API key veld en Import MyParcel Backoffice settings knop.](./images/magento2/01-api-settings.svg) Na een geldige key verschijnen de vervoerder-tabs.
+![MyParcel Settings with API key field and Import MyParcel Backoffice settings button.](./images/magento2/01-api-settings.svg) After a valid key, the carrier tabs appear.
 
-::: warning Werkt het niet?
-Meest voorkomende oorzaken: niet op *Save Config* geklikt · spatie meegekopieerd vóór/na de key · key van een andere shop · cache niet geleegd (`bin/magento cache:flush`).
+::: warning Not working?
+Most common causes: didn't click *Save Config* · a space copied before/after the key · key from a different shop · cache not cleared (`bin/magento cache:flush`).
 :::
 
-### Wat doet de plugin in je Magento-admin?
-| Waar? | Wat kun je er? |
+### What does the plugin do in your Magento admin?
+| Where? | What can you do? |
 | --- | --- |
-| **Stores → Configuration → MyParcel** | Alle instellingen — *Version and support* en *Settings* (één tab per vervoerder). |
-| **Sales → Orders → \[order\] → Print MyParcel Label** | Label aanmaken voor een specifieke bestelling, incl. aanpassen van pakkettype en opties per order. |
-| **Catalog → Products → \[product\] → MyParcel Options** | Product-specifieke instellingen (dropoff-delay, age check, mailbox-fit, HS-code, etc.) die de globale defaults overschrijven. |
+| **Stores → Configuration → MyParcel** | All settings — *Version and support* and *Settings* (one tab per carrier). |
+| **Sales → Orders → \[order\] → Print MyParcel Label** | Create a label for a specific order, including adjusting package type and options per order. |
+| **Catalog → Products → \[product\] → MyParcel Options** | Product-specific settings (drop-off delay, age check, mailbox-fit, HS code, etc.) that override the global defaults. |
 
-## 4 · Welk shop-profiel ben jij?
-Drie typische profielen met aanbevolen settings. Eén kiezen, instellingen overnemen, dan met [5 · Settings · General](#5-settings-general) finetunen.
+## 4 · Which shop profile are you?
+Three typical profiles with recommended settings. Pick one, copy the settings, then fine-tune via [5 · Settings · General](#5-settings-general).
 
-### Klein — paar orders per dag, alleen NL
-| Instelling | Aanbevolen | Waarom |
+### Small — a few orders per day, NL only
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Mode (Print settings) | *Concept* | Houdt je in controle terwijl je leert |
-| Drop-off delay | 1 | Bestellingen worden de volgende dag verwerkt |
-| Paper type | A4 | Geen labelprinter nodig |
-| Number of days | 7 | Klant kan een week vooruit kiezen |
-| PostNL — *Delivery enabled* | Yes | Standaard NL-vervoerder |
-| Insure orders from (€) | 250 | Pakketten boven €250 automatisch verzekerd |
+| Mode (Print settings) | *Concept* | Keeps you in control while you learn |
+| Drop-off delay | 1 | Orders are processed the next day |
+| Paper type | A4 | No label printer needed |
+| Number of days | 7 | Customer can pick a week ahead |
+| PostNL — *Delivery enabled* | Yes | Standard NL carrier |
+| Insure orders from (€) | 250 | Parcels above €250 are insured automatically |
 
-### Drukke shop — 50+ orders/dag
-| Instelling | Aanbevolen | Waarom |
+### Busy shop — 50+ orders/day
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Mode (Print settings) | *Direct* | Sneller — labels direct definitief |
-| Paper type | A6 (Zebra/Brother labelprinter) | Sneller printen |
-| Drop-off delay | 0 (of 1 in piek) | Werkdagen tussen bestelling en aanleveren |
-| Bulk *Create & print MyParcel track(s)* | Aan | Verwerk 50+ orders in één klik |
-| PostNL + DHL For You | Beide aan | Brede dekking |
-| Automate signature on receipt — From price | 250 | Boven €250 verplicht handtekening |
+| Mode (Print settings) | *Direct* | Faster — labels are final immediately |
+| Paper type | A6 (Zebra/Brother label printer) | Faster printing |
+| Drop-off delay | 0 (or 1 in peak) | Working days between order and drop-off |
+| Bulk *Create & print MyParcel track(s)* | On | Process 50+ orders in one click |
+| PostNL + DHL For You | Both on | Broad coverage |
+| Automate signature on receipt — From price | 250 | Above €250 a signature is required |
 
-### Brievenbus-only — koffie, kaarten, cosmetica
-| Instelling | Aanbevolen | Waarom |
+### Mailbox-only — coffee, cards, cosmetics
+| Setting | Recommended | Why |
 | --- | --- | --- |
-| Mailbox settings — *Automate mailbox* | Yes | Verzend automatisch als brievenbuspakje bij passende afmeting/gewicht |
-| Mailbox weight | 2000 g (max) | Drempelgewicht voor brievenbuspakje |
-| Per product *Fit in mailbox* | Realistisch (bv. 5) | Aantal stuks per brievenbuspakje |
-| Pickup active | No | Bij brievenbus geen afhaalkeuze |
-| Insure orders | No | Niet beschikbaar voor brievenbuspakje |
+| Mailbox settings — *Automate mailbox* | Yes | Ship as mailbox parcel automatically when size/weight match |
+| Mailbox weight | 2000 g (max) | Threshold weight for mailbox parcel |
+| Per product *Fit in mailbox* | Realistic (e.g. 5) | Number of items per mailbox parcel |
+| Pickup active | No | No pickup choice for mailbox |
+| Insure orders | No | Not available for mailbox parcels |
 
-::: tip Andere scenario's?
-Voor dure sieraden, internationaal of speciale eisen — zie [11 · FAQ](#11-faq) of de uitgebreide shop-profielen in de [WooCommerce-handleiding](./woocommerce.html#4-welk-shop-profiel-ben-jij) (toepasbaar op alle platforms).
+::: tip Other scenarios?
+For expensive jewellery, international, or special requirements — see [11 · FAQ](#11-faq) or the more extensive shop profiles in the [WooCommerce manual](./woocommerce.html#4-which-shop-profile-are-you) (applicable across platforms).
 :::
 
 ## 5 · Settings · General
-De algemene tab regelt de koppeling, de verzendkostenregels, bezorgdagen, printinstellingen en hoe het MyParcel-blok in de checkout er uitziet.
+The general tab handles the connection, shipping cost rules, delivery days, print settings and how the MyParcel block looks in the checkout.
 
-![General settings tab met API, Delivery costs, Date settings, Print settings en Delivery methods secties.](./images/magento2/02-general-settings.svg)
+![General settings tab with API, Delivery costs, Date settings, Print settings and Delivery methods sections.](./images/magento2/02-general-settings.svg)
 
 ### API settings
-- **API key** — koppelt je shop aan MyParcel. Zonder geldige key werken de bezorgopties niet.
-- **Import MyParcel Backoffice settings** — haalt je actuele contract- en vervoerderinstellingen op uit MyParcel.
+- **API key** — connects your shop to MyParcel. Without a valid key, delivery options don't work.
+- **Import MyParcel Backoffice settings** — fetches your current contract and carrier settings from MyParcel.
 
 ### Delivery costs
-Definieer welke verzendprijs klanten in de checkout zien. Elke regel bestaat uit een *Rule name*, een *Price* en één of meer condities (gewicht, pakkettype, land). Bv. *"Brievenbuspakje binnen Nederland < 12 kg"* met prijs €4,97.
+Define the shipping price customers see at checkout. Each rule has a *Rule name*, a *Price* and one or more conditions (weight, package type, country). E.g. *"Mailbox parcel within Netherlands < 12 kg"* with price €4.97.
 
-- **Show or hide JSON textarea** — geavanceerde weergave voor wie regels als JSON wil bewerken.
-- **Use Free Shipping** — respecteer Magento's gratis-verzending-regels.
+- **Show or hide JSON textarea** — advanced view for editing rules as JSON.
+- **Use Free Shipping** — respect Magento's free shipping rules.
 
 ### Date settings
-- **Number of days** — hoeveel dagen vooruit klanten een bezorgdag mogen kiezen. Standaard 7.
-- **Drop-off delay** — werkdagen tussen bestelling en aanleveren. Zet op 1 als je bestellingen pas de volgende dag verwerkt.
+- **Number of days** — how many days ahead customers can pick a delivery day. Default 7.
+- **Drop-off delay** — working days between order and drop-off. Set to 1 if you only process orders the next day.
 
 ### Print settings
-- **Mode** — *Concept* (eerst in MyParcel-backoffice) of *Direct* (direct definitief).
-- **Paper type** — *A4* (standaard printer) of *A6* (labelprinter).
-- **Label description** — tekst op het label, met variabelen zoals `%order_nr%`.
-- **Country of origin** — herkomstland voor internationale zendingen. Standaard NL.
-- **Create Concept** — labels eerst als concept zodat je nog kunt wijzigen.
-- **Return in the box** — voegt automatisch een retourlabel bij.
-- **I use the following weight type** — *gram* of *kilogram* (zelfde eenheid als in Magento).
+- **Mode** — *Concept* (first in MyParcel backoffice) or *Direct* (final immediately).
+- **Paper type** — *A4* (standard printer) or *A6* (label printer).
+- **Label description** — text on the label, with variables like `%order_nr%`.
+- **Country of origin** — country of origin for international shipments. Default NL.
+- **Create Concept** — labels first as concept so you can still adjust them.
+- **Return in the box** — automatically includes a return label.
+- **I use the following weight type** — *gram* or *kilogram* (the same unit as in Magento).
 
 ### Empty package weight
-Elk pakkettype heeft een leeg-gewicht; MyParcel telt dit op bij het productgewicht.
+Each package type has an empty weight; MyParcel adds it on top of the product weight.
 
-| Pakkettype | Typisch leeg-gewicht |
+| Package type | Typical empty weight |
 | --- | --- |
-| Package (bruine doos) | 200 – 400 g |
+| Package (brown box) | 200 – 400 g |
 | Small package | 100 – 200 g |
-| Mailbox (brievenbuspakje) | 50 – 100 g |
+| Mailbox (mailbox parcel) | 50 – 100 g |
 | Digital stamp | 10 – 30 g |
 
 ### Delivery methods
-- **Show details in summary** — toont gekozen bezorgoptie in het besteloverzicht van de klant.
-- **Preferred pickup locations view** — *Lijst* of *Kaart* als standaard.
-- **Switching the view is allowed** — laat klanten zelf schakelen.
-- **Price shown in delivery options** — laat de meerprijs per bezorgoptie zien.
-- **Exclude parcel lockers** — verberg pakketautomaten.
+- **Show details in summary** — shows the chosen delivery option in the customer's order summary.
+- **Preferred pickup locations view** — *List* or *Map* as default.
+- **Switching the view is allowed** — let customers switch.
+- **Price shown in delivery options** — show the surcharge per delivery option.
+- **Exclude parcel lockers** — hide parcel lockers.
 
-## 6 · Settings · Vervoerders
-Per vervoerder een eigen tab. Welke tabs zichtbaar zijn hangt af van wat in je MyParcel-contract staat.
+## 6 · Settings · Carriers
+Each carrier has its own tab. Which tabs are visible depends on what's in your MyParcel contract.
 
 ![Tabs: General settings, PostNL, DHL For You, DHL Europlus, DHL Parcel Connect, DPD, UPS Standard, GLS, Trunkrs.](./images/magento2/03-carrier-tabs.svg)
 
-::: tip Alle vervoerders gelijk opgebouwd
-Hieronder loop ik **PostNL** als voorbeeld door — andere vervoerders volgen dezelfde structuur, met eigen specifieke opties.
+::: tip All carriers are structured the same
+Below I walk through **PostNL** as an example — other carriers follow the same structure, with their own specific options.
 :::
 
 ### PostNL settings
 
-#### Bezorgtitels
-De teksten die je klant in de checkout ziet. Standaard latin tenzij je eigen bewoordingen wilt.
+#### Delivery titles
+The wording your customer sees in the checkout. Defaults are fine unless you want your own phrasing.
 
-- **Delivery title** — kop boven het PostNL-blok. Standaard: *Thuis of op het werk bezorgd*.
-- **Standard / Signature on receipt / Receipt code / Home address only / Priority / Morning / Evening / Mailbox / Digital stamp / Pickup title** — tekst per bezorgoptie.
+- **Delivery title** — heading above the PostNL block. Default: *Delivered at home or work*.
+- **Standard / Signature on receipt / Receipt code / Home address only / Priority / Morning / Evening / Mailbox / Digital stamp / Pickup title** — text per delivery option.
 
 #### Drop-off days & Cut-off times
-- **Drop-off days** — vink de dagen aan waarop je aanlevert bij PostNL.
-- **Cut-off time** (per dag) — tot welk tijdstip een bestelling nog dezelfde dag meegaat. Standaard 15:30.
+- **Drop-off days** — tick the days you drop off at PostNL.
+- **Cut-off time** (per day) — until what time an order still goes the same day. Default 15:30.
 
 #### Default shipping options
-Pas opties automatisch toe boven een drempelprijs.
+Apply options automatically above a threshold price.
 
 - **Automate 'Signature on receipt'** + From price.
 - **Automate 'Collect package'** + From price.
@@ -202,141 +202,141 @@ Pas opties automatisch toe boven een drempelprijs.
 - **Automate 'Larger than 100 × 70 × 58 cm'** + From price.
 - **Automate 'Age check 18+'**.
 
-#### Verzekering
-- **Insure orders from (€)** — drempel waarboven automatisch verzekerd.
-- **Insure orders up to (NL)** / **(BE)** / **(EU)** / **(ROW)** — maxima per regio.
-- **Insure orders for percentage** — verzeker een % van de orderwaarde.
+#### Insurance
+- **Insure orders from (€)** — threshold above which the order is insured automatically.
+- **Insure orders up to (NL)** / **(BE)** / **(EU)** / **(ROW)** — maximums per region.
+- **Insure orders for percentage** — insure a % of the order value.
 
-::: details Bezorgmomenten + verzendopties — alle velden
+::: details Delivery moments + shipping options — all fields
 **Digital stamp settings**
-- **Automate digital stamp** — verzend automatisch als digitale postzegel bij lichte, platte producten.
-- **Default weight** — standaardgewicht voor digitale-postzegelzendingen.
+- **Automate digital stamp** — ship as digital stamp automatically for light, flat products.
+- **Default weight** — default weight for digital stamp shipments.
 
 **Mailbox settings**
-- **Automate mailbox** — verzend automatisch als brievenbuspakje als gewicht en afmetingen passen.
-- **Mailbox weight** — maximumgewicht (standaard 2000 g).
-- **Priority delivery (Prio 24 uur)** + **Priority delivery fee**.
-- **International mailbox** — brievenbuspakjes naar het buitenland.
+- **Automate mailbox** — ship as mailbox parcel automatically when weight and size fit.
+- **Mailbox weight** — maximum weight (default 2000 g).
+- **Priority delivery (Prio 24 hour)** + **Priority delivery fee**.
+- **International mailbox** — mailbox parcels abroad.
 
 **Small Package settings**
 - **Automate Small Package** + **Small Package weight**.
 
-**Bezorgmomenten**
+**Delivery moments**
 - **Morning delivery active** + fee.
 - **Evening delivery active** + fee.
 - **Pickup active** + fee.
 
 **Delivery settings**
-- **Delivery enabled** — PostNL master-toggle.
+- **Delivery enabled** — PostNL master toggle.
 - **Signature on receipt** + fee.
 - **Home address only** + fee.
 - **Saturday delivery** + fee.
 :::
 
-### Andere vervoerders — verschillen in het kort
-| Vervoerder | Bijzonderheden |
+### Other carriers — differences in short
+| Carrier | Notable details |
 | --- | --- |
-| **DHL For You** | Brievenbuspakjes ondersteund. Afhalen bij DHL-servicepoint. Geen ochtend/avondlevering. |
-| **DHL Europlus** | Zakelijke EU-zendingen. Verzekering per regio (Local/BE/EU/ROW). |
-| **DHL Parcel Connect** | Consumentenzendingen binnen Europa. Pickup mogelijk. |
-| **DPD** | NL pakket + brievenbuspakje (sinds v4.15). Afhalen bij DPD ParcelShop. |
-| **UPS Standard** | Internationaal zakelijk. Minder opties, 3-dagen bezorgvenster standaard. |
-| **GLS** | NL/BE. Signature, Only recipient, Saturday delivery. Pickup bij GLS-punt. |
-| **Trunkrs** | Snelle NL-bezorger. Receipt code, Fresh food, Frozen, Priority delivery. |
+| **DHL For You** | Mailbox parcels supported. Pickup at DHL service point. No morning/evening delivery. |
+| **DHL Europlus** | Business EU shipments. Insurance per region (Local/BE/EU/ROW). |
+| **DHL Parcel Connect** | Consumer shipments within Europe. Pickup possible. |
+| **DPD** | NL parcel + mailbox parcel (since v4.15). Pickup at DPD ParcelShop. |
+| **UPS Standard** | International business. Fewer options, 3-day delivery window by default. |
+| **GLS** | NL/BE. Signature, Only recipient, Saturday delivery. Pickup at GLS point. |
+| **Trunkrs** | Fast NL carrier. Receipt code, Fresh food, Frozen, Priority delivery. |
 
-## 7 · Productinstellingen
-Op elk product verschijnt een sectie **MyParcel Options** op de edit-pagina. Deze overschrijft de globale defaults uit [§6](#6-settings-vervoerders) per product — handig voor producten met bijzondere eisen.
+## 7 · Product settings
+Every product has a **MyParcel Options** section on its edit page. This overrides the global defaults from [§6](#6-settings-carriers) per product — useful for products with special requirements.
 
-![MyParcel Options sectie op product-edit pagina met Dropoff-delay, Age check 18+, Fit in digital stamp, HS code, Fit in mailbox, Disable delivery options, Exclude parcel lockers.](./images/magento2/10-product-myparcel-options.svg)
+![MyParcel Options section on product edit page with Drop-off delay, Age check 18+, Fit in digital stamp, HS code, Fit in mailbox, Disable delivery options, Exclude parcel lockers.](./images/magento2/10-product-myparcel-options.svg)
 
-- **Dropoff-delay** — extra werkdagen om dit product te pakken. Voor made-to-order of dropship.
-- **Age check 18+** — verplicht legitimatiecheck. Voor alcohol, tabak, messen. Kan niet samen met ochtend-/avondlevering.
-- **Fit in digital stamp** — mag dit product als digitale postzegel?
-- **HS code** — douanecode voor wereldwijde zendingen. Zoek op [tarief.douane.nl](https://tarief.douane.nl).
-- **Fit in mailbox** — hoeveel stuks passen in één brievenbuspakje? `0` = automatisch op gewicht, `-1` = past niet in brievenbus.
-- **Disable delivery options** — verbergt het MyParcel-bezorgoptieblok als dit product in het mandje ligt. Voor digitale producten of cadeaubonnen.
-- **Exclude parcel lockers** — verbergt pakketautomaten als afhaalpunt voor dit product.
+- **Drop-off delay** — extra working days to pick this product. For made-to-order or dropship.
+- **Age check 18+** — requires an ID check. For alcohol, tobacco, knives. Cannot combine with morning/evening delivery.
+- **Fit in digital stamp** — may this product ship as a digital stamp?
+- **HS code** — customs code for worldwide shipments. Look up at [tarief.douane.nl](https://tarief.douane.nl).
+- **Fit in mailbox** — how many fit in one mailbox parcel? `0` = automatic by weight, `-1` = doesn't fit in mailbox.
+- **Disable delivery options** — hides the MyParcel delivery options block when this product is in the cart. For digital products or gift cards.
+- **Exclude parcel lockers** — hides parcel lockers as a pickup point for this product.
 
-## 8 · De checkout-ervaring
-Zodra de klant een bezorgadres invult verschijnt het MyParcel-blok met bezorgopties. Welke opties er staan hangt af van: de actieve vervoerders, de producten in het winkelwagentje en de product-specifieke overrides uit [§7](#7-productinstellingen).
+## 8 · The checkout experience
+Once the customer fills in a delivery address, the MyParcel block appears with delivery options. Which options show depends on: the active carriers, the products in the cart, and the product-specific overrides from [§7](#7-product-settings).
 
-![MyParcel-blok in de Magento-checkout met bezorgopties per vervoerder, afhaalpunten en meerprijzen.](./images/magento2/20-checkout-delivery-options.svg)
+![MyParcel block in the Magento checkout with delivery options per carrier, pickup points and surcharges.](./images/magento2/20-checkout-delivery-options.svg)
 
-### Bezorgopties
-- **Standaardlevering** — bezorging tijdens kantooruren.
-- **Ochtendlevering** — PostNL bezorgt 's ochtends (meerprijs).
-- **Avondlevering** — tussen 18:00 en 22:00 (meerprijs).
-- **Zaterdaglevering** — alleen zichtbaar als per vervoerder ingeschakeld.
-- **Handtekening voor ontvangst** — bezorger laat klant tekenen.
-- **Niet bij de buren bezorgen** — alleen aan ontvanger.
-- **18+ legitimatiecheck** — verschijnt automatisch als een product dit vereist.
-- **Ophalen bij een PostNL-locatie** — lijst of kaart; pakketautomaten afhankelijk van *Exclude parcel lockers*.
-- **Brievenbuspakje** — als het mandje binnen de maatvoering past.
-- **Digitale postzegel** — voor platte, lichte zendingen.
-- **Prio 24 uur** — prioriteitsbezorging (alleen indien geactiveerd).
+### Delivery options
+- **Standard delivery** — delivery during office hours.
+- **Morning delivery** — PostNL delivers in the morning (surcharge).
+- **Evening delivery** — between 18:00 and 22:00 (surcharge).
+- **Saturday delivery** — only visible if enabled per carrier.
+- **Signature on receipt** — courier asks the customer to sign.
+- **No delivery to neighbours** — only to the recipient.
+- **18+ ID check** — appears automatically when a product requires it.
+- **Pickup at a PostNL location** — list or map; parcel lockers depending on *Exclude parcel lockers*.
+- **Mailbox parcel** — when the cart fits within the size limits.
+- **Digital stamp** — for flat, light shipments.
+- **Prio 24 hour** — priority delivery (only if activated).
 
-## 9 · Dagelijks gebruik
+## 9 · Daily use
 
 ### Workflow 1 — per order
-1. Ga naar *Sales → Orders* en open een bestelling.
-2. Klik **Print MyParcel Label**.
-3. Pas eventueel pakkettype, verzekering of bezorgopties aan voor deze order.
-4. Klik **Create**. Het label wordt in de MyParcel-backoffice aangemaakt.
+1. Go to *Sales → Orders* and open an order.
+2. Click **Print MyParcel Label**.
+3. Optionally adjust package type, insurance or delivery options for this order.
+4. Click **Create**. The label is created in the MyParcel backoffice.
 
-### Workflow 2 — bulk (10+ orders/dag)
-1. Ga naar *Sales → Orders*.
-2. Selecteer meerdere orders met de checkboxes.
-3. Onder *Actions* → **Create & print MyParcel track(s)**.
+### Workflow 2 — bulk (10+ orders/day)
+1. Go to *Sales → Orders*.
+2. Select multiple orders with the checkboxes.
+3. Under *Actions* → **Create & print MyParcel track(s)**.
 
-### Track & Trace in bevestigingsmail
-Onder *Stores → Configuration → Sales → Sales Emails → MyParcel Track* zet je de tracking-link in de verzendmail. Zie [FAQ](#11-faq) voor mail-template-conflicten.
+### Track & Trace in confirmation email
+Under *Stores → Configuration → Sales → Sales Emails → MyParcel Track* you set the tracking link in the shipment email. See [FAQ](#11-faq) for mail template conflicts.
 
-::: tip Belasting-moment
-Je wordt pas belast wanneer een zending daadwerkelijk aan de vervoerder wordt overgedragen. Digitale postzegels zijn de uitzondering — die worden bij export direct afgerekend.
+::: tip When you're billed
+You're only billed once a shipment is actually handed over to the carrier. Digital stamps are the exception — they are charged immediately on export.
 :::
 
-## 10 · Iets werkt niet — diagnose
-Werkt iets niet zoals verwacht? Loop deze tabel van boven naar onder door — drie op de vier issues zijn binnen 5 minuten opgelost.
+## 10 · Something's not working — diagnostics
+Something not behaving as expected? Run through this table top to bottom — three out of four issues are fixed within 5 minutes.
 
-| Symptoom | Wat te checken |
+| Symptom | What to check |
 | --- | --- |
-| **Geen bezorgopties in de checkout** | (1) API-key correct opgeslagen? (2) Minstens één vervoerder op *Delivery enabled = Yes*? (3) Bezorgadres binnen *Ship to Specific Countries*? (4) `bin/magento cache:flush` |
-| **Cannot select MyParcel na andere shipping method** | Upgrade naar v5.5.2 of hoger; dit is in recente releases verbeterd. Blijft het: MyParcel-support. |
-| **"This address can not be split"** | Postcode-checker-plugin gebruikt? Configureer deze zo dat straat en huisnummer als aparte velden blijven bestaan. |
-| **"API key invalid"** | Spatie in key? Key van juiste shop? Opnieuw kopiëren uit MyParcel-backoffice *Shopinstellingen → Integratie* en plakken. Cache leegmaken. |
-| **"Can't get setting with path" in logs** | Vervoerder staat in logging maar niet actief — onschuldige melding. Wordt verholpen in nieuwere releases. |
-| **Shipping methods blijven laden** | Ander shipping method actief met *Show Method if Not Applicable = Yes*? Zet die optie uit. |
-| **Labels kloppen niet met instellingen** | Klik *Import MyParcel Backoffice settings* opnieuw. Na upgrade: cache flushen. |
-| **Hyvä-checkout — bezorgopties verschijnen niet** | Compatibility-module geïnstalleerd? `composer require hyva-themes/magento2-hyva-checkout-myparcelnl` |
+| **No delivery options in the checkout** | (1) API key saved correctly? (2) At least one carrier with *Delivery enabled = Yes*? (3) Delivery address within *Ship to Specific Countries*? (4) `bin/magento cache:flush` |
+| **Cannot select MyParcel after another shipping method** | Upgrade to v5.5.2 or higher; this has been improved in recent releases. Still happening: contact MyParcel support. |
+| **"This address can not be split"** | Postal-code-checker plugin in use? Configure it so street and house number remain separate fields. |
+| **"API key invalid"** | Space in the key? Key from the right shop? Copy again from the MyParcel backoffice *Shop settings → Integration* and paste. Clear cache. |
+| **"Can't get setting with path" in logs** | Carrier in logging but not active — harmless message. Will be addressed in newer releases. |
+| **Shipping methods keep loading** | Another shipping method active with *Show Method if Not Applicable = Yes*? Turn that option off. |
+| **Labels don't match the settings** | Click *Import MyParcel Backoffice settings* again. After upgrade: flush cache. |
+| **Hyvä checkout — delivery options don't appear** | Compatibility module installed? `composer require hyva-themes/magento2-hyva-checkout-myparcelnl` |
 
 ## 11 · FAQ
 
-### Hoe wissel ik het pakkettype voor één specifieke bestelling?
-Open de order, klik *Print MyParcel Label* en pas in het popup-venster het pakkettype aan voordat je het label aanmaakt.
+### How do I change the package type for one specific order?
+Open the order, click *Print MyParcel Label* and adjust the package type in the popup before creating the label.
 
-### Mag ik meerdere vervoerders tegelijk gebruiken?
-Ja, als ze in je MyParcel-contract staan. Activeer elke vervoerder in zijn eigen tab. Klanten zien dan meerdere bezorgblokken in de checkout.
+### Can I use multiple carriers at once?
+Yes, if they're in your MyParcel contract. Activate each carrier in its own tab. Customers will then see multiple delivery blocks at checkout.
 
-### Ik wil geen pakketautomaten aanbieden — kan dat?
-Ga naar *General settings → Delivery methods → Exclude parcel lockers*. Per product kun je dit ook regelen via *Exclude parcel lockers* op de product-edit-pagina.
+### I don't want to offer parcel lockers — can I disable them?
+Go to *General settings → Delivery methods → Exclude parcel lockers*. You can also set this per product via *Exclude parcel lockers* on the product edit page.
 
-### Werkt de plugin met third-party checkouts?
-Officieel ondersteund: standaard Magento-checkout én Hyvä-checkout (met de `hyva-themes/magento2-hyva-checkout-myparcelnl` module). Andere checkouts werken mogelijk niet volledig — test altijd vóór live.
+### Does the plugin work with third-party checkouts?
+Officially supported: standard Magento checkout and Hyvä checkout (with the `hyva-themes/magento2-hyva-checkout-myparcelnl` module). Other checkouts may not work fully — always test before going live.
 
-### Hoe rol ik terug naar een oudere versie?
-Composer: `composer require myparcelnl/magento:5.4.0` gevolgd door `bin/magento setup:upgrade` en `cache:flush`. Meld de bug op [github.com/myparcelnl/magento/issues](https://github.com/myparcelnl/magento/issues).
+### How do I roll back to an older version?
+Composer: `composer require myparcelnl/magento:5.4.0` followed by `bin/magento setup:upgrade` and `cache:flush`. Report the bug at [github.com/myparcelnl/magento/issues](https://github.com/myparcelnl/magento/issues).
 
-### Mijn klanten krijgen geen bezorgopties als ze postcode eerst invullen
-Bekend issue met sommige Postcode-checker plugins. Configureer de checker zo dat straat en huisnummer als aparte velden behouden blijven.
+### My customers don't get delivery options when they fill in their postal code first
+Known issue with some postal-code-checker plugins. Configure the checker so street and house number remain separate fields.
 
-### Hoe verander ik mijn afzenderadres op het label?
-Het afzenderadres komt uit je MyParcel-backoffice (*Shopinstellingen → Algemeen*), niet uit Magento.
+### How do I change the sender address on the label?
+The sender address comes from your MyParcel backoffice (*Shop settings → General*), not from Magento.
 
-### Kost de plugin geld?
-Nee. Je betaalt alleen voor de zendingen via je MyParcel-tarief.
+### Does the plugin cost money?
+No. You only pay for the shipments via your MyParcel rate.
 
-## Bronnen & support
-- [github.com/myparcelnl/magento ↗](https://github.com/myparcelnl/magento) — broncode, releases, issues.
-- [developer.myparcel.nl — Magento 2 ↗](https://developer.myparcel.nl/nl/documentatie/13.magento2.html) — officiële installatie- en configuratiehandleiding.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
-- [Contact MyParcel-support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+## Resources & support
+- [github.com/myparcelnl/magento ↗](https://github.com/myparcelnl/magento) — source code, releases, issues.
+- [developer.myparcel.nl — Magento 2 ↗](https://developer.myparcel.nl/nl/documentatie/13.magento2.html) — official installation and configuration manual.
+- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, billing.
+- [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).

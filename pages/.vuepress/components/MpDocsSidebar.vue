@@ -21,13 +21,14 @@ const currentPath = computed(() => BASE + page.value.path);
 <template>
   <aside class="mp-docs-sidebar">
     <div v-for="(group, gi) in groups" :key="gi" class="mp-docs-sidebar__group">
-      <div class="mp-docs-sidebar__label">{{ group.label }}</div>
+      <div class="mp-docs-sidebar__label" :data-i18n="group.label">{{ group.label }}</div>
       <a
         v-for="item in group.items"
         :key="item.link"
         :href="item.link"
         class="mp-docs-sidebar__item"
         :class="{ 'mp-docs-sidebar__item--active': currentPath === item.link }"
+        :data-i18n="item.text"
       >{{ item.text }}</a>
     </div>
   </aside>

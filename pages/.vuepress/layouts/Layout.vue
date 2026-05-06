@@ -11,10 +11,19 @@ import ApiLayout from './ApiLayout.vue';
 import ApiOverviewLayout from './ApiOverviewLayout.vue';
 import AboutLayout from './AboutLayout.vue';
 import ContactLayout from './ContactLayout.vue';
-import { docsSidebar } from '../sidebar';
+import { docsSidebar, localizeSidebar, detectLang, toSlugPath, BASE } from '../sidebar';
 
 const page = usePageData();
 const fm = usePageFrontmatter<Record<string, any>>();
+
+// Active locale, derived from the current router path. The lang dropdown
+// navigates the URL; we never read it from localStorage here.
+const lang = computed(() => detectLang(page.value.path));
+
+// Slug-only path (BASE + locale prefix stripped) — used for layout routing
+// so /guides/foo.html, /nl/guides/foo.html and /it/guides/foo.html all behave
+// identically.
+const slugPath = computed(() => toSlugPath(page.value.path));
 
 // Pages under /guides/ get the three-column docs frame.
 // Single API references (*-api.html, but not /api/) get the
@@ -22,43 +31,48 @@ const fm = usePageFrontmatter<Record<string, any>>();
 // have their own dedicated layouts. Everything else uses the standalone frame.
 const isDocs = computed(
   () =>
-    page.value.path.startsWith('/guides/') ||
-    page.value.path.startsWith('/platforms/'),
+    slugPath.value.startsWith('/guides/') ||
+    slugPath.value.startsWith('/platforms/'),
 );
 const isHome = computed(() => fm.value.home === true || page.value.path === '/');
 const isApi = computed(() => {
-  const p = page.value.path;
+  const p = slugPath.value;
   return p.startsWith('/api/') && p !== '/api/';
 });
-const isApiOverview = computed(() => page.value.path === '/api/');
-const isAbout = computed(() => page.value.path === '/about.html');
-const isContact = computed(() => page.value.path === '/contact.html');
+const isApiOverview = computed(() => slugPath.value === '/api/');
+const isAbout = computed(() => slugPath.value === '/about.html');
+const isContact = computed(() => slugPath.value === '/contact.html');
+
+const localizedSidebar = computed(() => localizeSidebar(docsSidebar, lang.value));
 
 const breadcrumbTrail = computed(() => {
+  const localePrefix = lang.value === 'en' ? '' : `/${lang.value}`;
   const trail: { text: string; link?: string }[] = [
-    { text: 'Home', link: '/beta-developer-portal/' },
+    { text: 'Home', link: `${BASE}${localePrefix || '/'}` },
   ];
   if (isDocs.value) {
-    trail.push({ text: 'Documentation', link: '/beta-developer-portal/guides/getting-started.html' });
-  } else if (page.value.path.endsWith('-api.html') || page.value.path === '/api/') {
-    trail.push({ text: 'API Reference', link: '/beta-developer-portal/api/' });
+    trail.push({
+      text: 'Documentation',
+      link: `${BASE}${localePrefix}/guides/getting-started.html`,
+    });
+  } else if (slugPath.value.endsWith('-api.html') || slugPath.value === '/api/') {
+    trail.push({ text: 'API Reference', link: `${BASE}/api/` });
   }
   trail.push({ text: page.value.title });
   return trail;
 });
 
-// Find prev/next inside the docs sidebar for the pager.
-const flatDocs = docsSidebar.flatMap((g) => g.items);
-const BASE = '/beta-developer-portal';
+// Find prev/next inside the localized docs sidebar for the pager.
+const flatDocs = computed(() => localizedSidebar.value.flatMap((g) => g.items));
 const currentIdx = computed(() =>
-  flatDocs.findIndex((i) => i.link === BASE + page.value.path),
+  flatDocs.value.findIndex((i) => i.link === BASE + page.value.path),
 );
 const prev = computed(() =>
-  currentIdx.value > 0 ? flatDocs[currentIdx.value - 1] : null,
+  currentIdx.value > 0 ? flatDocs.value[currentIdx.value - 1] : null,
 );
 const next = computed(() =>
-  currentIdx.value >= 0 && currentIdx.value < flatDocs.length - 1
-    ? flatDocs[currentIdx.value + 1]
+  currentIdx.value >= 0 && currentIdx.value < flatDocs.value.length - 1
+    ? flatDocs.value[currentIdx.value + 1]
     : null,
 );
 </script>
@@ -73,7 +87,7 @@ const next = computed(() =>
     <MpHeader />
 
     <div v-if="isDocs" class="mp-docs-layout">
-      <MpDocsSidebar :groups="docsSidebar" />
+      <MpDocsSidebar :groups="localizedSidebar" />
 
       <main class="mp-docs-content">
         <MpBreadcrumb :trail="breadcrumbTrail" />
