@@ -51,7 +51,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Ecwid', link: '/platforms/coming-soon.html?p=Ecwid' },
       { text: 'Bol.', link: '/platforms/coming-soon.html?p=Bol.' },
       { text: 'Wix', link: '/platforms/coming-soon.html?p=Wix' },
-      { text: 'Amazon', link: '/platforms/coming-soon.html?p=Amazon' },
+      { text: 'Amazon', link: '/platforms/amazon.html' },
       { text: 'Etsy', link: '/platforms/coming-soon.html?p=Etsy' },
       { text: 'Chrome extension', link: '/platforms/coming-soon.html?p=Chrome+extension' },
     ],
