@@ -35,7 +35,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'WooCommerce', link: '/beta-developer-portal/platforms/woocommerce.html' },
       { text: 'Magento 2', link: '/beta-developer-portal/platforms/magento2.html' },
       { text: 'Shopify', link: '/beta-developer-portal/platforms/coming-soon.html?p=Shopify' },
-      { text: 'PrestaShop', link: '/beta-developer-portal/platforms/coming-soon.html?p=PrestaShop' },
+      { text: 'PrestaShop', link: '/beta-developer-portal/platforms/prestashop.html' },
       { text: 'Shopware', link: '/beta-developer-portal/platforms/coming-soon.html?p=Shopware' },
       { text: 'Lightspeed', link: '/beta-developer-portal/platforms/coming-soon.html?p=Lightspeed' },
       { text: 'Ecwid', link: '/beta-developer-portal/platforms/coming-soon.html?p=Ecwid' },

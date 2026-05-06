@@ -1288,31 +1288,158 @@ pre.mp-code-block::after {
   }
   li::marker { color: var(--mp-fresh); }
 
-  // Tables — borderless, breathable, with row dividers only
+  // Tables — modern "card-stack" design
+  // -------------------------------------------------------------------
+  // Each row is rendered as its own soft card with a small spacing gap,
+  // hairline border, and a green accent-dot that grows on hover. Header
+  // is minimal and de-emphasised; first column carries the row label,
+  // middle column(s) get brand-green emphasis, last column is body
+  // text. Inspired by Linear/Stripe/Vercel-style data lists.
   table {
+    display: table;
     width: 100%;
-    border-collapse: collapse;
-    margin: var(--mp-space-5) 0 var(--mp-space-6);
-    font-size: 13.5px;
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0 6px;        // vertical gap between rows = "stack" feel
+    margin: var(--mp-space-6) 0 var(--mp-space-8);
+    font-size: 15px;
+    line-height: 1.6;
+    background: transparent;
   }
+
+  // Header — small caps muted label, sits subtly above the cards
+  thead { background: transparent; }
   th {
     color: var(--mp-text-muted);
-    font-weight: 600;
+    font-weight: 500;
     text-align: left;
-    padding: 8px 14px 8px 0;
+    padding: 0 var(--mp-space-5) var(--mp-space-3);
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border-bottom: 2px solid var(--mp-border);
+    letter-spacing: 0.09em;
+    border: none;
+    background: transparent;
   }
-  td {
-    padding: 12px 14px 12px 0;
+  th:first-child { padding-left: var(--mp-space-6); }
+  th:last-child  { padding-right: var(--mp-space-5); }
+
+  // Body rows = floating cards. The hairline border lives on the row
+  // (via the cells' shared edges) so the green-dot accent on hover can
+  // also brighten the border without painting over a heavier outer rule.
+  tbody tr {
+    transition: background 0.18s ease, box-shadow 0.18s ease;
+  }
+  tbody td {
+    padding: var(--mp-space-5);
+    border-top: 1px solid var(--mp-border-soft);
     border-bottom: 1px solid var(--mp-border-soft);
+    background: var(--mp-bg);
     color: var(--mp-text-body);
     vertical-align: top;
   }
-  tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: var(--mp-bg-subtle); }
+  tbody td:first-child {
+    border-left: 1px solid var(--mp-border-soft);
+    border-top-left-radius: var(--mp-radius-md);
+    border-bottom-left-radius: var(--mp-radius-md);
+    padding-left: calc(var(--mp-space-6) + 14px);  // room for accent dot
+    position: relative;
+    font-weight: 600;
+    color: var(--mp-text);
+  }
+  tbody td:last-child {
+    border-right: 1px solid var(--mp-border-soft);
+    border-top-right-radius: var(--mp-radius-md);
+    border-bottom-right-radius: var(--mp-radius-md);
+  }
+
+  // Green accent dot on the left of each row — subtle by default, scales
+  // up on hover to signal "this row is interactive / readable".
+  tbody td:first-child::before {
+    content: '';
+    position: absolute;
+    left: var(--mp-space-5);
+    top: calc(var(--mp-space-5) + 3px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--mp-fresh);
+    opacity: 0.35;
+    transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  tbody tr:hover td:first-child::before {
+    opacity: 1;
+    transform: scale(1.25);
+    box-shadow: 0 0 0 4px rgba(15, 120, 89, 0.12);
+  }
+
+  // Middle column(s) get brand-green emphasis — the "recommended value"
+  // / "what to do" cell pops out vs the row label and the explanation.
+  tbody td:nth-child(2):not(:last-child) {
+    color: var(--mp-fresh);
+    font-weight: 600;
+  }
+
+  // Hover-lift — soft shadow + accent border around the row card.
+  tbody tr:hover td {
+    background: var(--mp-bg-subtle);
+    border-color: rgba(15, 120, 89, 0.22);
+  }
+  tbody tr:hover td:first-child {
+    box-shadow: -4px 4px 12px -6px rgba(15, 120, 89, 0.18);
+  }
+  tbody tr:hover td:last-child {
+    box-shadow: 4px 4px 12px -6px rgba(15, 120, 89, 0.18);
+  }
+
+  // Inline code — softer pill that doesn't compete with the row card
+  td code, th code {
+    background: rgba(15, 120, 89, 0.08);
+    border-color: transparent;
+  }
+
+  // Mobile: drop card padding, simpler layout, allow horizontal scroll
+  @media (max-width: 720px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      font-size: 14px;
+      border-spacing: 0 4px;
+    }
+    th { padding: 0 var(--mp-space-4) var(--mp-space-2); }
+    th:first-child { padding-left: var(--mp-space-4); }
+    tbody td {
+      padding: var(--mp-space-4);
+    }
+    tbody td:first-child {
+      padding-left: calc(var(--mp-space-4) + 14px);
+    }
+    tbody td:first-child::before {
+      left: var(--mp-space-3);
+      top: calc(var(--mp-space-4) + 3px);
+    }
+  }
+
+  // Dark mode — softer borders and brighter emphasis colour
+  [data-theme="dark"] & tbody td {
+    background: rgba(255, 255, 255, 0.015);
+    border-color: var(--mp-border);
+  }
+  [data-theme="dark"] & tbody tr:hover td {
+    background: rgba(111, 212, 181, 0.05);
+    border-color: rgba(111, 212, 181, 0.32);
+  }
+  [data-theme="dark"] & tbody td:nth-child(2):not(:last-child) {
+    color: #6FD4B5;
+  }
+  [data-theme="dark"] & tbody td:first-child::before {
+    background: #6FD4B5;
+  }
+  [data-theme="dark"] & td code,
+  [data-theme="dark"] & th code {
+    background: rgba(111, 212, 181, 0.12);
+    color: #d8f0e6;
+  }
 
   // Inline code
   :not(pre) > code {

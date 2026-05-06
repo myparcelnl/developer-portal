@@ -5,6 +5,27 @@ import { getDirname, path } from 'vuepress/utils';
 
 const __dirname = getDirname(import.meta.url);
 
+// Custom slugify — VuePress's default keeps Unicode middots (·) and em-dashes
+// (—) verbatim and prefixes a `_` to ids that start with a digit. That makes
+// the auto-generated heading IDs ugly and breaks our hand-written anchor
+// links like `#5-settings-bestellingen`. This produces clean ASCII slugs:
+//   "5 · Settings · Bestellingen"  ->  "5-settings-bestellingen"
+//   "Snelstart — in 15 minuten"   ->  "snelstart-in-15-minuten"
+//   "Wat zoek je?"                ->  "wat-zoek-je"
+const slugify = (str: string): string =>
+  str
+    .toLowerCase()
+    // Replace separator characters with spaces so the next step collapses them
+    .replace(/[·—–]/g, ' ')
+    // Strip anything that's not a letter, digit, space or dash
+    .replace(/[^a-z0-9\s-]/g, '')
+    // Collapse whitespace runs into a single dash
+    .replace(/\s+/g, '-')
+    // Collapse runs of dashes into one
+    .replace(/-+/g, '-')
+    // Trim leading/trailing dashes
+    .replace(/^-+|-+$/g, '');
+
 export default defineUserConfig({
   lang: 'en-US',
   title: 'MyParcel Developer Portal',
@@ -13,6 +34,11 @@ export default defineUserConfig({
 
   bundler: viteBundler(),
   clientConfigFile: path.resolve(__dirname, './client.ts'),
+
+  markdown: {
+    anchor: { slugify },
+    toc: { slugify },
+  },
 
 
   // The default theme still ships the navbar/sidebar/etc. but we hide them

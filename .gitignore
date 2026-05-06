@@ -1,6 +1,7 @@
 .DS_Store
 .claude/
 md files/
+output/
 
 # Node / VuePress
 node_modules/
