@@ -64,6 +64,13 @@ const mobileOpen = ref(false);
 const mobileApiOpen = ref(false);
 const mobilePlatformsOpen = ref(false);
 
+const BETA_DISMISS_KEY = 'mp-beta-banner-dismissed';
+const bannerVisible = ref(false);
+function dismissBanner() {
+  bannerVisible.value = false;
+  try { localStorage.setItem(BETA_DISMISS_KEY, '1'); } catch {}
+}
+
 function closeMobile() {
   mobileOpen.value = false;
 }
@@ -86,6 +93,7 @@ onMounted(() => {
   document.addEventListener('keydown', onEsc);
   unwatchRoute = router.afterEach(() => closeMobile());
   syncFromDom();
+  try { bannerVisible.value = localStorage.getItem(BETA_DISMISS_KEY) !== '1'; } catch { bannerVisible.value = true; }
 });
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', onEsc);
@@ -95,10 +103,37 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <ClientOnly>
+    <Transition name="mp-beta-banner">
+      <div v-if="bannerVisible" class="mp-beta-banner" role="status">
+        <div class="mp-beta-banner__inner">
+          <span class="mp-beta-banner__pill" data-i18n="Beta">Beta</span>
+          <span class="mp-beta-banner__msg">
+            <span data-i18n="This developer portal is in beta — content and APIs may change while we polish things up.">This developer portal is in beta — content and APIs may change while we polish things up.</span>
+            <a href="/beta-developer-portal/contact.html" class="mp-beta-banner__link" data-i18n="Share feedback →">Share feedback →</a>
+          </span>
+          <button
+            type="button"
+            class="mp-beta-banner__close"
+            aria-label="Dismiss beta notice"
+            @click="dismissBanner"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </Transition>
+  </ClientOnly>
+
   <nav class="mp-nav">
     <a href="/beta-developer-portal/" class="mp-nav__logo">
       <img class="mp-nav__logo-img" src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="128" height="20" />
-      <span class="mp-nav__logo-sub">Developers</span>
+      <span class="mp-nav__logo-stack">
+        <span class="mp-nav__logo-sub">Developers</span>
+        <span class="mp-nav__logo-beta" data-i18n="Beta">Beta</span>
+      </span>
     </a>
 
     <MpSearch />
@@ -185,7 +220,10 @@ onBeforeUnmount(() => {
         <header class="mp-mobile-drawer__head">
           <a href="/beta-developer-portal/" class="mp-mobile-drawer__logo" @click="closeMobile">
             <img src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="112" height="18" />
-            <span>Developers</span>
+            <span class="mp-mobile-drawer__logo-stack">
+              <span class="mp-mobile-drawer__logo-sub">Developers</span>
+              <span class="mp-mobile-drawer__logo-beta" data-i18n="Beta">Beta</span>
+            </span>
           </a>
           <button
             type="button"
@@ -347,7 +385,7 @@ onBeforeUnmount(() => {
   text-decoration: none;
   color: inherit;
 }
-.mp-mobile-drawer__logo span {
+.mp-mobile-drawer__logo > span {
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -356,6 +394,138 @@ onBeforeUnmount(() => {
   background: var(--mp-mint);
   padding: 2px 8px;
   border-radius: 999px;
+}
+.mp-mobile-drawer__logo-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  line-height: 1;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+.mp-mobile-drawer__logo-sub {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mp-fresh);
+  background: var(--mp-mint);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.mp-mobile-drawer__logo-beta {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--mp-fresh);
+  background: var(--mp-mint);
+  border: 1px solid rgb(15 120 89 / 18%);
+  padding: 0 5px;
+  border-radius: 999px;
+  line-height: 1.6;
+}
+
+/* ---- Beta announcement banner ----------------------------------------- */
+.mp-beta-banner {
+  background: var(--mp-mint);
+  border-bottom: 1px solid var(--mp-border-soft);
+  color: var(--mp-fresh);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.mp-beta-banner__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+}
+.mp-beta-banner__pill {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #fff;
+  background: var(--mp-fresh);
+  padding: 2px 8px;
+  border-radius: 999px;
+  line-height: 1.5;
+}
+.mp-beta-banner__msg {
+  flex: 1;
+  min-width: 0;
+}
+.mp-beta-banner__link {
+  color: var(--mp-fresh);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.mp-beta-banner__link:hover { text-decoration: none; }
+.mp-beta-banner__close {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--mp-radius-sm, 6px);
+  color: var(--mp-fresh);
+  cursor: pointer;
+  opacity: 0.7;
+}
+.mp-beta-banner__close:hover {
+  opacity: 1;
+  background: rgb(15 120 89 / 8%);
+}
+[data-theme="dark"] .mp-beta-banner {
+  background: rgb(15 120 89 / 14%);
+  color: #b8e6d6;
+  border-bottom-color: rgb(255 255 255 / 6%);
+}
+[data-theme="dark"] .mp-beta-banner__pill {
+  background: #b8e6d6;
+  color: #073a2b;
+}
+[data-theme="dark"] .mp-beta-banner__link,
+[data-theme="dark"] .mp-beta-banner__close {
+  color: #b8e6d6;
+}
+
+@media (max-width: 640px) {
+  .mp-beta-banner { font-size: 12px; }
+  .mp-beta-banner__inner { padding: 7px 12px; gap: 8px; }
+  .mp-beta-banner__pill { font-size: 9px; padding: 1px 6px; letter-spacing: 0.12em; }
+}
+
+.mp-beta-banner-enter-from,
+.mp-beta-banner-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+.mp-beta-banner-enter-to,
+.mp-beta-banner-leave-from {
+  opacity: 1;
+  max-height: 80px;
+}
+.mp-beta-banner-enter-active,
+.mp-beta-banner-leave-active {
+  overflow: hidden;
+  transition: opacity 0.18s ease, max-height 0.22s ease;
 }
 .mp-mobile-drawer__close {
   width: 36px;

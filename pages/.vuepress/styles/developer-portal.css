@@ -205,7 +205,33 @@ mp-header, mp-footer { display: contents; }
   color: var(--mp-goldfish);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.mp-nav__logo-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  line-height: 1;
+}
+
+.mp-nav__logo-beta {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--mp-fresh);
+  background: var(--mp-mint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0 5px;
+  border: 1px solid rgb(15 120 89 / 18%);
+  border-radius: 999px;
+  line-height: 1.6;
+}
+[data-theme="dark"] .mp-nav__logo-beta {
+  color: #b8e6d6;
+  background: rgb(15 120 89 / 22%);
+  border-color: rgb(184 230 214 / 25%);
 }
 
 .mp-nav__search {
