@@ -1,5 +1,8 @@
 {
   "Developers": "Developers",
+  "Beta": "Beta",
+  "This developer portal is in beta — content and APIs may change while we polish things up.": "Dit developer portal is in beta — content en API's kunnen wijzigen terwijl we de puntjes op de i zetten.",
+  "Share feedback →": "Geef feedback →",
   "Pick an endpoint to see request & response samples.": "Kies een endpoint om request- &amp; response-voorbeelden te zien.",
   "Authenticate every request with a bearer token:": "Authenticeer elke request met een bearer-token:",
   "Tip:": "Tip:",
