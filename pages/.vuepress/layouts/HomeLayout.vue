@@ -462,32 +462,5 @@ import MpFooter from '../components/MpFooter.vue';
     </div>
   </section>
 
-  <!-- ============================================================
-       REGISTER A NEW SPEC (INT-1510)
-  ============================================================ -->
-  <section class="mp-register-section">
-    <div class="mp-section-label" data-i18n="REGISTER A NEW SPEC">REGISTER A NEW SPEC</div>
-    <div class="mp-register">
-      <div class="mp-register__copy">
-        <h3 class="mp-register__title" data-i18n="Add your OpenAPI spec">Add your OpenAPI spec</h3>
-        <p class="mp-register__desc" data-i18n="New MyParcel services are picked up by adding one entry to the portal config. No renderer or route changes required.">
-          New MyParcel services are picked up by adding one entry to
-          the portal config. No renderer or route changes required.
-        </p>
-        <a href="https://github.com/myparcelnl/developer-portal" target="_blank" rel="noopener" class="mp-register__link">
-          <span data-i18n="View on GitHub">View on GitHub</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M13 5l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-      <pre class="mp-code-block mp-register__code"><code><span class="token-comment"># portal.config.yaml</span>
-<span class="token-key">apis</span><span class="token-punct">:</span>
-  <span class="token-punct">-</span> <span class="token-key">name</span><span class="token-punct">:</span> <span class="token-string">"MyParcel API"</span>
-    <span class="token-key">spec</span><span class="token-punct">:</span> <span class="token-string">"https://api.myparcel.nl/openapi.yaml"</span>
-    <span class="token-key">description</span><span class="token-punct">:</span> <span class="token-string">"Shipments, orders, carriers, auth"</span></code></pre>
-    </div>
-  </section>
-
   <MpFooter />
 </template>

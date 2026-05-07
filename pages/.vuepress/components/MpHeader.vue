@@ -112,17 +112,17 @@ onBeforeUnmount(() => {
             <span data-i18n="This developer portal is in beta — content and APIs may change while we polish things up.">This developer portal is in beta — content and APIs may change while we polish things up.</span>
             <a href="/beta-developer-portal/contact.html" class="mp-beta-banner__link" data-i18n="Share feedback →">Share feedback →</a>
           </span>
-          <button
-            type="button"
-            class="mp-beta-banner__close"
-            aria-label="Dismiss beta notice"
-            @click="dismissBanner"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 6 6 18M6 6l12 12"/>
-            </svg>
-          </button>
         </div>
+        <button
+          type="button"
+          class="mp-beta-banner__close"
+          aria-label="Dismiss beta notice"
+          @click="dismissBanner"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
     </Transition>
   </ClientOnly>
@@ -435,6 +435,7 @@ onBeforeUnmount(() => {
 
 /* ---- Beta announcement banner ----------------------------------------- */
 .mp-beta-banner {
+  position: relative;
   background: var(--mp-mint);
   border-bottom: 1px solid var(--mp-border-soft);
   color: var(--mp-fresh);
@@ -447,7 +448,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 16px;
+  padding: 8px 48px 8px 16px;
 }
 .mp-beta-banner__pill {
   flex-shrink: 0;
@@ -475,9 +476,12 @@ onBeforeUnmount(() => {
 }
 .mp-beta-banner__link:hover { text-decoration: none; }
 .mp-beta-banner__close {
-  flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -508,8 +512,9 @@ onBeforeUnmount(() => {
 
 @media (max-width: 640px) {
   .mp-beta-banner { font-size: 12px; }
-  .mp-beta-banner__inner { padding: 7px 12px; gap: 8px; }
+  .mp-beta-banner__inner { padding: 7px 40px 7px 12px; gap: 8px; }
   .mp-beta-banner__pill { font-size: 9px; padding: 1px 6px; letter-spacing: 0.12em; }
+  .mp-beta-banner__close { right: 4px; }
 }
 
 .mp-beta-banner-enter-from,
