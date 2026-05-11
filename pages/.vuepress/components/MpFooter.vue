@@ -23,7 +23,6 @@
       <div class="mp-footer__col">
         <div class="mp-footer__label">Support</div>
         <a href="/developer-portal/contact.html">Contact</a>
-        <a href="/developer-portal/analytics.html">Analytics (INT)</a>
       </div>
     </div>
     <div class="mp-footer__legal">
