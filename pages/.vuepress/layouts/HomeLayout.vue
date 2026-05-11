@@ -404,15 +404,15 @@ import MpFooter from '../components/MpFooter.vue';
       </a>
 
       <a class="mp-brand-logo mp-brand-logo--img" href="https://www.brt.it" target="_blank" rel="noopener" aria-label="BRT">
-        <img class="mp-brand-logo__mark" src="/developer-portal/images/carriers/brt.svg" alt="BRT" loading="lazy" />
+        <img class="mp-brand-logo__mark" src="/images/carriers/brt.svg" alt="BRT" loading="lazy" />
       </a>
 
       <a class="mp-brand-logo mp-brand-logo--img" href="https://inpost.eu" target="_blank" rel="noopener" aria-label="InPost">
-        <img class="mp-brand-logo__mark" src="/developer-portal/images/carriers/inpost.svg" alt="InPost" loading="lazy" />
+        <img class="mp-brand-logo__mark" src="/images/carriers/inpost.svg" alt="InPost" loading="lazy" />
       </a>
 
       <a class="mp-brand-logo mp-brand-logo--img" href="https://www.poste.it" target="_blank" rel="noopener" aria-label="Poste Italiane">
-        <img class="mp-brand-logo__mark" src="/developer-portal/images/carriers/poste-italiane.svg" alt="Poste Italiane" loading="lazy" />
+        <img class="mp-brand-logo__mark" src="/images/carriers/poste-italiane.svg" alt="Poste Italiane" loading="lazy" />
       </a>
     </div>
   </section>
