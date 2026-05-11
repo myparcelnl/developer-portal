@@ -130,14 +130,6 @@ function onSubmit(e: Event) { e.preventDefault(); sent.value = true; }
       </form>
     </section>
 
-    <div class="mp-callout" style="margin-top:32px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <div data-i18n="Reporting a security issue? Please email security@myparcel.nl directly and do not open a public issue.">
-        Reporting a security issue? Please email
-        <a href="mailto:security@myparcel.nl">security@myparcel.nl</a>
-        directly and do <strong>not</strong> open a public issue.
-      </div>
-    </div>
   </main>
 
   <MpFooter />
