@@ -66,13 +66,15 @@ function pick(l: Lang) {
   }
 }
 
-// On every navigation, sync the global lang to whichever locale the URL is in.
-// That way the language dropdown always reflects the page the user is on.
+// On navigation to an explicit /nl/ or /it/ URL, adopt that locale so the
+// dropdown matches the page. Root-locale URLs (everything else) leave the
+// user's stored preference alone — otherwise visiting a non-translated page
+// like /about.html would reset NL/IT back to English.
 watch(
   () => page.value.path,
   (p) => {
     const detected = detectLang(p);
-    if (detected !== lang.value) setLang(detected);
+    if (detected !== 'en' && detected !== lang.value) setLang(detected);
   },
   { immediate: true },
 );
