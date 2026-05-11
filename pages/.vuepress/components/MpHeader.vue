@@ -46,16 +46,8 @@ const apiLinks = [
 const platformLinks = [
   { name: 'WooCommerce', href: '/developer-portal/platforms/woocommerce.html' },
   { name: 'Magento 2', href: '/developer-portal/platforms/magento2.html' },
-  { name: 'Shopify', href: '/developer-portal/platforms/coming-soon.html?p=Shopify' },
-  { name: 'PrestaShop', href: '/developer-portal/platforms/coming-soon.html?p=PrestaShop' },
-  { name: 'Shopware', href: '/developer-portal/platforms/coming-soon.html?p=Shopware' },
-  { name: 'Lightspeed', href: '/developer-portal/platforms/coming-soon.html?p=Lightspeed' },
-  { name: 'Ecwid', href: '/developer-portal/platforms/coming-soon.html?p=Ecwid' },
-  { name: 'Bol.', href: '/developer-portal/platforms/coming-soon.html?p=Bol.' },
-  { name: 'Wix', href: '/developer-portal/platforms/coming-soon.html?p=Wix' },
-  { name: 'Amazon', href: '/developer-portal/platforms/coming-soon.html?p=Amazon' },
-  { name: 'Etsy', href: '/developer-portal/platforms/coming-soon.html?p=Etsy' },
-  { name: 'Chrome extension', href: '/developer-portal/platforms/coming-soon.html?p=Chrome+extension' },
+  { name: 'PrestaShop', href: '/developer-portal/platforms/prestashop.html' },
+  { name: 'Amazon', href: '/developer-portal/platforms/amazon.html' },
 ];
 const isPlatforms = computed(() => isActive('/platforms/'));
 

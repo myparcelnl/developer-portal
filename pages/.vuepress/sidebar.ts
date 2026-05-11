@@ -44,16 +44,8 @@ export const docsSidebar: SidebarGroup[] = [
     items: [
       { text: 'WooCommerce', link: '/platforms/woocommerce.html' },
       { text: 'Magento 2', link: '/platforms/magento2.html' },
-      { text: 'Shopify', link: '/platforms/coming-soon.html?p=Shopify' },
       { text: 'PrestaShop', link: '/platforms/prestashop.html' },
-      { text: 'Shopware', link: '/platforms/coming-soon.html?p=Shopware' },
-      { text: 'Lightspeed', link: '/platforms/coming-soon.html?p=Lightspeed' },
-      { text: 'Ecwid', link: '/platforms/coming-soon.html?p=Ecwid' },
-      { text: 'Bol.', link: '/platforms/coming-soon.html?p=Bol.' },
-      { text: 'Wix', link: '/platforms/coming-soon.html?p=Wix' },
       { text: 'Amazon', link: '/platforms/amazon.html' },
-      { text: 'Etsy', link: '/platforms/coming-soon.html?p=Etsy' },
-      { text: 'Chrome extension', link: '/platforms/coming-soon.html?p=Chrome+extension' },
     ],
   },
   {
@@ -75,7 +67,7 @@ export const BASE = '/developer-portal';
 /**
  * Set of paths that have translated copies. When the user is browsing in
  * NL/IT, only these paths get the locale prefix injected. Everything else
- * (API references, platform manuals, coming-soon stubs) stays at the root
+ * (API references, platform manuals) stays at the root
  * locale path because we don't translate those today.
  */
 const LOCALIZED_PATHS = new Set<string>([

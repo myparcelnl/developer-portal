@@ -415,10 +415,6 @@ import MpFooter from '../components/MpFooter.vue';
         <img class="mp-platform__img" src="/images/integrations/woocommerce.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">WooCommerce</span>
       </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Shopify">
-        <img class="mp-platform__img" src="/images/integrations/shopify.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Shopify</span>
-      </a>
       <a class="mp-platform" href="/developer-portal/platforms/magento2.html">
         <img class="mp-platform__img" src="/images/integrations/magento.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">Magento 2</span>
@@ -427,37 +423,9 @@ import MpFooter from '../components/MpFooter.vue';
         <img class="mp-platform__img" src="/images/integrations/prestashop.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">PrestaShop</span>
       </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Shopware">
-        <img class="mp-platform__img" src="/images/integrations/shopware.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Shopware</span>
-      </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Lightspeed">
-        <img class="mp-platform__img" src="/images/integrations/lightspeed.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Lightspeed</span>
-      </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Ecwid">
-        <img class="mp-platform__img" src="/images/integrations/ecwid.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Ecwid</span>
-      </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Bol.">
-        <img class="mp-platform__img" src="/images/integrations/bol-com.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Bol.</span>
-      </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Wix">
-        <img class="mp-platform__img" src="/images/integrations/wix.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Wix</span>
-      </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Amazon">
+      <a class="mp-platform" href="/developer-portal/platforms/amazon.html">
         <img class="mp-platform__img" src="/images/integrations/amazon.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">Amazon</span>
-      </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Etsy">
-        <img class="mp-platform__img" src="/images/integrations/etsy.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Etsy</span>
-      </a>
-      <a class="mp-platform" href="/developer-portal/platforms/coming-soon.html?p=Chrome+extension">
-        <img class="mp-platform__img" src="/images/integrations/chrome.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Chrome</span>
       </a>
     </div>
   </section>
