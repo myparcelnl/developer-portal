@@ -30,7 +30,7 @@ export default defineUserConfig({
   lang: 'en-US',
   title: 'MyParcel Developer Portal',
   description: 'Guides, SDKs, plugins and auto-generated API reference for MyParcel.',
-  base: '/beta-developer-portal/',
+  base: '/developer-portal/',
 
   // Locale roots — content under these path prefixes uses the locale's lang.
   // The actual translated markdown lives under pages/nl/ and pages/it/.
