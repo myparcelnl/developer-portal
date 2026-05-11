@@ -110,6 +110,12 @@ body {
   min-height: 100vh;
 }
 
+/* Ensure the main content fills the remaining space so the footer sits at
+   the bottom of the viewport on short pages (no trailing white gap). */
+body > main {
+  flex: 1 0 auto;
+}
+
 a {
   color: var(--mp-fresh);
   text-decoration: none;
