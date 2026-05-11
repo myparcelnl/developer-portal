@@ -52,35 +52,29 @@ function onDocClick(e: MouseEvent) {
   if (!root.value.contains(e.target as Node)) open.value = false;
 }
 
-// Fallback landing when the current page has no localized version — sends the
-// user into the chosen locale via the canonical getting-started guide.
-const LOCALE_LANDING = '/guides/getting-started.html';
-
 function pick(l: Lang) {
   setLang(l);
   open.value = false;
-  if (typeof window === 'undefined') return;
-  const here = window.location.pathname;
-  let next = localizeCurrentPath(here, l);
-  if (next === here) {
-    // Slug wasn't in LOCALIZED_PATHS — rebuild target with /<lang>/ landing.
-    const baseMatch = here.match(/^(\/[^/]+)/);
-    const base = baseMatch ? baseMatch[1] : '';
-    next = base + (l === 'en' ? '' : `/${l}`) + LOCALE_LANDING;
+  // If the current page exists in the target locale, navigate there.
+  // For pages we haven't translated, the URL stays at root; the data-i18n
+  // system will still swap the chrome (sidebar labels, header) to the new lang.
+  if (typeof window !== 'undefined') {
+    const next = localizeCurrentPath(window.location.pathname, l);
+    if (next !== window.location.pathname) {
+      window.location.href = next;
+    }
   }
-  if (next !== here) window.location.href = next;
 }
 
-// The flag always reflects the URL's locale so users never see a mismatch
-// between the visible page language and the dropdown. We only mutate
-// lang.value directly here (not via setLang) to avoid clobbering the user's
-// stored preference — that preference is what the pre-paint redirect uses
-// to route them to a localized URL on subsequent visits.
+// On navigation to an explicit /nl/ or /it/ URL, adopt that locale so the
+// dropdown matches the page. Root-locale URLs (everything else) leave the
+// user's stored preference alone — otherwise visiting a non-translated page
+// like /about.html would reset NL/IT back to English.
 watch(
   () => page.value.path,
   (p) => {
     const detected = detectLang(p);
-    if (detected !== lang.value) lang.value = detected;
+    if (detected !== 'en' && detected !== lang.value) setLang(detected);
   },
   { immediate: true },
 );
