@@ -70,9 +70,9 @@ function onSubmit(e: Event) { e.preventDefault(); sent.value = true; }
     </section>
     
     <!-- ============================================================
-         SEND US A MESSAGE — contact form
+         SEND US A MESSAGE — contact form (temporarily hidden)
     ============================================================ -->
-    <section class="mp-form-section" id="send-us-a-message">
+    <section v-if="false" class="mp-form-section" id="send-us-a-message">
       <h2 class="mp-form__heading" data-i18n="Send us a message">Send us a message</h2>
       <p class="mp-form__intro" data-i18n="We read every message. Expect a reply within 2 business days.">
         We read every message. Expect a reply within 2 business days.
