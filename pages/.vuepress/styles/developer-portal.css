@@ -3501,6 +3501,23 @@ pre.mp-code-block code.hljs {
 .mp-form__result strong { margin-right: 4px; color: var(--mp-text); }
 .mp-form__result[hidden] { display: none; }
 
+.mp-form__errors {
+  padding: var(--mp-space-3) var(--mp-space-4);
+  background: rgba(184, 27, 35, 0.06);
+  border: 1px solid rgba(184, 27, 35, 0.3);
+  border-radius: var(--mp-radius-md);
+  color: var(--mp-red);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.mp-form__errors p { margin: 0; }
+.mp-form__errors p + p { margin-top: var(--mp-space-1); }
+[data-theme="dark"] .mp-form__errors {
+  background: rgba(248, 113, 113, 0.08);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #fca5a5;
+}
+
 @media (max-width: 640px) {
   .mp-form-section { padding: var(--mp-space-5); }
   .mp-form__row { grid-template-columns: 1fr; }

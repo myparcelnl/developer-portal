@@ -149,7 +149,7 @@
 
   "Send us a message": "Inviaci un messaggio",
   "Send us a message with the form below. Or pick another channel if you want to chat on Slack, open an issue on GitHub, or check live system status.": "Inviaci un messaggio con il modulo qui sotto. Oppure scegli un altro canale per chattare su Slack, aprire un issue su GitHub o controllare lo stato in tempo reale.",
-  "We read every message. Expect a reply within 2 business days.": "Leggiamo ogni messaggio. Ti rispondiamo entro 2 giorni lavorativi.",
+  "We read every message.": "Leggiamo ogni messaggio.",
   "Name": "Nome",
   "Email": "E-mail",
   "Phone (optional)": "Telefono (opzionale)",
@@ -165,7 +165,8 @@
   "Submit": "Invia",
   "No account required.": "Nessun account richiesto.",
   "Thanks — message sent.": "Grazie — messaggio inviato.",
-  "We'll get back to you within 2 business days.": "Ti risponderemo entro 2 giorni lavorativi.",
+  "Please complete the reCAPTCHA before submitting.": "Completa il reCAPTCHA prima di inviare il modulo.",
+  "Network error — please try again.": "Errore di rete — riprova.",
   "OR REACH US VIA": "OPPURE CONTATTACI VIA",
 
   "Sales & accounts": "Vendite & account",
