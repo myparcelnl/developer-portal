@@ -1,9 +1,76 @@
 <script setup lang="ts">
 import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
-import { ref } from 'vue';
+import { nextTick, ref, watch } from 'vue';
+import { VueRecaptcha } from 'vue-recaptcha';
+import { applyTranslationsTo } from '../composables/useI18n';
+
+// Same Lambda + reCAPTCHA site key as the production developer portal
+// (myparcelnl/developer). Site key is a public identifier, not a secret.
+const CONTACT_ENDPOINT = 'https://lafsu5u5wqtpr4kse7tzdue4se0shtvn.lambda-url.eu-central-1.on.aws/';
+const RECAPTCHA_SITE_KEY = '6LcoxR4sAAAAANGn5zTRKW8q701mdA4x0EbUomJ6';
+
 const sent = ref(false);
-function onSubmit(e: Event) { e.preventDefault(); sent.value = true; }
+const submitting = ref(false);
+const recaptchaToken = ref<string>('');
+const errors = ref<string[]>([]);
+
+// Re-run the i18n DOM walker after error messages render so the
+// data-i18n keys on the <p> elements pick up NL/IT translations.
+watch(errors, () => nextTick(() => applyTranslationsTo()));
+
+function onVerify(token: string) {
+  errors.value = [];
+  recaptchaToken.value = token;
+}
+
+function onExpired() {
+  recaptchaToken.value = '';
+}
+
+async function onSubmit(e: Event) {
+  e.preventDefault();
+  const form = e.target as HTMLFormElement;
+  if (!form.checkValidity()) { form.reportValidity(); return; }
+
+  errors.value = [];
+
+  if (!recaptchaToken.value) {
+    errors.value = ['Please complete the reCAPTCHA before submitting.'];
+    return;
+  }
+
+  submitting.value = true;
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  try {
+    const response = await fetch(CONTACT_ENDPOINT, {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...data, recaptchaToken: recaptchaToken.value }),
+    });
+
+    if (!response.ok) {
+      const json = await response.json().catch(() => ({}));
+      // Lambda returns { errors: [string] }; production frontend reads
+      // json.data.errors.messages — handle both shapes defensively.
+      const list: string[] =
+        json?.errors ??
+        json?.data?.errors?.messages ??
+        [`Submission failed (HTTP ${response.status}).`];
+      errors.value = list;
+      return;
+    }
+
+    sent.value = true;
+    form.reset();
+    recaptchaToken.value = '';
+  } catch (err) {
+    errors.value = [(err as Error)?.message ?? 'Network error — please try again.'];
+  } finally {
+    submitting.value = false;
+  }
+}
 </script>
 
 <template>
@@ -11,7 +78,7 @@ function onSubmit(e: Event) { e.preventDefault(); sent.value = true; }
 
   <main class="mp-standalone">
 <nav class="mp-breadcrumb">
-      <a href="/beta-developer-portal/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
+      <a href="/developer-portal/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
       <span class="mp-breadcrumb__sep">/</span>
       <span class="mp-breadcrumb__current" data-i18n="Contact">Contact</span>
     </nav>
@@ -74,11 +141,11 @@ function onSubmit(e: Event) { e.preventDefault(); sent.value = true; }
     ============================================================ -->
     <section class="mp-form-section" id="send-us-a-message">
       <h2 class="mp-form__heading" data-i18n="Send us a message">Send us a message</h2>
-      <p class="mp-form__intro" data-i18n="We read every message. Expect a reply within 2 business days.">
-        We read every message. Expect a reply within 2 business days.
+      <p class="mp-form__intro" data-i18n="We read every message.">
+        We read every message.
       </p>
 
-      <form class="mp-form" id="mp-contact-form" novalidate>
+      <form v-if="!sent" class="mp-form" id="mp-contact-form" @submit="onSubmit">
         <div class="mp-form__row">
           <label class="mp-form__field">
             <span class="mp-form__label"><span data-i18n="Name">Name</span> <span class="mp-form__required">*</span></span>
@@ -113,31 +180,38 @@ function onSubmit(e: Event) { e.preventDefault(); sent.value = true; }
           <textarea name="message" rows="7" required placeholder="Tell us what you're building, where you got stuck, and any request-IDs or payloads that help us reproduce."></textarea>
         </label>
 
+        <ClientOnly>
+          <div class="mp-form__field">
+            <VueRecaptcha
+              :sitekey="RECAPTCHA_SITE_KEY"
+              @verify="onVerify"
+              @expired="onExpired"
+            />
+          </div>
+        </ClientOnly>
+
+        <div v-if="errors.length" class="mp-form__errors" role="alert">
+          <p v-for="msg in errors" :key="msg" :data-i18n="msg">{{ msg }}</p>
+        </div>
+
         <div class="mp-form__actions">
-          <button type="submit" class="mp-btn mp-btn--primary" data-i18n="Submit">Submit</button>
+          <button type="submit" class="mp-btn mp-btn--primary" :disabled="submitting" data-i18n="Submit">
+            {{ submitting ? 'Sending…' : 'Submit' }}
+          </button>
           <span class="mp-form__hint" data-i18n="No account required.">No account required.</span>
         </div>
-
-        <div class="mp-form__result" id="mp-form-result" role="status" aria-live="polite" hidden>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-          <div>
-            <strong data-i18n="Thanks — message sent.">Thanks — message sent.</strong>
-            <span data-i18n="We'll get back to you within 2 business days.">We'll get back to you within 2 business days.</span>
-          </div>
-        </div>
       </form>
+
+      <div v-if="sent" class="mp-form__result" role="status" aria-live="polite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <div>
+          <strong data-i18n="Thanks — message sent.">Thanks — message sent.</strong>
+        </div>
+      </div>
     </section>
 
-    <div class="mp-callout" style="margin-top:32px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <div data-i18n="Reporting a security issue? Please email security@myparcel.nl directly and do not open a public issue.">
-        Reporting a security issue? Please email
-        <a href="mailto:security@myparcel.nl">security@myparcel.nl</a>
-        directly and do <strong>not</strong> open a public issue.
-      </div>
-    </div>
   </main>
 
   <MpFooter />
