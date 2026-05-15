@@ -33,7 +33,6 @@ const apiLinks = [
   { name: 'API Overview', href: '/beta-developer-portal/api/', sub: 'All APIs' },
   { name: 'MyParcel API', href: '/beta-developer-portal/api/myparcel.html', sub: 'api.myparcel.nl' },
   { name: 'Order API', href: '/beta-developer-portal/api/order.html', sub: 'order.api.myparcel.nl' },
-  { name: 'IAM API', href: '/beta-developer-portal/api/iam.html', sub: 'iam.api.myparcel.nl' },
   { name: 'Rule API', href: '/beta-developer-portal/api/rule.html', sub: 'rule.api.myparcel.nl' },
   { name: 'Address API', href: '/beta-developer-portal/api/address.html', sub: 'address.api.myparcel.nl' },
   { name: 'Printing API', href: '/beta-developer-portal/api/printing.html', sub: 'printing.api.myparcel.nl' },
