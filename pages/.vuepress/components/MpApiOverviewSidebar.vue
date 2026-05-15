@@ -66,16 +66,6 @@
 
       <details class="mp-sidebar__api">
         <summary class="mp-sidebar__api-summary">
-          <span>IAM API</span>
-          <span class="mp-sidebar__api-summary-version">1.0.0</span>
-          <svg class="mp-sidebar__api-summary-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="mp-sidebar__group-label">Whoami</div>
-        <a class="mp-sidebar__item" href="/developer-portal/api/iam.html#get-whoami"><span class="mp-method mp-method--get">GET</span><span>Find out who you are and what…</span></a>
-      </details>
-
-      <details class="mp-sidebar__api">
-        <summary class="mp-sidebar__api-summary">
           <span>Rule API</span>
           <span class="mp-sidebar__api-summary-version">1.0.0</span>
           <svg class="mp-sidebar__api-summary-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>

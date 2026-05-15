@@ -53,7 +53,6 @@ export const docsSidebar: SidebarGroup[] = [
     items: [
       { text: 'MyParcel API', link: '/api/myparcel.html' },
       { text: 'Order API', link: '/api/order.html' },
-      { text: 'IAM API', link: '/api/iam.html' },
       { text: 'Rule API', link: '/api/rule.html' },
       { text: 'Address API', link: '/api/address.html' },
       { text: 'Printing API', link: '/api/printing.html' },

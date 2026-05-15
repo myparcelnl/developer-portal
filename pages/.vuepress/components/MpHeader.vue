@@ -33,7 +33,6 @@ const apiLinks = [
   { name: 'API Overview', href: '/developer-portal/api/', sub: 'All APIs' },
   { name: 'MyParcel API', href: '/developer-portal/api/myparcel.html', sub: 'api.myparcel.nl' },
   { name: 'Order API', href: '/developer-portal/api/order.html', sub: 'order.api.myparcel.nl' },
-  { name: 'IAM API', href: '/developer-portal/api/iam.html', sub: 'iam.api.myparcel.nl' },
   { name: 'Rule API', href: '/developer-portal/api/rule.html', sub: 'rule.api.myparcel.nl' },
   { name: 'Address API', href: '/developer-portal/api/address.html', sub: 'address.api.myparcel.nl' },
   { name: 'Printing API', href: '/developer-portal/api/printing.html', sub: 'printing.api.myparcel.nl' },

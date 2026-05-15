@@ -79,22 +79,6 @@ import MpDownloadSpecs from '../components/MpDownloadSpecs.vue';
             </div>
           </a>
 
-          <a href="/developer-portal/api/iam.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-              <span class="mp-api-card__badge">v1</span>
-            </div>
-            <div class="mp-api-card__name">IAM API</div>
-            <div class="mp-api-card__url">iam.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Identity: find out who the current token belongs to and what it can.">Identity: find out who the current token belongs to and what it can.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span data-i18n="1 endpoint">1 endpoint</span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
           <a href="/developer-portal/api/rule.html" class="mp-api-card">
             <div class="mp-api-card__top">
               <div class="mp-api-card__icon">
