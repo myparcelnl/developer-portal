@@ -8,7 +8,7 @@ import MpFooter from '../components/MpFooter.vue';
 
   <main class="mp-standalone">
 <nav class="mp-breadcrumb">
-      <a href="/developer-portal/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
+      <a href="/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
       <span class="mp-breadcrumb__sep">/</span>
       <span class="mp-breadcrumb__current" data-i18n="About">About</span>
     </nav>
@@ -78,8 +78,8 @@ import MpFooter from '../components/MpFooter.vue';
 
       <h2 id="next" data-i18n="Get started">Get started</h2>
       <p>
-        → <a href="/developer-portal/guides/getting-started.html" data-i18n="Read the getting-started guide">Read the getting-started guide</a>.<br/>
-        → <a href="/developer-portal/contact.html" data-i18n="Or get in touch">Or get in touch</a>.
+        → <a href="/guides/getting-started.html" data-i18n="Read the getting-started guide">Read the getting-started guide</a>.<br/>
+        → <a href="/contact.html" data-i18n="Or get in touch">Or get in touch</a>.
       </p>
     </div>
   </main>

@@ -1,7 +1,7 @@
 // Shared sidebar definition for the docs three-column layout.
 // Mirrors the original portal's mp-docs-sidebar groups.
 //
-// Sidebar items use slug-only links (no /developer-portal/ prefix).
+// Sidebar items use slug-only links (no / prefix).
 // At render time, callers pass through `localizeSidebar(groups, lang)` which
 // injects both the VuePress base and the optional locale prefix (/nl/ or /it/).
 // This way one canonical structure serves all three locales.
@@ -61,7 +61,7 @@ export const docsSidebar: SidebarGroup[] = [
   },
 ];
 
-export const BASE = '/developer-portal';
+export const BASE = '';
 
 /**
  * Set of paths that have translated copies. When the user is browsing in

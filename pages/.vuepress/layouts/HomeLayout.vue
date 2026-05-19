@@ -41,13 +41,13 @@ import MpFooter from '../components/MpFooter.vue';
           shipping 100 or 100,000+ parcels per month.
         </p>
         <div class="mp-hero__cta">
-          <a href="/developer-portal/guides/getting-started.html" class="mp-btn mp-btn--primary">
+          <a href="/guides/getting-started.html" class="mp-btn mp-btn--primary">
             <span data-i18n="Get started">Get started</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M13 5l7 7-7 7"/>
             </svg>
           </a>
-          <a href="/developer-portal/api/" class="mp-btn mp-btn--tertiary">
+          <a href="/api/" class="mp-btn mp-btn--tertiary">
             <span data-i18n="Browse the API">Browse the API</span>
           </a>
         </div>
@@ -129,7 +129,7 @@ import MpFooter from '../components/MpFooter.vue';
     <div class="mp-section-label" data-i18n="START HERE">START HERE</div>
     <div class="mp-api-grid">
 
-      <a href="/developer-portal/guides/getting-started.html" class="mp-api-card">
+      <a href="/guides/getting-started.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -159,7 +159,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/" class="mp-api-card">
+      <a href="/api/" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -199,7 +199,7 @@ import MpFooter from '../components/MpFooter.vue';
     <div class="mp-section-label" data-i18n="AVAILABLE APIS">AVAILABLE APIS</div>
     <div class="mp-api-grid">
 
-      <a href="/developer-portal/api/myparcel.html" class="mp-api-card">
+      <a href="/api/myparcel.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -218,7 +218,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/order.html" class="mp-api-card">
+      <a href="/api/order.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -234,7 +234,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/rule.html" class="mp-api-card">
+      <a href="/api/rule.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
@@ -250,7 +250,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/address.html" class="mp-api-card">
+      <a href="/api/address.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -266,7 +266,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/printing.html" class="mp-api-card">
+      <a href="/api/printing.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -282,7 +282,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/product.html" class="mp-api-card">
+      <a href="/api/product.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg>
@@ -298,7 +298,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/delegation.html" class="mp-api-card">
+      <a href="/api/delegation.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0zM6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -314,7 +314,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/purchase-order.html" class="mp-api-card">
+      <a href="/api/purchase-order.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h12v18H3V9l6-6zM9 3v6H3"/></svg>
@@ -330,7 +330,7 @@ import MpFooter from '../components/MpFooter.vue';
         </div>
       </a>
 
-      <a href="/developer-portal/api/event.html" class="mp-api-card">
+      <a href="/api/event.html" class="mp-api-card">
         <div class="mp-api-card__top">
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -407,19 +407,19 @@ import MpFooter from '../components/MpFooter.vue';
   <section class="mp-api-section">
     <div class="mp-section-label" data-i18n="PLATFORM INTEGRATIONS">PLATFORM INTEGRATIONS</div>
     <div class="mp-platform-grid">
-      <a class="mp-platform" href="/developer-portal/platforms/woocommerce.html">
+      <a class="mp-platform" href="/platforms/woocommerce.html">
         <img class="mp-platform__img" src="/images/integrations/woocommerce.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">WooCommerce</span>
       </a>
-      <a class="mp-platform" href="/developer-portal/platforms/magento2.html">
+      <a class="mp-platform" href="/platforms/magento2.html">
         <img class="mp-platform__img" src="/images/integrations/magento.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">Magento 2</span>
       </a>
-      <a class="mp-platform" href="/developer-portal/platforms/prestashop.html">
+      <a class="mp-platform" href="/platforms/prestashop.html">
         <img class="mp-platform__img" src="/images/integrations/prestashop.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">PrestaShop</span>
       </a>
-      <a class="mp-platform" href="/developer-portal/platforms/amazon.html">
+      <a class="mp-platform" href="/platforms/amazon.html">
         <img class="mp-platform__img" src="/images/integrations/amazon.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">Amazon</span>
       </a>

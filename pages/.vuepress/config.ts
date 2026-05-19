@@ -30,7 +30,7 @@ export default defineUserConfig({
   lang: 'en-US',
   title: 'MyParcel Developer Portal',
   description: 'Guides, SDKs, plugins and auto-generated API reference for MyParcel.',
-  base: '/developer-portal/',
+  base: '/',
 
   // Locale roots — content under these path prefixes uses the locale's lang.
   // The actual translated markdown lives under pages/nl/ and pages/it/.
@@ -93,7 +93,7 @@ export default defineUserConfig({
     [
       'script',
       {},
-      `(function(){try{var l=localStorage.getItem('mp-lang');if(l!=='nl'&&l!=='it')return;var b='/developer-portal';var p=window.location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length)||'/';if(r.indexOf('/nl/')===0||r==='/nl'||r.indexOf('/it/')===0||r==='/it')return;var s={'/guides/getting-started.html':1,'/guides/authentication.html':1,'/guides/shipments.html':1,'/guides/delivery-options.html':1,'/guides/webhooks.html':1,'/guides/data-types.html':1,'/guides/php-sdk.html':1,'/guides/javascript-sdk.html':1,'/platforms/woocommerce.html':1,'/platforms/magento2.html':1,'/platforms/prestashop.html':1};if(s[r])window.location.replace(b+'/'+l+r+window.location.search+window.location.hash);}catch(e){}})();`,
+      `(function(){try{var l=localStorage.getItem('mp-lang');if(l!=='nl'&&l!=='it')return;var b='';var p=window.location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length)||'/';if(r.indexOf('/nl/')===0||r==='/nl'||r.indexOf('/it/')===0||r==='/it')return;var s={'/guides/getting-started.html':1,'/guides/authentication.html':1,'/guides/shipments.html':1,'/guides/delivery-options.html':1,'/guides/webhooks.html':1,'/guides/data-types.html':1,'/guides/php-sdk.html':1,'/guides/javascript-sdk.html':1,'/platforms/woocommerce.html':1,'/platforms/magento2.html':1,'/platforms/prestashop.html':1};if(s[r])window.location.replace(b+'/'+l+r+window.location.search+window.location.hash);}catch(e){}})();`,
     ],
   ],
 });
