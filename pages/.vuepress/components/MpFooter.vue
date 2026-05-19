@@ -10,9 +10,9 @@
       </div>
       <div class="mp-footer__col">
         <div class="mp-footer__label">Product</div>
-        <a href="/developer-portal/api/">API Reference</a>
-        <a href="/developer-portal/guides/getting-started.html">Documentation</a>
-        <a href="/developer-portal/platforms/woocommerce.html">Integrations</a>
+        <a href="/api/">API Reference</a>
+        <a href="/guides/getting-started.html">Documentation</a>
+        <a href="/platforms/woocommerce.html">Integrations</a>
       </div>
       <div class="mp-footer__col">
         <div class="mp-footer__label">Resources</div>
@@ -22,7 +22,7 @@
       </div>
       <div class="mp-footer__col">
         <div class="mp-footer__label">Support</div>
-        <a href="/developer-portal/contact.html">Contact</a>
+        <a href="/contact.html">Contact</a>
       </div>
     </div>
     <div class="mp-footer__legal">

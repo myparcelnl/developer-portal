@@ -49,9 +49,9 @@ const meta = computed(() => apiMeta[page.value.path] ?? fm.value.api ?? {});
 
     <main class="mp-ref-content">
       <nav class="mp-breadcrumb" aria-label="Breadcrumb">
-        <a href="/developer-portal/" class="mp-breadcrumb__link">Home</a>
+        <a href="/" class="mp-breadcrumb__link">Home</a>
         <span class="mp-breadcrumb__sep">/</span>
-        <a href="/developer-portal/api/" class="mp-breadcrumb__link">API Reference</a>
+        <a href="/api/" class="mp-breadcrumb__link">API Reference</a>
         <span class="mp-breadcrumb__sep">/</span>
         <span class="mp-breadcrumb__current">{{ page.title }}</span>
       </nav>

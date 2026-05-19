@@ -78,7 +78,7 @@ async function onSubmit(e: Event) {
 
   <main class="mp-standalone">
 <nav class="mp-breadcrumb">
-      <a href="/developer-portal/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
+      <a href="/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
       <span class="mp-breadcrumb__sep">/</span>
       <span class="mp-breadcrumb__current" data-i18n="Contact">Contact</span>
     </nav>
