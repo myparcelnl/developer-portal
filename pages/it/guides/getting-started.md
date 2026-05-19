@@ -4,7 +4,7 @@ description: "Inizia a spedire dalla tua piattaforma in pochi minuti. Crea un ac
 ---
 
 ## Panoramica
-MyParcel espone una singola API HTTP su [`api.myparcel.nl`](../api/myparcel.md). Copre autenticazione, spedizioni, ordini, vettori, opzioni di consegna e webhook.
+MyParcel espone una singola API HTTP su [`api.myparcel.nl`](../../api/myparcel.md). Copre autenticazione, spedizioni, ordini, vettori, opzioni di consegna e webhook.
 
 Il riferimento qui è auto-documentato dalla specifica OpenAPI — quindi non si discosta mai dalla piattaforma in produzione.
 

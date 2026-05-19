@@ -359,6 +359,6 @@ Nee. De plugin is gratis. Je betaalt alleen voor de zendingen via je MyParcel-ta
 - [github.com/myparcelnl/prestashop ↗](https://github.com/myparcelnl/prestashop) — broncode, releases, issues.
 - [github.com/myparcelnl/prestashop/releases ↗](https://github.com/myparcelnl/prestashop/releases) — changelog & ZIP-downloads.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
-- [Contact MyParcel-support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [Contact MyParcel-support](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
 Deze handleiding is geschreven voor plugin-versie **5.0.x**. Bij nieuwere versies kunnen veld-namen of -volgorde licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.

@@ -2,8 +2,21 @@ import { defineUserConfig } from 'vuepress';
 import { defaultTheme } from '@vuepress/theme-default';
 import { viteBundler } from '@vuepress/bundler-vite';
 import { getDirname, path } from 'vuepress/utils';
+import { Logger } from '@vuepress/helper';
 
 const __dirname = getDirname(import.meta.url);
+
+// Several theme-bundled plugins (back-to-top, copy-code, markdown-hint, git)
+// emit "<lang> is missing it's i18n config" whenever a declared locale has no
+// built-in translation. We declare /it/ as it-IT and supply the runtime
+// strings via themePlugins.*.locales below, but the upstream helper warns
+// before that override is applied. Filter that one specific message so the
+// build log isn't polluted with false-positive noise.
+const _origWarn = Logger.prototype.warn;
+Logger.prototype.warn = function (msg: string = '', ...args: unknown[]) {
+  if (typeof msg === 'string' && msg.includes("missing it's i18n config")) return;
+  return _origWarn.call(this, msg, ...args);
+};
 
 // Custom slugify — VuePress's default keeps Unicode middots (·) and em-dashes
 // (—) verbatim and prefixes a `_` to ids that start with a digit. That makes
@@ -75,6 +88,41 @@ export default defineUserConfig({
     lastUpdated: false,
     contributors: false,
 
+    // The theme-bundled plugins ship en-US and nl-NL strings but no it-IT,
+    // which triggers "missing it's i18n config" warnings during build. Fill
+    // in the Italian translations here so the locale resolves cleanly.
+    themePlugins: {
+      backToTop: {
+        locales: { '/it/': { backToTop: 'Torna su' } },
+      },
+      copyCode: {
+        locales: { '/it/': { copy: 'Copia codice', copied: 'Copiato' } },
+      },
+      git: {
+        locales: {
+          '/it/': {
+            contributors: 'Collaboratori',
+            changelog: 'Registro modifiche',
+            timeOn: 'il',
+            viewChangelog: 'Visualizza intero registro',
+            latestUpdateAt: 'Ultimo aggiornamento',
+          },
+        },
+      },
+      hint: {
+        locales: {
+          '/it/': {
+            important: 'Importante',
+            info: 'Informazioni',
+            note: 'Nota',
+            tip: 'Suggerimento',
+            warning: 'Avviso',
+            caution: 'Attenzione',
+            details: 'Dettagli',
+          },
+        },
+      },
+    },
   }),
 
   // The default theme injects a pre-paint script that defaults to dark when

@@ -4,7 +4,7 @@ description: "Begin binnen enkele minuten met verzenden vanuit je platform. Maak
 ---
 
 ## Overzicht
-MyParcel biedt één HTTP API op [`api.myparcel.nl`](../api/myparcel.md). Die dekt authenticatie, zendingen, orders, vervoerders, delivery options en webhooks.
+MyParcel biedt één HTTP API op [`api.myparcel.nl`](../../api/myparcel.md). Die dekt authenticatie, zendingen, orders, vervoerders, delivery options en webhooks.
 
 De referentie wordt hier automatisch gegenereerd uit de OpenAPI-spec — die loopt dus nooit uit de pas met het live platform.
 
