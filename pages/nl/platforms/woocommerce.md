@@ -429,4 +429,4 @@ Rol terug via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) of de Gi
 - [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — broncode, releases, issues.
 - [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — plugin-listing.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
-- [Contact MyParcel-support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [Contact MyParcel-support](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).

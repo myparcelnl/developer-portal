@@ -40,4 +40,4 @@ Elke aangemaakte zending bevat een `label_url` die naar een PDF wijst. Labels zi
 ## Annuleren
 Zendingen kun je annuleren zolang ze `pending` of `printed` zijn. Zodra ze `handed_over` zijn, kan annuleren niet meer — maak in dat geval een retour aan.
 
-[Zie `DELETE /shipments/{id}` →](../api/myparcel.md#cancel-shipment)
+[Zie `DELETE /shipments/{id}` →](../../api/myparcel.md#cancel-shipment)
