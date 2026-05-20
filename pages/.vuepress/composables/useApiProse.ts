@@ -63,6 +63,32 @@ export function loadScenarios(slug: string, anchor: string): Scenario[] {
   }
 }
 
+// Allowlist of URL schemes considered safe to put in an <a href>. Anything
+// else (javascript:, data:, vbscript:, file:, intent:, ...) is dropped to
+// `#` so a malicious prose sidecar can never produce a clickable XSS sink.
+//
+// Allowed: absolute http(s), root-relative paths, in-page anchors,
+// mailto: and tel: URIs.
+const SAFE_URL_RE = /^(?:https?:\/\/|\/|#|mailto:|tel:)/i;
+function sanitizeHref(raw: string): string {
+  const trimmed = raw.trim();
+  return SAFE_URL_RE.test(trimmed) ? trimmed : '#';
+}
+
+// Belt-and-braces attribute encoder so even a sanitised URL can't break out
+// of its href="" quoting via embedded quotes or angle brackets.
+function escapeAttr(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function renderLink(_match: string, label: string, url: string): string {
+  return `<a href="${escapeAttr(sanitizeHref(url))}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+}
+
 // Tiny CommonMark-ish renderer: headings, paragraphs, bold/italic, inline
 // code, code blocks (fenced), unordered lists, links. Enough to keep prose
 // sidecars expressive without pulling in a full markdown engine.
@@ -86,7 +112,7 @@ export function renderMarkdown(src: string): string {
       s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
       s = s.replace(/(^|[^*])\*([^*]+)\*([^*]|$)/g, '$1<em>$2</em>$3');
       s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
-      s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, renderLink);
       out.push(`<p>${s}</p>`);
       para = [];
     }
@@ -125,7 +151,7 @@ export function renderMarkdown(src: string): string {
       let item = line.slice(2);
       item = item.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
       item = item.replace(/`([^`]+)`/g, '<code>$1</code>');
-      item = item.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      item = item.replace(/\[([^\]]+)\]\(([^)]+)\)/g, renderLink);
       out.push(`<li>${item}</li>`);
       continue;
     }
