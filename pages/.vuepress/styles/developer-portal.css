@@ -3984,6 +3984,42 @@ pre.mp-code-block code.hljs {
   border-color: rgba(255, 255, 255, 0.10);
 }
 
+/* Dark-mode button overrides.
+   The brand tokens --mp-fresh (#0F7859) and --mp-monstera (#0F5C47) are
+   dark greens that disappear into the dark background. Outline-style
+   controls need a lighter foreground; we reuse the same mint shade
+   (#6ee7b7) that's used for hero tags, stat values and API-card hovers. */
+[data-theme="dark"] .mp-btn--tertiary {
+  color: #6ee7b7;
+  border-color: #6ee7b7;
+}
+[data-theme="dark"] .mp-btn--tertiary:hover {
+  background: rgba(110, 231, 183, 0.10);
+}
+
+/* Language dropdown — the trigger and inactive options inherit the dark
+   surface; the active option used --mp-fresh on a near-black bg and was
+   effectively invisible. */
+[data-theme="dark"] .mp-lang-dropdown__toggle {
+  background: var(--mp-bg-subtle);
+  border-color: var(--mp-border);
+  color: var(--mp-text);
+}
+[data-theme="dark"] .mp-lang-btn {
+  color: var(--mp-text-muted);
+  border-color: rgba(255, 255, 255, 0.10);
+  background: transparent;
+}
+[data-theme="dark"] .mp-lang-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--mp-text);
+}
+[data-theme="dark"] .mp-lang-dropdown__menu .mp-lang-btn.mp-lang-btn--active {
+  background: rgba(110, 231, 183, 0.10);
+  border-color: #6ee7b7;
+  color: #6ee7b7;
+}
+
 /* Hero — deeper background with faint mint glow instead of solid mint */
 [data-theme="dark"] .mp-hero { background: #021f1a; }
 [data-theme="dark"] .mp-hero__tag { background: rgba(255, 255, 255, 0.06); color: #6ee7b7; box-shadow: none; }
