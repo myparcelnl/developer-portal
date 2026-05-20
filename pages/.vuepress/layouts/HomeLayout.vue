@@ -1,6 +1,156 @@
 <script setup lang="ts">
+import { onMounted, onBeforeUnmount, ref, computed } from 'vue';
 import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
+import {
+  fetchStatus,
+  fetchUptime,
+  formatUptime,
+  type StatusSummary,
+} from '../composables/useStatusPage';
+
+// Parses "15,000+", "99.99%", "<24h", "20+" → { prefix, target, decimals, suffix }
+// so the count-up keeps the surrounding characters intact while only the
+// numeric portion animates.
+function parseStat(text: string) {
+  const trimmed = text.trim();
+  const match = trimmed.match(/^(\D*)([\d,.]+)(\D*)$/);
+  if (!match) return null;
+  const [, prefix, numStr, suffix] = match;
+  const cleaned = numStr.replace(/,/g, '');
+  const target = parseFloat(cleaned);
+  if (!Number.isFinite(target)) return null;
+  const decimals = (cleaned.split('.')[1] ?? '').length;
+  return { prefix, target, decimals, suffix };
+}
+
+function formatStat(value: number, decimals: number, prefix: string, suffix: string) {
+  const fixed = value.toFixed(decimals);
+  const [intPart, fracPart] = fixed.split('.');
+  const withThousands = Number(intPart).toLocaleString('en-US');
+  const formatted = fracPart ? `${withThousands}.${fracPart}` : withThousands;
+  return `${prefix}${formatted}${suffix}`;
+}
+
+// Reactive "stats have entered viewport" flag — drives the .mp-stat--enter
+// class binding in the template. Vue manages the class, so re-renders caused
+// by other reactive bindings (statusTone, uptimeDisplay) can no longer wipe
+// the class as they would when we mutated classList directly.
+const statsEntered = ref(false);
+
+let observer: IntersectionObserver | null = null;
+let raf: number | null = null;
+
+function runAnimation(root: Element) {
+  const stats = Array.from(root.querySelectorAll<HTMLElement>('.mp-stat'));
+  if (stats.length === 0) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Stagger transition-delay via inline style — Vue leaves inline styles alone.
+  stats.forEach((stat, i) => {
+    stat.style.transitionDelay = reduce ? '0s' : `${i * 90}ms`;
+  });
+  statsEntered.value = true;
+
+  if (reduce) return; // numeric animation skipped — labels just fade in
+
+  const duration = 1400;
+  const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+  // Skip the Vue-bound uptime tile so the count-up loop doesn't race against
+  // Vue's reactive text update when the live value arrives from the status API.
+  const items = stats
+    .filter(stat => !stat.classList.contains('mp-stat--uptime'))
+    .map(stat => {
+      const valueEl = stat.querySelector<HTMLElement>('.mp-stat__value');
+      const original = valueEl?.textContent ?? '';
+      const parsed = valueEl ? parseStat(original) : null;
+      return parsed && valueEl ? { valueEl, parsed, original } : null;
+    })
+    .filter((x): x is NonNullable<typeof x> => x !== null);
+
+  // Reset to "0" with the same prefix/suffix so the first frame doesn't flash
+  // the final number before the loop starts.
+  items.forEach(({ valueEl, parsed }) => {
+    valueEl.textContent = formatStat(0, parsed.decimals, parsed.prefix, parsed.suffix);
+  });
+
+  const start = performance.now();
+  function frame(now: number) {
+    const elapsed = now - start;
+    const t = Math.min(1, elapsed / duration);
+    const eased = easeOutCubic(t);
+    for (const { valueEl, parsed } of items) {
+      const current = parsed.target * eased;
+      valueEl.textContent = formatStat(current, parsed.decimals, parsed.prefix, parsed.suffix);
+    }
+    if (t < 1) {
+      raf = requestAnimationFrame(frame);
+    } else {
+      // Snap to the exact original text so trailing zeros / formatting match.
+      items.forEach(({ valueEl, original }) => { valueEl.textContent = original; });
+      raf = null;
+    }
+  }
+  raf = requestAnimationFrame(frame);
+}
+
+onMounted(() => {
+  if (typeof window === 'undefined') return;
+  const target = document.querySelector('.mp-stats__inner');
+  if (!target) return;
+
+  observer = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        runAnimation(e.target);
+        observer?.disconnect();
+        observer = null;
+        return;
+      }
+    }
+  }, { threshold: 0.4 });
+  observer.observe(target);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+  if (raf !== null) cancelAnimationFrame(raf);
+});
+
+// --- Live API uptime + system status ----------------------------------------
+// Pulls the current Statuspage indicator and a 30-day uptime % derived from
+// recent incidents. While loading, the markup keeps showing the static
+// "99.99%" so the count-up animation has something to land on.
+const liveUptime = ref<number | null>(null);
+const status = ref<StatusSummary | null>(null);
+
+const uptimeDisplay = computed(() =>
+  liveUptime.value !== null ? formatUptime(liveUptime.value) : '99.99%'
+);
+
+// "operational" → green, "minor" → amber, anything else → red
+const statusTone = computed<'operational' | 'degraded' | 'down' | 'loading'>(() => {
+  const ind = status.value?.indicator;
+  if (!ind) return 'loading';
+  if (ind === 'none') return 'operational';
+  if (ind === 'minor' || ind === 'maintenance') return 'degraded';
+  return 'down';
+});
+
+onMounted(async () => {
+  try {
+    const [s, u] = await Promise.all([fetchStatus(), fetchUptime(30)]);
+    status.value = s;
+    liveUptime.value = u;
+    // Vue's reactive binding swaps the displayed value automatically. No
+    // secondary count-up here — that used to fight the IntersectionObserver
+    // loop and Vue's text patcher at the same time.
+  } catch {
+    // Network blip or CORS — keep the static "99.99%" fallback.
+  }
+});
 </script>
 
 <template>
@@ -103,19 +253,29 @@ import MpFooter from '../components/MpFooter.vue';
   ============================================================ -->
   <section class="mp-stats">
     <div class="mp-stats__inner">
-      <div class="mp-stat">
+      <div class="mp-stat" :class="{ 'mp-stat--enter': statsEntered }">
         <div class="mp-stat__value">20+</div>
         <div class="mp-stat__label" data-i18n="carriers">carriers</div>
       </div>
-      <div class="mp-stat">
+      <div class="mp-stat" :class="{ 'mp-stat--enter': statsEntered }">
         <div class="mp-stat__value">15,000+</div>
         <div class="mp-stat__label" data-i18n="webshops">webshops</div>
       </div>
-      <div class="mp-stat">
-        <div class="mp-stat__value">99.99%</div>
-        <div class="mp-stat__label" data-i18n="API uptime">API uptime</div>
-      </div>
-      <div class="mp-stat">
+      <a
+        class="mp-stat mp-stat--uptime"
+        :class="[`mp-stat--${statusTone}`, { 'mp-stat--enter': statsEntered }]"
+        href="https://status.myparcel.nl/"
+        target="_blank"
+        rel="noopener"
+        :title="status?.description || 'Open the MyParcel status page'"
+      >
+        <div class="mp-stat__value">{{ uptimeDisplay }}</div>
+        <div class="mp-stat__label">
+          <span class="mp-stat__dot" :class="`mp-stat__dot--${statusTone}`" aria-hidden="true"></span>
+          <span data-i18n="API uptime">API uptime</span>
+        </div>
+      </a>
+      <div class="mp-stat" :class="{ 'mp-stat--enter': statsEntered }">
         <div class="mp-stat__value">&lt;24h</div>
         <div class="mp-stat__label" data-i18n="docs freshness">docs freshness</div>
       </div>
@@ -418,10 +578,6 @@ import MpFooter from '../components/MpFooter.vue';
       <a class="mp-platform" href="/platforms/prestashop.html">
         <img class="mp-platform__img" src="/images/integrations/prestashop.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">PrestaShop</span>
-      </a>
-      <a class="mp-platform" href="/platforms/amazon.html">
-        <img class="mp-platform__img" src="/images/integrations/amazon.svg" alt="" width="48" height="48" loading="lazy">
-        <span class="mp-platform__name">Amazon</span>
       </a>
     </div>
   </section>
