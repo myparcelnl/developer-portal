@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue';
 import { usePageData, usePageFrontmatter } from 'vuepress/client';
 import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
 import MpApiOverviewSidebar from '../components/MpApiOverviewSidebar.vue';
 import { apiMeta } from '../api-meta';
+import { getSpec } from '../composables/useSpecCache';
+import { parseOperations } from '../composables/useOpenApi';
 
 // Path → API slug. /api/myparcel.html → 'myparcel'.
 const page = usePageData();
@@ -18,8 +20,6 @@ const slug = computed(() => {
 const pascal = (s: string) =>
   s.split('-').map(p => p[0].toUpperCase() + p.slice(1)).join('');
 
-// Lazy-load body and sidebar components per API path so we don't bundle
-// every API onto every page.
 const bodies = import.meta.glob('../api-bodies/*Body.vue');
 const sidebars = import.meta.glob('../api-bodies/*Sidebar.vue');
 
@@ -37,7 +37,32 @@ const Sidebar = computed(() => {
     : null;
 });
 
-const meta = computed(() => apiMeta[page.value.path] ?? fm.value.api ?? {});
+// Static fallback (host stays static; version/endpoints overwritten on load).
+const staticMeta = computed(() => apiMeta[page.value.path] ?? fm.value.api ?? {});
+const liveVersion = ref<string | null>(null);
+const liveEndpoints = ref<string | null>(null);
+
+async function refreshLiveMeta() {
+  liveVersion.value = null;
+  liveEndpoints.value = null;
+  const m = apiMeta[page.value.path];
+  if (!m?.specUrl) return;
+  try {
+    const spec = await getSpec(m.specUrl);
+    if (spec.info?.version) liveVersion.value = spec.info.version;
+    liveEndpoints.value = String(parseOperations(spec).length);
+  } catch {
+    // Keep static fallback on error.
+  }
+}
+onMounted(refreshLiveMeta);
+watch(() => page.value.path, refreshLiveMeta);
+
+const meta = computed(() => ({
+  ...staticMeta.value,
+  version: liveVersion.value ?? staticMeta.value.version,
+  endpoints: liveEndpoints.value ?? staticMeta.value.endpoints,
+}));
 </script>
 
 <template>

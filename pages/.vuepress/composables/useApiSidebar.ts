@@ -190,10 +190,9 @@ function ensureObserver() {
       const slug = target.id;
       if (slug) setActiveSidebarItem(slug);
 
-      // Mirror the visible endpoint's code into the sticky rail so the user
-      // never has to scroll back up to see the example for the section
-      // they're currently reading.
-      import('./useApiInteractions').then((m) => m.updateRail(target));
+      // Intentionally do NOT touch the sticky code rail here. The rail only
+      // changes in response to an explicit click on an endpoint or sidebar
+      // item — scrolling past sections must not swap the displayed example.
     },
     {
       // Active when an endpoint occupies the upper third of the viewport
