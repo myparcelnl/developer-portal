@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, nextTick } from 'vue';
+import { computed, onMounted, onBeforeUnmount, ref, watch, nextTick } from 'vue';
 import { usePageData } from 'vuepress/client';
 import {
   parseOperations,
@@ -8,7 +8,7 @@ import {
   type OpenApiDoc,
   type ParsedOperation,
 } from '../composables/useOpenApi';
-import { getSpec } from '../composables/useSpecCache';
+import { getSpec, subscribe as subscribeToSpec } from '../composables/useSpecCache';
 import { buildCodeSamples, type CodeSample } from '../composables/useCodeSamples';
 import { apiMeta } from '../api-meta';
 import MpSchemaTable from './MpSchemaTable.vue';
@@ -43,6 +43,17 @@ async function load() {
 
 onMounted(load);
 watch(() => props.specUrl, load);
+
+// Auto-refresh: when the cache layer detects this spec has changed (visibility
+// change, periodic poll, manual refresh), swap our local ref to the fresh doc
+// and Vue re-renders the parsed operations + groups via computeds.
+let unsubscribe: (() => void) | null = null;
+onMounted(() => {
+  unsubscribe = subscribeToSpec((url, fresh) => {
+    if (url === props.specUrl) spec.value = fresh;
+  });
+});
+onBeforeUnmount(() => { unsubscribe?.(); });
 
 const page = usePageData();
 const overrides = computed(() => apiMeta[page.value.path]?.groupOverrides ?? []);
