@@ -1,0 +1,60 @@
+# Scenario sidecar for POST /add-note. Each scenario is rendered as its own
+# tab in the endpoint's code rail (alongside the spec-derived example).
+#
+# Each entry needs `title` and `request` (with `body`); `description` and
+# `response` are optional but make the tab more useful as a reference.
+
+scenarios:
+  - title: "Single note, NL author"
+    description: "Most common case — a warehouse packer leaves a Dutch-locale note."
+    request:
+      body:
+        - id: "550e8400-e29b-41d4-a716-446655440000"
+          text: "Extra fragiel verpakken; klant heeft glaswerk besteld."
+          author: "Warehouse picker"
+          locale: "nl-NL"
+    response:
+      status: 200
+      body:
+        - status: 200
+          ids: ["7f1e2c3a-..."]
+
+  - title: "Batch of 3 notes across 3 orders"
+    description: "Bulk-import flow — back-office attaches one note per order from a CSV upload."
+    request:
+      body:
+        - id: "550e8400-e29b-41d4-a716-446655440000"
+          text: "Customer called: please consolidate with order #abc123."
+          author: "CS Agent"
+          locale: "en"
+        - id: "550e8400-e29b-41d4-a716-446655440001"
+          text: "Order on hold pending stock confirmation."
+          author: "CS Agent"
+          locale: "en"
+        - id: "550e8400-e29b-41d4-a716-446655440002"
+          text: "VIP customer — expedite if possible."
+          author: "CS Agent"
+          locale: "en"
+    response:
+      status: 200
+      body:
+        - status: 200
+          ids: ["a-..."]
+        - status: 200
+          ids: ["b-..."]
+        - status: 400
+          title: "Order is no longer OPEN"
+
+  - title: "Mixed-locale internal annotations"
+    description: "Multi-region team — Italian operator on an order destined for a Belgian customer."
+    request:
+      body:
+        - id: "550e8400-e29b-41d4-a716-446655440010"
+          text: "Cliente ha chiesto consegna serale; verificare disponibilità slot."
+          author: "Operatore IT"
+          locale: "it-IT"
+    response:
+      status: 200
+      body:
+        - status: 200
+          ids: ["c-..."]
