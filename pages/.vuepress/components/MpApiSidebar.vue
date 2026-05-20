@@ -50,7 +50,7 @@ function isActive(slug: string): boolean {
 
 function hrefFor(slug: string, anchor: string): string {
   // Active section: bare fragment so same-page clicks are handled in-DOM.
-  return isActive(slug) ? `#${anchor}` : `/beta-developer-portal/api/${slug}.html#${anchor}`;
+  return isActive(slug) ? `#${anchor}` : `/api/${slug}.html#${anchor}`;
 }
 
 async function loadOne(idx: number) {
@@ -78,8 +78,8 @@ watch(currentSlug, () => { /* reactive bindings handle active/open state */ });
 
 <template>
   <aside class="mp-sidebar">
-    <a href="/beta-developer-portal/" class="mp-sidebar__back">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <a href="/" class="mp-sidebar__back">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       <span data-i18n="Back to portal">Back to portal</span>
     </a>
 

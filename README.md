@@ -1,6 +1,6 @@
 # MyParcel Developer Portal
 
-**Live home page:** [https://richardperdaan.github.io/beta-developer-portal/](https://richardperdaan.github.io/beta-developer-portal/)
+**Live home page:** [https://developer.myparcel.com/](https://developer.myparcel.com/)
 
 VuePress 2 source for the MyParcel developer portal. Guides, SDKs, plugin
 manuals and an auto-generated API reference for every developer integrating

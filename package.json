@@ -17,6 +17,7 @@
     "vuepress": "^2.0.0-rc.15"
   },
   "dependencies": {
-    "js-yaml": "^4.1.1"
+    "js-yaml": "^4.1.1",
+    "vue-recaptcha": "^2.0.3"
   }
 }

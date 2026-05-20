@@ -30,32 +30,23 @@ const isAbout = computed(() => isActive('/about.html', true));
 const isContact = computed(() => isActive('/contact.html', true));
 
 const apiLinks = [
-  { name: 'API Overview', href: '/beta-developer-portal/api/', sub: 'All APIs' },
-  { name: 'MyParcel API', href: '/beta-developer-portal/api/myparcel.html', sub: 'api.myparcel.nl' },
-  { name: 'Order API', href: '/beta-developer-portal/api/order.html', sub: 'order.api.myparcel.nl' },
-  { name: 'IAM API', href: '/beta-developer-portal/api/iam.html', sub: 'iam.api.myparcel.nl' },
-  { name: 'Rule API', href: '/beta-developer-portal/api/rule.html', sub: 'rule.api.myparcel.nl' },
-  { name: 'Address API', href: '/beta-developer-portal/api/address.html', sub: 'address.api.myparcel.nl' },
-  { name: 'Printing API', href: '/beta-developer-portal/api/printing.html', sub: 'printing.api.myparcel.nl' },
-  { name: 'Product API', href: '/beta-developer-portal/api/product.html', sub: 'product.api.myparcel.nl' },
-  { name: 'Delegation API', href: '/beta-developer-portal/api/delegation.html', sub: 'delegation.api.myparcel.nl' },
-  { name: 'Purchase Order API', href: '/beta-developer-portal/api/purchase-order.html', sub: 'purchase-order.api.myparcel.nl' },
-  { name: 'Event API', href: '/beta-developer-portal/api/event.html', sub: 'event.api.myparcel.nl' },
+  { name: 'API Overview', href: '/api/', sub: 'All APIs' },
+  { name: 'MyParcel API', href: '/api/myparcel.html', sub: 'api.myparcel.nl' },
+  { name: 'Order API', href: '/api/order.html', sub: 'order.api.myparcel.nl' },
+  { name: 'Rule API', href: '/api/rule.html', sub: 'rule.api.myparcel.nl' },
+  { name: 'Address API', href: '/api/address.html', sub: 'address.api.myparcel.nl' },
+  { name: 'Printing API', href: '/api/printing.html', sub: 'printing.api.myparcel.nl' },
+  { name: 'Product API', href: '/api/product.html', sub: 'product.api.myparcel.nl' },
+  { name: 'Delegation API', href: '/api/delegation.html', sub: 'delegation.api.myparcel.nl' },
+  { name: 'Purchase Order API', href: '/api/purchase-order.html', sub: 'purchase-order.api.myparcel.nl' },
+  { name: 'Event API', href: '/api/event.html', sub: 'event.api.myparcel.nl' },
 ];
 
 const platformLinks = [
-  { name: 'WooCommerce', href: '/beta-developer-portal/platforms/woocommerce.html' },
-  { name: 'Magento 2', href: '/beta-developer-portal/platforms/magento2.html' },
-  { name: 'Shopify', href: '/beta-developer-portal/platforms/coming-soon.html?p=Shopify' },
-  { name: 'PrestaShop', href: '/beta-developer-portal/platforms/coming-soon.html?p=PrestaShop' },
-  { name: 'Shopware', href: '/beta-developer-portal/platforms/coming-soon.html?p=Shopware' },
-  { name: 'Lightspeed', href: '/beta-developer-portal/platforms/coming-soon.html?p=Lightspeed' },
-  { name: 'Ecwid', href: '/beta-developer-portal/platforms/coming-soon.html?p=Ecwid' },
-  { name: 'Bol.', href: '/beta-developer-portal/platforms/coming-soon.html?p=Bol.' },
-  { name: 'Wix', href: '/beta-developer-portal/platforms/coming-soon.html?p=Wix' },
-  { name: 'Amazon', href: '/beta-developer-portal/platforms/coming-soon.html?p=Amazon' },
-  { name: 'Etsy', href: '/beta-developer-portal/platforms/coming-soon.html?p=Etsy' },
-  { name: 'Chrome extension', href: '/beta-developer-portal/platforms/coming-soon.html?p=Chrome+extension' },
+  { name: 'WooCommerce', href: '/platforms/woocommerce.html' },
+  { name: 'Magento 2', href: '/platforms/magento2.html' },
+  { name: 'PrestaShop', href: '/platforms/prestashop.html' },
+  { name: 'Amazon', href: '/platforms/amazon.html' },
 ];
 const isPlatforms = computed(() => isActive('/platforms/'));
 
@@ -110,7 +101,7 @@ onBeforeUnmount(() => {
           <span class="mp-beta-banner__pill" data-i18n="Beta">Beta</span>
           <span class="mp-beta-banner__msg">
             <span data-i18n="This developer portal is in beta — content and APIs may change while we polish things up.">This developer portal is in beta — content and APIs may change while we polish things up.</span>
-            <a href="/beta-developer-portal/contact.html" class="mp-beta-banner__link" data-i18n="Share feedback →">Share feedback →</a>
+            <a href="/contact.html" class="mp-beta-banner__link" data-i18n="Share feedback →">Share feedback →</a>
           </span>
         </div>
         <button
@@ -128,7 +119,7 @@ onBeforeUnmount(() => {
   </ClientOnly>
 
   <nav class="mp-nav">
-    <a href="/beta-developer-portal/" class="mp-nav__logo">
+    <a href="/" class="mp-nav__logo">
       <img class="mp-nav__logo-img" src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="128" height="20" />
       <span class="mp-nav__logo-stack">
         <span class="mp-nav__logo-sub">Developers</span>
@@ -141,7 +132,7 @@ onBeforeUnmount(() => {
     <div class="mp-nav__spacer"></div>
 
     <div class="mp-nav__links">
-      <a href="/beta-developer-portal/" class="mp-nav__link" :class="{ 'is-active': isHome }">Home</a>
+      <a href="/" class="mp-nav__link" :class="{ 'is-active': isHome }">Home</a>
       <a :href="docsHomeHref" class="mp-nav__link" :class="{ 'is-active': isGuides }">Documentation</a>
       <div
         class="mp-nav__item"
@@ -149,7 +140,7 @@ onBeforeUnmount(() => {
         @mouseenter="apiOpen = true"
         @mouseleave="apiOpen = false"
       >
-        <a href="/beta-developer-portal/api/" class="mp-nav__link" :class="{ 'is-active': isApi }">API Reference</a>
+        <a href="/api/" class="mp-nav__link" :class="{ 'is-active': isApi }">API Reference</a>
         <svg class="mp-nav__caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
@@ -161,8 +152,8 @@ onBeforeUnmount(() => {
           </li>
         </ul>
       </div>
-      <a href="/beta-developer-portal/about.html" class="mp-nav__link" :class="{ 'is-active': isAbout }">About</a>
-      <a href="/beta-developer-portal/contact.html" class="mp-nav__link" :class="{ 'is-active': isContact }">Contact</a>
+      <a href="/about.html" class="mp-nav__link" :class="{ 'is-active': isAbout }">About</a>
+      <a href="/contact.html" class="mp-nav__link" :class="{ 'is-active': isContact }">Contact</a>
     </div>
 
     <ClientOnly>
@@ -218,7 +209,7 @@ onBeforeUnmount(() => {
         aria-label="Site navigation"
       >
         <header class="mp-mobile-drawer__head">
-          <a href="/beta-developer-portal/" class="mp-mobile-drawer__logo" @click="closeMobile">
+          <a href="/" class="mp-mobile-drawer__logo" @click="closeMobile">
             <img src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="112" height="18" />
             <span class="mp-mobile-drawer__logo-stack">
               <span class="mp-mobile-drawer__logo-sub">Developers</span>
@@ -238,7 +229,7 @@ onBeforeUnmount(() => {
         </header>
 
         <nav class="mp-mobile-drawer__nav">
-          <a href="/beta-developer-portal/" class="mp-mobile-drawer__link" :class="{ 'is-active': isHome }">Home</a>
+          <a href="/" class="mp-mobile-drawer__link" :class="{ 'is-active': isHome }">Home</a>
           <a :href="docsHomeHref" class="mp-mobile-drawer__link" :class="{ 'is-active': isGuides }">Documentation</a>
 
           <div class="mp-mobile-drawer__group">
@@ -292,8 +283,8 @@ onBeforeUnmount(() => {
             </div>
           </div>
 
-          <a href="/beta-developer-portal/about.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isAbout }">About</a>
-          <a href="/beta-developer-portal/contact.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isContact }">Contact</a>
+          <a href="/about.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isAbout }">About</a>
+          <a href="/contact.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isContact }">Contact</a>
         </nav>
 
         <footer class="mp-mobile-drawer__foot">

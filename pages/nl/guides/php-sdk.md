@@ -329,7 +329,7 @@ Status-constanten op `AbstractConsignment`:
 | Constant | Betekenis |
 | --- | --- |
 | `STATUS_CONCEPT` (`1`) | Aangemaakt, label nog niet geprint. |
-| Hogere waardes | Geprint, overgedragen, in transit, afgeleverd, retour. Vraag de actuele lijst op via [`/shipments` ↗](../api/myparcel.md). |
+| Hogere waardes | Geprint, overgedragen, in transit, afgeleverd, retour. Vraag de actuele lijst op via [`/shipments` ↗](../../api/myparcel.md). |
 
 ## 11 · Queryen en terughalen
 ### Op consignment-ID
@@ -357,7 +357,7 @@ $collection = MyParcelCollection::query($apiKey, [
 ]);
 ```
 
-Geldige filter-keys volgen de `GET /shipments`-endpointparameters in de [API-referentie](../api/myparcel.md). De SDK zet ze 1-op-1 door.
+Geldige filter-keys volgen de `GET /shipments`-endpointparameters in de [API-referentie](../../api/myparcel.md). De SDK zet ze 1-op-1 door.
 
 ## 12 · Retouren
 ### Retour-in-de-doos (label meestuurt met originele zending)
@@ -454,7 +454,7 @@ De SDK heeft geen webhook-server (dat is jouw applicatie), maar wel models om su
 MyParcelRequest::sendRequest('GET', 'webhook_subscriptions');
 ```
 
-Beschikbare event-types worden actueel gehouden in de [API-referentie](../api/myparcel.md#webhooks).
+Beschikbare event-types worden actueel gehouden in de [API-referentie](../../api/myparcel.md#webhooks).
 
 ## 15 · Exceptions
 Alles in `MyParcelNL\Sdk\Exception\`:

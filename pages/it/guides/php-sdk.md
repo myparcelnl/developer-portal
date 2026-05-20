@@ -329,7 +329,7 @@ Costanti di status su `AbstractConsignment`:
 | Costante | Significato |
 | --- | --- |
 | `STATUS_CONCEPT` (`1`) | Creato, etichetta non ancora stampata. |
-| Valori superiori | Stampato, consegnato al carrier, in transito, recapitato, reso. Recupera l'elenco aggiornato tramite [`/shipments` ↗](../api/myparcel.md). |
+| Valori superiori | Stampato, consegnato al carrier, in transito, recapitato, reso. Recupera l'elenco aggiornato tramite [`/shipments` ↗](../../api/myparcel.md). |
 
 ## 11 · Query e recupero
 ### Per consignment ID
@@ -357,7 +357,7 @@ $collection = MyParcelCollection::query($apiKey, [
 ]);
 ```
 
-Le filter key valide seguono i parametri dell'endpoint `GET /shipments` nel [riferimento API](../api/myparcel.md). L'SDK le passa 1-a-1.
+Le filter key valide seguono i parametri dell'endpoint `GET /shipments` nel [riferimento API](../../api/myparcel.md). L'SDK le passa 1-a-1.
 
 ## 12 · Resi
 ### Reso nella scatola (etichetta inclusa nella spedizione originale)
@@ -454,7 +454,7 @@ L'SDK non include un webhook server (quello è la tua applicazione), ma fornisce
 MyParcelRequest::sendRequest('GET', 'webhook_subscriptions');
 ```
 
-L'elenco aggiornato dei tipi di evento è mantenuto nel [riferimento API](../api/myparcel.md#webhooks).
+L'elenco aggiornato dei tipi di evento è mantenuto nel [riferimento API](../../api/myparcel.md#webhooks).
 
 ## 15 · Eccezioni
 Tutto in `MyParcelNL\Sdk\Exception\`:

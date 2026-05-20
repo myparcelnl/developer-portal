@@ -2,8 +2,21 @@ import { defineUserConfig } from 'vuepress';
 import { defaultTheme } from '@vuepress/theme-default';
 import { viteBundler } from '@vuepress/bundler-vite';
 import { getDirname, path } from 'vuepress/utils';
+import { Logger } from '@vuepress/helper';
 
 const __dirname = getDirname(import.meta.url);
+
+// Several theme-bundled plugins (back-to-top, copy-code, markdown-hint, git)
+// emit "<lang> is missing it's i18n config" whenever a declared locale has no
+// built-in translation. We declare /it/ as it-IT and supply the runtime
+// strings via themePlugins.*.locales below, but the upstream helper warns
+// before that override is applied. Filter that one specific message so the
+// build log isn't polluted with false-positive noise.
+const _origWarn = Logger.prototype.warn;
+Logger.prototype.warn = function (msg: string = '', ...args: unknown[]) {
+  if (typeof msg === 'string' && msg.includes("missing it's i18n config")) return;
+  return _origWarn.call(this, msg, ...args);
+};
 
 // Custom slugify — VuePress's default keeps Unicode middots (·) and em-dashes
 // (—) verbatim and prefixes a `_` to ids that start with a digit. That makes
@@ -30,7 +43,7 @@ export default defineUserConfig({
   lang: 'en-US',
   title: 'MyParcel Developer Portal',
   description: 'Guides, SDKs, plugins and auto-generated API reference for MyParcel.',
-  base: '/beta-developer-portal/',
+  base: '/',
 
   // Locale roots — content under these path prefixes uses the locale's lang.
   // The actual translated markdown lives under pages/nl/ and pages/it/.
@@ -75,6 +88,41 @@ export default defineUserConfig({
     lastUpdated: false,
     contributors: false,
 
+    // The theme-bundled plugins ship en-US and nl-NL strings but no it-IT,
+    // which triggers "missing it's i18n config" warnings during build. Fill
+    // in the Italian translations here so the locale resolves cleanly.
+    themePlugins: {
+      backToTop: {
+        locales: { '/it/': { backToTop: 'Torna su' } },
+      },
+      copyCode: {
+        locales: { '/it/': { copy: 'Copia codice', copied: 'Copiato' } },
+      },
+      git: {
+        locales: {
+          '/it/': {
+            contributors: 'Collaboratori',
+            changelog: 'Registro modifiche',
+            timeOn: 'il',
+            viewChangelog: 'Visualizza intero registro',
+            latestUpdateAt: 'Ultimo aggiornamento',
+          },
+        },
+      },
+      hint: {
+        locales: {
+          '/it/': {
+            important: 'Importante',
+            info: 'Informazioni',
+            note: 'Nota',
+            tip: 'Suggerimento',
+            warning: 'Avviso',
+            caution: 'Attenzione',
+            details: 'Dettagli',
+          },
+        },
+      },
+    },
   }),
 
   // The default theme injects a pre-paint script that defaults to dark when
@@ -85,6 +133,15 @@ export default defineUserConfig({
       'script',
       {},
       `(function(){try{if(!localStorage.getItem('vuepress-color-scheme')){localStorage.setItem('vuepress-color-scheme','light');document.documentElement.dataset.theme='light';}}catch(e){}})();`,
+    ],
+    // Pre-paint locale redirect: if the user picked NL/IT and lands on the
+    // English version of a translated page, send them to the localized URL
+    // before render to avoid a flash of English content. Mirrors the
+    // LOCALIZED_PATHS set in sidebar.ts — keep them in sync.
+    [
+      'script',
+      {},
+      `(function(){try{var l=localStorage.getItem('mp-lang');if(l!=='nl'&&l!=='it')return;var b='';var p=window.location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length)||'/';if(r.indexOf('/nl/')===0||r==='/nl'||r.indexOf('/it/')===0||r==='/it')return;var s={'/guides/getting-started.html':1,'/guides/authentication.html':1,'/guides/shipments.html':1,'/guides/delivery-options.html':1,'/guides/webhooks.html':1,'/guides/data-types.html':1,'/guides/php-sdk.html':1,'/guides/javascript-sdk.html':1,'/platforms/woocommerce.html':1,'/platforms/magento2.html':1,'/platforms/prestashop.html':1};if(s[r])window.location.replace(b+'/'+l+r+window.location.search+window.location.hash);}catch(e){}})();`,
     ],
   ],
 });

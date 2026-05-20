@@ -339,4 +339,4 @@ No. Paghi solo per le spedizioni alla tua tariffa MyParcel.
 - [github.com/myparcelnl/magento ↗](https://github.com/myparcelnl/magento) — codice sorgente, release, issue.
 - [developer.myparcel.nl — Magento 2 ↗](https://developer.myparcel.nl/nl/documentatie/13.magento2.html) — manuale ufficiale di installazione e configurazione.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, fatturazione.
-- [Contatta il supporto MyParcel](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).

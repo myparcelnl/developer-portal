@@ -40,4 +40,4 @@ Ogni spedizione creata espone un `label_url` che punta a un PDF. Le etichette so
 ## Annullamento
 Le spedizioni possono essere annullate finché si trovano nello stato `pending` o `printed`. Una volta in `handed_over`, l'annullamento non è più possibile — emetti invece un reso.
 
-[Vedi `DELETE /shipments/{id}` →](../api/myparcel.md#cancel-shipment)
+[Vedi `DELETE /shipments/{id}` →](../../api/myparcel.md#cancel-shipment)

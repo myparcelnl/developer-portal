@@ -12,7 +12,6 @@ interface SpecLink {
 const NAME_BY_PATH: Record<string, string> = {
   '/api/myparcel.html':       'MyParcel API',
   '/api/order.html':          'Order API',
-  '/api/iam.html':            'IAM API',
   '/api/rule.html':           'Rule API',
   '/api/address.html':        'Address API',
   '/api/printing.html':       'Printing API',
