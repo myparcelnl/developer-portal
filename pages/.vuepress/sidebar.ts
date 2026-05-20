@@ -45,7 +45,6 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'WooCommerce', link: '/platforms/woocommerce.html' },
       { text: 'Magento 2', link: '/platforms/magento2.html' },
       { text: 'PrestaShop', link: '/platforms/prestashop.html' },
-      { text: 'Amazon', link: '/platforms/amazon.html' },
     ],
   },
   {
