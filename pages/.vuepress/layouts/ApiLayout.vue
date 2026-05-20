@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue';
+import { computed, defineAsyncComponent, onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import { usePageData, usePageFrontmatter } from 'vuepress/client';
 import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
 import MpApiOverviewSidebar from '../components/MpApiOverviewSidebar.vue';
 import { apiMeta } from '../api-meta';
-import { getSpec } from '../composables/useSpecCache';
+import { getSpec, subscribe as subscribeToSpec } from '../composables/useSpecCache';
 import { parseOperations } from '../composables/useOpenApi';
 
 // Path → API slug. /api/myparcel.html → 'myparcel'.
@@ -57,6 +57,19 @@ async function refreshLiveMeta() {
 }
 onMounted(refreshLiveMeta);
 watch(() => page.value.path, refreshLiveMeta);
+
+// Auto-refresh: when the spec for the current page is refreshed by the cache
+// layer, update version + endpoint count without re-fetching ourselves.
+let unsubscribe: (() => void) | null = null;
+onMounted(() => {
+  unsubscribe = subscribeToSpec((url, fresh) => {
+    const m = apiMeta[page.value.path];
+    if (!m?.specUrl || m.specUrl !== url) return;
+    if (fresh.info?.version) liveVersion.value = fresh.info.version;
+    liveEndpoints.value = String(parseOperations(fresh).length);
+  });
+});
+onBeforeUnmount(() => { unsubscribe?.(); });
 
 const meta = computed(() => ({
   ...staticMeta.value,

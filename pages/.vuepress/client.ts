@@ -16,6 +16,7 @@ import { attachEndpointAnchors } from './composables/useApiAnchors';
 import { attachDocsAnchors } from './composables/useDocsAnchors';
 import { refreshApiKeyboard } from './composables/useApiKeyboard';
 import { initApiRail } from './composables/useApiRail';
+import { installAutoRefresh } from './composables/useSpecCache';
 
 function refreshClientBehaviors() {
   if (typeof window === 'undefined') return;
@@ -51,6 +52,7 @@ export default defineClientConfig({
   setup() {
     if (typeof window !== 'undefined') {
       setTimeout(refreshClientBehaviors, 30);
+      installAutoRefresh();
     }
   },
 });

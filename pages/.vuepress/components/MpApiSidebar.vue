@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import { usePageData } from 'vuepress/client';
 import { apiList, type ApiMeta } from '../api-meta';
 import {
@@ -8,7 +8,7 @@ import {
   type OpenApiDoc,
   type OperationGroup,
 } from '../composables/useOpenApi';
-import { getSpec } from '../composables/useSpecCache';
+import { getSpec, subscribe as subscribeToSpec } from '../composables/useSpecCache';
 
 interface ApiSection {
   meta: ApiMeta;
@@ -53,25 +53,40 @@ function hrefFor(slug: string, anchor: string): string {
   return isActive(slug) ? `#${anchor}` : `/api/${slug}.html#${anchor}`;
 }
 
+function applySpec(sec: ApiSection, spec: OpenApiDoc) {
+  const overrides = sec.meta.groupOverrides ?? [];
+  const ops = parseOperations(spec, overrides);
+  sec.groups = groupOperations(ops, overrides);
+  if (spec.info?.version) sec.version = spec.info.version;
+  sec.loaded = true;
+}
+
 async function loadOne(idx: number) {
   const sec = sections.value[idx];
   if (!sec.meta.specUrl) return;
   try {
     const spec: OpenApiDoc = await getSpec(sec.meta.specUrl);
-    const overrides = sec.meta.groupOverrides ?? [];
-    const ops = parseOperations(spec, overrides);
-    sec.groups = groupOperations(ops, overrides);
-    if (spec.info?.version) sec.version = spec.info.version;
-    sec.loaded = true;
+    applySpec(sec, spec);
   } catch (e: any) {
     sec.error = e?.message ?? String(e);
     sec.loaded = true;
   }
 }
 
+let unsubscribe: (() => void) | null = null;
+
 onMounted(() => {
   sections.value.forEach((_, i) => loadOne(i));
+
+  // Auto-refresh: pick up updates pushed by the cache layer (visibilitychange
+  // and periodic poll). Find the matching section by URL and recompute its
+  // groups so version chips and endpoint counts stay live.
+  unsubscribe = subscribeToSpec((url, fresh) => {
+    const idx = sections.value.findIndex(s => s.meta.specUrl === url);
+    if (idx >= 0) applySpec(sections.value[idx], fresh);
+  });
 });
+onBeforeUnmount(() => { unsubscribe?.(); });
 
 watch(currentSlug, () => { /* reactive bindings handle active/open state */ });
 </script>
