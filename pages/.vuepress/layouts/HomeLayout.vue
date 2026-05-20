@@ -34,7 +34,7 @@ function formatStat(value: number, decimals: number, prefix: string, suffix: str
 
 // Reactive "stats have entered viewport" flag — drives the .mp-stat--enter
 // class binding in the template. Vue manages the class, so re-renders caused
-// by other reactive bindings (statusTone, uptimeDisplay) can no longer wipe
+// by other reactive bindings (statusTone) can no longer wipe
 // the class as they would when we mutated classList directly.
 const statsEntered = ref(false);
 
@@ -58,10 +58,7 @@ function runAnimation(root: Element) {
   const duration = 1400;
   const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
-  // Skip the Vue-bound uptime tile so the count-up loop doesn't race against
-  // Vue's reactive text update when the live value arrives from the status API.
   const items = stats
-    .filter(stat => !stat.classList.contains('mp-stat--uptime'))
     .map(stat => {
       const valueEl = stat.querySelector<HTMLElement>('.mp-stat__value');
       const original = valueEl?.textContent ?? '';
@@ -89,7 +86,11 @@ function runAnimation(root: Element) {
       raf = requestAnimationFrame(frame);
     } else {
       // Snap to the exact original text so trailing zeros / formatting match.
-      items.forEach(({ valueEl, original }) => { valueEl.textContent = original; });
+      // If a live uptime arrived during the count-up it sits on the value
+      // element as `data-live-target`; land on that instead of the placeholder.
+      items.forEach(({ valueEl, original }) => {
+        valueEl.textContent = valueEl.dataset.liveTarget || original;
+      });
       raf = null;
     }
   }
@@ -120,15 +121,11 @@ onBeforeUnmount(() => {
 });
 
 // --- Live API uptime + system status ----------------------------------------
-// Pulls the current Statuspage indicator and a 30-day uptime % derived from
-// recent incidents. While loading, the markup keeps showing the static
-// "99.99%" so the count-up animation has something to land on.
-const liveUptime = ref<number | null>(null);
+// Pulls the current Statuspage indicator and a 30-day uptime %. The visible
+// number is rendered as a plain DOM textNode (no Vue interpolation) so the
+// IntersectionObserver count-up loop can write to it without racing Vue's
+// reactive text patcher. Only the status colour/tone uses reactive bindings.
 const status = ref<StatusSummary | null>(null);
-
-const uptimeDisplay = computed(() =>
-  liveUptime.value !== null ? formatUptime(liveUptime.value) : '99.99%'
-);
 
 // "operational" → green, "minor" → amber, anything else → red
 const statusTone = computed<'operational' | 'degraded' | 'down' | 'loading'>(() => {
@@ -139,16 +136,24 @@ const statusTone = computed<'operational' | 'degraded' | 'down' | 'loading'>(() 
   return 'down';
 });
 
+function applyLiveUptime(value: number) {
+  const valueEl = document.querySelector<HTMLElement>('.mp-stat--uptime .mp-stat__value');
+  if (!valueEl) return;
+  const target = formatUptime(value);
+  // If the count-up loop is still running it owns the textContent until the
+  // end; once it finishes (raf === null) we land on the live value.
+  if (raf === null) valueEl.textContent = target;
+  // Stash the live target so a still-running count-up snaps to it at finish.
+  valueEl.dataset.liveTarget = target;
+}
+
 onMounted(async () => {
   try {
     const [s, u] = await Promise.all([fetchStatus(), fetchUptime(30)]);
     status.value = s;
-    liveUptime.value = u;
-    // Vue's reactive binding swaps the displayed value automatically. No
-    // secondary count-up here — that used to fight the IntersectionObserver
-    // loop and Vue's text patcher at the same time.
+    applyLiveUptime(u);
   } catch {
-    // Network blip or CORS — keep the static "99.99%" fallback.
+    // Network blip or CORS — keep the static "99.99%" fallback already in DOM.
   }
 });
 </script>
@@ -269,7 +274,7 @@ onMounted(async () => {
         rel="noopener"
         :title="status?.description || 'Open the MyParcel status page'"
       >
-        <div class="mp-stat__value">{{ uptimeDisplay }}</div>
+        <div class="mp-stat__value">99.99%</div>
         <div class="mp-stat__label">
           <span class="mp-stat__dot" :class="`mp-stat__dot--${statusTone}`" aria-hidden="true"></span>
           <span data-i18n="API uptime">API uptime</span>
