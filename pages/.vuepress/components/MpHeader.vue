@@ -46,7 +46,6 @@ const platformLinks = [
   { name: 'WooCommerce', href: '/platforms/woocommerce.html' },
   { name: 'Magento 2', href: '/platforms/magento2.html' },
   { name: 'PrestaShop', href: '/platforms/prestashop.html' },
-  { name: 'Amazon', href: '/platforms/amazon.html' },
 ];
 const isPlatforms = computed(() => isActive('/platforms/'));
 
