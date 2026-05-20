@@ -826,8 +826,23 @@ mp-header, mp-footer { display: contents; }
   text-align: center;
   padding: 0 var(--mp-space-3);
   position: relative;
+
+  /* Pre-animation resting state; the IntersectionObserver in HomeLayout.vue
+     adds .mp-stat--enter to trigger the fade-in + slide-up. */
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.mp-stat--enter {
+  opacity: 1;
+  transform: none;
+}
+
+/* The separator's opacity follows the stat itself so it doesn't appear before
+   its neighbour has settled in. */
 .mp-stat:not(:last-child)::after {
   content: "";
   position: absolute;
@@ -836,6 +851,73 @@ mp-header, mp-footer { display: contents; }
   bottom: 15%;
   width: 1px;
   background: var(--mp-border);
+  opacity: 0;
+  transition: opacity 500ms ease 600ms;
+}
+.mp-stat--enter:not(:last-child)::after { opacity: 1; }
+
+/* Subtle pulse on the value once the count-up settles — purely decorative. */
+@keyframes mp-stat-settle {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+.mp-stat--enter .mp-stat__value {
+  animation: mp-stat-settle 700ms ease 1400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-stat,
+  .mp-stat__value,
+  .mp-stat:not(:last-child)::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  .mp-stat { opacity: 1; transform: none; }
+  .mp-stat:not(:last-child)::after { opacity: 1; }
+}
+
+/* Uptime tile is now a link to status.myparcel.nl; the live status dot in
+   the label hints that the number is live, with colour reflecting the
+   current Statuspage indicator. */
+a.mp-stat--uptime {
+  text-decoration: none;
+  color: inherit;
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 200ms ease;
+  border-radius: 8px;
+}
+a.mp-stat--uptime:hover {
+  background: rgba(15, 120, 89, 0.04);
+}
+.mp-stat__dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  margin-right: 6px;
+  vertical-align: 1px;
+  background: var(--mp-text-muted);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+.mp-stat__dot--operational {
+  background: #2ea66d;
+  animation: mp-stat-dot-pulse 2.4s ease-out infinite;
+}
+.mp-stat__dot--degraded { background: #d97757; }
+.mp-stat__dot--down     { background: #c64a2c; }
+.mp-stat__dot--loading  { background: var(--mp-text-muted); opacity: 0.4; }
+
+@keyframes mp-stat-dot-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(46, 166, 109, 0.55); }
+  70%  { box-shadow: 0 0 0 6px rgba(46, 166, 109, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 166, 109, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-stat__dot--operational { animation: none; }
 }
 
 .mp-stat__value {
