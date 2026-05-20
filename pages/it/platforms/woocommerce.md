@@ -429,4 +429,4 @@ Torna indietro tramite [WP Rollback](https://wordpress.org/plugins/wp-rollback/)
 - [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — codice sorgente, release, issue.
 - [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — listing del plugin.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, fatturazione.
-- [Contatta il supporto MyParcel](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
