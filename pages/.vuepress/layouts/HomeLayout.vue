@@ -335,9 +335,9 @@ onMounted(async () => {
         </div>
         <div class="mp-api-card__name" data-i18n="API Reference">API Reference</div>
         <div class="mp-api-card__url" data-i18n="Auto-generated from OpenAPI">Auto-generated from OpenAPI</div>
-        <p class="mp-api-card__desc" data-i18n="Every endpoint, every parameter, every schema — generated directly from the OpenAPI spec of the MyParcel API. Never out of date.">
+        <p class="mp-api-card__desc" data-i18n="Every endpoint, every parameter, every schema — generated directly from the OpenAPI spec of the Shipment API. Never out of date.">
           Every endpoint, every parameter, every schema — generated
-          directly from the OpenAPI spec of the MyParcel API.
+          directly from the OpenAPI spec of the Shipment API.
           Never out of date.
         </p>
         <div class="mp-api-card__meta">
@@ -374,7 +374,7 @@ onMounted(async () => {
           </div>
           <span class="mp-api-card__badge">v2</span>
         </div>
-        <div class="mp-api-card__name">MyParcel API</div>
+        <div class="mp-api-card__name">Shipment API</div>
         <div class="mp-api-card__url">api.myparcel.nl</div>
         <p class="mp-api-card__desc">Shipments, delivery options, drop-off/pickup locations, track &amp; trace, notifications and webhooks — the core shipping API.</p>
         <div class="mp-api-card__meta">
@@ -459,22 +459,6 @@ onMounted(async () => {
         <p class="mp-api-card__desc">Product catalog: create, update, query products and manage inventory.</p>
         <div class="mp-api-card__meta">
           <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>4 endpoints</span></span>
-          <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-        </div>
-      </a>
-
-      <a href="/api/delegation.html" class="mp-api-card">
-        <div class="mp-api-card__top">
-          <div class="mp-api-card__icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0zM6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <span class="mp-api-card__badge">v1</span>
-        </div>
-        <div class="mp-api-card__name">Delegation API</div>
-        <div class="mp-api-card__url">delegation.api.myparcel.nl</div>
-        <p class="mp-api-card__desc">Delegate access so one account can act on behalf of another.</p>
-        <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>2 endpoints</span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>

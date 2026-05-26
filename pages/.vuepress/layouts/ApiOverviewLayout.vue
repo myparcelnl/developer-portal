@@ -54,7 +54,7 @@ import MpDownloadSpecs from '../components/MpDownloadSpecs.vue';
               </div>
               <span class="mp-api-card__badge">v2</span>
             </div>
-            <div class="mp-api-card__name">MyParcel API</div>
+            <div class="mp-api-card__name">Shipment API</div>
             <div class="mp-api-card__url">api.myparcel.nl</div>
             <p class="mp-api-card__desc" data-i18n="Shipments, delivery options, drop-off/pickup locations, track & trace, notifications and webhooks — the core shipping API.">Shipments, delivery options, drop-off/pickup locations, track &amp; trace, notifications and webhooks — the core shipping API.</p>
             <div class="mp-api-card__meta">
@@ -139,22 +139,6 @@ import MpDownloadSpecs from '../components/MpDownloadSpecs.vue';
             <p class="mp-api-card__desc" data-i18n="Product catalog: create, update, query products and manage inventory.">Product catalog: create, update, query products and manage inventory.</p>
             <div class="mp-api-card__meta">
               <span class="mp-freshness"><span class="mp-freshness__dot"></span><span data-i18n="4 endpoints">4 endpoints</span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
-          <a href="/api/delegation.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0zM6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <span class="mp-api-card__badge">v1</span>
-            </div>
-            <div class="mp-api-card__name">Delegation API</div>
-            <div class="mp-api-card__url">delegation.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Delegate access so one account can act on behalf of another.">Delegate access so one account can act on behalf of another.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span data-i18n="2 endpoints">2 endpoints</span></span>
               <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
             </div>
           </a>

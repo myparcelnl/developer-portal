@@ -57,7 +57,7 @@ import MpFooter from '../components/MpFooter.vue';
       <h2 id="teams" data-i18n="The teams behind this portal">The teams behind this portal</h2>
       <ul>
         <li><strong>External Integrations (INT)</strong> — <span data-i18n="owns this portal and the integrations library.">owns this portal and the integrations library.</span></li>
-        <li><strong>Shipment &amp; Billing</strong> — <span data-i18n="owns the core MyParcel API and OpenAPI spec.">owns the core MyParcel API and OpenAPI spec.</span></li>
+        <li><strong>Shipment &amp; Billing</strong> — <span data-i18n="owns the core Shipment API and OpenAPI spec.">owns the core Shipment API and OpenAPI spec.</span></li>
         <li><strong>Cloud Engineering</strong> — <span data-i18n="hosts developer.myparcel.com and every service behind it.">hosts <code>developer.myparcel.com</code> and every service behind it.</span></li>
         <li><strong>Customer &amp; New Products</strong> — <span data-i18n="runs account-management and billing.">runs account-management and billing.</span></li>
       </ul>

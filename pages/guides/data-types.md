@@ -1,6 +1,6 @@
 ---
 title: Data types
-description: "Common types, enums and conventions used throughout the MyParcel API — strings, money, dates, countries, carriers."
+description: "Common types, enums and conventions used throughout the Shipment API — strings, money, dates, countries, carriers."
 ---
 
 ## Identifiers

@@ -27,7 +27,7 @@ Wissel je credentials in voor een bearer token. De token is 1 uur geldig.
 ```
 
 ## Stap 3 · Maak je eerste zending
-Met de token in handen roep je de MyParcel API aan om een zending te maken. Labels en tracking-URL's krijg je direct terug.
+Met de token in handen roep je de Shipment API aan om een zending te maken. Labels en tracking-URL's krijg je direct terug.
 
 ```
 // POST https://api.myparcel.nl/shipments

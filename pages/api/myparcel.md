@@ -1,5 +1,5 @@
 ---
-title: MyParcel API
+title: Shipment API
 description: "Allows MyParcel users to query delivery options, pickup & drop off locations with opening hours, register & trace shipments, print labels and more."
 ---
 
