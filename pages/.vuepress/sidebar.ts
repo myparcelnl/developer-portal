@@ -47,6 +47,12 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'PrestaShop', link: '/platforms/prestashop.html' },
     ],
   },
+    {
+    label: 'Frontend integrations',
+    items: [
+      { text: 'Delivery Options', link: '/platforms/delivery-options.html' },
+    ],
+  },
   {
     label: 'Reference',
     items: [
