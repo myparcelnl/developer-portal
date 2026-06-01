@@ -56,7 +56,7 @@ export const docsSidebar: SidebarGroup[] = [
   {
     label: 'Reference',
     items: [
-      { text: 'MyParcel API', link: '/api/myparcel.html' },
+      { text: 'Shipment API', link: '/api/myparcel.html' },
       { text: 'Order API', link: '/api/order.html' },
       { text: 'Rule API', link: '/api/rule.html' },
       { text: 'Address API', link: '/api/address.html' },

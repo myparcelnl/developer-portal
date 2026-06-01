@@ -31,13 +31,12 @@ const isContact = computed(() => isActive('/contact.html', true));
 
 const apiLinks = [
   { name: 'API Overview', href: '/api/', sub: 'All APIs' },
-  { name: 'MyParcel API', href: '/api/myparcel.html', sub: 'api.myparcel.nl' },
+  { name: 'Shipment API', href: '/api/myparcel.html', sub: 'api.myparcel.nl' },
   { name: 'Order API', href: '/api/order.html', sub: 'order.api.myparcel.nl' },
   { name: 'Rule API', href: '/api/rule.html', sub: 'rule.api.myparcel.nl' },
   { name: 'Address API', href: '/api/address.html', sub: 'address.api.myparcel.nl' },
   { name: 'Printing API', href: '/api/printing.html', sub: 'printing.api.myparcel.nl' },
   { name: 'Product API', href: '/api/product.html', sub: 'product.api.myparcel.nl' },
-  { name: 'Delegation API', href: '/api/delegation.html', sub: 'delegation.api.myparcel.nl' },
   { name: 'Purchase Order API', href: '/api/purchase-order.html', sub: 'purchase-order.api.myparcel.nl' },
   { name: 'Event API', href: '/api/event.html', sub: 'event.api.myparcel.nl' },
 ];

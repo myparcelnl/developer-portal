@@ -27,7 +27,7 @@ Exchange your credentials for a bearer token. The token is valid for 1 hour.
 ```
 
 ## Step 3 · Create your first shipment
-With the token in hand, call the MyParcel API to create a shipment. Labels and tracking URLs are returned immediately.
+With the token in hand, call the Shipment API to create a shipment. Labels and tracking URLs are returned immediately.
 
 ```
 // POST https://api.myparcel.nl/shipments

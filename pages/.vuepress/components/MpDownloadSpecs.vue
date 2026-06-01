@@ -10,13 +10,12 @@ interface SpecLink {
 }
 
 const NAME_BY_PATH: Record<string, string> = {
-  '/api/myparcel.html':       'MyParcel API',
+  '/api/myparcel.html':       'Shipment API',
   '/api/order.html':          'Order API',
   '/api/rule.html':           'Rule API',
   '/api/address.html':        'Address API',
   '/api/printing.html':       'Printing API',
   '/api/product.html':        'Product API',
-  '/api/delegation.html':     'Delegation API',
   '/api/purchase-order.html': 'Purchase Order API',
   '/api/event.html':          'Event API',
 };

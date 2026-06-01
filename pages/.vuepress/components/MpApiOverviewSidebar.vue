@@ -11,7 +11,7 @@
 
       <details class="mp-sidebar__api">
         <summary class="mp-sidebar__api-summary">
-          <span>MyParcel API</span>
+          <span>Shipment API</span>
           <span class="mp-sidebar__api-summary-version">2026-04-16</span>
           <svg class="mp-sidebar__api-summary-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </summary>
@@ -119,17 +119,6 @@
         <a class="mp-sidebar__item" href="/api/product.html#post-manage-inventory"><span class="mp-method mp-method--post">POST</span><span>Manage inventory of a product.</span></a>
         <div class="mp-sidebar__group-label">Update product</div>
         <a class="mp-sidebar__item" href="/api/product.html#post-update-product"><span class="mp-method mp-method--post">POST</span><span>Update a product.</span></a>
-      </details>
-
-      <details class="mp-sidebar__api">
-        <summary class="mp-sidebar__api-summary">
-          <span>Delegation API</span>
-          <span class="mp-sidebar__api-summary-version">1.0.0</span>
-          <svg class="mp-sidebar__api-summary-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="mp-sidebar__group-label">Delegation requests</div>
-        <a class="mp-sidebar__item" href="/api/delegation.html#post-delegation-requests-api-key"><span class="mp-method mp-method--post">POST</span><span>Register API Key for a delegat…</span></a>
-        <a class="mp-sidebar__item" href="/api/delegation.html#post-delegation-requests-api-key-without-secret"><span class="mp-method mp-method--post">POST</span><span>Register API Key for a delegat…</span></a>
       </details>
 
       <details class="mp-sidebar__api">

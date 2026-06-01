@@ -1,6 +1,6 @@
 ---
 title: Datatypes
-description: "Veelgebruikte types, enums en conventies in de MyParcel API — strings, bedragen, datums, landen, vervoerders."
+description: "Veelgebruikte types, enums en conventies in de Shipment API — strings, bedragen, datums, landen, vervoerders."
 ---
 
 ## Identifiers
