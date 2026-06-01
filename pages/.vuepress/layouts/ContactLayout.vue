@@ -125,13 +125,13 @@ async function onSubmit(e: Event) {
         </div>
       </a>
 
-      <a class="mp-contact-card" href="https://www.myparcel.nl/contact" target="_blank" rel="noopener">
+      <a class="mp-contact-card" href="https://www.myparcel.com/contact" target="_blank" rel="noopener">
         <div class="mp-contact-card__icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V21a1 1 0 0 1-1.11 1A19.86 19.86 0 0 1 2 3.11 1 1 0 0 1 3 2h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.29 1L7 9.71a16 16 0 0 0 7.29 7.29l1.96-1.96a1 1 0 0 1 1-.29l4 1A1 1 0 0 1 22 16.92z"/></svg>
         </div>
         <div>
           <div class="mp-contact-card__title" data-i18n="Sales &amp; accounts">Sales &amp; accounts</div>
-          <p class="mp-contact-card__desc" data-i18n="Pricing, billing or onboarding new partners — through myparcel.nl/contact.">Pricing, billing or onboarding new partners — through <code>myparcel.nl/contact</code>.</p>
+          <p class="mp-contact-card__desc" data-i18n="Pricing, billing or onboarding new partners — through myparcel.com/contact.">Pricing, billing or onboarding new partners — through <code>myparcel.com/contact</code>.</p>
         </div>
       </a>
     </section>
