@@ -134,13 +134,5 @@
         <a class="mp-sidebar__item" href="/api/purchase-order.html#post-remove"><span class="mp-method mp-method--post">POST</span><span>Remove purchase order.</span></a>
       </details>
 
-      <details class="mp-sidebar__api">
-        <summary class="mp-sidebar__api-summary">
-          <span>Event API</span>
-          <span class="mp-sidebar__api-summary-version">—</span>
-          <svg class="mp-sidebar__api-summary-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="mp-sidebar__group-label" style="color:var(--mp-text-faint);">Spec unavailable</div>
-      </details>
   </aside>
 </template>

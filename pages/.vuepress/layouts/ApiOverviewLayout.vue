@@ -159,22 +159,6 @@ import MpDownloadSpecs from '../components/MpDownloadSpecs.vue';
             </div>
           </a>
 
-          <a href="/api/event.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              </div>
-              <span class="mp-api-card__badge">soon</span>
-            </div>
-            <div class="mp-api-card__name">Event API</div>
-            <div class="mp-api-card__url">event.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Platform event bus — subscribe to shipment, order and webhook events.">Platform event bus — subscribe to shipment, order and webhook events.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span data-i18n="Coming soon">Coming soon</span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
         </div>
       </section>
     </main>
