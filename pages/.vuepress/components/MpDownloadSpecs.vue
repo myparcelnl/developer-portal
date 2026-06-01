@@ -17,7 +17,6 @@ const NAME_BY_PATH: Record<string, string> = {
   '/api/printing.html':       'Printing API',
   '/api/product.html':        'Product API',
   '/api/purchase-order.html': 'Purchase Order API',
-  '/api/event.html':          'Event API',
 };
 
 const specs: SpecLink[] = Object.entries(apiMeta)

@@ -38,7 +38,6 @@ const apiLinks = [
   { name: 'Printing API', href: '/api/printing.html', sub: 'printing.api.myparcel.nl' },
   { name: 'Product API', href: '/api/product.html', sub: 'product.api.myparcel.nl' },
   { name: 'Purchase Order API', href: '/api/purchase-order.html', sub: 'purchase-order.api.myparcel.nl' },
-  { name: 'Event API', href: '/api/event.html', sub: 'event.api.myparcel.nl' },
 ];
 
 const platformLinks = [
