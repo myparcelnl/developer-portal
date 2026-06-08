@@ -112,7 +112,6 @@ Lower on the settings page you'll find the pickup point and reminder-email optio
 
 ![Pickup point settings and the pickup location reminder email.](./images/shopify/export-zones.png)
 
-- **Google Maps API key** — Needed to show the pickup point map at checkout. Fill this in if you want customers to pick a pickup point on a map.
 - **Automatically choose the closest pickup point** — Picks the nearest point for the customer automatically.
 - **Herinneringsmail afhaallocatie** (Pickup location reminder email) — If the customer didn't choose a pickup point, MyParcel emails a reminder with a link 30 minutes after the order. Set **Herinneringsmail versturen** to *Ja* to enable, fill in a **Contact email** for your own customer service, and pick the **language for PostNL locations** (NL/BE).
 
@@ -147,7 +146,7 @@ The customer first picks **Verzenden & afhaalpunten** (Shipping & pickup points)
 - **Standaard** (Standard) — Regular home delivery (in the example: free, 3–5 working days).
 - **Pickup** — Collect at a nearby pickup point (in the example: € 2.00, 5–8 working days).
 
-If you've set up pickup points and a Google Maps API key ([§6](#6-settings-pickup-points)), the customer can choose a pickup point on the thank-you page after checkout. If they don't, a reminder email follows. *Prices and delivery times are examples — they depend on your own settings and contract.*
+If you've enabled pickup points ([§5](#5-settings-export-zones) and [§6](#6-settings-pickup-points)), the customer can choose a pickup point on the thank-you page after checkout. If they don't, a reminder email follows. *Prices and delivery times are examples — they depend on your own settings and contract.*
 
 ## 10 · Daily use
 Open **Apps → MyParcel**. You land on the **Bestellingen** (Orders) screen, with tabs such as *All*, *Paid & Unfulfilled*, *Printed*, *Fulfilled* and *Onvolledig* (Incomplete).
@@ -174,7 +173,7 @@ Run through this table top to bottom — most issues are fixed within 5 minutes.
 | --- | --- |
 | **The app screen stays blank** | On a development store the *MyParcel.nl DEV* / *Local* app only renders with a running dev server. Use the published **MyParcel NL** app. |
 | **"Geen exportinstellingen gevonden voor de verzendmethode"** | That order's shipping method isn't linked. Map the correct zone and method in [§5](#5-settings-export-zones). |
-| **No pickup points / map at checkout** | Fill in a **Google Maps API key** ([§6](#6-settings-pickup-points)). Without it the map isn't shown. |
+| **No pickup points at checkout** | Enable pickup in your zone mapping ([§5](#5-settings-export-zones)) and check the pickup point settings ([§6](#6-settings-pickup-points)). |
 | **Error when printing several labels** | An order with an incomplete address can't be exported. Check orders with a warning (e.g. *Afhaallocatie niet vermeld*) and fix the address. |
 | **API key isn't accepted** | Re-paste the key from the backoffice (*Integrations*) without extra spaces, then **Opslaan** (Save). |
 | **Worldwide shipment returned by customs** | Make sure the HS code and weight match. Set defaults ([§7](#7-settings-worldwide-shipments)) or precise values per product ([§8](#8-product-settings)). |
@@ -194,7 +193,7 @@ The carriers enabled on your MyParcel account, per zone — for example PostNL, 
 That's set in your MyParcel backoffice (*Shop settings → General*), not in the app. Changes apply immediately.
 
 ### Can my customers pick a pickup point?
-Yes — enable pickup in your zone mapping ([§5](#5-settings-export-zones)) and add a Google Maps API key ([§6](#6-settings-pickup-points)). The customer chooses a point on the thank-you page.
+Yes — enable pickup in your zone mapping ([§5](#5-settings-export-zones)). The customer chooses a point on the thank-you page.
 
 ### Can I send a return label to my customer?
 Yes — return labels can be emailed to the customer. See your MyParcel backoffice for the return portal options.

@@ -112,7 +112,6 @@ Verderop op de instellingenpagina staan de afhaalpunt- en herinneringsmail-optie
 
 ![Afhaalpunt-instellingen en de herinneringsmail voor de afhaallocatie.](../../platforms/images/shopify/export-zones.png)
 
-- **Google Maps API key** — Nodig om de afhaalpunt-kaart in de checkout te tonen. Vul deze in als klanten een afhaalpunt op een kaart mogen kiezen.
 - **Automatisch dichtstbijzijnde afhaalpunt kiezen** — Kiest automatisch het dichtstbijzijnde punt voor de klant.
 - **Herinneringsmail afhaallocatie** — Heeft de klant geen afhaalpunt gekozen, dan stuurt MyParcel 30 minuten na de bestelling een herinneringsmail met een link. Zet **Herinneringsmail versturen** op *Ja*, vul een **Contact email** in voor je eigen klantenservice en kies de **taal voor PostNL-locaties** (NL/BE).
 
@@ -147,7 +146,7 @@ De klant kiest eerst **Verzenden & afhaalpunten** of **Ophalen in de winkel**. D
 - **Standaard** — Gewone thuislevering (in het voorbeeld: gratis, 3–5 werkdagen).
 - **Pickup** — Ophalen bij een afhaalpunt in de buurt (in het voorbeeld: € 2,00, 5–8 werkdagen).
 
-Heb je afhaalpunten en een Google Maps API key ingesteld ([§6](#6-instellingen-afhaalpunten)), dan kiest de klant na het afrekenen een afhaalpunt op de bedankpagina. Doet de klant dat niet, dan volgt een herinneringsmail. *Prijzen en levertijden zijn voorbeelden — ze hangen af van je eigen instellingen en contract.*
+Heb je afhaalpunten ingeschakeld ([§5](#5-instellingen-export-zones) en [§6](#6-instellingen-afhaalpunten)), dan kiest de klant na het afrekenen een afhaalpunt op de bedankpagina. Doet de klant dat niet, dan volgt een herinneringsmail. *Prijzen en levertijden zijn voorbeelden — ze hangen af van je eigen instellingen en contract.*
 
 ## 10 · Dagelijks gebruik
 Open **Apps → MyParcel**. Je komt op het **Bestellingen**-scherm, met tabbladen zoals *All*, *Paid & Unfulfilled*, *Printed*, *Fulfilled* en *Onvolledig*.
@@ -174,7 +173,7 @@ Loop deze tabel van boven naar beneden door — de meeste problemen zijn binnen 
 | --- | --- |
 | **Het app-scherm blijft leeg** | Op een ontwikkelshop rendert de *MyParcel.nl DEV* / *Local*-app alleen met een draaiende dev-server. Gebruik de gepubliceerde **MyParcel NL**-app. |
 | **"Geen exportinstellingen gevonden voor de verzendmethode"** | De verzendmethode van die bestelling is niet gekoppeld. Koppel de juiste zone en methode in [§5](#5-instellingen-export-zones). |
-| **Geen afhaalpunten / kaart in de checkout** | Vul een **Google Maps API key** in ([§6](#6-instellingen-afhaalpunten)). Zonder die sleutel wordt de kaart niet getoond. |
+| **Geen afhaalpunten in de checkout** | Zet afhaalpunt aan in je zone-koppeling ([§5](#5-instellingen-export-zones)) en controleer de afhaalpunt-instellingen ([§6](#6-instellingen-afhaalpunten)). |
 | **Foutmelding bij het printen van meerdere labels** | Een order met een onvolledig adres kan niet geëxporteerd worden. Controleer orders met een waarschuwing (bijv. *Afhaallocatie niet vermeld*) en corrigeer het adres. |
 | **API key wordt niet geaccepteerd** | Plak de key opnieuw uit de backoffice (*Integraties*) zonder extra spaties en klik op **Opslaan**. |
 | **Wereldzending geretourneerd door de douane** | Zorg dat HS-code en gewicht kloppen. Stel standaardwaarden in ([§7](#7-instellingen-wereldzendingen)) of nauwkeurige waarden per product ([§8](#8-productinstellingen)). |
@@ -194,7 +193,7 @@ De vervoerders die op je MyParcel-account zijn ingeschakeld, per zone — bijvoo
 Dat stel je in je MyParcel-backoffice in (*Shopinstellingen → Algemeen*), niet in de app. Wijzigingen gelden direct.
 
 ### Kunnen mijn klanten een afhaalpunt kiezen?
-Ja — zet afhaalpunt aan in je zone-koppeling ([§5](#5-instellingen-export-zones)) en vul een Google Maps API key in ([§6](#6-instellingen-afhaalpunten)). De klant kiest een punt op de bedankpagina.
+Ja — zet afhaalpunt aan in je zone-koppeling ([§5](#5-instellingen-export-zones)). De klant kiest een punt op de bedankpagina.
 
 ### Kan ik een retourlabel naar mijn klant sturen?
 Ja — retourlabels kunnen naar de klant gemaild worden. Zie je MyParcel-backoffice voor de retourportaal-opties.

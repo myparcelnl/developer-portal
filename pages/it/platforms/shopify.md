@@ -112,7 +112,6 @@ Più in basso nella pagina delle impostazioni trovi le opzioni per i punti di ri
 
 ![Impostazioni punti di ritiro ed email di promemoria per il punto di ritiro.](../../platforms/images/shopify/export-zones.png)
 
-- **Google Maps API key** — Necessaria per mostrare la mappa dei punti di ritiro al checkout. Inseriscila se vuoi che i clienti scelgano un punto di ritiro su una mappa.
 - **Scegli automaticamente il punto di ritiro più vicino** — Seleziona automaticamente il punto più vicino per il cliente.
 - **Herinneringsmail afhaallocatie** (Email di promemoria punto di ritiro) — Se il cliente non ha scelto un punto di ritiro, MyParcel invia un'email di promemoria con un link 30 minuti dopo l'ordine. Imposta **Herinneringsmail versturen** su *Ja* (Sì), inserisci una **Contact email** per il tuo servizio clienti e scegli la **lingua per le località PostNL** (NL/BE).
 
@@ -147,7 +146,7 @@ Il cliente sceglie prima **Verzenden & afhaalpunten** (Spedizione e punti di rit
 - **Standaard** (Standard) — Normale consegna a domicilio (nell'esempio: gratuita, 3–5 giorni lavorativi).
 - **Pickup** — Ritiro presso un punto vicino (nell'esempio: € 2,00, 5–8 giorni lavorativi).
 
-Se hai configurato i punti di ritiro e una Google Maps API key ([§6](#6-impostazioni-punti-di-ritiro)), il cliente sceglie un punto di ritiro nella pagina di ringraziamento dopo il checkout. In caso contrario, segue un'email di promemoria. *Prezzi e tempi di consegna sono esempi — dipendono dalle tue impostazioni e dal tuo contratto.*
+Se hai abilitato i punti di ritiro ([§5](#5-impostazioni-esportazione-e-zone) e [§6](#6-impostazioni-punti-di-ritiro)), il cliente sceglie un punto di ritiro nella pagina di ringraziamento dopo il checkout. In caso contrario, segue un'email di promemoria. *Prezzi e tempi di consegna sono esempi — dipendono dalle tue impostazioni e dal tuo contratto.*
 
 ## 10 · Uso quotidiano
 Apri **App → MyParcel**. Arrivi alla schermata **Bestellingen** (Ordini), con schede come *All*, *Paid & Unfulfilled*, *Printed*, *Fulfilled* e *Onvolledig* (Incompleto).
@@ -174,7 +173,7 @@ Scorri questa tabella dall'alto in basso — la maggior parte dei problemi si ri
 | --- | --- |
 | **La schermata dell'app resta vuota** | Su un development store l'app *MyParcel.nl DEV* / *Local* si carica solo con un dev server attivo. Usa l'app pubblicata **MyParcel NL**. |
 | **"Geen exportinstellingen gevonden voor de verzendmethode"** | Il metodo di spedizione di quell'ordine non è collegato. Collega la zona e il metodo corretti in [§5](#5-impostazioni-esportazione-e-zone). |
-| **Nessun punto di ritiro / mappa al checkout** | Inserisci una **Google Maps API key** ([§6](#6-impostazioni-punti-di-ritiro)). Senza, la mappa non viene mostrata. |
+| **Nessun punto di ritiro al checkout** | Attiva il ritiro nel collegamento della zona ([§5](#5-impostazioni-esportazione-e-zone)) e controlla le impostazioni dei punti di ritiro ([§6](#6-impostazioni-punti-di-ritiro)). |
 | **Errore durante la stampa di più etichette** | Un ordine con indirizzo incompleto non può essere esportato. Controlla gli ordini con un avviso (es. *Afhaallocatie niet vermeld*) e correggi l'indirizzo. |
 | **La API key non viene accettata** | Reincolla la chiave dal backoffice (*Integrazioni*) senza spazi in più, poi **Opslaan** (Salva). |
 | **Spedizione mondiale restituita dalla dogana** | Assicurati che codice HS e peso corrispondano. Imposta valori predefiniti ([§7](#7-impostazioni-spedizioni-mondiali)) o valori precisi per prodotto ([§8](#8-impostazioni-prodotto)). |
@@ -194,7 +193,7 @@ I corrieri attivati sul tuo account MyParcel, per zona — ad esempio PostNL, DH
 Si imposta nel tuo backoffice MyParcel (*Impostazioni negozio → Generale*), non nell'app. Le modifiche valgono subito.
 
 ### I miei clienti possono scegliere un punto di ritiro?
-Sì — attiva il ritiro nel collegamento della zona ([§5](#5-impostazioni-esportazione-e-zone)) e inserisci una Google Maps API key ([§6](#6-impostazioni-punti-di-ritiro)). Il cliente sceglie un punto nella pagina di ringraziamento.
+Sì — attiva il ritiro nel collegamento della zona ([§5](#5-impostazioni-esportazione-e-zone)). Il cliente sceglie un punto nella pagina di ringraziamento.
 
 ### Posso inviare un'etichetta di reso al cliente?
 Sì — le etichette di reso possono essere inviate via email al cliente. Vedi il tuo backoffice MyParcel per le opzioni del portale resi.
