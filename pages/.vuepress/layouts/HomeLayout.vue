@@ -568,6 +568,10 @@ onMounted(async () => {
         <img class="mp-platform__img" src="/images/integrations/prestashop.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">PrestaShop</span>
       </a>
+      <a class="mp-platform" href="/platforms/shopify.html">
+        <img class="mp-platform__img" src="/images/integrations/shopify.svg" alt="" width="48" height="48" loading="lazy">
+        <span class="mp-platform__name">Shopify</span>
+      </a>
     </div>
   </section>
 
