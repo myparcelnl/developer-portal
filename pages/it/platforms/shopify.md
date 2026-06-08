@@ -214,4 +214,3 @@ Sì — le etichette di reso possono essere inviate via email al cliente. Vedi i
 - [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — manuale & issue.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — trova e aggiungi l'app MyParcel.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, fatturazione.
-- [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.com](mailto:info@myparcel.com).

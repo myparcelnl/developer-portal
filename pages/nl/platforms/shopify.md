@@ -214,4 +214,3 @@ Ja — retourlabels kunnen naar de klant gemaild worden. Zie je MyParcel-backoff
 - [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — handleiding & issues.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — vind en voeg de MyParcel-app toe.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, facturatie.
-- [Contact MyParcel-support](../../contact.md) — **023 - 30 30 315** · [info@myparcel.com](mailto:info@myparcel.com).
