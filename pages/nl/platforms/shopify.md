@@ -10,8 +10,8 @@ De MyParcel-app verbindt je Shopify-shop met MyParcel. Je koppelt je Shopify-ver
 ## Snelstart — je eerste pakket in 15 minuten
 Genoeg om vandaag je eerste echte bestelling te versturen. Voor diepere configuratie, zie [Op zoek naar…](#op-zoek-naar) hieronder.
 
-1. **Account.** Nog geen MyParcel-account? Maak er een aan op [myparcel.nl/register](https://www.myparcel.nl/register).
-2. **API key kopiëren.** Log in op [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shopinstellingen → Integraties* → kopieer de API key.
+1. **Account.** Nog geen MyParcel-account? Maak er een aan op [myparcel.com/register](https://www.myparcel.com/register).
+2. **API key kopiëren.** Log in op [backoffice.myparcel.com](https://backoffice.myparcel.com) → *Shopinstellingen → Integraties* → kopieer de API key.
 3. **App toevoegen.** Zoek in de [Shopify App Store](https://apps.shopify.com/) op *MyParcel* → **App toevoegen** → volg de stappen.
 4. **App koppelen.** Open **Apps → MyParcel → Instellingen**, plak de key in het veld **API key** en sla op.
 5. **Eerste label.** Open **Apps → MyParcel**, vink een betaalde bestelling aan en klik op **Printen**. Je pdf-label rolt eruit.
@@ -202,5 +202,5 @@ Ja — retourlabels kunnen naar de klant gemaild worden. Zie je MyParcel-backoff
 ## Bronnen & support
 - [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — handleiding & issues.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — vind en voeg de MyParcel-app toe.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
-- [Contact MyParcel-support](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, facturatie.
+- [Contact MyParcel-support](../../contact.md) — **023 - 30 30 315** · [info@myparcel.com](mailto:info@myparcel.com).

@@ -10,8 +10,8 @@ L'app MyParcel collega il tuo negozio Shopify a MyParcel. Colleghi i tuoi metodi
 ## Avvio rapido — il tuo primo pacco in 15 minuti
 Quanto basta per spedire oggi il tuo primo ordine reale. Per una configurazione più approfondita, vedi [Stai cercando…](#stai-cercando) qui sotto.
 
-1. **Account.** Non hai ancora un account MyParcel? Creane uno su [myparcel.nl/register](https://www.myparcel.nl/register).
-2. **Copia la API key.** Accedi a [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Impostazioni negozio → Integrazioni* → copia la API key.
+1. **Account.** Non hai ancora un account MyParcel? Creane uno su [myparcel.com/register](https://www.myparcel.com/register).
+2. **Copia la API key.** Accedi a [backoffice.myparcel.com](https://backoffice.myparcel.com) → *Impostazioni negozio → Integrazioni* → copia la API key.
 3. **Aggiungi l'app.** Nello [Shopify App Store](https://apps.shopify.com/), cerca *MyParcel* → **Aggiungi app** → segui i passaggi.
 4. **Collega l'app.** Apri **App → MyParcel → Instellingen** (Impostazioni), incolla la chiave nel campo **API key** e salva.
 5. **Prima etichetta.** Apri **App → MyParcel**, seleziona un ordine pagato e clicca **Printen** (Stampa). La tua etichetta PDF è pronta.
@@ -202,5 +202,5 @@ Sì — le etichette di reso possono essere inviate via email al cliente. Vedi i
 ## Risorse e supporto
 - [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — manuale & issue.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — trova e aggiungi l'app MyParcel.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, fatturazione.
-- [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, fatturazione.
+- [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.com](mailto:info@myparcel.com).

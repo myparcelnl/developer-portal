@@ -10,8 +10,8 @@ The MyParcel app connects your Shopify shop to MyParcel. You link your Shopify s
 ## Quickstart — your first parcel in 15 minutes
 Enough to ship your first real order today. For deeper configuration, see [Looking for…](#looking-for) below.
 
-1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.nl/register](https://www.myparcel.nl/register).
-2. **Copy the API key.** Log in to [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shop settings → Integrations* → copy the API key.
+1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.com/register](https://www.myparcel.com/register).
+2. **Copy the API key.** Log in to [backoffice.myparcel.com](https://backoffice.myparcel.com) → *Shop settings → Integrations* → copy the API key.
 3. **Add the app.** In the [Shopify App Store](https://apps.shopify.com/), search *MyParcel* → **Add app** → follow the steps.
 4. **Connect the app.** Open **Apps → MyParcel → Instellingen** (Settings), paste the key in the **API key** field and save.
 5. **First label.** Open **Apps → MyParcel**, tick a paid order and click **Printen** (Print). Your PDF label rolls out.
@@ -202,5 +202,5 @@ Yes — return labels can be emailed to the customer. See your MyParcel backoffi
 ## Resources & support
 - [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — manual & issues.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — find and add the MyParcel app.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, billing.
-- [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, billing.
+- [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.com](mailto:info@myparcel.com).
