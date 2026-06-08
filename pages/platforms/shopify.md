@@ -27,6 +27,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
 | Connect your account | [3 · Connecting the app](#3-connecting-the-app-api-key) |
+| Connect via a sales channel | [Connecting via a sales channel](#connecting-via-a-sales-channel) |
 | Look up a specific setting | [4 · Settings · General](#4-settings-general) to [7 · Settings · Worldwide shipments](#7-settings-worldwide-shipments) |
 | Link a shipping method to a carrier | [5 · Settings · Export & zones](#5-settings-export-zones) |
 | A different setting per product | [8 · Product settings](#8-product-settings) |
@@ -60,6 +61,17 @@ Open **Apps → MyParcel** and click **Instellingen** (Settings) in the top righ
 ::: warning Not working?
 Most common causes: didn't click *Opslaan* (Save) · a space copied before/after the key · key from a different shop · key from a different environment (live vs sandbox) than your MyParcel account.
 :::
+
+### Connecting via a sales channel
+You can also connect through a **sales channel** in your MyParcel backoffice, instead of copying the API key by hand.
+
+1. In your MyParcel backoffice, go to **Settings → Sales channels** and create a new channel (or choose an existing one).
+2. Choose **Shopify** as the channel type.
+3. Give the channel a **name** and fill in your **domain** (your Shopify shop URL).
+4. Save the details and click **Create connection**.
+5. Log in to your Shopify environment when prompted to confirm the connection.
+
+<!-- screenshot: ./images/shopify/sales-channel-koppeling.png — add once the file is provided -->
 
 ### What does the app do in your Shopify admin?
 | Where? | What can you do? |

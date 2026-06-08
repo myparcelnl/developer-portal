@@ -27,6 +27,7 @@ Quanto basta per spedire oggi il tuo primo ordine reale. Per una configurazione 
 | --- | --- |
 | Prima configurazione | [Avvio rapido](#avvio-rapido-il-tuo-primo-pacco-in-15-minuti) |
 | Collegare il tuo account | [3 · Collegare l'app](#3-collegare-lapp-api-key) |
+| Collegare tramite un sales channel | [Collegamento tramite un sales channel](#collegamento-tramite-un-sales-channel) |
 | Cercare un'impostazione specifica | [4 · Impostazioni · Generale](#4-impostazioni-generale) fino a [7 · Impostazioni · Spedizioni mondiali](#7-impostazioni-spedizioni-mondiali) |
 | Collegare un metodo di spedizione a un corriere | [5 · Impostazioni · Esportazione e zone](#5-impostazioni-esportazione-e-zone) |
 | Un'impostazione diversa per prodotto | [8 · Impostazioni prodotto](#8-impostazioni-prodotto) |
@@ -60,6 +61,17 @@ Apri **App → MyParcel** e clicca su **Instellingen** (Impostazioni) in alto a 
 ::: warning Non funziona?
 Cause più comuni: non hai cliccato *Opslaan* (Salva) · uno spazio copiato prima/dopo la chiave · chiave di un altro negozio · chiave di un ambiente diverso (live vs sandbox) rispetto al tuo account MyParcel.
 :::
+
+### Collegamento tramite un sales channel
+Puoi collegarti anche tramite un **sales channel** nel tuo backoffice MyParcel, invece di copiare la API key a mano.
+
+1. Nel tuo backoffice MyParcel, vai su **Impostazioni → Sales channels** e crea un nuovo canale (o selezionane uno esistente).
+2. Scegli **Shopify** come tipo di canale.
+3. Dai un **nome** al canale e inserisci il tuo **dominio** (l'URL del tuo negozio Shopify).
+4. Salva i dati e clicca su **Create connection**.
+5. Accedi al tuo ambiente Shopify quando richiesto per confermare il collegamento.
+
+<!-- screenshot: ../../platforms/images/shopify/sales-channel-koppeling.png — aggiungere quando il file è disponibile -->
 
 ### Cosa fa l'app nel tuo admin Shopify?
 | Dove? | Cosa puoi fare? |

@@ -27,6 +27,7 @@ Genoeg om vandaag je eerste echte bestelling te versturen. Voor diepere configur
 | --- | --- |
 | Eerste installatie | [Snelstart](#snelstart-je-eerste-pakket-in-15-minuten) |
 | Je account koppelen | [3 · De app koppelen](#3-de-app-koppelen-api-key) |
+| Koppelen via een sales channel | [Koppelen via een sales channel](#koppelen-via-een-sales-channel) |
 | Een specifieke instelling opzoeken | [4 · Instellingen · Algemeen](#4-instellingen-algemeen) t/m [7 · Instellingen · Wereldzendingen](#7-instellingen-wereldzendingen) |
 | Een verzendmethode aan een vervoerder koppelen | [5 · Instellingen · Export & zones](#5-instellingen-export-zones) |
 | Een andere instelling per product | [8 · Productinstellingen](#8-productinstellingen) |
@@ -60,6 +61,17 @@ Open **Apps → MyParcel** en klik rechtsboven op **Instellingen**. Alle instell
 ::: warning Werkt het niet?
 Meest voorkomende oorzaken: niet op *Opslaan* geklikt · een spatie voor/na de key mee gekopieerd · key van een andere shop · key van een andere omgeving (live vs sandbox) dan je MyParcel-account.
 :::
+
+### Koppelen via een sales channel
+Je kunt ook koppelen via een **sales channel** in je MyParcel-backoffice, in plaats van de API key met de hand te kopiëren.
+
+1. Ga in je MyParcel-backoffice naar **Instellingen → Sales channels** en maak een nieuw kanaal aan (of kies een bestaand kanaal).
+2. Kies **Shopify** als type kanaal.
+3. Geef het kanaal een **naam** en vul je **domein** in (de URL van je Shopify-shop).
+4. Sla de gegevens op en klik op **Create connection**.
+5. Log in op je Shopify-omgeving wanneer daarom wordt gevraagd om de koppeling te bevestigen.
+
+<!-- screenshot: ../../platforms/images/shopify/sales-channel-koppeling.png — toevoegen zodra het bestand er is -->
 
 ### Wat doet de app in je Shopify-admin?
 | Waar? | Wat kun je doen? |
