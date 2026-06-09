@@ -19,15 +19,24 @@ const NAME_BY_PATH: Record<string, string> = {
   '/api/purchase-order.html': 'Purchase Order API',
 };
 
+// Spec file to offer for download per API. Defaults to "openapi.yaml".
+// The Shipment API serves a bundled/distributable spec at openapi.dist.yaml
+// that's better suited for downloading. This only affects the download link;
+// the rendered reference still uses the spec-url in api-meta.ts / the body.
+const SPEC_FILE_BY_PATH: Record<string, string> = {
+  '/api/myparcel.html': 'openapi.dist.yaml',
+};
+
 const specs: SpecLink[] = Object.entries(apiMeta)
   .filter(([, meta]) => meta.host && meta.endpoints !== '—')
   .map(([path, meta]) => {
     const slug = meta.host.split('.')[0];
+    const specFile = SPEC_FILE_BY_PATH[path] ?? 'openapi.yaml';
     return {
       name: NAME_BY_PATH[path] ?? path,
       host: meta.host,
-      href: `https://${meta.host}/openapi.yaml`,
-      filename: `${slug}.openapi.yaml`,
+      href: `https://${meta.host}/${specFile}`,
+      filename: `${slug}.${specFile}`,
     };
   });
 
