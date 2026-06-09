@@ -8,30 +8,28 @@ MyParcel espone una singola API HTTP su [`api.myparcel.nl`](../../api/myparcel.m
 
 Il riferimento qui è auto-documentato dalla specifica OpenAPI — quindi non si discosta mai dalla piattaforma in produzione.
 
-## Passo 1 · Ottieni le credenziali
-Dopo la registrazione, genera un `client_id` e un `client_secret` nel backoffice MyParcel sotto **Impostazioni → Accesso API**.
+## Passo 1 · Ottieni la tua API key
+Dopo la registrazione, genera una **API key** nel Backoffice MyParcel, nelle impostazioni di integrazione del tuo negozio.
 
-Mantieni il secret sul tuo server. Non inviarlo mai al browser.
+Mantieni la key sul tuo server. Non inviarla mai al browser.
 
-## Passo 2 · Scambialo per un token
-Scambia le tue credenziali per un bearer token. Il token è valido per 1 ora.
+## Passo 2 · Autenticati
+Codifica la tua API key in base64 e inviala nell'header `Authorization` ad ogni richiesta. Vedi [Autenticazione](authentication.md) per i dettagli.
 
 ```
-// POST https://api.myparcel.nl/oauth/token
-{
-  "grant_type": "client_credentials",
-  "client_id": "mp_client_AB12CD34",
-  "client_secret": "…",
-  "scope": "shipments.read shipments.write"
-}
+// codifica la tua API key in base64
+echo -n 'your-api-key' | base64
+
+// poi inviala ad ogni richiesta
+Authorization: bearer BASE64_ENCODED_API_KEY
 ```
 
 ## Passo 3 · Crea la tua prima spedizione
-Con il token in mano, chiama l'API MyParcel per creare una spedizione. Etichette e URL di tracking vengono restituiti immediatamente.
+Con l'header al suo posto, chiama l'API MyParcel per creare una spedizione. Etichette e URL di tracking vengono restituiti immediatamente.
 
 ```
 // POST https://api.myparcel.nl/shipments
-// Authorization: bearer …
+// Authorization: bearer BASE64_ENCODED_API_KEY
 {
   "carrier": "postnl",
   "recipient": {
@@ -51,7 +49,7 @@ Con il token in mano, chiama l'API MyParcel per creare una spedizione. Etichette
 ## Prossimi passi
 Scegli il percorso che corrisponde alla tua integrazione:
 
-- [Autenticazione approfondita](authentication.md) — scope, refresh token, revoca.
+- [Autenticazione approfondita](authentication.md) — API key e l'header Authorization.
 - [Opzioni di consegna](delivery-options.md) — pickup point, consegna serale, firma.
 - [Webhook](webhooks.md) — ricevi notifiche quando una spedizione viene consegnata al carrier o recapitata.
 - [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — salta l'HTTP grezzo e usa le nostre librerie.
