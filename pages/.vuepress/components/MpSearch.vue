@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter, useRoutes } from 'vuepress/client';
+import { isReferenceProsePath } from '../sidebar';
 
 interface Match {
   path: string;
@@ -27,6 +28,7 @@ function categorize(path: string): { category: string; order: number } {
   if (path === '/') return { category: 'Home', order: 0 };
   if (path === '/api/') return { category: 'API Reference', order: 1 };
   if (/-api\.html$/.test(path)) return { category: 'API Reference', order: 2 };
+  if (isReferenceProsePath(path)) return { category: 'API Reference', order: 2 };
   if (path.startsWith('/platforms/')) return { category: 'Platform integrations', order: 4 };
   if (path.startsWith('/guides/')) return { category: 'Documentation', order: 3 };
   if (path === '/about.html' || path === '/contact.html') return { category: 'Portal', order: 5 };
