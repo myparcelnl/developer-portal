@@ -8,30 +8,28 @@ MyParcel biedt één HTTP API op [`api.myparcel.nl`](../../api/myparcel.md). Die
 
 De referentie wordt hier automatisch gegenereerd uit de OpenAPI-spec — die loopt dus nooit uit de pas met het live platform.
 
-## Stap 1 · Credentials ophalen
-Na aanmelden genereer je een `client_id` en `client_secret` in de MyParcel-backoffice onder **Instellingen → API-toegang**.
+## Stap 1 · Je API key ophalen
+Na aanmelden genereer je een **API key** in de MyParcel-backoffice, onder de integratie-instellingen van je shop.
 
-Houd het secret op je server. Stuur het nooit naar de browser.
+Houd de key op je server. Stuur hem nooit naar de browser.
 
-## Stap 2 · Inwisselen voor een token
-Wissel je credentials in voor een bearer token. De token is 1 uur geldig.
+## Stap 2 · Authenticeren
+Codeer je API key in base64 en stuur hem mee in de `Authorization`-header bij elk verzoek. Zie [Authenticatie](authentication.md) voor details.
 
 ```
-// POST https://api.myparcel.nl/oauth/token
-{
-  "grant_type": "client_credentials",
-  "client_id": "mp_client_AB12CD34",
-  "client_secret": "…",
-  "scope": "shipments.read shipments.write"
-}
+// codeer je API key in base64
+echo -n 'your-api-key' | base64
+
+// stuur hem mee bij elk verzoek
+Authorization: bearer BASE64_ENCODED_API_KEY
 ```
 
 ## Stap 3 · Maak je eerste zending
-Met de token in handen roep je de Shipment API aan om een zending te maken. Labels en tracking-URL's krijg je direct terug.
+Met de header op zijn plaats roep je de Shipment API aan om een zending te maken. Labels en tracking-URL's krijg je direct terug.
 
 ```
 // POST https://api.myparcel.nl/shipments
-// Authorization: bearer …
+// Authorization: bearer BASE64_ENCODED_API_KEY
 {
   "carrier": "postnl",
   "recipient": {
@@ -51,7 +49,7 @@ Met de token in handen roep je de Shipment API aan om een zending te maken. Labe
 ## Volgende stappen
 Pak het pad dat bij jouw integratie past:
 
-- [Authenticatie in detail](authentication.md) — scopes, refresh tokens, intrekken.
+- [Authenticatie in detail](authentication.md) — API keys en de Authorization-header.
 - [Delivery options](delivery-options.md) — afhaalpunten, avondbezorging, handtekening.
 - [Webhooks](webhooks.md) — krijg een melding zodra een zending is overgedragen of bezorgd.
 - [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — sla de raw HTTP over en gebruik onze libraries.

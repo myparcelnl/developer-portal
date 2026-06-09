@@ -8,30 +8,28 @@ MyParcel exposes a single HTTP API at [`api.myparcel.nl`](../api/myparcel.md). I
 
 The reference is auto-documented here from the OpenAPI spec — so it never drifts from the deployed platform.
 
-## Step 1 · Get credentials
-After signing up, generate a `client_id` and `client_secret` in the MyParcel backoffice under **Settings → API access**.
+## Step 1 · Get your API key
+After signing up, generate an **API key** in the MyParcel Backoffice, under your shop's integration settings.
 
-Keep the secret on your server. Never ship it to a browser.
+Keep the key on your server. Never ship it to a browser.
 
-## Step 2 · Exchange for a token
-Exchange your credentials for a bearer token. The token is valid for 1 hour.
+## Step 2 · Authenticate
+Base64-encode your API key and send it in the `Authorization` header on every request. See [Authentication](authentication.md) for details.
 
 ```
-// POST https://api.myparcel.nl/oauth/token
-{
-  "grant_type": "client_credentials",
-  "client_id": "mp_client_AB12CD34",
-  "client_secret": "…",
-  "scope": "shipments.read shipments.write"
-}
+// base64-encode your API key
+echo -n 'your-api-key' | base64
+
+// then send it on every request
+Authorization: bearer BASE64_ENCODED_API_KEY
 ```
 
 ## Step 3 · Create your first shipment
-With the token in hand, call the Shipment API to create a shipment. Labels and tracking URLs are returned immediately.
+With the header in place, call the Shipment API to create a shipment. Labels and tracking URLs are returned immediately.
 
 ```
 // POST https://api.myparcel.nl/shipments
-// Authorization: bearer …
+// Authorization: bearer BASE64_ENCODED_API_KEY
 {
   "carrier": "postnl",
   "recipient": {
@@ -51,7 +49,7 @@ With the token in hand, call the Shipment API to create a shipment. Labels and t
 ## Next steps
 Pick whichever path matches your integration:
 
-- [Authentication in depth](authentication.md) — scopes, refresh tokens, revocation.
+- [Authentication in depth](authentication.md) — API keys and the Authorization header.
 - [Delivery options](delivery-options.md) — pickup points, evening delivery, signed-for.
 - [Webhooks](webhooks.md) — get notified when a shipment is handed over or delivered.
 - [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — skip the raw HTTP and use our libraries.

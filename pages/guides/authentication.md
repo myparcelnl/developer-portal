@@ -1,50 +1,42 @@
 ---
 title: Authentication
-description: "MyParcel uses OAuth 2.0 client credentials. Server-side integrations exchange a client_id and client_secret for a short-lived bearer token."
+description: "Authenticate every MyParcel API request with a base64-encoded API key from your Backoffice, sent in the Authorization header."
 ---
 
-## Obtain a bearer token
-POST your credentials to `/oauth/token`. The response contains an `access_token` (1h TTL) and a `refresh_token`.
+## Your API key
+Every request is authenticated with an **API key** that you generate in the MyParcel Backoffice, under your shop's integration settings. The key identifies your account and carries its permissions.
+
+::: warning Keep your key secret
+Store the key on your server. Anyone who has it can ship — and bill — on your account. Never expose it in a browser, mobile app or public repository.
+:::
+
+## Encode the key
+Base64-encode your API key before you send it. For example, the key `abc123` becomes:
 
 ```
-curl -X POST https://api.myparcel.nl/oauth/token \
-  -H "Content-Type: application/json" \
-  -d @body.json
-
-// body.json
-{
-  "grant_type": "client_credentials",
-  "client_id": "mp_client_AB12CD34",
-  "client_secret": "•••",
-  "scope": "shipments.read shipments.write"
-}
+echo -n 'abc123' | base64
+# YWJjMTIz
 ```
 
-## Use the token
-Send the bearer token in the `Authorization` header on every request to `api.myparcel.nl`.
+Most languages have a built-in base64 function — there's no need to encode by hand.
+
+## Send it in the Authorization header
+Send the encoded key in the `Authorization` header on every request, using the `bearer` scheme:
 
 ```
 GET https://api.myparcel.nl/shipments
-Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9…
+Authorization: bearer BASE64_ENCODED_API_KEY
 ```
 
-## Scopes
-Scopes limit what a token can do. Request only what you need — narrower tokens reduce blast radius if they leak.
-
-- `shipments.read` — list and fetch shipments.
-- `shipments.write` — create, update, cancel shipments.
-- `orders.read` / `orders.write` — manage orders.
-- `webhooks.write` — subscribe and manage webhook endpoints.
-
-## Refreshing tokens
-Before the `access_token` expires, exchange the `refresh_token` for a new pair without re-presenting credentials.
+The API also accepts the `basic` scheme with the same base64-encoded key:
 
 ```
-POST https://api.myparcel.nl/oauth/token/refresh
-{ "refresh_token": "rft_51d5fd…" }
+Authorization: basic BASE64_ENCODED_API_KEY
 ```
 
-## Revoking tokens
-Revoke a leaked or unused token immediately. Revoked tokens are rejected with `401` on subsequent requests.
+Both schemes are documented in the [API reference](../api/myparcel.md).
 
-Issue `DELETE /oauth/token` with the token as the `Authorization` header.
+## Managing your key
+- **Invalidate by regenerating.** To revoke a key, generate a new one in the Backoffice — the old key stops working immediately.
+- **One key, one account.** Each key belongs to a single MyParcel account and carries that account's permissions.
+- A **`401 Unauthorized`** response means the key is missing, wrong, or no longer valid. See [Responses](./responses.md) for status codes.
