@@ -1,123 +1,49 @@
 ---
-title: Delivery options
-description: "Technische integratiehandleiding voor de @myparcel/delivery-options widget (v6). Drop hem in je checkout, vang het selectie-event af en geef de payload door aan /shipments."
+title: Bezorgopties
+description: "Integreer de MyParcel Delivery Options-widget (v7) in je checkout: installeren, een capabilities-proxy opzetten, de widget mounten en luisteren naar de keuze van de klant. Inclusief de volledige configuratie-referentie en de v6 → v7-upgradegids."
 ---
 
-<div class="mp-do-cta">
-  <div class="mp-do-cta__copy">
-    <span class="mp-do-cta__eyebrow">Sandbox</span>
-    <strong class="mp-do-cta__title">Probeer de widget zonder iets te installeren</strong>
-    <span class="mp-do-cta__hint">Pas elke config-key real-time aan en zie meteen wat er met de UI én de event-payload gebeurt.</span>
-  </div>
-  <a class="mp-btn mp-btn--primary mp-do-cta__btn" href="https://myparcelnl.github.io/delivery-options/" target="_blank" rel="noopener">
-    Open de sandbox
-    <span aria-hidden="true">→</span>
-  </a>
-</div>
-
-<style>
-.mp-do-cta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--mp-space-4) var(--mp-space-5);
-  margin: var(--mp-space-5) 0 var(--mp-space-6);
-  padding: var(--mp-space-5) var(--mp-space-6);
-  background:
-    radial-gradient(circle at 12% 0%, rgba(255, 140, 0, 0.16), transparent 55%),
-    linear-gradient(135deg, var(--mp-monstera, #0F5C47) 0%, var(--mp-deep, #002621) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--mp-radius-lg, 14px);
-  box-shadow: 0 6px 18px -8px rgba(0, 38, 33, 0.45);
-  color: #f3fbf7;
-  position: relative;
-  overflow: hidden;
-}
-.mp-do-cta__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1 1 320px;
-}
-.mp-do-cta__eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #ffb37a;
-}
-.mp-do-cta__title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.3;
-}
-.mp-do-cta__hint {
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(243, 251, 247, 0.78);
-  max-width: 56ch;
-}
-.mp-docs-content a.mp-do-cta__btn,
-.mp-docs-content a.mp-do-cta__btn:hover,
-.mp-docs-content a.mp-do-cta__btn:visited,
-.mp-docs-content a.mp-do-cta__btn:focus,
-.mp-docs-content__body a.mp-do-cta__btn,
-.mp-docs-content__body a.mp-do-cta__btn:hover {
-  color: #ffffff;
-  text-decoration: none;
-  border-bottom: none;
-  font-size: 15px;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px -2px rgba(255, 140, 0, 0.45);
-}
-.mp-do-cta__btn span { transition: transform 0.18s ease; display: inline-block; }
-.mp-do-cta__btn:hover span { transform: translateX(3px); }
-</style>
-
-::: tip In het kort
-De Delivery Options widget toont in je checkout welke bezorgmomenten en afhaalpunten beschikbaar zijn voor het ingevoerde adres. Bij selectie krijgt je frontend een `CustomEvent` met carrier, datum, delivery type, package type en shipment options — die geef je 1-op-1 door aan `POST /shipments`. Vue 3 onder de motorkap, maar werkt ook standalone via `<script>`-tags. Bron: [github.com/myparcelnl/delivery-options ↗](https://github.com/myparcelnl/delivery-options).
+::: note
+Dit is de documentatie voor de stabiele versie van Delivery Options (v7).
 :::
 
-## Wat zoek je?
-| Doel | Sectie |
-| --- | --- |
-| Installeren via CDN of npm | [1 · Install](#_1-install) |
-| Vue 3 of vanilla JS integratie | [3 · Initialiseren](#_3-initialiseren) |
-| Selectie en errors afvangen | [4 · Events](#_4-events) |
-| Welke carriers / opties bestaan | [5 · Carriers en opties](#_5-carriers-en-opties) |
-| Configuratie-reference | [6 · Configuratie-reference](#_6-configuratie-reference) |
-| Cutoff-tijden en drop-off dagen | [7 · Drop-off dagen en cutoff](#_7-drop-off-dagen-en-cutoff) |
-| Pickup points (lijst/kaart) | [8 · Pickup points](#_8-pickup-points) |
-| Selectie naar `/shipments` | [9 · Selectie verwerken](#_9-selectie-verwerken) |
-| Migreren van v5 naar v6 | [10 · Migreren v5 → v6](#_10-migreren-v5-v6) |
+[[toc]]
 
-::: warning Status van deze pagina
-De oude variant op [developer.myparcel.nl/documentation/60.delivery-options.html ↗](https://developer.myparcel.nl/documentation/60.delivery-options.html) is verouderd. Deze pagina is geschreven tegen [@myparcel/delivery-options v6.26.1](https://github.com/myparcelnl/delivery-options/releases/tag/v6.26.1).
-:::
+## Inleiding
 
-## 1 · Install
+De MyParcel delivery options is een Vue-applicatie waarmee je je klanten tijdens de checkout een multi-carrier-widget toont met verschillende aankomsttijden en verzendopties. De bezorgopties zijn gebaseerd op het adres van de klant en de vervoerders die je hebt geconfigureerd. De widget toont de beschikbare bezorgopties, hun prijzen en de verwachte bezorgdatum. De klant kiest vervolgens de gewenste bezorgoptie, die je kunt gebruiken om de verzendkosten in je checkout bij te werken.
 
-### Optie A — CDN (snelst, geen build-step)
-Twee varianten: óf je laadt Vue zelf, óf je gebruikt de bundle waarin Vue al meekomt.
+Achter de schermen leunt de delivery options op de [delivery options API](/api/myparcel.html#get-delivery-options) en de [capabilities API](/api/myparcel.html#post-shipments-capabilities) om de beschikbare bezorgopties en carrier-capabilities op te halen.
+
+## Snelstart
+
+Er zijn vier stappen om de delivery options in je checkout te laten werken: het package installeren, een capabilities-proxy opzetten, de widget mounten en luisteren naar de keuze van de klant.
+
+### Stap 1: Installeer het package
+
+Kies de CDN (aanbevolen voor de meeste setups — minor- en patch-updates met bugfixes worden automatisch meegenomen) of je package manager.
+
+**CDN, met Vue 3 vanaf de CDN:**
 
 ```html
-<!-- Variant 1: Vue zelf laden -->
-<script src="https://cdn.jsdelivr.net/npm/vue@3.4"></script>
-<script src="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@6/dist/myparcel.lib.js"></script>
-<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@6/dist/style.css" />
-
-<!-- Variant 2: bundle inclusief Vue -->
-<script src="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@6/dist/myparcel.js"></script>
-<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@6/dist/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue@3.5"></script>
+<script src="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@7/dist/myparcel.lib.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@7/dist/style.css" />
 ```
 
-::: tip Welke variant kies ik?
-Heeft je shop al Vue 3 in zijn bundle? Pak `myparcel.lib.js` (single Vue-instance, kleinere bundle). Geen Vue in je stack? Pak `myparcel.js` — dan hoef je alleen de stylesheet ernaast te zetten.
-:::
+Laadt de pagina al een andere versie van Vue, gebruik dan de bundle die zijn eigen Vue meelevert om conflicten te voorkomen:
 
-### Optie B — npm
+```html
+<script src="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@7/dist/myparcel.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@7/dist/style.css" />
+```
+
+**Package manager:**
+
 ```bash
 npm install @myparcel/delivery-options
 ```
@@ -127,40 +53,53 @@ import '@myparcel/delivery-options/dist/myparcel.js';
 import '@myparcel/delivery-options/dist/style.css';
 ```
 
-Voor Vue 3-projecten met directe componentimport gebruik je de `/lib`-export (zie [§3 · Vue 3](#vue-3-component)).
+### Stap 2: Zet een capabilities-proxy op
 
-### Requirements
-| | Versie |
-| --- | --- |
-| Browsers | Evergreen (laatste 2 versies van Chrome, Firefox, Safari, Edge) |
-| Vue (alleen bij `myparcel.lib.js`) | `^3.4` |
-| Node (build) | `^18 \|\| ^20` |
-| Stylesheet | `dist/style.css` — móét apart geladen worden, anders is de widget ongestyled |
+v7 haalt de beschikbare vervoerders, pakkettypes, bezorgtypes en verzendopties tijdens runtime op uit een backend die jij beheert. In stap 3 wijs je de widget naar deze backend.
 
-## 2 · Architectuur in één oogopslag
+De widget POST't een JSON-`CapabilitiesRequest` naar jouw backend-URL. Je backend stuurt die ongewijzigd door naar `POST https://api.myparcel.nl/shipments/capabilities` (en injecteert daarbij je API key) en geeft de response onveranderd terug aan de widget. De widget cachet de response per adres en filtert client-side, dus hij haalt alleen opnieuw op wanneer relevante invoer verandert.
+
+In de praktijk vult de widget alleen `recipient` (uit het huidige adres) en, indien meegegeven, `packageType`. Je proxy moet doorsturen wat hij ontvangt, zonder aanpassingen.
+
+**Minimale Node.js / Express-proxy:**
+
+```js
+app.post('/myparcel/capabilities', async (req, res) => {
+  const response = await fetch('https://api.myparcel.nl/shipments/capabilities', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8;version=2.0',
+      Authorization: `Bearer ${Buffer.from(process.env.MYPARCEL_API_KEY).toString('base64')}`,
+    },
+    body: JSON.stringify(req.body),
+  });
+  const data = await response.json();
+  res.status(response.status).json(data);
+});
 ```
-┌──────────────┐    update event        ┌──────────────┐
-│  jouw         │ ─────────────────────► │  Delivery     │
-│  checkout    │   (CustomEvent)        │  Options      │
-└──────────────┘                        │  widget       │
-       ▲       ◄───────────────────────  │  (Vue 3)      │
-       │       updated/error event       └──────────────┘
-       │                                        │
-       └────────► POST /shipments  ◄────────────┘
-                  (selectie payload)
-```
 
-Drie integratiepunten:
+Voor lokale ontwikkeling kun je de proxy overslaan door `config.apiKey` direct te zetten. De widget codeert hem dan in base64 en roept het capabilities-endpoint zelf aan, met een waarschuwing in de log zolang `apiKey` aanwezig is.
 
-1. **Init** — je geeft de widget een `configuration` (adres + carrier-settings) via een prop óf via `dispatchEvent('myparcel_update_delivery_options', { detail: config })`.
-2. **Selectie** — de widget rendert in `<div id="myparcel-delivery-options">`, de gebruiker kiest, jij vangt `myparcel_updated_delivery_options` af.
-3. **Submit** — bij checkout-submit pak je de laatste payload en plak je hem in `/shipments` (REST API of via [PHP SDK](php-sdk.md) / [JS SDK](javascript-sdk.md)).
+::: warning
+Gebruik `apiKey` NOOIT in productie. Het stelt je API key bloot in de frontend, een groot beveiligingsrisico. Gebruik in productie altijd een backend-proxy.
+Is je API key gelekt, trek hem dan direct in via het MyParcel-dashboard en genereer een nieuwe.
+:::
 
-## 3 · Initialiseren
+Zie de [capabilities API-referentie](/api/myparcel.html#post-shipments-capabilities) voor de volledige request- en response-vorm, en de [migration guide] in de repository voor een uitgebreidere uitleg.
 
-### Vue 3-component
-```ts
-import { ref, type Ref } from 'vue';
+### Stap 3: Mount de widget
+
+Dit is de kleinst mogelijke configuratie: een volledig adres, het platform, de URL van de capabilities-proxy uit stap 2, en minstens één vervoerder in `carrierSettings`. Alle bezorgtypes en opties staan standaard aan.
+
+::: tip
+Voor alle beschikbare configuratie-opties, zie de [configuratie-referentie](#full-configuration-reference).
+:::
+
+Gebruik je Vue 3, gebruik dan het `MyParcelDeliveryOptions`-component:
+
+```vue
+<script setup lang="ts">
+import {ref, type Ref} from 'vue';
 import {
   MyParcelDeliveryOptions,
   type InputDeliveryOptionsConfiguration,
@@ -170,83 +109,354 @@ const configuration: Ref<InputDeliveryOptionsConfiguration> = ref({
   address: {
     cc: 'NL',
     postalCode: '2132JE',
-    number: '31',
     street: 'Antareslaan 31',
     city: 'Hoofddorp',
   },
   config: {
     platform: 'myparcel',
+    proxyCapabilities: 'https://your-backend.example/myparcel/capabilities',
     carrierSettings: {
       postnl: {},
     },
   },
 });
-```
-
-```vue
-<template>
-  <MyParcelDeliveryOptions :configuration="configuration" />
-</template>
+</script>
 
 <style>
 @import '@myparcel/delivery-options/style.css';
 </style>
+
+<template>
+  <MyParcelDeliveryOptions :configuration="configuration" />
+</template>
 ```
 
-Wijziging van `configuration.value` re-rendert de widget — handig als je adres pas later in de checkout-flow weet.
+In platte JavaScript voeg je een wrapper-`<div>` toe en dispatch je een `myparcel_update_delivery_options`-event met dezelfde configuratie:
 
-### Plain JavaScript / non-Vue
-HTML-mountpoint:
 ```html
 <div id="myparcel-delivery-options"></div>
 ```
 
-Initialiseren via een `CustomEvent`:
 ```js
-const configuration = {
-  selector: '#myparcel-delivery-options',
-  address: {
-    cc: 'NL',
-    postalCode: '2132JE',
-    number: '31',
-    street: 'Antareslaan 31',
-    city: 'Hoofddorp',
-  },
-  config: {
-    platform: 'myparcel',
-    carrierSettings: {
-      postnl: {},
-    },
-  },
-};
-
 document.dispatchEvent(
-  new CustomEvent('myparcel_update_delivery_options', { detail: configuration }),
+  new CustomEvent('myparcel_update_delivery_options', {
+    detail: {
+      // Default selector — change to any CSS selector that matches a single element.
+      selector: '#myparcel-delivery-options',
+      address: {
+        cc: 'NL',
+        postalCode: '2132JE',
+        street: 'Antareslaan 31',
+        city: 'Hoofddorp',
+      },
+      config: {
+        platform: 'myparcel',
+        proxyCapabilities: 'https://your-backend.example/myparcel/capabilities',
+        carrierSettings: {
+          postnl: {},
+        },
+      },
+    },
+  }),
 );
 ```
 
-::: tip `window.MyParcelConfig`
-Eén-shot init kan ook via `window.MyParcelConfig = configuration` *vóór* het laden van de widget-script. Voor dynamische updates blijf je bij de `CustomEvent`-route.
+### Stap 4: Luister naar de keuze van de klant
+
+Elke keer dat de klant een keuze wijzigt, dispatcht de widget een `myparcel_updated_delivery_options`-event op `document`. Gebruik de payload om de verzendkosten in je checkout bij te werken.
+
+```js
+document.addEventListener('myparcel_updated_delivery_options', (event) => {
+  console.log(event.detail);
+});
+```
+
+Loopt de widget tegen een API-exception aan (bijvoorbeeld een onleesbare straat), dan dispatcht hij in plaats daarvan een `myparcel_error_delivery_options`-event. Zie [events](#events) voor de volledige payload van beide events.
+
+## Configuratie
+
+Bijna alle instellingen kun je globaal of per vervoerder zetten. Zet je een instelling globaal, dan geldt die voor alle vervoerders, tenzij je hem voor een specifieke vervoerder overschrijft. Hoe je de configuratie meegeeft hangt af van of je het Vue-component of platte JavaScript gebruikt — zie [stap 3 van de Snelstart](#step-3-mount-the-widget) voor beide vormen.
+
+::: tip
+Voor de meest uitgebreide informatie kun je onze [Sandbox] bekijken. Daar zie (en probeer) je alle mogelijke configuratie-opties en zie je het resultaat in real-time.
 :::
 
-## 4 · Events
+### Bezorgtypes
 
-### Inkomend — config bijwerken
-| Event | Detail | Wanneer |
-| --- | --- | --- |
-| `myparcel_update_delivery_options` | `InputDeliveryOptionsConfiguration` | Initialisatie of re-render bij adreswijziging. |
+Er zijn verschillende soorten bezorgtypes, die overeenkomen met de opties van verschillende vervoerders. Niet elk type wordt door elke vervoerder ondersteund. Daar hoef je je geen zorgen over te maken: de widget toont alleen de bezorgtypes die zowel door de vervoerder worden ondersteund als in jouw configuratie zijn ingeschakeld. Je configureert ze als volgt (`allow*Delivery`-keys kun je globaal of per vervoerder zetten):
 
-### Uitgaand — selectie en errors
-| Event | Detail | Wanneer |
-| --- | --- | --- |
-| `myparcel_updated_delivery_options` | Selectie-payload (zie hieronder) | Telkens als de gebruiker een keuze maakt of wijzigt. |
-| `myparcel_error_delivery_options` | `{ exception: { code, label, status, title, message } }` | Validatiefout uit de API (bv. ongeldige postcode). |
-
-#### Selectie-payload
 ```json
 {
+  "allowStandardDelivery": false,
+  "allowMorningDelivery": true,
+  "allowEveningDelivery": true,
+  "allowSameDayDelivery": false
+}
+```
+
+Deze configuratie toont alleen ochtend- en avondbezorging. Voor een volledige lijst met ondersteunde bezorgtypes, zie de API-definitie van de [delivery options API](/api/myparcel.html#get-delivery-options).
+
+::: note
+De overkoepelende `allowDeliveryOptions`-vlag uit v6 bestaat niet meer. Wil je thuisbezorging voor een vervoerder volledig verbergen, zet dan elke `allow*Delivery`-key voor die vervoerder op `false`. Wil je een vervoerder helemaal verbergen, zet dan ook `allowPickupLocations` op `false` (of beter: neem de vervoerder helemaal niet op in `carrierSettings`).
+:::
+
+### Cutoff-tijden en drop-off-dagen
+
+Drop-off-dagen zijn de dagen waarop je je pakketten bij de vervoerder kunt afgeven. Dit wordt gebruikt om de eerstvolgende beschikbare bezorgdata te berekenen.
+
+**Als een array van weekdagnummers**
+
+```json lines
+{
+  "cutoffTime": "16:00",
+  "cutoffTimeSameDay": "9:30",
+  "dropOffDays": [1, 2, 3, 4, 5]
+}
+```
+
+In dit voorbeeld gebruikt elke drop-off-dag de `cutoffTime` en de `cutoffTimeSameDay` uit de root van de configuratie, dus respectievelijk `16:00` en `9:30`.
+
+**Als een array van objecten en/of nummers**
+
+```json
+{
+  "cutoffTime": "15:00",
+  "cutoffTimeSameDay": "9:30",
+  "dropOffDays": [
+    1,
+    {
+      "weekday": 2,
+      "cutoffTime": "16:00",
+      "cutoffTimeSameDay": "10:00"
+    },
+    {
+      "weekday": 3
+    },
+    {
+      "weekday": 5,
+      "cutoffTime": "14:00"
+    }
+  ]
+}
+```
+
+In dit voorbeeld zijn de drop-off-dagen als volgt:
+
+| Dag       | Cutoff-tijd     | Cutoff-tijd zelfde dag |
+| --------- | --------------- | ---------------------- |
+| Maandag   | 15:00 (default) | 9:30 (default)         |
+| Dinsdag   | 16:00           | 10:00                  |
+| Woensdag  | 15:00 (default) | 9:30 (default)         |
+| Vrijdag   | 14:00           | 9:30 (default)         |
+
+::: note
+v7 accepteert `dropOffDays` niet meer als komma- of puntkomma-gescheiden string. Geef een array van weekdagnummers (0 = zondag, 6 = zaterdag) en/of `{weekday, cutoffTime?, cutoffTimeSameDay?}`-objecten. De key per entry is `weekday` (niet `day`) en de same-day-cutoff is `cutoffTimeSameDay` (niet `sameDayCutoffTime`).
+:::
+
+### Volledige configuratie-referentie
+
+Dit zijn alle mogelijke configuratie-opties. Het `strings`-object is voor vertalingen. Het `config`-object is voor alle overige instellingen.
+
+```json lines
+{
+  // string, CSS selector for the element where the delivery options will be rendered. Optional, defaults to "#myparcel-delivery-options".
+  "selector": "#myparcel-delivery-options",
+  "address": {
+    // string, ISO 3166-1 alpha-2 country code
+    "cc": "NL",
+    // number | string (spaces are allowed)
+    "postalCode": "2132JE",
+    // string, full address line including the house number
+    "street": "Antareslaan 31",
+    // string, required for some carriers. We recommend always passing it.
+    "city": "Hoofddorp"
+  },
+  "config": {
+    // REQUIRED. "myparcel" | "sendmyparcel"
+    "platform": "myparcel",
+
+    // REQUIRED. URL of your backend capabilities proxy. The widget POSTs a
+    // CapabilitiesRequest here and uses the response to decide which carriers,
+    // package types, delivery types and shipment options to show.
+    // See Quickstart step 2.
+    "proxyCapabilities": "https://your-backend.example/myparcel/capabilities",
+
+    // string, base URL of the MyParcel API. Defaults to "https://api.myparcel.nl".
+    "apiBaseUrl": "https://api.myparcel.nl",
+
+    // string. Development-only shortcut: when set, the widget calls the capabilities
+    // endpoint directly with this key instead of going through the proxy. The
+    // widget will log a warning. Do NOT use this in production.
+    "apiKey": "",
+
+    // string, ISO 639-1 language code. Defaults to the browser language.
+    "locale": "",
+
+    // string, ISO 4217 currency code. Defaults to "EUR".
+    "currency": "EUR",
+
+    // boolean
+    "pickupShowDistance": true,
+    // boolean
+    "showPriceSurcharge": false,
+    // boolean
+    "showPrices": true,
+    // boolean, render a zero price as the translated word for "free"
+    "showPriceZeroAsFree": false,
+
+    // boolean, render carriers as a compact collapsible list instead of full cards. Since v7.1.
+    "compactView": false,
+
+    // boolean, hide pickup locations of type "locker"
+    "excludeParcelLockers": false,
+
+    // boolean
+    "allowPickupLocationsViewSelection": true,
+
+    // boolean, show pickup locations in a modal/pop-up instead of inline. Since v7.3.
+    "popUpMap": false,
+
+    // boolean, show a "load more" button on the pickup map.
+    "pickupMapAllowLoadMore": true,
+
+    // "list" | "map", defaults to "map".
+    "pickupLocationsDefaultView": "map",
+
+    // Object (or JSON-encoded string) containing map tile layer data for Leaflet/OSM.
+    // Defaults to OpenStreetMap France's tile layer.
+    "pickupLocationsMapTileLayerData": {
+      "url": "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+      "attribution": "© OpenStreetMap contributors",
+      "maxZoom": 19
+    },
+
+    // Date[]. Closed days (e.g. national holidays). These dates are skipped when
+    // calculating drop-off and delivery dates.
+    "closedDays": [],
+
+    // REQUIRED. Object with carrier identifier as keys, containing carrier-specific settings.
+    // Carriers that are not in the capabilities response are filtered out.
+    // Example:
+    // "carrierSettings": {
+    //   "postnl": {
+    //     "allowStandardDelivery": true,
+    //     "priceStandardDelivery": 5.99
+    //   }
+    // }
+    "carrierSettings": {},
+
+    /*
+     * NOTE: The following settings can be overridden per carrier. See enum `CarrierSetting`.
+     */
+
+    /*
+     * Home Delivery
+     */
+
+    // Standard delivery. (e.g. 10:00 - 18:00)
+    "allowStandardDelivery": true,
+    "priceStandardDelivery": 0,
+
+    // Morning delivery. (e.g. 08:00 - 12:00)
+    "allowMorningDelivery": true,
+    "priceMorningDelivery": 0,
+
+    // Evening delivery. (e.g. 18:00 - 22:00)
+    "allowEveningDelivery": true,
+    "priceEveningDelivery": 0,
+
+    // Same-day delivery.
+    "allowSameDayDelivery": true,
+    "priceSameDayDelivery": 0,
+
+    // Monday delivery. Requires Sunday as a drop-off day. For myparcel + postnl only.
+    "allowMondayDelivery": true,
+    "priceMondayDelivery": 0,
+
+    // Saturday delivery. Requires Friday as a drop-off day. For sendmyparcel + bpost only.
+    "allowSaturdayDelivery": false,
+    "priceSaturdayDelivery": 0,
+
+    // Express delivery, where supported by the carrier (DHL Express / UPS Express Saver, etc.).
+    "allowExpressDelivery": false,
+    "priceExpressDelivery": 0,
+
+    // Priority delivery, where supported by the carrier.
+    "allowPriorityDelivery": false,
+    "pricePriorityDelivery": 0,
+
+    /*
+     * Shipment options
+     */
+
+    // Allow customer to choose the "only recipient" shipment option.
+    "allowOnlyRecipient": false,
+    "priceOnlyRecipient": 0,
+
+    // Allow customer to choose the signature shipment option.
+    "allowSignature": false,
+    "priceSignature": 0,
+
+    /*
+     * Pickup Locations
+     */
+
+    "allowPickupLocations": true,
+    "pricePickup": 0,
+
+    /*
+     * Drop-off / cutoff
+     */
+
+    // Cutoff time. Must be a string in the format "HH:mm".
+    "cutoffTime": "16:00",
+
+    // Cutoff time when same-day delivery is enabled and possible. Must be a string in the format "HH:mm".
+    "cutoffTimeSameDay": "09:30",
+
+    // Number of days in the future to show delivery options for.
+    // Set to 1 to hide the date selector entirely (carriers fall back to a single "standard delivery" option without a date picker).
+    "deliveryDaysWindow": 7,
+
+    // See "Cutoff times and drop off days". Array of weekday numbers (0=Sun ... 6=Sat)
+    // and/or { "weekday": <number>, "cutoffTime"?: "HH:mm", "cutoffTimeSameDay"?: "HH:mm" } objects.
+    // Plain strings like "1,2,3" are no longer accepted in v7.
+    "dropOffDays": [{"weekday": 1}, {"weekday": 2, "cutoffTime": "16:00"}],
+
+    // Number of days to delay the drop-off day.
+    "dropOffDelay": 0,
+
+    /*
+     * Package types
+     */
+
+    // Package type. "package" | "mailbox" | "digital_stamp" | "package_small".
+    // See PackageTypeName enum from @myparcel/constants.
+    "packageType": "package", // Default, uses prices from home delivery settings.
+    "pricePackageTypeDigitalStamp": 0,
+    "pricePackageTypeMailbox": 0,
+    "pricePackageTypePackageSmall": 0
+  },
+  "strings": {} // Translations
+}
+```
+
+## Events
+
+De widget communiceert met je pagina via drie custom events die op `document` worden gedispatcht.
+
+### `myparcel_update_delivery_options` (inkomend)
+
+Dispatch dit om de widget (opnieuw) te renderen met een nieuwe configuratie. Het platte-JavaScript-fragment in [stap 3](#step-3-mount-the-widget) gebruikt het voor de initiële mount. Vue 3-gebruikers hoeven het niet te dispatchen — het component pikt wijzigingen aan zijn `configuration`-prop automatisch op.
+
+### `myparcel_updated_delivery_options` (uitgaand)
+
+Wordt gedispatcht wanneer de klant een keuze wijzigt. `event.detail` bevat de opgeloste keuze:
+
+```json lines
+{
   "carrier": "postnl",
-  "date": "2026-04-10 00:00:00.000000",
+  "date": "2024-04-10 00:00:00.000000",
   "deliveryType": "morning",
   "isPickup": false,
   "packageType": "package",
@@ -257,304 +467,105 @@ Eén-shot init kan ook via `window.MyParcelConfig = configuration` *vóór* het 
 }
 ```
 
-Voor `isPickup: true` zit er ook een `pickupLocation`-object bij met `locationCode`, `retailNetworkId`, `street`, `number`, `postalCode`, `city`, `cc`, `latitude`, `longitude` en `openingHours`.
+Kiest de klant een afhaaloptie, dan is `isPickup` `true`, is `deliveryType` `"pickup"` en wordt een extra `pickupLocation`-object meegestuurd.
 
-#### Listener
-```js
-document.addEventListener('myparcel_updated_delivery_options', (event) => {
-  // bewaar in state — bijv. Vuex/Pinia/Redux/sessionStorage
-  window.__lastDeliveryChoice = event.detail;
-});
+### `myparcel_error_delivery_options` (uitgaand)
 
-document.addEventListener('myparcel_error_delivery_options', (event) => {
-  // toon nette error-tekst aan klant; log naar Sentry/Datadog
-  console.error(event.detail.exception);
-});
-```
+Wordt gedispatcht wanneer de widget een API-exception opvangt. `event.detail.exception` bevat de meest recente exception:
 
-#### Error-codes (selectie)
-| Code | Status | Betekenis |
-| --- | --- | --- |
-| `3501` | `422` | Street cannot be parsed — postcode geldig maar adres-parsing faalt. |
-| `3505` | `422` | Postal code does not exist. |
-| `3506` | `422` | Postal code outside service area van de carrier. |
-| `3508` | `422` | Geen leverbare opties voor deze datum/dag. |
-
-Volledige set staat in [`src/types/events.types.ts` ↗](https://github.com/myparcelnl/delivery-options/blob/main/apps/delivery-options/src/types/events.types.ts) en de runtime-validatie in [`src/config/validateConfiguration.ts` ↗](https://github.com/myparcelnl/delivery-options/blob/main/apps/delivery-options/src/config/validateConfiguration.ts).
-
-## 5 · Carriers en opties
-`carrierSettings` accepteert per carrier een eigen blok. Lege `{}` betekent: gebruik de account-defaults uit de MyParcel backoffice.
-
-| Key | Carrier | Markten |
-| --- | --- | --- |
-| `postnl` | PostNL | NL, BE |
-| `dhlforyou` | DHL For You | NL |
-| `dhlparcelconnect` | DHL Parcel Connect | EU |
-| `dhleuroplus` | DHL Europlus | EU |
-| `dpd` | DPD | NL, BE, EU |
-| `gls` | GLS | NL, BE, EU |
-| `bpost` | bpost | BE |
-| `ups` | UPS Standard / Express Saver | EU/Wereld |
-| `trunkrs` | Trunkrs | NL (sinds v6.22) |
-
-```ts
-config: {
-  platform: 'myparcel',
-  carrierSettings: {
-    postnl: {
-      allowMorningDelivery: true,
-      allowEveningDelivery: true,
-      priceMorningDelivery: 195,   // cent
-      priceEveningDelivery: 195,
-      allowPickupLocations: true,
-    },
-    dhlforyou: {
-      allowEveningDelivery: true,  // sinds v6.25
-    },
-  },
-},
-```
-
-Per carrier worden alleen de opties getoond die de carrier én jouw shop-contract ondersteunen. De widget verbergt onbeschikbare combinaties zelf.
-
-## 6 · Configuratie-reference
-Zo organiseer je `configuration`:
-
-```ts
-type InputDeliveryOptionsConfiguration = {
-  address?: AddressInput;
-  config: {
-    platform: 'myparcel' | 'sendmyparcel';
-    locale?: string;            // bv. 'nl-NL', 'nl-BE', 'fr-BE'
-    carrierSettings: Record<string, CarrierSetting>;
-    // ...display & feature flags hieronder
-  };
-  strings?: Partial<Record<StringsKey, string>>;
-};
-```
-
-### Top-level `config`
-| Key | Type | Default | Wanneer |
-| --- | --- | --- | --- |
-| `platform` | `'myparcel' \| 'sendmyparcel'` | — | **Verplicht.** `myparcel` voor NL-shops, `sendmyparcel` voor BE-shops. |
-| `locale` | `string` | platform-default | UI-taal, bv. `nl-NL`, `fr-BE`. |
-| `carrierSettings` | `object` | — | **Verplicht** — minimaal één carrier-key. |
-| `currency` | `string` | platform-default | Muntweergave bij surcharges. |
-
-### Display-instellingen
-| Key | Type | Default | Doel |
-| --- | --- | --- | --- |
-| `showPrices` | `boolean` | `true` | Toon surcharges naast opties. |
-| `showPriceSurcharge` | `boolean` | `true` | Toon prijsverschil t.o.v. standaard. |
-| `showDeliveryDate` | `boolean` | `true` | Toon "morgen / donderdag 12 mrt". *Deprecated sinds v6.26.0.* |
-| `pickupShowDistance` | `boolean` | `true` | Afstand t.o.v. adres bij pickup-points. |
-| `allowPickupLocationsViewSelection` | `boolean` | `true` | Knop tussen lijst- en kaartweergave. |
-| `pickupLocationsDefaultView` | `'list' \| 'map'` | `'list'` | Initiële weergave. |
-| `pickupLocationsMapTileLayerData` | `object` | OSM-default | Custom tile-server voor de kaart (Mapbox/MapTiler). |
-
-### Bezorgmomenten (zet evt. per `carrierSettings.<carrier>` voor finer-grained controle)
-| Key | Type | Doel |
-| --- | --- | --- |
-| `allowDeliveryOptions` | `boolean` | Master-switch voor home-delivery. |
-| `allowStandardDelivery` | `boolean` | Standaard. |
-| `priceStandardDelivery` | `number` | Cent. |
-| `allowMorningDelivery` | `boolean` | Ochtendlevering. |
-| `priceMorningDelivery` | `number` | Cent. |
-| `allowEveningDelivery` | `boolean` | Avondlevering. |
-| `priceEveningDelivery` | `number` | Cent. |
-| `allowSameDayDelivery` | `boolean` | Same-day (vereist `cutoffTimeSameDay`). |
-| `priceSameDayDelivery` | `number` | Cent. |
-| `allowMondayDelivery` | `boolean` | Maandag-bezorging. |
-| `priceMondayDelivery` | `number` | Cent. |
-| `allowSaturdayDelivery` | `boolean` | Zaterdag-bezorging. |
-| `priceSaturdayDelivery` | `number` | Cent. |
-
-### Shipment-opties (per zending bovenop het bezorgmoment)
-| Key | Type | Doel |
-| --- | --- | --- |
-| `allowSignature` | `boolean` | Tekenen voor ontvangst. |
-| `priceSignature` | `number` | Cent. |
-| `allowOnlyRecipient` | `boolean` | Alleen aan geadresseerde. |
-| `priceOnlyRecipient` | `number` | Cent. |
-| `allowPriorityDelivery` | `boolean` | Priority delivery (PostNL mailbox sinds v6.24, NL-only sinds v6.26.1). |
-
-### Pickup
-| Key | Type | Doel |
-| --- | --- | --- |
-| `allowPickupLocations` | `boolean` | Pickup-tab tonen. |
-| `pricePickup` | `number` | Cent. |
-| `excludeParcelLockers` | `boolean` | Lockers verbergen (sinds v6.21). |
-
-### Pakket-types
-| Key | Type | Doel |
-| --- | --- | --- |
-| `packageType` | `'package' \| 'mailbox' \| 'digital_stamp' \| 'package_small'` | Vooraf gekozen type. |
-| `pricePackageTypeMailbox` | `number` | Cent. |
-| `pricePackageTypeDigitalStamp` | `number` | Cent. |
-| `pricePackageTypePackageSmall` | `number` | Cent. |
-
-### Volledige type-definitie
-Authoritative bron voor alle keys: [`@myparcel-dev/do-shared` ↗](https://github.com/myparcelnl/delivery-options/tree/main/libs/shared) — geëxporteerd als `InputDeliveryOptionsConfiguration` en `DeliveryOptionsConfiguration`.
-
-## 7 · Drop-off dagen en cutoff
-Bepaalt wanneer je een order nog dezelfde dag overdraagt aan de carrier. Beïnvloedt welke bezorgdatums de widget toont.
-
-### Eenvoudig — één cutoff voor alle drop-off dagen
-```ts
+```json lines
 {
-  cutoffTime: '16:00',
-  sameDayCutoffTime: '09:30',
-  dropOffDays: '1,2,3,4,5',     // ma-vr; ook acceptabel: [1,2,3,4,5] of '1;2;3;4;5'
-  dropOffDelay: 0,              // dagen tussen bestellen en drop-off
-  deliveryDaysWindow: 7,        // hoeveel dagen vooruit toonbaar
+  "exception": {
+    "code": 3501,
+    "label": "error3501",
+    "status": 422,
+    "title": "Street cannot be parsed",
+    "message": "Street cannot be parsed"
+  }
 }
 ```
 
-### Per dag een eigen cutoff
-```ts
-{
-  cutoffTime: '15:00',          // fallback
-  sameDayCutoffTime: '09:30',
-  dropOffDays: [
-    1,                                // maandag — fallback cutoff
-    { day: 2, cutoffTime: '16:00', sameDayCutoffTime: '10:00' },
-    { day: 3 },
-    { day: 5, cutoffTime: '14:00' },
-  ],
-  closedDays: ['2026-12-25', '2026-12-26'],  // shop-sluiting (sinds v6.19)
-}
-```
+## Upgraden
 
-`closedDays` (v6.19.0+) blokkeert specifieke kalenderdata zonder dat je `dropOffDays` hoeft te herzien.
+### v6 naar v7
 
-::: warning `cutoffTime` zonder `dropOffDays` is deprecated
-Sinds v6 moet je `dropOffDays` definiëren — anders gokt de widget op werkdagen ma-vr en krijg je verkeerde "morgen"-labels rondom feestdagen.
+v7 verwijdert de statisch ingebouwde platformconfiguraties (MyParcel NL / SendMyParcel BE) ten gunste van het tijdens runtime ophalen van carrier-capabilities uit een backend-[proxy](#step-2-set-up-a-capabilities-proxy) die jij beheert. Dit is de belangrijkste breaking change en vraagt aanpassingen aan je integratie.
+
+#### Nieuwe features
+
+- Vervoerders, pakkettypes, bezorgtypes en verzendopties worden nu gedreven door de live capabilities API in plaats van een hard-coded lijst, zodat nieuw ingeschakelde vervoerders en opties zonder release in de widget verschijnen.
+- Wordt een vervoerder ondersteund maar kan hij om wat voor reden dan ook geen bezorgopties teruggeven (bijv. door een mislukte adresvalidatie), dan verschijnt hij nog steeds als selecteerbare optie in de widget, zonder datum/tijd-opties.
+- Nieuwe `compactView`-optie (sinds v7.1) om vervoerders als een inklapbare, compacte lijst te tonen.
+- Nieuwe `popUpMap`-optie (sinds v7.3) om afhaalpunten in een modal te tonen in plaats van inline.
+- Nieuwe `excludeParcelLockers`-optie om afhaalpunten van het type locker te verbergen.
+- Nieuwe `apiKey`-optie voor lokale ontwikkeling (alleen development — logt een waarschuwing).
+
+#### Breaking changes
+
+- `proxyCapabilities` is verplicht. Zonder kan de widget niet bepalen welke vervoerders of opties getoond moeten worden.
+- De `allowDeliveryOptions`-carrier-instelling is verwijderd. Wil je thuisbezorging voor een vervoerder uitschakelen, zet dan elke `allow*Delivery`-key op die vervoerder op `false`. Wil je een vervoerder helemaal uitschakelen, zet dan ook `allowPickupLocations` op `false` (of laat de vervoerder weg uit `carrierSettings`).
+- `showDeliveryDate` is als config-key verwijderd. De datumkiezer wordt nu automatisch afgeleid: hij verschijnt wanneer het pakkettype bezorgmomenten ondersteunt en `deliveryDaysWindow` groter is dan `1`. Wil je de datumkiezer verbergen, zet dan `deliveryDaysWindow: 1` — elke vervoerder toont dan één "standaard bezorging"-optie zonder datumkiezer.
+- `dropOffDays` accepteert geen platte string meer (`"1,2,3"` / `"1;2;3"`); het moet een array van weekdagnummers en/of `DropOffEntry`-objecten zijn.
+- API-fouten voorkomen niet langer dat vervoerders verschijnen. In v6 kon een onleesbare straat of ontbrekende postcode alle vervoerders verbergen; in v7 wordt alles getoond wat capabilities aanbiedt.
+- De `DeprecatedConfigOptions`-groep wordt niet meer geaccepteerd: `allowShowDeliveryDate`, `fridayCutoffTime` en `saturdayCutoffTime` worden stilzwijgend genegeerd. Verwijder ze uit je config.
+
+#### Verwijderde exports
+
+Het volgende is verwijderd uit `@myparcel/delivery-options`:
+
+- `PlatformConfiguration`-type — geen directe vervanger; de capabilities-response stuurt het platformgedrag.
+- `PlatformName`-enum — niet vervangen. `platform` is nog steeds een verplicht config-veld; geef de platform-string mee die bij je API key past.
+- `usePlatform()`, `useCurrentPlatform()`, `getDefaultConfigForPlatform()` — geen directe vervanger.
+
+#### Noemenswaardige interne wijzigingen
+
+- Vue peer-dependency verhoogd naar `^3.5`.
+- `allowExpressDelivery`, `priceExpressDelivery`, `allowPriorityDelivery` en `pricePriorityDelivery` zijn nu eersteklas carrier-instellingen (ze bestonden in v6 maar waren niet officieel gedocumenteerd).
+- De afhaalpunt-kaart kan nu extra locaties lazy-loaden via `pickupMapAllowLoadMore`.
+
+Zie de [migration guide] voor een stap-voor-stap-uitleg en een voorbeeld-proxy-implementatie.
+
+### v5 naar v6
+
+De app is van de grond af herschreven om alle onderliggende technologieën te kunnen upgraden en de performance en stabiliteit te verbeteren. Het bestaande gedrag blijft grotendeels werken, dus je kunt upgraden naar v6 zonder grote wijzigingen. Er zijn echter een paar breaking changes en deprecations, dus lees de volgende lijst zorgvuldig.
+
+#### Nieuwe features
+
+- Het is nu mogelijk om aparte cutoff-tijden per dag en per vervoerder in te stellen.
+- Pakkettype `package_small` wordt nu ondersteund.
+- Je kunt nu eigen cutoff-tijden per dag (en optioneel per vervoerder) meegeven.
+- Het is nu mogelijk om standaardbezorging uit te schakelen maar ochtend- en/of avondbezorging te blijven tonen.
+
+#### Overige verbeteringen
+
+- Een prachtig nieuw design.
+- Sterk verbeterde performance en stabiliteit.
+- De app is nu te gebruiken als Vue-component in elke Vue 3-app.
+- TypeScript-ondersteuning.
+- Veel meer geëxporteerde methoden, constanten, types en interfaces.
+
+#### Breaking changes
+
+- Het is niet meer mogelijk om `showDeliveryDate` per vervoerder te zetten. Dit is nu alleen een globale instelling.
+- De CSS wordt niet meer gebundeld, dus je moet `dist/style.css` handmatig includen. Dit geldt niet als je het Vue-component gebruikt.
+- Het `unselect_delivery_options`-event is verwijderd. Heb je deze functie nodig, [laat het ons weten].
+
+#### Deprecated
+
+- `cutoffTime` is deprecated, gebruik in plaats daarvan `dropOffDays`.
+- Vertrouw niet alleen op `allowDeliveryOptions`, maar gebruik ook `allowStandardDelivery`.
+
+::: note
+Het bestaande gedrag blijft gedurende v6 werken, maar wordt in de volgende major-versie verwijderd/gewijzigd.
 :::
 
-## 8 · Pickup points
-Standaard krijg je een lijst-weergave; gebruikers kunnen wisselen naar een kaart als `allowPickupLocationsViewSelection: true`.
+#### Noemenswaardige interne wijzigingen
 
-### Eigen kaart-tiles (Mapbox / MapTiler)
-```ts
-pickupLocationsMapTileLayerData: {
-  url: 'https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=YOUR_KEY',
-  attribution: '© MapTiler © OpenStreetMap contributors',
-  minZoom: 1,
-  maxZoom: 18,
-}
-```
+- De app is nu volledig in TypeScript geschreven.
+- Geüpgraded van Vue 2 naar Vue 3.
+- Geüpgraded van Vue CLI naar Vite.
+- Geüpgraded van Jest naar Vitest.
 
-Zonder deze key valt de widget terug op OpenStreetMap-tiles.
-
-### Selectie-payload bij pickup
-```json
-{
-  "carrier": "postnl",
-  "date": "2026-04-12 00:00:00.000000",
-  "deliveryType": "pickup",
-  "isPickup": true,
-  "packageType": "package",
-  "pickupLocation": {
-    "locationCode": "169177",
-    "retailNetworkId": "PNPNL-01",
-    "locationName": "Albert Heijn",
-    "street": "Hoofdstraat",
-    "number": "1",
-    "postalCode": "1012AB",
-    "city": "Amsterdam",
-    "cc": "NL",
-    "latitude": 52.3702,
-    "longitude": 4.8952,
-    "openingHours": { "monday": [{ "from": "08:00", "to": "20:00" }] }
-  },
-  "shipmentOptions": {}
-}
-```
-
-## 9 · Selectie verwerken
-De event-payload mapt 1-op-1 op het `options`-object van [`POST /shipments`](shipments.md):
-
-```js
-document.addEventListener('myparcel_updated_delivery_options', async (event) => {
-  const choice = event.detail;
-
-  await fetch('/api/checkout/delivery-choice', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      carrier:      choice.carrier,
-      delivery_date: choice.date,
-      delivery_type: choice.deliveryType,
-      package_type:  choice.packageType,
-      pickup:        choice.pickupLocation ?? null,
-      options:       choice.shipmentOptions,
-    }),
-  });
-});
-```
-
-Doe het persisteren server-side, niet alleen in `localStorage` — `localStorage` overleeft geen tab-wissel of refresh-cyclus en de keuze moet bij de order horen, niet bij de browser.
-
-::: tip Validatie aan de server-kant
-Vertrouw nooit op de widget alleen — herhaal de validatie server-side. Een gebruiker kan via DevTools de payload manipuleren. De PHP/JS SDK doen dit automatisch via hun consignment-validators.
-:::
-
-## 10 · Migreren v5 → v6
-Belangrijkste breaks (volledig verhaal: [§Upgrading op de oude pagina ↗](https://developer.myparcel.nl/documentation/60.delivery-options.html#upgrading)):
-
-| Wat | v5 | v6 |
-| --- | --- | --- |
-| Stylesheet | Auto-injected | **Handmatig** `dist/style.css` includen |
-| `showDeliveryDate` | Per carrier | Globaal — niet meer per carrier (en *deprecated* sinds v6.26.0) |
-| `unselect_delivery_options`-event | Bestond | Verwijderd |
-| `cutoffTime` zonder `dropOffDays` | Acceptabel | Deprecated — gebruik `dropOffDays` |
-| Vue 2 | Default | Vue 3 verplicht (zie `myparcel.lib.js` voor "bring-your-own") |
-
-### Versies sinds v6.18 (snelle changelog)
-| Versie | Wat |
-| --- | --- |
-| **v6.26.1** (2026-02-23) | Priority delivery alleen voor NL. |
-| **v6.26.0** (2026-02-10) | `showDeliveryDate` deprecated. |
-| **v6.25.0** (2026-01-27) | Avondbezorging voor DHL For You. |
-| **v6.24.0** (2026-01-27) | Priority delivery voor PostNL mailbox. |
-| **v6.22.0** (2025-11-11) | Trunkrs als carrier. |
-| **v6.21.0** (2025-10-27) | `excludeParcelLockers` toegevoegd. |
-| **v6.20.0** (2025-10-10) | Custom platform-config via `config.platform`. |
-| **v6.19.0** (2025-10-09) | `closedDays` voor shop-sluiting. |
-| **v6.18.0** (2025-08-14) | Carrier-request caching. |
-
-Volledige changelog: [apps/delivery-options/CHANGELOG.md ↗](https://github.com/myparcelnl/delivery-options/blob/main/apps/delivery-options/CHANGELOG.md).
-
-## 11 · Sandbox en debugging
-- **Sandbox** — [myparcelnl.github.io/delivery-options ↗](https://myparcelnl.github.io/delivery-options/) — interactieve playground. Wijzig elke key, zie de UI én de event-payload direct.
-- **GitHub releases** — [github.com/myparcelnl/delivery-options/releases ↗](https://github.com/myparcelnl/delivery-options/releases) — versies, breaking changes, jsdelivr-URLs.
-- **DevTools** — luister in console: `document.addEventListener('myparcel_updated_delivery_options', e => console.log(e.detail))`. Helpt bij het debuggen van waarom een keuze niet binnenkomt.
-- **Issue tracker** — [github.com/myparcelnl/delivery-options/issues ↗](https://github.com/myparcelnl/delivery-options/issues) — open issues bij gedrag dat je in de sandbox kunt reproduceren.
-
-## 12 · Combineren met de SDK's
-Het widget-event geeft je de selectie; de SDK's bouwen daar consignments op:
-
-```php
-// PHP — via myparcelnl/sdk
-use MyParcelNL\Sdk\Factory\DeliveryOptionsAdapterFactory;
-
-$adapter = DeliveryOptionsAdapterFactory::create($_POST['delivery_choice']);
-$consignment->setDeliveryDate($adapter->getDate())
-            ->setDeliveryType($adapter->getDeliveryTypeId())
-            ->setPackageType($adapter->getPackageTypeId());
-```
-
-```ts
-// TypeScript — via @myparcelnl/sdk (JS SDK)
-import { MyParcel } from '@myparcelnl/sdk';
-
-const mp = new MyParcel({ /* ... */ });
-const shipment = await mp.shipments.create({
-  carrier:      choice.carrier,
-  delivery_date: choice.date,
-  recipient:    customerAddress,
-  options:      { ...choice.shipmentOptions, package_type: choice.packageType },
-});
-```
-
-Zie [PHP SDK](php-sdk.md) en [JavaScript SDK](javascript-sdk.md) voor de volledige consignment-flow.
+[Sandbox]: https://myparcelnl.github.io/delivery-options/
+[laat het ons weten]: https://github.com/myparcelnl/delivery-options/issues
+[migration guide]: https://github.com/myparcelnl/delivery-options/blob/main/docs/migrating-v6-to-v7.md

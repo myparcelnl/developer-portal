@@ -49,12 +49,6 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Shopify', link: '/platforms/shopify.html' },
     ],
   },
-    {
-    label: 'Frontend integrations',
-    items: [
-      { text: 'Delivery Options', link: '/platforms/delivery-options.html' },
-    ],
-  },
   {
     label: 'Reference',
     items: [
