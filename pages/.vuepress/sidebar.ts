@@ -26,6 +26,9 @@ export const docsSidebar: SidebarGroup[] = [
     items: [
       { text: 'Getting started', link: '/guides/getting-started.html' },
       { text: 'Authentication', link: '/guides/authentication.html' },
+      { text: 'Requests', link: '/guides/requests.html' },
+      { text: 'Responses', link: '/guides/responses.html' },
+      { text: 'Character encoding', link: '/guides/character-encoding.html' },
       { text: 'Shipments', link: '/guides/shipments.html' },
       { text: 'Delivery options', link: '/guides/delivery-options.html' },
       { text: 'Webhooks', link: '/guides/webhooks.html' },
@@ -78,6 +81,9 @@ export const BASE = '';
 const LOCALIZED_PATHS = new Set<string>([
   '/guides/getting-started.html',
   '/guides/authentication.html',
+  '/guides/requests.html',
+  '/guides/responses.html',
+  '/guides/character-encoding.html',
   '/guides/shipments.html',
   '/guides/delivery-options.html',
   '/guides/webhooks.html',
