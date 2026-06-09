@@ -62,7 +62,7 @@ Contatta MyParcel affinché la tua integrazione venga riconosciuta nell'User-Age
 La maggior parte degli endpoint restituisce JSON. Alcuni restituiscono binario o testo — etichette e fatture arrivano come **PDF**, e alcune esportazioni come **CSV**. Vedi [Responses](./responses.md) per i codici di stato e l'envelope di risposta.
 
 ## Rate limiting
-La API applica un rate limit per endpoint tramite una sliding window. Se superi un limite ricevi `429 Too Many Requests`. Attendi qualche minuto prima di riprovare, invece di martellare l'endpoint. Se raggiungi spesso i limiti, contatta MyParcel per opzioni come i webhook.
+La API applica un rate limit per endpoint tramite una sliding window. Se superi un limite ricevi `429 Too Many Requests`. Attendi qualche minuto prima di riprovare, invece di martellare l'endpoint. Se raggiungi spesso i limiti, contatta MyParcel per opzioni come i webhook. Vedi [Rate limiting](./rate-limiting.md) per i limiti per endpoint e come gestire i `429`.
 
 ## Richiesta di esempio
 ```
