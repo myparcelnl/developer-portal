@@ -52,7 +52,7 @@ Met de token in handen roep je de Shipment API aan om een zending te maken. Labe
 Pak het pad dat bij jouw integratie past:
 
 - [Authenticatie in detail](authentication.md) — scopes, refresh tokens, intrekken.
-- [Delivery options](delivery-options.md) — afhaalpunten, avondbezorging, handtekening.
+- [Delivery options](../../platforms/delivery-options.md) — afhaalpunten, avondbezorging, handtekening.
 - [Webhooks](webhooks.md) — krijg een melding zodra een zending is overgedragen of bezorgd.
 - [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — sla de raw HTTP over en gebruik onze libraries.
 - [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) of een andere e-commerce-plugin — installeren, instellen, klaar.

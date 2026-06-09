@@ -52,7 +52,7 @@ With the token in hand, call the Shipment API to create a shipment. Labels and t
 Pick whichever path matches your integration:
 
 - [Authentication in depth](authentication.md) — scopes, refresh tokens, revocation.
-- [Delivery options](delivery-options.md) — pickup points, evening delivery, signed-for.
+- [Delivery options](../platforms/delivery-options.md) — pickup points, evening delivery, signed-for.
 - [Webhooks](webhooks.md) — get notified when a shipment is handed over or delivered.
 - [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — skip the raw HTTP and use our libraries.
 - [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) or another e-commerce plugin — install, configure, done.
