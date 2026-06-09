@@ -62,7 +62,7 @@ Contact MyParcel so your integration can be recognised in the User-Agent string.
 Most endpoints return JSON. Some return binary or text instead — labels and invoices come back as **PDF**, and some exports as **CSV**. See [Responses](./responses.md) for status codes and the response envelope.
 
 ## Rate limiting
-The API applies a per-endpoint rate limit using a sliding window. When you exceed a limit you receive `429 Too Many Requests`. Wait a few minutes before retrying rather than hammering the endpoint. If you regularly hit the limits, contact MyParcel to discuss options such as webhooks.
+The API applies a per-endpoint rate limit using a sliding window. When you exceed a limit you receive `429 Too Many Requests`. Wait a few minutes before retrying rather than hammering the endpoint. If you regularly hit the limits, contact MyParcel to discuss options such as webhooks. See [Rate limiting](./rate-limiting.md) for the per-endpoint limits and how to handle `429`.
 
 ## Example request
 ```

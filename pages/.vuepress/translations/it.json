@@ -125,6 +125,7 @@
   "Requests": "Requests",
   "Responses": "Responses",
   "Character encoding": "Character encoding",
+  "Rate limiting": "Rate limiting",
   "SDKs": "SDK",
   "PHP SDK": "SDK PHP",
   "JavaScript SDK": "SDK JavaScript",
