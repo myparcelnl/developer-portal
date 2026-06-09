@@ -60,6 +60,7 @@ export const docsSidebar: SidebarGroup[] = [
     items: [
       { text: 'Shipments', link: '/guides/shipments.html' },
       { text: 'Shipment API', link: '/api/myparcel.html' },
+      { text: 'Orders', link: '/guides/orders.html' },
       { text: 'Order API', link: '/api/order.html' },
       { text: 'Rule API', link: '/api/rule.html' },
       { text: 'Address API', link: '/api/address.html' },
@@ -88,6 +89,7 @@ const LOCALIZED_PATHS = new Set<string>([
   '/guides/delivery-options.html',
   '/guides/webhooks.html',
   '/guides/data-types.html',
+  '/guides/orders.html',
   '/guides/php-sdk.html',
   '/guides/javascript-sdk.html',
   '/platforms/woocommerce.html',
@@ -109,6 +111,7 @@ export function isLocalizedPath(slugPath: string): boolean {
  */
 const REFERENCE_PROSE_PATHS = new Set<string>([
   '/guides/shipments.html',
+  '/guides/orders.html',
   '/guides/data-types.html',
 ]);
 
