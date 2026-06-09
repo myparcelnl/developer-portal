@@ -128,6 +128,8 @@
   "SDKs": "SDK",
   "PHP SDK": "SDK PHP",
   "JavaScript SDK": "SDK JavaScript",
+  "C#/.NET SDK": "SDK C#/.NET",
+  "Ruby SDK": "SDK Ruby",
   "Platform integrations": "Integrazioni piattaforma",
   "On this page": "In questa pagina",
   "Next": "Successivo",

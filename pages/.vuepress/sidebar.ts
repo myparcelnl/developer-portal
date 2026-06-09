@@ -38,6 +38,8 @@ export const docsSidebar: SidebarGroup[] = [
     items: [
       { text: 'PHP SDK', link: '/guides/php-sdk.html' },
       { text: 'JavaScript SDK', link: '/guides/javascript-sdk.html' },
+      { text: 'C#/.NET SDK', link: '/guides/csharp-sdk.html' },
+      { text: 'Ruby SDK', link: '/guides/ruby-sdk.html' },
     ],
   },
   {
@@ -90,6 +92,8 @@ const LOCALIZED_PATHS = new Set<string>([
   '/guides/data-types.html',
   '/guides/php-sdk.html',
   '/guides/javascript-sdk.html',
+  '/guides/csharp-sdk.html',
+  '/guides/ruby-sdk.html',
   '/platforms/woocommerce.html',
   '/platforms/magento2.html',
   '/platforms/prestashop.html',
