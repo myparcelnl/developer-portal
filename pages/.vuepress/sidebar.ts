@@ -29,10 +29,8 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Requests', link: '/guides/requests.html' },
       { text: 'Responses', link: '/guides/responses.html' },
       { text: 'Character encoding', link: '/guides/character-encoding.html' },
-      { text: 'Shipments', link: '/guides/shipments.html' },
       { text: 'Delivery options', link: '/guides/delivery-options.html' },
       { text: 'Webhooks', link: '/guides/webhooks.html' },
-      { text: 'Data types', link: '/guides/data-types.html' },
     ],
   },
   {
@@ -60,12 +58,14 @@ export const docsSidebar: SidebarGroup[] = [
   {
     label: 'Reference',
     items: [
+      { text: 'Shipments', link: '/guides/shipments.html' },
       { text: 'Shipment API', link: '/api/myparcel.html' },
       { text: 'Order API', link: '/api/order.html' },
       { text: 'Rule API', link: '/api/rule.html' },
       { text: 'Address API', link: '/api/address.html' },
       { text: 'Printing API', link: '/api/printing.html' },
       { text: 'Product API', link: '/api/product.html' },
+      { text: 'Data types', link: '/guides/data-types.html' },
     ],
   },
 ];
@@ -100,6 +100,21 @@ export function isLocalizedPath(slugPath: string): boolean {
   // Strip query strings before lookup (some links carry ?p=Foo).
   const noQuery = slugPath.split('?')[0];
   return LOCALIZED_PATHS.has(noQuery);
+}
+
+/**
+ * Prose pages that physically live under /guides/ but belong to the
+ * Reference section in the sidebar. Used by the breadcrumb and search so
+ * they're categorised as "API Reference" instead of "Documentation".
+ */
+const REFERENCE_PROSE_PATHS = new Set<string>([
+  '/guides/shipments.html',
+  '/guides/data-types.html',
+]);
+
+export function isReferenceProsePath(slugPath: string): boolean {
+  const noQuery = slugPath.split('?')[0];
+  return REFERENCE_PROSE_PATHS.has(noQuery);
 }
 
 /** Inject the VuePress base + optional locale prefix into every link. */

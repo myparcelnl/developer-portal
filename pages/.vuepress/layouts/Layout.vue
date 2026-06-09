@@ -11,7 +11,7 @@ import ApiLayout from './ApiLayout.vue';
 import ApiOverviewLayout from './ApiOverviewLayout.vue';
 import AboutLayout from './AboutLayout.vue';
 import ContactLayout from './ContactLayout.vue';
-import { docsSidebar, localizeSidebar, detectLang, toSlugPath, BASE } from '../sidebar';
+import { docsSidebar, localizeSidebar, detectLang, toSlugPath, isReferenceProsePath, BASE } from '../sidebar';
 
 const page = usePageData();
 const fm = usePageFrontmatter<Record<string, any>>();
@@ -50,7 +50,9 @@ const breadcrumbTrail = computed(() => {
   const trail: { text: string; link?: string }[] = [
     { text: 'Home', link: `${BASE}${localePrefix || '/'}` },
   ];
-  if (isDocs.value) {
+  if (isReferenceProsePath(slugPath.value)) {
+    trail.push({ text: 'API Reference', link: `${BASE}/api/` });
+  } else if (isDocs.value) {
     trail.push({
       text: 'Documentation',
       link: `${BASE}${localePrefix}/guides/getting-started.html`,
