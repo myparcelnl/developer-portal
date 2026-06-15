@@ -46,6 +46,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Magento 2', link: '/platforms/magento2.html' },
       { text: 'PrestaShop', link: '/platforms/prestashop.html' },
       { text: 'Shopify', link: '/platforms/shopify.html' },
+      { text: 'Lightspeed', link: '/platforms/lightspeed.html' },
     ],
   },
     {
@@ -92,6 +93,7 @@ const LOCALIZED_PATHS = new Set<string>([
   '/platforms/magento2.html',
   '/platforms/prestashop.html',
   '/platforms/shopify.html',
+  '/platforms/lightspeed.html',
 ]);
 
 export function isLocalizedPath(slugPath: string): boolean {
