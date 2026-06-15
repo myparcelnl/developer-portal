@@ -557,6 +557,10 @@ onMounted(async () => {
         <img class="mp-platform__img" src="/images/integrations/shopify.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">Shopify</span>
       </a>
+      <a class="mp-platform" href="/platforms/lightspeed.html">
+        <img class="mp-platform__img" src="/images/integrations/lightspeed.svg" alt="" width="48" height="48" loading="lazy">
+        <span class="mp-platform__name">Lightspeed</span>
+      </a>
     </div>
   </section>
 
