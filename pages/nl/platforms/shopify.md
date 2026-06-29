@@ -63,15 +63,23 @@ Meest voorkomende oorzaken: niet op *Opslaan* geklikt · een spatie voor/na de k
 :::
 
 ### Koppelen via een sales channel
-Je kunt ook koppelen via een **sales channel** in je MyParcel-backoffice, in plaats van de API key met de hand te kopiëren.
+In plaats van de API key met de hand in de app te kopiëren, kun je koppelen via een **sales channel** in je MyParcel-backoffice. MyParcel verbindt dan rechtstreeks met je Shopify-shop.
 
-1. Ga in je MyParcel-backoffice naar **Instellingen → Sales channels** en maak een nieuw kanaal aan (of kies een bestaand kanaal).
-2. Kies **Shopify** als type kanaal.
-3. Geef het kanaal een **naam** en vul je **domein** in (de URL van je Shopify-shop).
-4. Sla de gegevens op en klik op **Create connection**.
-5. Log in op je Shopify-omgeving wanneer daarom wordt gevraagd om de koppeling te bevestigen.
+1. Log in op [backoffice.myparcel.com](https://backoffice.myparcel.com) en ga naar **Shop settings → Sales Channels** (Shopinstellingen → Verkoopkanalen).
+2. Klik rechtsboven op **Add sales channel** (Verkoopkanaal toevoegen).
 
-<!-- screenshot: ../../platforms/images/shopify/sales-channel-koppeling.png — toevoegen zodra het bestand er is -->
+![Het overzicht Sales Channels in de MyParcel-backoffice, met rechtsboven de knop Add sales channel.](../../platforms/images/shopify/backoffice-sales-channels.png)
+
+3. Vul een **Name** (Naam) in voor het kanaal en kies bij **Type of sales channel** (Type verkoopkanaal) voor **Shopify**.
+4. Vul je **Store ID** in — het eerste deel van je `.myshopify.com`-adres (voor de shop `mijn-shop.myshopify.com` is de Store ID `mijn-shop`).
+5. Klik op **Save** (Opslaan). Het kanaal wordt aangemaakt met een label **Missing data** (Gegevens ontbreken).
+
+![Een Shopify sales channel toevoegen: kies het type en vul je Store ID in, klik dan op Save.](../../platforms/images/shopify/backoffice-add-channel.png)
+
+6. Open het kanaal en klik op **Create connection** (Verbinding maken).
+7. Log in op je Shopify-omgeving wanneer daarom wordt gevraagd en keur de koppeling goed. Shopify stuurt je terug naar de backoffice en het kanaal toont **Connected** (Verbonden).
+
+![Een Shopify sales channel gebruikt je Store ID en een knop Create connection — daarop klikken vraagt je in te loggen bij Shopify en de koppeling goed te keuren.](../../platforms/images/shopify/backoffice-credentials.png)
 
 ### Wat doet de app in je Shopify-admin?
 | Waar? | Wat kun je doen? |

@@ -27,6 +27,7 @@ Quanto basta per spedire oggi il tuo primo ordine reale. Per una configurazione 
 | --- | --- |
 | Prima configurazione | [Avvio rapido](#avvio-rapido-il-tuo-primo-pacco-in-15-minuti) |
 | Collegare il tuo account | [3 · Collegare l'app](#3-collegare-lapp-api-key) |
+| Collegare dal backoffice invece che dall'app | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel-alternativa) |
 | Scegliere la lingua dell'app o quando vengono inviati gli ordini | [4 · Impostazioni · Generale](#4-impostazioni-generale) |
 | Scegliere come si sincronizzano gli ordini (Push o Pull) | [5 · Impostazioni · Modalità di sincronizzazione](#5-impostazioni-modalit-di-sincronizzazione) |
 | Aggiornare corrieri e opzioni | [6 · Impostazioni · Aggiornare la capacità](#6-impostazioni-aggiornare-la-capacit) |
@@ -50,6 +51,48 @@ Ti servono anche i tuoi **metodi di spedizione** impostati in Lightspeed. L'app 
 1. Apri l'**App Store** nel back office di Lightspeed e cerca *MyParcel*.
 2. Installa l'app e consenti il collegamento con il tuo negozio.
 3. Apri l'app per raggiungere la pagina delle impostazioni. Da quel momento si aggiorna automaticamente.
+
+## Canale di vendita tramite il Backoffice MyParcel (alternativa)
+Oltre all'app dell'App Store, puoi collegare Lightspeed direttamente dal tuo backoffice MyParcel come **canale di vendita** (Sales channel). MyParcel comunica allora direttamente con il tuo negozio Lightspeed tramite la sua API e importa i tuoi ordini, senza che l'app gestisca il passaggio. Scegli questa via se preferisci gestire il collegamento da MyParcel.
+
+::: tip Quale metodo uso?
+- Con l'**app dell'App Store** (vedi [Installare l'app](#2-installare-lapp)) aggiungi le opzioni di consegna al checkout di Lightspeed e inoltri gli ordini da Lightspeed.
+- Con un **canale di vendita** (questa sezione) MyParcel preleva i tuoi ordini direttamente da Lightspeed. Questo metodo non aggiunge opzioni di consegna al checkout.
+:::
+
+### Creare il canale di vendita
+1. Accedi a [backoffice.myparcel.com](https://backoffice.myparcel.com) e vai su **Shop settings → Sales Channels** (Impostazioni negozio → Canali di vendita).
+2. Clicca in alto a destra su **Add sales channel** (Aggiungi canale di vendita).
+
+![La panoramica Sales Channels nel backoffice MyParcel, con il pulsante Add sales channel in alto a destra.](../../platforms/images/lightspeed/backoffice-sales-channels.png)
+
+3. Inserisci un **Name** (Nome) che ti aiuti a riconoscere il canale (es. *Il mio negozio Lightspeed*).
+4. In **Type of sales channel** (Tipo di canale di vendita) scegli **Lightspeed**. (Shopify, WooCommerce e PrestaShop sono le altre opzioni.)
+5. In **Webshop URL** scegli la regione che corrisponde al tuo negozio Lightspeed:
+   - **https://api.webshopapp.com/en/ (EU)** — per i negozi Lightspeed (eCom) europei.
+   - **https://api.shoplightspeed.com/en/ (US)** — per i negozi Lightspeed statunitensi.
+6. Clicca **Save** (Salva). Il canale viene creato e compare con l'etichetta **Missing data** (Dati mancanti) — significa solo che manca ancora il passaggio di autenticazione.
+
+![Aggiungere un canale di vendita Lightspeed: scegli il tipo e la regione Webshop URL corrispondente, poi clicca Save.](../../platforms/images/lightspeed/backoffice-add-channel.png)
+
+### Autenticare il canale (key e secret Lightspeed)
+Un canale di vendita ha bisogno del permesso di leggere i tuoi ordini Lightspeed. Per Lightspeed ciò avviene con una **Consumer key** e una **Consumer secret** del tuo account Lightspeed.
+
+1. Apri il canale e clicca **Set credentials** (Imposta credenziali).
+2. Nella finestra **Replace key and secret** (Sostituisci key e secret) incolla la tua **Consumer key** e la tua **Consumer secret** di Lightspeed.
+3. Clicca **Connect** (Connetti).
+
+![La finestra "Replace key and secret" chiede la Consumer key e la Consumer secret di Lightspeed.](../../platforms/images/lightspeed/backoffice-credentials.png)
+
+Una volta connesso, l'etichetta **Missing data** scompare, il canale mostra **Connected** (Connesso) e MyParcel inizia a sincronizzare i tuoi ordini Lightspeed.
+
+::: tip Dove trovo la key e la secret?
+Generi la Consumer key e la secret nel tuo **back office Lightspeed**, nelle impostazioni API/sviluppatore. Se non le trovi, chiedi al supporto Lightspeed di attivare l'accesso API per il tuo account. Trattale come una password — non condividerle.
+:::
+
+::: warning La connessione non riesce?
+Cause più comuni: uno spazio extra incollato con la key o la secret · la regione **Webshop URL** sbagliata (EU vs US) · una key/secret che appartiene a un altro negozio Lightspeed o è scaduta.
+:::
 
 ## 3 · Collegare l'app (API key)
 Le impostazioni si trovano su un'unica pagina. In alto trovi l'ID del tuo negozio e il blocco **Chiave API MyParcel**.

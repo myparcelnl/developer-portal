@@ -27,6 +27,7 @@ Genoeg om vandaag je eerste echte bestelling te versturen. Voor diepere configur
 | --- | --- |
 | Eerste installatie | [Snelstart](#snelstart-je-eerste-pakket-in-15-minuten) |
 | Je account koppelen | [3 · De app koppelen](#3-de-app-koppelen-api-key) |
+| Koppelen via de backoffice in plaats van de app | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice-alternatief) |
 | App-taal of moment van doorsturen kiezen | [4 · Instellingen · Algemeen](#4-instellingen-algemeen) |
 | Kiezen hoe bestellingen synchroniseren (Push of Pull) | [5 · Instellingen · Synchronisatiemodus](#5-instellingen-synchronisatiemodus) |
 | Vervoerders en opties verversen | [6 · Instellingen · Capaciteit bijwerken](#6-instellingen-capaciteit-bijwerken) |
@@ -50,6 +51,48 @@ Je hebt ook je **verzendmethoden** nodig in Lightspeed. De app koppelt zich op n
 1. Open de **App Store** in je Lightspeed-beheer en zoek op *MyParcel*.
 2. Installeer de app en sta de koppeling met je shop toe.
 3. Open de app om bij de instellingenpagina te komen. Vanaf dan werkt hij zichzelf automatisch bij.
+
+## Sales channel via de MyParcel Backoffice (alternatief)
+Naast de App Store-app kun je Lightspeed ook rechtstreeks vanuit je MyParcel-backoffice koppelen als **Sales channel**. MyParcel praat dan direct via de API met je Lightspeed-shop en haalt je bestellingen op, zonder dat de app de overdracht regelt. Kies dit als je de koppeling liever vanuit MyParcel beheert.
+
+::: tip Welke methode gebruik ik?
+- Met de **App Store-app** (zie [De app installeren](#2-de-app-installeren)) voeg je bezorgopties toe aan de Lightspeed-checkout en stuur je bestellingen door vanuit Lightspeed.
+- Met een **Sales channel** (deze sectie) haalt MyParcel je bestellingen rechtstreeks uit Lightspeed op. Deze methode voegt géén bezorgopties toe aan de checkout.
+:::
+
+### De sales channel aanmaken
+1. Log in op [backoffice.myparcel.com](https://backoffice.myparcel.com) en ga naar **Shop settings → Sales Channels** (Shopinstellingen → Verkoopkanalen).
+2. Klik rechtsboven op **Add sales channel** (Verkoopkanaal toevoegen).
+
+![Het overzicht Sales Channels in de MyParcel-backoffice, met rechtsboven de knop Add sales channel.](../../platforms/images/lightspeed/backoffice-sales-channels.png)
+
+3. Vul een **Name** (Naam) in waaraan je het kanaal herkent (bijv. *Mijn Lightspeed-shop*).
+4. Kies bij **Type of sales channel** (Type verkoopkanaal) voor **Lightspeed**. (Shopify, WooCommerce en PrestaShop zijn de andere opties.)
+5. Kies bij **Webshop URL** de regio die bij je Lightspeed-shop hoort:
+   - **https://api.webshopapp.com/en/ (EU)** — voor Europese Lightspeed (eCom)-shops.
+   - **https://api.shoplightspeed.com/en/ (US)** — voor Amerikaanse Lightspeed-shops.
+6. Klik op **Save** (Opslaan). Het kanaal wordt aangemaakt en verschijnt met een label **Missing data** (Gegevens ontbreken) — dat betekent alleen dat de authenticatiestap nog moet gebeuren.
+
+![Een Lightspeed sales channel toevoegen: kies het type en de bijbehorende Webshop URL-regio en klik op Save.](../../platforms/images/lightspeed/backoffice-add-channel.png)
+
+### Het kanaal authenticeren (Lightspeed key & secret)
+Een sales channel heeft toestemming nodig om je Lightspeed-bestellingen te lezen. Voor Lightspeed gebeurt dat met een **Consumer key** en **Consumer secret** uit je Lightspeed-account.
+
+1. Open het kanaal en klik op **Set credentials** (Gegevens instellen).
+2. Plak in de dialoog **Replace key and secret** (Key en secret vervangen) je Lightspeed **Consumer key** en **Consumer secret**.
+3. Klik op **Connect** (Verbinden).
+
+![De dialoog "Replace key and secret" vraagt om je Lightspeed Consumer key en Consumer secret.](../../platforms/images/lightspeed/backoffice-credentials.png)
+
+Zodra de verbinding er is, verdwijnt het label **Missing data**, toont het kanaal **Connected** (Verbonden) en begint MyParcel je Lightspeed-bestellingen te synchroniseren.
+
+::: tip Waar vind ik de key en secret?
+Je genereert de Consumer key en secret in je **Lightspeed-beheer**, onder de API-/developerinstellingen. Vind je ze niet, vraag dan Lightspeed-support om API-toegang voor je account aan te zetten. Behandel ze als een wachtwoord — deel ze niet.
+:::
+
+::: warning Lukt verbinden niet?
+Meest voorkomende oorzaken: een extra spatie meegeplakt bij de key of secret · de verkeerde **Webshop URL**-regio gekozen (EU vs US) · een key/secret van een andere Lightspeed-shop of die verlopen is.
+:::
 
 ## 3 · De app koppelen (API key)
 Alle instellingen staan op één pagina. Bovenaan vind je je winkel-ID en het blok **Chiave API MyParcel** (MyParcel API key).
