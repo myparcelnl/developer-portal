@@ -27,6 +27,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
 | Connect your account | [3 · Connecting the app](#3-connecting-the-app-api-key) |
+| Connect from the backoffice instead of the app | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice-alternative) |
 | Choose the app language or when orders are sent | [4 · Settings · General](#4-settings-general) |
 | Choose how orders sync (Push or Pull) | [5 · Settings · Sync mode](#5-settings-sync-mode) |
 | Refresh carriers and options | [6 · Settings · Updating capacity](#6-settings-updating-capacity) |
@@ -50,6 +51,48 @@ You also need your **shipping methods** set up in Lightspeed. The app links to t
 1. Open the **App Store** in your Lightspeed back office and search *MyParcel*.
 2. Install the app and allow the connection to your shop.
 3. Open the app to reach the settings page. It updates itself automatically from then on.
+
+## Sales channel via the MyParcel Backoffice (alternative)
+Alongside the App Store app, you can connect Lightspeed straight from your MyParcel backoffice as a **Sales channel**. MyParcel then talks to your Lightspeed shop directly over its API and imports your orders, without the app handling the hand-off. Choose this if you prefer to manage the connection from MyParcel.
+
+::: tip Which method do I use?
+- With the **App Store app** (see [Installing the app](#2-installing-the-app)) you add delivery options to the Lightspeed checkout and forward orders from Lightspeed.
+- With a **Sales channel** (this section) MyParcel pulls your orders from Lightspeed directly. This method does not add delivery options to the checkout.
+:::
+
+### Create the sales channel
+1. Log in to [backoffice.myparcel.com](https://backoffice.myparcel.com) and go to **Shop settings → Sales Channels**.
+2. Click **Add sales channel** (top right).
+
+![The Sales Channels overview in the MyParcel backoffice, with the Add sales channel button at the top right.](./images/lightspeed/backoffice-sales-channels.png)
+
+3. Fill in a **Name** that helps you recognise the channel (e.g. *My Lightspeed shop*).
+4. Under **Type of sales channel**, choose **Lightspeed**. (Shopify, WooCommerce and PrestaShop are the other options.)
+5. Under **Webshop URL**, pick the region that matches your Lightspeed shop:
+   - **https://api.webshopapp.com/en/ (EU)** — for European Lightspeed (eCom) shops.
+   - **https://api.shoplightspeed.com/en/ (US)** — for US Lightspeed shops.
+6. Click **Save**. The channel is created and appears with a **Missing data** badge — that simply means the authentication step still has to be done.
+
+![Adding a Lightspeed sales channel: choose the type and the matching Webshop URL region, then Save.](./images/lightspeed/backoffice-add-channel.png)
+
+### Authenticate the channel (Lightspeed key & secret)
+A sales channel needs permission to read your Lightspeed orders. For Lightspeed this is done with a **Consumer key** and **Consumer secret** from your Lightspeed account.
+
+1. Open the channel and click **Set credentials**.
+2. In the **Replace key and secret** dialog, paste your Lightspeed **Consumer key** and **Consumer secret**.
+3. Click **Connect**.
+
+![The "Replace key and secret" dialog asks for your Lightspeed Consumer key and Consumer secret.](./images/lightspeed/backoffice-credentials.png)
+
+Once connected, the **Missing data** badge disappears, the channel shows **Connected** and MyParcel starts synchronising your Lightspeed orders.
+
+::: tip Where do I find the key and secret?
+You generate the Consumer key and secret in your **Lightspeed back office**, under its API/developer settings. If you can't find them, ask Lightspeed support to enable API access for your account. Treat them like a password — don't share them.
+:::
+
+::: warning Not connecting?
+Most common causes: an extra space pasted with the key or secret · the wrong **Webshop URL** region chosen (EU vs US) · a key/secret that belongs to a different Lightspeed shop or has expired.
+:::
 
 ## 3 · Connecting the app (API key)
 The settings live on a single page. At the top you'll find your shop ID and the **Chiave API MyParcel** (MyParcel API key) block.

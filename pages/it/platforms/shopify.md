@@ -63,15 +63,23 @@ Cause più comuni: non hai cliccato *Opslaan* (Salva) · uno spazio copiato prim
 :::
 
 ### Collegamento tramite un sales channel
-Puoi collegarti anche tramite un **sales channel** nel tuo backoffice MyParcel, invece di copiare la API key a mano.
+Invece di copiare la API key a mano nell'app, puoi collegarti tramite un **sales channel** nel tuo backoffice MyParcel. MyParcel si collega allora direttamente al tuo negozio Shopify.
 
-1. Nel tuo backoffice MyParcel, vai su **Impostazioni → Sales channels** e crea un nuovo canale (o selezionane uno esistente).
-2. Scegli **Shopify** come tipo di canale.
-3. Dai un **nome** al canale e inserisci il tuo **dominio** (l'URL del tuo negozio Shopify).
-4. Salva i dati e clicca su **Create connection**.
-5. Accedi al tuo ambiente Shopify quando richiesto per confermare il collegamento.
+1. Accedi a [backoffice.myparcel.com](https://backoffice.myparcel.com) e vai su **Shop settings → Sales Channels** (Impostazioni negozio → Canali di vendita).
+2. Clicca in alto a destra su **Add sales channel** (Aggiungi canale di vendita).
 
-<!-- screenshot: ../../platforms/images/shopify/sales-channel-koppeling.png — aggiungere quando il file è disponibile -->
+![La panoramica Sales Channels nel backoffice MyParcel, con il pulsante Add sales channel in alto a destra.](../../platforms/images/shopify/backoffice-sales-channels.png)
+
+3. Inserisci un **Name** (Nome) per il canale e scegli **Shopify** in **Type of sales channel** (Tipo di canale di vendita).
+4. Inserisci il tuo **Store ID** — la prima parte del tuo indirizzo `.myshopify.com` (per il negozio `il-mio-negozio.myshopify.com` lo Store ID è `il-mio-negozio`).
+5. Clicca **Save** (Salva). Il canale viene creato con l'etichetta **Missing data** (Dati mancanti).
+
+![Aggiungere un canale di vendita Shopify: scegli il tipo e inserisci il tuo Store ID, poi clicca Save.](../../platforms/images/shopify/backoffice-add-channel.png)
+
+6. Apri il canale e clicca **Create connection** (Crea collegamento).
+7. Accedi al tuo ambiente Shopify quando richiesto e approva il collegamento. Shopify ti rimanda al backoffice e il canale mostra **Connected** (Connesso).
+
+![Un canale di vendita Shopify usa il tuo Store ID e un pulsante Create connection — cliccarlo ti chiede di accedere a Shopify e approvare il collegamento.](../../platforms/images/shopify/backoffice-credentials.png)
 
 ### Cosa fa l'app nel tuo admin Shopify?
 | Dove? | Cosa puoi fare? |

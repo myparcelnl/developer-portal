@@ -63,15 +63,23 @@ Most common causes: didn't click *Opslaan* (Save) · a space copied before/after
 :::
 
 ### Connecting via a sales channel
-You can also connect through a **sales channel** in your MyParcel backoffice, instead of copying the API key by hand.
+Instead of copying the API key into the app by hand, you can connect through a **sales channel** in your MyParcel backoffice. MyParcel then connects to your Shopify shop directly.
 
-1. In your MyParcel backoffice, go to **Settings → Sales channels** and create a new channel (or choose an existing one).
-2. Choose **Shopify** as the channel type.
-3. Give the channel a **name** and fill in your **domain** (your Shopify shop URL).
-4. Save the details and click **Create connection**.
-5. Log in to your Shopify environment when prompted to confirm the connection.
+1. Log in to [backoffice.myparcel.com](https://backoffice.myparcel.com) and go to **Shop settings → Sales Channels**.
+2. Click **Add sales channel** (top right).
 
-<!-- screenshot: ./images/shopify/sales-channel-koppeling.png — add once the file is provided -->
+![The Sales Channels overview in the MyParcel backoffice, with the Add sales channel button at the top right.](./images/shopify/backoffice-sales-channels.png)
+
+3. Fill in a **Name** for the channel and choose **Shopify** as the **Type of sales channel**.
+4. Fill in your **Store ID** — the first part of your `.myshopify.com` address (for the shop `my-shop.myshopify.com`, the Store ID is `my-shop`).
+5. Click **Save**. The channel is created with a **Missing data** badge.
+
+![Adding a Shopify sales channel: choose the type and fill in your Store ID, then Save.](./images/shopify/backoffice-add-channel.png)
+
+6. Open the channel and click **Create connection**.
+7. Log in to your Shopify environment when prompted and approve the connection. Shopify sends you back to the backoffice and the channel shows **Connected**.
+
+![A Shopify sales channel uses your Store ID and a Create connection button — clicking it asks you to log in to Shopify and approve the connection.](./images/shopify/backoffice-credentials.png)
 
 ### What does the app do in your Shopify admin?
 | Where? | What can you do? |

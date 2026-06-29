@@ -26,6 +26,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | What do you want to do? | Go to |
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
+| Connect from the backoffice instead of the plugin | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice-alternative) |
 | Recommended settings for your type of shop | [4 · Which shop profile are you?](#4-which-shop-profile-are-you) |
 | Look up a specific setting | [5 · Settings · Orders](#5-settings-orders) to [9 · Settings · Carriers](#9-settings-carriers) |
 | A different setting per product | [10 · Product settings](#10-product-settings) |
@@ -50,6 +51,43 @@ Before you start in WooCommerce, take care of four things in your MyParcel backo
 
 ::: details Prefer to install manually?
 Download the release ZIP from [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) and upload it via **Plugins → Add new plugin → Upload plugin**.
+:::
+
+## Sales channel via the MyParcel Backoffice (alternative)
+Instead of connecting with the API key inside the plugin (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you can connect WooCommerce straight from your MyParcel backoffice as a **Sales channel**. MyParcel then talks to your WooCommerce shop directly over its REST API and imports your orders.
+
+::: tip Which method do I use?
+- With the **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) the plugin adds delivery options to the WooCommerce checkout and you manage shipping from WordPress.
+- With a **Sales channel** (this section) MyParcel pulls your orders from WooCommerce directly and you manage the connection from the backoffice.
+:::
+
+### Create the sales channel
+1. Log in to [backoffice.myparcel.com](https://backoffice.myparcel.com) and go to **Shop settings → Sales Channels**.
+2. Click **Add sales channel** (top right).
+
+![The Sales Channels overview in the MyParcel backoffice, with the Add sales channel button at the top right.](./images/woocommerce/backoffice-sales-channels.png)
+
+3. Fill in a **Name** that helps you recognise the channel (e.g. *My WooCommerce shop*).
+4. Under **Type of sales channel**, choose **WooCommerce**.
+5. Fill in your **Webshop URL** — the address of your WooCommerce shop (for example `https://your-shop.com`).
+6. Click **Save**. The channel is created and shows a **Missing data** badge until you add the credentials.
+
+![Adding a WooCommerce sales channel: choose the type and fill in your webshop URL, then Save.](./images/woocommerce/backoffice-add-channel.png)
+
+### Authenticate the channel (consumer key & secret)
+WooCommerce lets MyParcel read your orders with a **Consumer key** and **Consumer secret** from its REST API.
+
+1. In your **WooCommerce** admin, go to **WooCommerce → Settings → Advanced → REST API** and click **Add key**. Give it a description, set **Permissions** to *Read/Write* and generate the key — WooCommerce shows the Consumer key and Consumer secret only once, so copy them now.
+2. Back in the backoffice, open the channel and click **Set credentials**.
+3. In the **Replace key and secret** dialog, paste the **Consumer key** and **Consumer secret**.
+4. Click **Connect**.
+
+![The "Replace key and secret" dialog asks for your WooCommerce Consumer key and Consumer secret.](./images/woocommerce/backoffice-credentials.png)
+
+Once connected, the **Missing data** badge disappears, the channel shows **Connected** and MyParcel starts synchronising your WooCommerce orders.
+
+::: warning Not connecting?
+Most common causes: an extra space pasted with the key or secret · the REST API key was created with *Read* only instead of *Read/Write* · the **Webshop URL** points to a different shop or is missing `https://`.
 :::
 
 ## 3 · Connecting the plugin (API key)

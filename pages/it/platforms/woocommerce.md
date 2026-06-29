@@ -26,6 +26,7 @@ Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazion
 | Cosa vuoi fare? | Vai a |
 | --- | --- |
 | Configurazione iniziale | [Avvio rapido](#avvio-rapido-il-primo-pacco-in-15-minuti) |
+| Collegare dal backoffice invece che dal plugin | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel-alternativa) |
 | Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-e-il-tuo-profilo-shop) |
 | Cercare un'impostazione specifica | [5 · Impostazioni · Ordini](#5-impostazioni-ordini) fino a [9 · Impostazioni · Vettori](#9-impostazioni-vettori) |
 | Un'impostazione diversa per prodotto | [10 · Impostazioni prodotto](#10-impostazioni-prodotto) |
@@ -50,6 +51,43 @@ Prima di iniziare in WooCommerce, sistema quattro cose nel tuo backoffice MyParc
 
 ::: details Preferisci l'installazione manuale?
 Scarica lo ZIP della release da [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) e caricalo tramite **Plugin → Aggiungi nuovo → Carica plugin**.
+:::
+
+## Canale di vendita tramite il Backoffice MyParcel (alternativa)
+Invece di collegare con la API key dentro il plugin (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)), puoi collegare WooCommerce direttamente dal tuo backoffice MyParcel come **canale di vendita** (Sales channel). MyParcel comunica allora direttamente con il tuo negozio WooCommerce tramite la sua API REST e importa i tuoi ordini.
+
+::: tip Quale metodo uso?
+- Con il **plugin + API key** (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)) il plugin aggiunge le opzioni di consegna al checkout di WooCommerce e gestisci le spedizioni da WordPress.
+- Con un **canale di vendita** (questa sezione) MyParcel preleva i tuoi ordini direttamente da WooCommerce e gestisci il collegamento dal backoffice.
+:::
+
+### Creare il canale di vendita
+1. Accedi a [backoffice.myparcel.com](https://backoffice.myparcel.com) e vai su **Shop settings → Sales Channels** (Impostazioni negozio → Canali di vendita).
+2. Clicca in alto a destra su **Add sales channel** (Aggiungi canale di vendita).
+
+![La panoramica Sales Channels nel backoffice MyParcel, con il pulsante Add sales channel in alto a destra.](../../platforms/images/woocommerce/backoffice-sales-channels.png)
+
+3. Inserisci un **Name** (Nome) che ti aiuti a riconoscere il canale (es. *Il mio negozio WooCommerce*).
+4. In **Type of sales channel** (Tipo di canale di vendita) scegli **WooCommerce**.
+5. Inserisci la tua **Webshop URL** — l'indirizzo del tuo negozio WooCommerce (per esempio `https://il-tuo-negozio.com`).
+6. Clicca **Save** (Salva). Il canale viene creato e mostra l'etichetta **Missing data** (Dati mancanti) finché non aggiungi le credenziali.
+
+![Aggiungere un canale di vendita WooCommerce: scegli il tipo e inserisci l'URL del negozio, poi clicca Save.](../../platforms/images/woocommerce/backoffice-add-channel.png)
+
+### Autenticare il canale (consumer key e secret)
+WooCommerce consente a MyParcel di leggere i tuoi ordini con una **Consumer key** e una **Consumer secret** dalla sua API REST.
+
+1. Nel tuo admin **WooCommerce**, vai su **WooCommerce → Settings → Advanced → REST API** e clicca **Add key**. Dai una descrizione, imposta **Permissions** su *Read/Write* e genera la chiave — WooCommerce mostra la Consumer key e la Consumer secret una sola volta, quindi copiale subito.
+2. Nel backoffice, apri il canale e clicca **Set credentials** (Imposta credenziali).
+3. Nella finestra **Replace key and secret** (Sostituisci key e secret) incolla la **Consumer key** e la **Consumer secret**.
+4. Clicca **Connect** (Connetti).
+
+![La finestra "Replace key and secret" chiede la Consumer key e la Consumer secret di WooCommerce.](../../platforms/images/woocommerce/backoffice-credentials.png)
+
+Una volta connesso, l'etichetta **Missing data** scompare, il canale mostra **Connected** (Connesso) e MyParcel inizia a sincronizzare i tuoi ordini WooCommerce.
+
+::: warning La connessione non riesce?
+Cause più comuni: uno spazio extra incollato con la key o la secret · la chiave API REST è stata creata con solo *Read* invece di *Read/Write* · la **Webshop URL** punta a un altro negozio o manca `https://`.
 :::
 
 ## 3 · Collegare il plugin (API key)

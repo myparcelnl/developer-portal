@@ -26,6 +26,7 @@ Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je
 | Wat wil je doen? | Ga naar |
 | --- | --- |
 | Voor het eerst opzetten | [Snelstart](#snelstart-in-15-minuten-je-eerste-pakket) |
+| Koppelen via de backoffice in plaats van de plugin | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice-alternatief) |
 | Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
 | Een specifieke instelling opzoeken | [5 · Settings · Bestellingen](#5-settings-bestellingen) tot [9 · Settings · Vervoerders](#9-settings-vervoerders) |
 | Per product een afwijkende instelling | [10 · Productinstellingen](#10-productinstellingen) |
@@ -50,6 +51,43 @@ Voordat je in WooCommerce begint, regel je vier dingen in je MyParcel-backoffice
 
 ::: details Liever handmatig installeren?
 Download de release-ZIP via [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) en upload via **Plugins → Nieuwe plugin → Plugin uploaden**.
+:::
+
+## Sales channel via de MyParcel Backoffice (alternatief)
+In plaats van koppelen met de API key in de plugin (zie [Plugin koppelen](#3-plugin-koppelen-api-key)), kun je WooCommerce ook rechtstreeks vanuit je MyParcel-backoffice koppelen als **Sales channel**. MyParcel praat dan direct via de REST API met je WooCommerce-shop en haalt je bestellingen op.
+
+::: tip Welke methode gebruik ik?
+- Met de **plugin + API key** (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) voegt de plugin bezorgopties toe aan de WooCommerce-checkout en beheer je verzenden vanuit WordPress.
+- Met een **Sales channel** (deze sectie) haalt MyParcel je bestellingen rechtstreeks uit WooCommerce op en beheer je de koppeling vanuit de backoffice.
+:::
+
+### De sales channel aanmaken
+1. Log in op [backoffice.myparcel.com](https://backoffice.myparcel.com) en ga naar **Shop settings → Sales Channels** (Shopinstellingen → Verkoopkanalen).
+2. Klik rechtsboven op **Add sales channel** (Verkoopkanaal toevoegen).
+
+![Het overzicht Sales Channels in de MyParcel-backoffice, met rechtsboven de knop Add sales channel.](../../platforms/images/woocommerce/backoffice-sales-channels.png)
+
+3. Vul een **Name** (Naam) in waaraan je het kanaal herkent (bijv. *Mijn WooCommerce-shop*).
+4. Kies bij **Type of sales channel** (Type verkoopkanaal) voor **WooCommerce**.
+5. Vul je **Webshop URL** in — het adres van je WooCommerce-shop (bijvoorbeeld `https://jouw-shop.nl`).
+6. Klik op **Save** (Opslaan). Het kanaal wordt aangemaakt en krijgt een label **Missing data** (Gegevens ontbreken) tot je de inloggegevens toevoegt.
+
+![Een WooCommerce sales channel toevoegen: kies het type en vul je webshop-URL in, klik dan op Save.](../../platforms/images/woocommerce/backoffice-add-channel.png)
+
+### Het kanaal authenticeren (consumer key & secret)
+WooCommerce laat MyParcel je bestellingen lezen met een **Consumer key** en **Consumer secret** uit zijn REST API.
+
+1. Ga in je **WooCommerce**-beheer naar **WooCommerce → Settings → Advanced → REST API** en klik op **Add key**. Geef een omschrijving, zet **Permissions** op *Read/Write* en genereer de sleutel — WooCommerce toont de Consumer key en Consumer secret maar één keer, dus kopieer ze nu.
+2. Open in de backoffice het kanaal en klik op **Set credentials** (Gegevens instellen).
+3. Plak in de dialoog **Replace key and secret** (Key en secret vervangen) de **Consumer key** en **Consumer secret**.
+4. Klik op **Connect** (Verbinden).
+
+![De dialoog "Replace key and secret" vraagt om je WooCommerce Consumer key en Consumer secret.](../../platforms/images/woocommerce/backoffice-credentials.png)
+
+Zodra de verbinding er is, verdwijnt het label **Missing data**, toont het kanaal **Connected** (Verbonden) en begint MyParcel je WooCommerce-bestellingen te synchroniseren.
+
+::: warning Lukt verbinden niet?
+Meest voorkomende oorzaken: een extra spatie meegeplakt bij de key of secret · de REST API-sleutel is met alleen *Read* aangemaakt in plaats van *Read/Write* · de **Webshop URL** wijst naar een andere shop of mist `https://`.
 :::
 
 ## 3 · Plugin koppelen (API-key)
