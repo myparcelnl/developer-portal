@@ -26,7 +26,7 @@ Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je
 | Wat wil je doen? | Ga naar |
 | --- | --- |
 | Voor het eerst opzetten | [Snelstart](#snelstart-in-15-minuten-je-eerste-pakket) |
-| Koppelen via de backoffice in plaats van de plugin | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice-alternatief) |
+| Ook koppelen via de backoffice (sales channel) | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice) |
 | Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
 | Een specifieke instelling opzoeken | [5 · Settings · Bestellingen](#5-settings-bestellingen) tot [9 · Settings · Vervoerders](#9-settings-vervoerders) |
 | Per product een afwijkende instelling | [10 · Productinstellingen](#10-productinstellingen) |
@@ -56,12 +56,12 @@ Plugin 5.0.x werkt op **PrestaShop 1.7.8 t/m 8.x** met **PHP 7.4+** (8.1/8.2 aan
 Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Module Manager → Verwijderen*). Maak eerst een database-backup, leeg dan handmatig tabellen die met `ps_myparcelnl_` beginnen en installeer 5.0.x opnieuw.
 :::
 
-## Sales channel via de MyParcel Backoffice (alternatief)
-In plaats van koppelen met de API key in de plugin (zie [Plugin koppelen](#3-plugin-koppelen-api-key)), kun je PrestaShop ook rechtstreeks vanuit je MyParcel-backoffice koppelen als **Sales channel**. MyParcel praat dan direct via de webservice-API met je PrestaShop-shop en haalt je bestellingen op.
+## Sales channel via de MyParcel Backoffice
+Naast het koppelen van de plugin met je API key (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) registreer je PrestaShop als **Sales channel** in je MyParcel-backoffice — je gebruikt ze allebei. De plugin verzorgt de PrestaShop-checkout en -instellingen; de sales channel laat MyParcel rechtstreeks via de webservice-API met je shop praten en je bestellingen ophalen.
 
-::: tip Welke methode gebruik ik?
-- Met de **plugin + API key** (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) voegt de plugin bezorgopties toe aan de PrestaShop-checkout en beheer je verzenden vanuit je PrestaShop back office.
-- Met een **Sales channel** (deze sectie) haalt MyParcel je bestellingen rechtstreeks uit PrestaShop op en beheer je de koppeling vanuit de backoffice.
+::: tip Wat doet elke koppeling?
+- De **plugin + API key** (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) voegt bezorgopties toe aan de PrestaShop-checkout en laat je verzenden vanuit je PrestaShop back office beheren.
+- De **Sales channel** (deze sectie) laat MyParcel je bestellingen rechtstreeks uit PrestaShop ophalen en beheer je vanuit de backoffice.
 :::
 
 ### De sales channel aanmaken

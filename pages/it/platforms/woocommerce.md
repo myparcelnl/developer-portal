@@ -26,7 +26,7 @@ Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazion
 | Cosa vuoi fare? | Vai a |
 | --- | --- |
 | Configurazione iniziale | [Avvio rapido](#avvio-rapido-il-primo-pacco-in-15-minuti) |
-| Collegare dal backoffice invece che dal plugin | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel-alternativa) |
+| Collegare anche dal backoffice (sales channel) | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel) |
 | Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-e-il-tuo-profilo-shop) |
 | Cercare un'impostazione specifica | [5 · Impostazioni · Ordini](#5-impostazioni-ordini) fino a [9 · Impostazioni · Vettori](#9-impostazioni-vettori) |
 | Un'impostazione diversa per prodotto | [10 · Impostazioni prodotto](#10-impostazioni-prodotto) |
@@ -53,12 +53,12 @@ Prima di iniziare in WooCommerce, sistema quattro cose nel tuo backoffice MyParc
 Scarica lo ZIP della release da [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) e caricalo tramite **Plugin → Aggiungi nuovo → Carica plugin**.
 :::
 
-## Canale di vendita tramite il Backoffice MyParcel (alternativa)
-Invece di collegare con la API key dentro il plugin (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)), puoi collegare WooCommerce direttamente dal tuo backoffice MyParcel come **canale di vendita** (Sales channel). MyParcel comunica allora direttamente con il tuo negozio WooCommerce tramite la sua API REST e importa i tuoi ordini.
+## Canale di vendita tramite il Backoffice MyParcel
+Oltre a collegare il plugin con la tua API key (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)), registri WooCommerce come **canale di vendita** (Sales channel) nel tuo backoffice MyParcel — usi entrambi. Il plugin gestisce il checkout e le impostazioni di WooCommerce, mentre il canale di vendita consente a MyParcel di comunicare direttamente con il tuo negozio tramite la sua API REST e importare i tuoi ordini.
 
-::: tip Quale metodo uso?
-- Con il **plugin + API key** (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)) il plugin aggiunge le opzioni di consegna al checkout di WooCommerce e gestisci le spedizioni da WordPress.
-- Con un **canale di vendita** (questa sezione) MyParcel preleva i tuoi ordini direttamente da WooCommerce e gestisci il collegamento dal backoffice.
+::: tip Cosa fa ogni collegamento
+- Il **plugin + API key** (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)) aggiunge le opzioni di consegna al checkout di WooCommerce e ti permette di gestire le spedizioni da WordPress.
+- Il **canale di vendita** (questa sezione) consente a MyParcel di prelevare i tuoi ordini direttamente da WooCommerce e si gestisce dal backoffice.
 :::
 
 ### Creare il canale di vendita

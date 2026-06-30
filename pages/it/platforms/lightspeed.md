@@ -27,7 +27,7 @@ Quanto basta per spedire oggi il tuo primo ordine reale. Per una configurazione 
 | --- | --- |
 | Prima configurazione | [Avvio rapido](#avvio-rapido-il-tuo-primo-pacco-in-15-minuti) |
 | Collegare il tuo account | [3 · Collegare l'app](#3-collegare-lapp-api-key) |
-| Collegare dal backoffice invece che dall'app | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel-alternativa) |
+| Collegare anche dal backoffice (sales channel) | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel) |
 | Scegliere la lingua dell'app o quando vengono inviati gli ordini | [4 · Impostazioni · Generale](#4-impostazioni-generale) |
 | Scegliere come si sincronizzano gli ordini (Push o Pull) | [5 · Impostazioni · Modalità di sincronizzazione](#5-impostazioni-modalit-di-sincronizzazione) |
 | Aggiornare corrieri e opzioni | [6 · Impostazioni · Aggiornare la capacità](#6-impostazioni-aggiornare-la-capacit) |
@@ -52,7 +52,7 @@ Ti servono anche i tuoi **metodi di spedizione** impostati in Lightspeed. L'app 
 2. Installa l'app e consenti il collegamento con il tuo negozio.
 3. Apri l'app per raggiungere la pagina delle impostazioni. Da quel momento si aggiorna automaticamente.
 
-## Canale di vendita tramite il Backoffice MyParcel (alternativa)
+## Canale di vendita tramite il Backoffice MyParcel
 Oltre all'app dell'App Store, puoi collegare Lightspeed direttamente dal tuo backoffice MyParcel come **canale di vendita** (Sales channel). MyParcel comunica allora direttamente con il tuo negozio Lightspeed tramite la sua API e importa i tuoi ordini, senza che l'app gestisca il passaggio. Scegli questa via se preferisci gestire il collegamento da MyParcel.
 
 ::: tip Quale metodo uso?

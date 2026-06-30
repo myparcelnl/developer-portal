@@ -27,7 +27,7 @@ Genoeg om vandaag je eerste echte bestelling te versturen. Voor diepere configur
 | --- | --- |
 | Eerste installatie | [Snelstart](#snelstart-je-eerste-pakket-in-15-minuten) |
 | Je account koppelen | [3 · De app koppelen](#3-de-app-koppelen-api-key) |
-| Koppelen via de backoffice in plaats van de app | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice-alternatief) |
+| Ook koppelen via de backoffice (sales channel) | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice) |
 | App-taal of moment van doorsturen kiezen | [4 · Instellingen · Algemeen](#4-instellingen-algemeen) |
 | Kiezen hoe bestellingen synchroniseren (Push of Pull) | [5 · Instellingen · Synchronisatiemodus](#5-instellingen-synchronisatiemodus) |
 | Vervoerders en opties verversen | [6 · Instellingen · Capaciteit bijwerken](#6-instellingen-capaciteit-bijwerken) |
@@ -52,7 +52,7 @@ Je hebt ook je **verzendmethoden** nodig in Lightspeed. De app koppelt zich op n
 2. Installeer de app en sta de koppeling met je shop toe.
 3. Open de app om bij de instellingenpagina te komen. Vanaf dan werkt hij zichzelf automatisch bij.
 
-## Sales channel via de MyParcel Backoffice (alternatief)
+## Sales channel via de MyParcel Backoffice
 Naast de App Store-app kun je Lightspeed ook rechtstreeks vanuit je MyParcel-backoffice koppelen als **Sales channel**. MyParcel praat dan direct via de API met je Lightspeed-shop en haalt je bestellingen op, zonder dat de app de overdracht regelt. Kies dit als je de koppeling liever vanuit MyParcel beheert.
 
 ::: tip Welke methode gebruik ik?

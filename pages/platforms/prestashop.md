@@ -26,7 +26,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | What do you want to do? | Go to |
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
-| Connect from the backoffice instead of the plugin | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice-alternative) |
+| Also connect from the backoffice (sales channel) | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice) |
 | Recommended settings for your type of shop | [4 · Which shop profile are you?](#4-which-shop-profile-are-you) |
 | Look up a specific setting | [5 · Settings · Orders](#5-settings-orders) to [9 · Settings · Carriers](#9-settings-carriers) |
 | A different setting per product | [10 · Product settings](#10-product-settings) |
@@ -56,12 +56,12 @@ Plugin 5.0.x works on **PrestaShop 1.7.8 through 8.x** with **PHP 7.4+** (8.1/8.
 Remove earlier MyParcel modules completely (including database tables via *Module Manager → Uninstall*). Make a database backup first, then manually clear tables that start with `ps_myparcelnl_` and reinstall 5.0.x.
 :::
 
-## Sales channel via the MyParcel Backoffice (alternative)
-Instead of connecting with the API key inside the plugin (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you can connect PrestaShop straight from your MyParcel backoffice as a **Sales channel**. MyParcel then talks to your PrestaShop shop directly over its webservice API and imports your orders.
+## Sales channel via the MyParcel Backoffice
+As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you register PrestaShop as a **Sales channel** in your MyParcel backoffice — you use both. The plugin handles the PrestaShop checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its webservice API and import your orders.
 
-::: tip Which method do I use?
-- With the **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) the plugin adds delivery options to the PrestaShop checkout and you manage shipping from your PrestaShop back office.
-- With a **Sales channel** (this section) MyParcel pulls your orders from PrestaShop directly and you manage the connection from the backoffice.
+::: tip What each connection does
+- The **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) adds delivery options to the PrestaShop checkout and lets you manage shipping from your PrestaShop back office.
+- The **Sales channel** (this section) lets MyParcel pull your orders from PrestaShop directly and is managed from the backoffice.
 :::
 
 ### Create the sales channel
