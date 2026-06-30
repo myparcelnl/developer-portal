@@ -26,7 +26,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | What do you want to do? | Go to |
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
-| Connect from the backoffice instead of the plugin | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice-alternative) |
+| Also connect from the backoffice (sales channel) | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice) |
 | Recommended settings for your type of shop | [4 · Which shop profile are you?](#4-which-shop-profile-are-you) |
 | Look up a specific setting | [5 · Settings · Orders](#5-settings-orders) to [9 · Settings · Carriers](#9-settings-carriers) |
 | A different setting per product | [10 · Product settings](#10-product-settings) |
@@ -53,12 +53,12 @@ Before you start in WooCommerce, take care of four things in your MyParcel backo
 Download the release ZIP from [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) and upload it via **Plugins → Add new plugin → Upload plugin**.
 :::
 
-## Sales channel via the MyParcel Backoffice (alternative)
-Instead of connecting with the API key inside the plugin (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you can connect WooCommerce straight from your MyParcel backoffice as a **Sales channel**. MyParcel then talks to your WooCommerce shop directly over its REST API and imports your orders.
+## Sales channel via the MyParcel Backoffice
+As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you register WooCommerce as a **Sales channel** in your MyParcel backoffice — you use both. The plugin handles the WooCommerce checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its REST API and import your orders.
 
-::: tip Which method do I use?
-- With the **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) the plugin adds delivery options to the WooCommerce checkout and you manage shipping from WordPress.
-- With a **Sales channel** (this section) MyParcel pulls your orders from WooCommerce directly and you manage the connection from the backoffice.
+::: tip What each connection does
+- The **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) adds delivery options to the WooCommerce checkout and lets you manage shipping from WordPress.
+- The **Sales channel** (this section) lets MyParcel pull your orders from WooCommerce directly and is managed from the backoffice.
 :::
 
 ### Create the sales channel

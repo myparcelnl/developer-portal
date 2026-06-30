@@ -27,7 +27,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
 | Connect your account | [3 · Connecting the app](#3-connecting-the-app-api-key) |
-| Connect from the backoffice instead of the app | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice-alternative) |
+| Also connect from the backoffice (sales channel) | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice) |
 | Choose the app language or when orders are sent | [4 · Settings · General](#4-settings-general) |
 | Choose how orders sync (Push or Pull) | [5 · Settings · Sync mode](#5-settings-sync-mode) |
 | Refresh carriers and options | [6 · Settings · Updating capacity](#6-settings-updating-capacity) |
@@ -52,7 +52,7 @@ You also need your **shipping methods** set up in Lightspeed. The app links to t
 2. Install the app and allow the connection to your shop.
 3. Open the app to reach the settings page. It updates itself automatically from then on.
 
-## Sales channel via the MyParcel Backoffice (alternative)
+## Sales channel via the MyParcel Backoffice
 Alongside the App Store app, you can connect Lightspeed straight from your MyParcel backoffice as a **Sales channel**. MyParcel then talks to your Lightspeed shop directly over its API and imports your orders, without the app handling the hand-off. Choose this if you prefer to manage the connection from MyParcel.
 
 ::: tip Which method do I use?

@@ -26,7 +26,7 @@ Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je
 | Wat wil je doen? | Ga naar |
 | --- | --- |
 | Voor het eerst opzetten | [Snelstart](#snelstart-in-15-minuten-je-eerste-pakket) |
-| Koppelen via de backoffice in plaats van de plugin | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice-alternatief) |
+| Ook koppelen via de backoffice (sales channel) | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice) |
 | Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
 | Een specifieke instelling opzoeken | [5 · Settings · Bestellingen](#5-settings-bestellingen) tot [9 · Settings · Vervoerders](#9-settings-vervoerders) |
 | Per product een afwijkende instelling | [10 · Productinstellingen](#10-productinstellingen) |
@@ -53,12 +53,12 @@ Voordat je in WooCommerce begint, regel je vier dingen in je MyParcel-backoffice
 Download de release-ZIP via [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) en upload via **Plugins → Nieuwe plugin → Plugin uploaden**.
 :::
 
-## Sales channel via de MyParcel Backoffice (alternatief)
-In plaats van koppelen met de API key in de plugin (zie [Plugin koppelen](#3-plugin-koppelen-api-key)), kun je WooCommerce ook rechtstreeks vanuit je MyParcel-backoffice koppelen als **Sales channel**. MyParcel praat dan direct via de REST API met je WooCommerce-shop en haalt je bestellingen op.
+## Sales channel via de MyParcel Backoffice
+Naast het koppelen van de plugin met je API key (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) registreer je WooCommerce als **Sales channel** in je MyParcel-backoffice — je gebruikt ze allebei. De plugin verzorgt de WooCommerce-checkout en -instellingen; de sales channel laat MyParcel rechtstreeks via de REST API met je shop praten en je bestellingen ophalen.
 
-::: tip Welke methode gebruik ik?
-- Met de **plugin + API key** (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) voegt de plugin bezorgopties toe aan de WooCommerce-checkout en beheer je verzenden vanuit WordPress.
-- Met een **Sales channel** (deze sectie) haalt MyParcel je bestellingen rechtstreeks uit WooCommerce op en beheer je de koppeling vanuit de backoffice.
+::: tip Wat doet elke koppeling?
+- De **plugin + API key** (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) voegt bezorgopties toe aan de WooCommerce-checkout en laat je verzenden vanuit WordPress beheren.
+- De **Sales channel** (deze sectie) laat MyParcel je bestellingen rechtstreeks uit WooCommerce ophalen en beheer je vanuit de backoffice.
 :::
 
 ### De sales channel aanmaken
