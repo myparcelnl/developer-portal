@@ -21,7 +21,7 @@ const headers = computed(() => {
 
 <template>
   <aside v-if="headers.length" class="mp-docs-toc">
-    <div class="mp-docs-toc__label">On this page</div>
+    <div class="mp-docs-toc__label" data-i18n="On this page">On this page</div>
     <ul>
       <li v-for="h in headers" :key="h.slug" :class="{ 'is-sub': h.level === 3 }">
         <a :href="`#${h.slug}`">{{ h.title }}</a>

@@ -102,13 +102,13 @@ const next = computed(() =>
 
         <nav v-if="prev || next" class="mp-docs-pager">
           <a v-if="prev" :href="prev.link" class="mp-docs-pager__link mp-docs-pager__link--prev">
-            <span class="mp-docs-pager__label">Previous</span>
-            <span class="mp-docs-pager__title">← {{ prev.text }}</span>
+            <span class="mp-docs-pager__label" data-i18n="Previous">Previous</span>
+            <span class="mp-docs-pager__title">← <span :data-i18n="prev.text">{{ prev.text }}</span></span>
           </a>
           <span v-else></span>
           <a v-if="next" :href="next.link" class="mp-docs-pager__link mp-docs-pager__link--next">
-            <span class="mp-docs-pager__label">Next</span>
-            <span class="mp-docs-pager__title">{{ next.text }} →</span>
+            <span class="mp-docs-pager__label" data-i18n="Next">Next</span>
+            <span class="mp-docs-pager__title"><span :data-i18n="next.text">{{ next.text }}</span> →</span>
           </a>
           <span v-else></span>
         </nav>

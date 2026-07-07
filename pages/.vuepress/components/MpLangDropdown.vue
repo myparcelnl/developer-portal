@@ -27,15 +27,21 @@ const flags: Record<Lang, string> = {
     <rect width="3" height="6" x="3" fill="#FFFFFF"/>
     <rect width="3" height="6" x="6" fill="#CE2B37"/>
   </svg>`,
+  fr: `<svg viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="3" height="6" x="0" fill="#002395"/>
+    <rect width="3" height="6" x="3" fill="#FFFFFF"/>
+    <rect width="3" height="6" x="6" fill="#ED2939"/>
+  </svg>`,
 };
 
 const labels: Record<Lang, string> = {
   en: 'English',
   nl: 'Nederlands',
   it: 'Italiano',
+  fr: 'Français',
 };
 
-const langs: Lang[] = ['en', 'nl', 'it'];
+const langs: Lang[] = ['en', 'nl', 'it', 'fr'];
 
 const open = ref(false);
 const root = ref<HTMLElement | null>(null);

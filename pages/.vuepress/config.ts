@@ -46,7 +46,7 @@ export default defineUserConfig({
   base: '/',
 
   // Locale roots — content under these path prefixes uses the locale's lang.
-  // The actual translated markdown lives under pages/nl/ and pages/it/.
+  // The actual translated markdown lives under pages/nl/, pages/it/ and pages/fr/.
   locales: {
     '/': {
       lang: 'en-US',
@@ -62,6 +62,11 @@ export default defineUserConfig({
       lang: 'it-IT',
       title: 'MyParcel Developer Portal',
       description: 'Guide, SDK, plugin e riferimento API auto-generato per MyParcel.',
+    },
+    '/fr/': {
+      lang: 'fr-FR',
+      title: 'MyParcel Developer Portal',
+      description: 'Guides, SDK, plugins et référence API auto-générée pour MyParcel.',
     },
   },
 
@@ -93,10 +98,16 @@ export default defineUserConfig({
     // in the Italian translations here so the locale resolves cleanly.
     themePlugins: {
       backToTop: {
-        locales: { '/it/': { backToTop: 'Torna su' } },
+        locales: {
+          '/it/': { backToTop: 'Torna su' },
+          '/fr/': { backToTop: 'Haut de page' },
+        },
       },
       copyCode: {
-        locales: { '/it/': { copy: 'Copia codice', copied: 'Copiato' } },
+        locales: {
+          '/it/': { copy: 'Copia codice', copied: 'Copiato' },
+          '/fr/': { copy: 'Copier le code', copied: 'Copié' },
+        },
       },
       git: {
         locales: {
@@ -106,6 +117,13 @@ export default defineUserConfig({
             timeOn: 'il',
             viewChangelog: 'Visualizza intero registro',
             latestUpdateAt: 'Ultimo aggiornamento',
+          },
+          '/fr/': {
+            contributors: 'Contributeurs',
+            changelog: 'Journal des modifications',
+            timeOn: 'le',
+            viewChangelog: 'Voir tout le journal',
+            latestUpdateAt: 'Dernière mise à jour',
           },
         },
       },
@@ -119,6 +137,15 @@ export default defineUserConfig({
             warning: 'Avviso',
             caution: 'Attenzione',
             details: 'Dettagli',
+          },
+          '/fr/': {
+            important: 'Important',
+            info: 'Info',
+            note: 'Note',
+            tip: 'Astuce',
+            warning: 'Avertissement',
+            caution: 'Attention',
+            details: 'Détails',
           },
         },
       },
@@ -141,7 +168,7 @@ export default defineUserConfig({
     [
       'script',
       {},
-      `(function(){try{var l=localStorage.getItem('mp-lang');if(l!=='nl'&&l!=='it')return;var b='';var p=window.location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length)||'/';if(r.indexOf('/nl/')===0||r==='/nl'||r.indexOf('/it/')===0||r==='/it')return;var s={'/guides/getting-started.html':1,'/guides/authentication.html':1,'/guides/requests.html':1,'/guides/responses.html':1,'/guides/character-encoding.html':1,'/guides/shipments.html':1,'/guides/webhooks.html':1,'/guides/data-types.html':1,'/guides/php-sdk.html':1,'/guides/javascript-sdk.html':1,'/platforms/woocommerce.html':1,'/platforms/magento2.html':1,'/platforms/prestashop.html':1,'/platforms/shopify.html':1,'/platforms/lightspeed.html':1,'/platforms/cscart.html':1};if(s[r])window.location.replace(b+'/'+l+r+window.location.search+window.location.hash);}catch(e){}})();`,
+      `(function(){try{var l=localStorage.getItem('mp-lang');if(l!=='nl'&&l!=='it'&&l!=='fr')return;var b='';var p=window.location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length)||'/';if(r.indexOf('/nl/')===0||r==='/nl'||r.indexOf('/it/')===0||r==='/it'||r.indexOf('/fr/')===0||r==='/fr')return;var s={'/guides/getting-started.html':1,'/guides/authentication.html':1,'/guides/requests.html':1,'/guides/responses.html':1,'/guides/character-encoding.html':1,'/guides/shipments.html':1,'/guides/webhooks.html':1,'/guides/data-types.html':1,'/guides/php-sdk.html':1,'/guides/javascript-sdk.html':1,'/platforms/woocommerce.html':1,'/platforms/magento2.html':1,'/platforms/prestashop.html':1,'/platforms/shopify.html':1,'/platforms/lightspeed.html':1,'/platforms/cscart.html':1};if(l==='fr')s['/platforms/delivery-options.html']=1;if(s[r])window.location.replace(b+'/'+l+r+window.location.search+window.location.hash);}catch(e){}})();`,
     ],
   ],
 });

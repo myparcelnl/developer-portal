@@ -1,13 +1,15 @@
 import { ref, watchEffect } from 'vue';
 import nl from '../translations/nl.json';
 import it from '../translations/it.json';
+import fr from '../translations/fr.json';
 
-export type Lang = 'en' | 'nl' | 'it';
+export type Lang = 'en' | 'nl' | 'it' | 'fr';
 
 const dictionaries: Record<Lang, Record<string, string>> = {
   en: {},
   nl: nl as Record<string, string>,
   it: it as Record<string, string>,
+  fr: fr as Record<string, string>,
 };
 
 export const lang = ref<Lang>('en');
