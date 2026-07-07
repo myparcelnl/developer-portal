@@ -130,15 +130,15 @@ onBeforeUnmount(() => {
     <div class="mp-nav__spacer"></div>
 
     <div class="mp-nav__links">
-      <a href="/" class="mp-nav__link" :class="{ 'is-active': isHome }">Home</a>
-      <a :href="docsHomeHref" class="mp-nav__link" :class="{ 'is-active': isGuides }">Documentation</a>
+      <a href="/" class="mp-nav__link" :class="{ 'is-active': isHome }" data-i18n="Home">Home</a>
+      <a :href="docsHomeHref" class="mp-nav__link" :class="{ 'is-active': isGuides }" data-i18n="Documentation">Documentation</a>
       <div
         class="mp-nav__item"
         :class="{ 'is-open': apiOpen, 'is-active': isApi }"
         @mouseenter="apiOpen = true"
         @mouseleave="apiOpen = false"
       >
-        <a href="/api/" class="mp-nav__link" :class="{ 'is-active': isApi }">API Reference</a>
+        <a href="/api/" class="mp-nav__link" :class="{ 'is-active': isApi }" data-i18n="API Reference">API Reference</a>
         <svg class="mp-nav__caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
@@ -150,8 +150,8 @@ onBeforeUnmount(() => {
           </li>
         </ul>
       </div>
-      <a href="/about.html" class="mp-nav__link" :class="{ 'is-active': isAbout }">About</a>
-      <a href="/contact.html" class="mp-nav__link" :class="{ 'is-active': isContact }">Contact</a>
+      <a href="/about.html" class="mp-nav__link" :class="{ 'is-active': isAbout }" data-i18n="About">About</a>
+      <a href="/contact.html" class="mp-nav__link" :class="{ 'is-active': isContact }" data-i18n="Contact">Contact</a>
     </div>
 
     <ClientOnly>
@@ -227,8 +227,8 @@ onBeforeUnmount(() => {
         </header>
 
         <nav class="mp-mobile-drawer__nav">
-          <a href="/" class="mp-mobile-drawer__link" :class="{ 'is-active': isHome }">Home</a>
-          <a :href="docsHomeHref" class="mp-mobile-drawer__link" :class="{ 'is-active': isGuides }">Documentation</a>
+          <a href="/" class="mp-mobile-drawer__link" :class="{ 'is-active': isHome }" data-i18n="Home">Home</a>
+          <a :href="docsHomeHref" class="mp-mobile-drawer__link" :class="{ 'is-active': isGuides }" data-i18n="Documentation">Documentation</a>
 
           <div class="mp-mobile-drawer__group">
             <button
@@ -238,7 +238,7 @@ onBeforeUnmount(() => {
               :aria-expanded="mobileApiOpen"
               @click="mobileApiOpen = !mobileApiOpen"
             >
-              API Reference
+              <span data-i18n="API Reference">API Reference</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
@@ -264,7 +264,7 @@ onBeforeUnmount(() => {
               :aria-expanded="mobilePlatformsOpen"
               @click="mobilePlatformsOpen = !mobilePlatformsOpen"
             >
-              Plugins &amp; integrations
+              <span data-i18n="Plugins & integrations">Plugins &amp; integrations</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
@@ -281,12 +281,12 @@ onBeforeUnmount(() => {
             </div>
           </div>
 
-          <a href="/about.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isAbout }">About</a>
-          <a href="/contact.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isContact }">Contact</a>
+          <a href="/about.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isAbout }" data-i18n="About">About</a>
+          <a href="/contact.html" class="mp-mobile-drawer__link" :class="{ 'is-active': isContact }" data-i18n="Contact">Contact</a>
         </nav>
 
         <footer class="mp-mobile-drawer__foot">
-          <div class="mp-mobile-drawer__foot-label">Language</div>
+          <div class="mp-mobile-drawer__foot-label" data-i18n="Language">Language</div>
           <MpLangDropdown />
         </footer>
       </aside>

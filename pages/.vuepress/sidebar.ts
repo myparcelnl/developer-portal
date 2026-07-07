@@ -3,10 +3,10 @@
 //
 // Sidebar items use slug-only links (no / prefix).
 // At render time, callers pass through `localizeSidebar(groups, lang)` which
-// injects both the VuePress base and the optional locale prefix (/nl/ or /it/).
+// injects both the VuePress base and the optional locale prefix (/nl/, /it/ or /fr/).
 // This way one canonical structure serves all three locales.
 
-export type Lang = 'en' | 'nl' | 'it';
+export type Lang = 'en' | 'nl' | 'it' | 'fr';
 
 export interface SidebarItem {
   /** Display text — translated by the data-i18n system at runtime. */
@@ -69,12 +69,14 @@ export const docsSidebar: SidebarGroup[] = [
 export const BASE = '';
 
 /**
- * Set of paths that have translated copies. When the user is browsing in
- * NL/IT, only these paths get the locale prefix injected. Everything else
- * (API references, platform manuals) stays at the root
- * locale path because we don't translate those today.
+ * Paths that have translated copies, per locale. When the user browses in a
+ * non-English locale, only these paths get the locale prefix injected.
+ * Everything else (API references, untranslated manuals) stays at the root
+ * locale path. Coverage differs per locale, so this is a per-lang map rather
+ * than one shared set — French additionally covers the Delivery Options
+ * frontend integration page.
  */
-const LOCALIZED_PATHS = new Set<string>([
+const GUIDE_PATHS = [
   '/guides/getting-started.html',
   '/guides/authentication.html',
   '/guides/shipments.html',
@@ -83,15 +85,25 @@ const LOCALIZED_PATHS = new Set<string>([
   '/guides/data-types.html',
   '/guides/php-sdk.html',
   '/guides/javascript-sdk.html',
+];
+
+const CORE_PLATFORM_PATHS = [
   '/platforms/woocommerce.html',
   '/platforms/magento2.html',
   '/platforms/prestashop.html',
-]);
+];
 
-export function isLocalizedPath(slugPath: string): boolean {
+const LOCALIZED_PATHS_BY_LANG: Record<Exclude<Lang, 'en'>, Set<string>> = {
+  nl: new Set([...GUIDE_PATHS, ...CORE_PLATFORM_PATHS]),
+  it: new Set([...GUIDE_PATHS, ...CORE_PLATFORM_PATHS]),
+  fr: new Set([...GUIDE_PATHS, ...CORE_PLATFORM_PATHS, '/platforms/delivery-options.html']),
+};
+
+export function isLocalizedPath(slugPath: string, lang: Lang): boolean {
+  if (lang === 'en') return false;
   // Strip query strings before lookup (some links carry ?p=Foo).
   const noQuery = slugPath.split('?')[0];
-  return LOCALIZED_PATHS.has(noQuery);
+  return LOCALIZED_PATHS_BY_LANG[lang].has(noQuery);
 }
 
 /** Inject the VuePress base + optional locale prefix into every link. */
@@ -101,7 +113,7 @@ export function localizeSidebar(groups: SidebarGroup[], lang: Lang): SidebarGrou
     label: g.label,
     items: g.items.map((i) => ({
       text: i.text,
-      link: BASE + (isLocalizedPath(i.link) ? localePrefix : '') + i.link,
+      link: BASE + (isLocalizedPath(i.link, lang) ? localePrefix : '') + i.link,
     })),
   }));
 }
@@ -110,7 +122,7 @@ export function localizeSidebar(groups: SidebarGroup[], lang: Lang): SidebarGrou
 export function toSlugPath(routerPath: string): string {
   let p = routerPath;
   if (p.startsWith(BASE)) p = p.slice(BASE.length);
-  const m = p.match(/^\/(nl|it)(\/.*)?$/);
+  const m = p.match(/^\/(nl|it|fr)(\/.*)?$/);
   if (m) p = m[2] ?? '/';
   return p || '/';
 }
@@ -120,6 +132,7 @@ export function detectLang(routerPath: string): Lang {
   const stripped = routerPath.startsWith(BASE) ? routerPath.slice(BASE.length) : routerPath;
   if (stripped.startsWith('/nl/') || stripped === '/nl') return 'nl';
   if (stripped.startsWith('/it/') || stripped === '/it') return 'it';
+  if (stripped.startsWith('/fr/') || stripped === '/fr') return 'fr';
   return 'en';
 }
 
@@ -127,5 +140,5 @@ export function detectLang(routerPath: string): Lang {
 export function localizeCurrentPath(routerPath: string, targetLang: Lang): string {
   const slug = toSlugPath(routerPath);
   const localePrefix = targetLang === 'en' ? '' : `/${targetLang}`;
-  return BASE + (isLocalizedPath(slug) ? localePrefix : '') + slug;
+  return BASE + (isLocalizedPath(slug, targetLang) ? localePrefix : '') + slug;
 }

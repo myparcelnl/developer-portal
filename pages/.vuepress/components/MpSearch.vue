@@ -159,6 +159,7 @@ onBeforeUnmount(() => {
     <input
       type="search"
       placeholder="Search API reference…"
+      data-i18n-placeholder="Search API reference…"
       readonly
       @focus="openModal"
       aria-label="Open search"
@@ -183,6 +184,7 @@ onBeforeUnmount(() => {
             class="mp-cmdk__input"
             v-model="query"
             placeholder="Search docs and APIs…"
+            data-i18n-placeholder="Search docs and APIs…"
             @keydown="onKeydown"
           />
           <button type="button" class="mp-cmdk__close" @click="closeModal" aria-label="Close">Esc</button>
