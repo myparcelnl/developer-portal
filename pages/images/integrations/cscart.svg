@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="CS-Cart">
+  <rect x="2" y="2" width="44" height="44" rx="10" fill="#4a90e2"/>
+  <path d="M13 15h3.2l1.1 4m0 0 1.9 8.4a2 2 0 0 0 1.95 1.55h8.4a2 2 0 0 0 1.94-1.5l1.8-6.95a1 1 0 0 0-.97-1.25H17.3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="21" cy="33.5" r="1.9" fill="#fff"/>
+  <circle cx="30" cy="33.5" r="1.9" fill="#fff"/>
+</svg>

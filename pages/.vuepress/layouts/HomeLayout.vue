@@ -561,6 +561,10 @@ onMounted(async () => {
         <img class="mp-platform__img" src="/images/integrations/lightspeed.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">Lightspeed</span>
       </a>
+      <a class="mp-platform" href="/platforms/cscart.html">
+        <img class="mp-platform__img" src="/images/integrations/cscart.svg" alt="" width="48" height="48" loading="lazy">
+        <span class="mp-platform__name">CS-Cart</span>
+      </a>
     </div>
   </section>
 

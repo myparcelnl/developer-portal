@@ -47,6 +47,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'PrestaShop', link: '/platforms/prestashop.html' },
       { text: 'Shopify', link: '/platforms/shopify.html' },
       { text: 'Lightspeed', link: '/platforms/lightspeed.html' },
+      { text: 'CS-Cart', link: '/platforms/cscart.html' },
     ],
   },
     {
@@ -94,6 +95,7 @@ const LOCALIZED_PATHS = new Set<string>([
   '/platforms/prestashop.html',
   '/platforms/shopify.html',
   '/platforms/lightspeed.html',
+  '/platforms/cscart.html',
 ]);
 
 export function isLocalizedPath(slugPath: string): boolean {
