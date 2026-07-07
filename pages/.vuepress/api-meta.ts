@@ -44,8 +44,6 @@ const MYPARCEL_GROUPS: GroupOverride[] = [
 ];
 
 // Path → meta lookup used by ApiLayout.
-// IAM was removed from the portal on main (commit 7fa2421); event.api.myparcel.nl
-// publishes no openapi.yaml yet, so it has no specUrl entry here.
 export const apiMeta: Record<string, ApiMeta> = {
   '/api/myparcel.html':       M('myparcel',       'Shipment API',       'api.myparcel.nl',                'v2026-04-16', '29', MYPARCEL_GROUPS),
   '/api/order.html':          M('order',          'Order API',          'order.api.myparcel.nl',          'v1',          '14'),

@@ -479,21 +479,6 @@ onMounted(async () => {
         </div>
       </a>
 
-      <a href="/api/event.html" class="mp-api-card">
-        <div class="mp-api-card__top">
-          <div class="mp-api-card__icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <span class="mp-api-card__badge">soon</span>
-        </div>
-        <div class="mp-api-card__name">Event API</div>
-        <div class="mp-api-card__url">event.api.myparcel.nl</div>
-        <p class="mp-api-card__desc">Platform event bus — subscribe to shipment, order and webhook events.</p>
-        <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>Coming soon</span></span>
-          <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-        </div>
-      </a>
 
     </div>
   </section>
@@ -567,6 +552,18 @@ onMounted(async () => {
       <a class="mp-platform" href="/platforms/prestashop.html">
         <img class="mp-platform__img" src="/images/integrations/prestashop.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">PrestaShop</span>
+      </a>
+      <a class="mp-platform" href="/platforms/shopify.html">
+        <img class="mp-platform__img" src="/images/integrations/shopify.svg" alt="" width="48" height="48" loading="lazy">
+        <span class="mp-platform__name">Shopify</span>
+      </a>
+      <a class="mp-platform" href="/platforms/lightspeed.html">
+        <img class="mp-platform__img" src="/images/integrations/lightspeed.svg" alt="" width="48" height="48" loading="lazy">
+        <span class="mp-platform__name">Lightspeed</span>
+      </a>
+      <a class="mp-platform" href="/platforms/cscart.html">
+        <img class="mp-platform__img" src="/images/integrations/cscart.svg" alt="" width="48" height="48" loading="lazy">
+        <span class="mp-platform__name">CS-Cart</span>
       </a>
     </div>
   </section>

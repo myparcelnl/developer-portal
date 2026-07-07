@@ -26,6 +26,7 @@ Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je
 | Wat wil je doen? | Ga naar |
 | --- | --- |
 | Voor het eerst opzetten | [Snelstart](#snelstart-in-15-minuten-je-eerste-pakket) |
+| Ook koppelen via de backoffice (sales channel) | [Sales channel via de MyParcel Backoffice](#sales-channel-via-de-myparcel-backoffice) |
 | Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
 | Een specifieke instelling opzoeken | [5 · Settings · Bestellingen](#5-settings-bestellingen) tot [9 · Settings · Vervoerders](#9-settings-vervoerders) |
 | Per product een afwijkende instelling | [10 · Productinstellingen](#10-productinstellingen) |
@@ -53,6 +54,43 @@ Plugin 5.0.x werkt op **PrestaShop 1.7.8 t/m 8.x** met **PHP 7.4+** (8.1/8.2 aan
 
 ::: details Installatie mislukt met "Pdk instance must be set to use facades"
 Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Module Manager → Verwijderen*). Maak eerst een database-backup, leeg dan handmatig tabellen die met `ps_myparcelnl_` beginnen en installeer 5.0.x opnieuw.
+:::
+
+## Sales channel via de MyParcel Backoffice
+Naast het koppelen van de plugin met je API key (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) registreer je PrestaShop als **Sales channel** in je MyParcel-backoffice — je gebruikt ze allebei. De plugin verzorgt de PrestaShop-checkout en -instellingen; de sales channel laat MyParcel rechtstreeks via de webservice-API met je shop praten en je bestellingen ophalen.
+
+::: tip Wat doet elke koppeling?
+- De **plugin + API key** (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) voegt bezorgopties toe aan de PrestaShop-checkout en laat je verzenden vanuit je PrestaShop back office beheren.
+- De **Sales channel** (deze sectie) laat MyParcel je bestellingen rechtstreeks uit PrestaShop ophalen en beheer je vanuit de backoffice.
+:::
+
+### De sales channel aanmaken
+1. Log in op [backoffice.myparcel.com](https://backoffice.myparcel.com) en ga naar **Shop settings → Sales Channels** (Shopinstellingen → Verkoopkanalen).
+2. Klik rechtsboven op **Add sales channel** (Verkoopkanaal toevoegen).
+
+![Het overzicht Sales Channels in de MyParcel-backoffice, met rechtsboven de knop Add sales channel.](../../platforms/images/prestashop/backoffice-sales-channels.png)
+
+3. Vul een **Name** (Naam) in waaraan je het kanaal herkent (bijv. *Mijn PrestaShop-shop*).
+4. Kies bij **Type of sales channel** (Type verkoopkanaal) voor **PrestaShop**.
+5. Vul je **Webshop URL** in — het adres van je PrestaShop-shop (bijvoorbeeld `https://jouw-shop.nl`).
+6. Klik op **Save** (Opslaan). Het kanaal wordt aangemaakt en krijgt een label **Missing data** (Gegevens ontbreken) tot je de API key toevoegt.
+
+![Een PrestaShop sales channel toevoegen: kies het type en vul je webshop-URL in, klik dan op Save.](../../platforms/images/prestashop/backoffice-add-channel.png)
+
+### Het kanaal authenticeren (API key)
+PrestaShop laat MyParcel je bestellingen lezen met een **webservice-API key**.
+
+1. Ga in je **PrestaShop** back office naar **Advanced Parameters → Webservice** (Geavanceerde parameters → Webservice), zet de webservice aan en klik op **Add new webservice key**. Genereer een sleutel, geef die de resources die MyParcel nodig heeft en sla op. Kopieer de gegenereerde sleutel.
+2. Open in de backoffice het kanaal en klik op **Set credentials** (Gegevens instellen).
+3. Plak in de dialoog **Set API key** (API key instellen) je **PrestaShop API key**.
+4. Klik op **Connect** (Verbinden).
+
+![De dialoog "Set API key" vraagt om je PrestaShop API key.](../../platforms/images/prestashop/backoffice-credentials.png)
+
+Zodra de verbinding er is, verdwijnt het label **Missing data**, toont het kanaal **Connected** (Verbonden) en begint MyParcel je PrestaShop-bestellingen te synchroniseren.
+
+::: warning Lukt verbinden niet?
+Meest voorkomende oorzaken: een extra spatie meegeplakt bij de key · de webservice staat niet aan in PrestaShop · de sleutel heeft geen rechten voor de benodigde resources · de **Webshop URL** wijst naar een andere shop of mist `https://`.
 :::
 
 ## 3 · Plugin koppelen (API-key)

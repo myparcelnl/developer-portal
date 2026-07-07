@@ -52,7 +52,7 @@ Con il token in mano, chiama l'API MyParcel per creare una spedizione. Etichette
 Scegli il percorso che corrisponde alla tua integrazione:
 
 - [Autenticazione approfondita](authentication.md) — scope, refresh token, revoca.
-- [Opzioni di consegna](delivery-options.md) — pickup point, consegna serale, firma.
+- [Opzioni di consegna](../../platforms/delivery-options.md) — pickup point, consegna serale, firma.
 - [Webhook](webhooks.md) — ricevi notifiche quando una spedizione viene consegnata al carrier o recapitata.
 - [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — salta l'HTTP grezzo e usa le nostre librerie.
 - [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) o un altro plugin e-commerce — installa, configura, fatto.

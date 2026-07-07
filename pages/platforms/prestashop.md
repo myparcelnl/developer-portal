@@ -26,6 +26,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | What do you want to do? | Go to |
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
+| Also connect from the backoffice (sales channel) | [Sales channel via the MyParcel Backoffice](#sales-channel-via-the-myparcel-backoffice) |
 | Recommended settings for your type of shop | [4 · Which shop profile are you?](#4-which-shop-profile-are-you) |
 | Look up a specific setting | [5 · Settings · Orders](#5-settings-orders) to [9 · Settings · Carriers](#9-settings-carriers) |
 | A different setting per product | [10 · Product settings](#10-product-settings) |
@@ -53,6 +54,43 @@ Plugin 5.0.x works on **PrestaShop 1.7.8 through 8.x** with **PHP 7.4+** (8.1/8.
 
 ::: details Installation fails with "Pdk instance must be set to use facades"
 Remove earlier MyParcel modules completely (including database tables via *Module Manager → Uninstall*). Make a database backup first, then manually clear tables that start with `ps_myparcelnl_` and reinstall 5.0.x.
+:::
+
+## Sales channel via the MyParcel Backoffice
+As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you register PrestaShop as a **Sales channel** in your MyParcel backoffice — you use both. The plugin handles the PrestaShop checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its webservice API and import your orders.
+
+::: tip What each connection does
+- The **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) adds delivery options to the PrestaShop checkout and lets you manage shipping from your PrestaShop back office.
+- The **Sales channel** (this section) lets MyParcel pull your orders from PrestaShop directly and is managed from the backoffice.
+:::
+
+### Create the sales channel
+1. Log in to [backoffice.myparcel.com](https://backoffice.myparcel.com) and go to **Shop settings → Sales Channels**.
+2. Click **Add sales channel** (top right).
+
+![The Sales Channels overview in the MyParcel backoffice, with the Add sales channel button at the top right.](./images/prestashop/backoffice-sales-channels.png)
+
+3. Fill in a **Name** that helps you recognise the channel (e.g. *My PrestaShop shop*).
+4. Under **Type of sales channel**, choose **PrestaShop**.
+5. Fill in your **Webshop URL** — the address of your PrestaShop shop (for example `https://your-shop.com`).
+6. Click **Save**. The channel is created and shows a **Missing data** badge until you add the API key.
+
+![Adding a PrestaShop sales channel: choose the type and fill in your webshop URL, then Save.](./images/prestashop/backoffice-add-channel.png)
+
+### Authenticate the channel (API key)
+PrestaShop lets MyParcel read your orders with a **webservice API key**.
+
+1. In your **PrestaShop** back office, go to **Advanced Parameters → Webservice**, switch the webservice on and click **Add new webservice key**. Generate a key, grant it the resources MyParcel needs and save. Copy the generated key.
+2. Back in the backoffice, open the channel and click **Set credentials**.
+3. In the **Set API key** dialog, paste your **PrestaShop API key**.
+4. Click **Connect**.
+
+![The "Set API key" dialog asks for your PrestaShop API key.](./images/prestashop/backoffice-credentials.png)
+
+Once connected, the **Missing data** badge disappears, the channel shows **Connected** and MyParcel starts synchronising your PrestaShop orders.
+
+::: warning Not connecting?
+Most common causes: an extra space pasted with the key · the webservice isn't enabled in PrestaShop · the key has no permissions for the required resources · the **Webshop URL** points to a different shop or is missing `https://`.
 :::
 
 ## 3 · Connecting the plugin (API key)

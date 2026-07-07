@@ -122,6 +122,9 @@
   "Delivery options": "Opzioni di consegna",
   "Webhooks": "Webhook",
   "Data types": "Tipi di dati",
+  "Requests": "Requests",
+  "Responses": "Responses",
+  "Character encoding": "Character encoding",
   "SDKs": "SDK",
   "PHP SDK": "SDK PHP",
   "JavaScript SDK": "SDK JavaScript",
@@ -173,5 +176,5 @@
   "Real-time developer chat. Best for quick questions and sharing payloads.": "Chat in tempo reale per sviluppatori. Ideale per domande veloci e per condividere payload.",
   "Open issues and pull requests on the SDKs, plugins and this portal.": "Apri issue e pull request sugli SDK, sui plugin e su questo portale.",
   "Live uptime per service. Subscribe for incident updates.": "Uptime in tempo reale per ogni servizio. Iscriviti per ricevere aggiornamenti sugli incidenti.",
-  "Pricing, billing or onboarding new partners — through myparcel.nl/contact.": "Prezzi, fatturazione o onboarding di nuovi partner — tramite myparcel.nl/contact."
+  "Pricing, billing or onboarding new partners — through myparcel.com/contact.": "Prezzi, fatturazione o onboarding di nuovi partner — tramite myparcel.com/contact."
 }
