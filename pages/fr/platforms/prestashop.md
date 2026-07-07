@@ -26,6 +26,7 @@ De quoi expédier votre première vraie commande dès aujourd'hui. Pour une conf
 | Que voulez-vous faire ? | Aller à |
 | --- | --- |
 | Première configuration | [Démarrage rapide](#dmarrage-rapide-votre-premier-colis-en-15-minutes) |
+| Se connecter aussi depuis le backoffice (canal de vente) | [Canal de vente via le MyParcel Backoffice](#canal-de-vente-via-le-myparcel-backoffice) |
 | Réglages recommandés pour votre type de boutique | [4 · Quel profil de boutique êtes-vous ?](#4-quel-profil-de-boutique-tes-vous) |
 | Rechercher un réglage précis | [5 · Réglages · Commandes](#5-rglages-commandes) à [9 · Réglages · Transporteurs](#9-rglages-transporteurs) |
 | Un réglage différent par produit | [10 · Réglages produit](#10-rglages-produit) |
@@ -53,6 +54,43 @@ Le plugin 5.0.x fonctionne sur **PrestaShop 1.7.8 à 8.x** avec **PHP 7.4+** (8.
 
 ::: details L'installation échoue avec « Pdk instance must be set to use facades »
 Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données via *Gestionnaire de modules → Désinstaller*). Faites d'abord une sauvegarde de la base de données, puis videz manuellement les tables commençant par `ps_myparcelnl_` et réinstallez la 5.0.x.
+:::
+
+## Canal de vente via le MyParcel Backoffice
+En plus de connecter le plugin avec votre clé API (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)), vous enregistrez PrestaShop comme **canal de vente** dans votre backoffice MyParcel : vous utilisez les deux. Le plugin gère le checkout et les réglages PrestaShop, tandis que le canal de vente permet à MyParcel de communiquer directement avec votre boutique via son API webservice et d'importer vos commandes.
+
+::: tip Ce que fait chaque connexion
+- Le **plugin + la clé API** (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)) ajoute les options de livraison au checkout PrestaShop et vous permet de gérer les expéditions depuis le back-office PrestaShop.
+- Le **canal de vente** (cette section) permet à MyParcel de récupérer vos commandes directement depuis PrestaShop et se gère depuis le backoffice.
+:::
+
+### Créer le canal de vente
+1. Connectez-vous sur [backoffice.myparcel.com](https://backoffice.myparcel.com) et allez dans **Réglages de la boutique → Canaux de vente**.
+2. Cliquez sur **Ajouter un canal de vente** (en haut à droite).
+
+![L'aperçu des canaux de vente dans le backoffice MyParcel, avec le bouton Ajouter un canal de vente en haut à droite.](../../platforms/images/prestashop/backoffice-sales-channels.png)
+
+3. Saisissez un **Nom** qui vous aide à reconnaître le canal (par exemple *Ma boutique PrestaShop*).
+4. Sous **Type de canal de vente**, choisissez **PrestaShop**.
+5. Renseignez l'**URL de la boutique**, l'adresse de votre boutique PrestaShop (par exemple `https://votre-boutique.com`).
+6. Cliquez sur **Enregistrer**. Le canal est créé et affiche un badge **Données manquantes** jusqu'à ce que vous ajoutiez la clé API.
+
+![Ajout d'un canal de vente PrestaShop : choisissez le type et renseignez l'URL de votre boutique, puis Enregistrer.](../../platforms/images/prestashop/backoffice-add-channel.png)
+
+### Authentifier le canal (clé API)
+PrestaShop permet à MyParcel de lire vos commandes avec une **clé API webservice**.
+
+1. Dans le back-office **PrestaShop**, allez dans **Paramètres avancés → Webservice**, activez le webservice et cliquez sur **Ajouter une nouvelle clé de webservice**. Générez une clé, accordez-lui les ressources dont MyParcel a besoin et enregistrez. Copiez la clé générée.
+2. De retour dans le backoffice, ouvrez le canal et cliquez sur **Définir les identifiants**.
+3. Dans la boîte de dialogue **Définir la clé API**, collez votre **clé API PrestaShop**.
+4. Cliquez sur **Connecter**.
+
+![La boîte de dialogue « Définir la clé API » demande votre clé API PrestaShop.](../../platforms/images/prestashop/backoffice-credentials.png)
+
+Une fois connecté, le badge **Données manquantes** disparaît, le canal affiche **Connecté** et MyParcel commence à synchroniser vos commandes PrestaShop.
+
+::: warning Ça ne se connecte pas ?
+Causes les plus fréquentes : un espace en trop collé avec la clé · le webservice n'est pas activé dans PrestaShop · la clé n'a aucune permission pour les ressources requises · l'**URL de la boutique** pointe vers une autre boutique ou il manque `https://`.
 :::
 
 ## 3 · Connecter le plugin (clé API)

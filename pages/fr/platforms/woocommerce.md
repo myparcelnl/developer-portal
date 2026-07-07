@@ -26,6 +26,7 @@ De quoi expédier votre première vraie commande dès aujourd'hui. Pour une conf
 | Que voulez-vous faire ? | Aller à |
 | --- | --- |
 | Première configuration | [Démarrage rapide](#dmarrage-rapide-votre-premier-colis-en-15-minutes) |
+| Se connecter aussi depuis le backoffice (canal de vente) | [Canal de vente via le MyParcel Backoffice](#canal-de-vente-via-le-myparcel-backoffice) |
 | Réglages recommandés pour votre type de boutique | [4 · Quel profil de boutique êtes-vous ?](#4-quel-profil-de-boutique-tes-vous) |
 | Rechercher un réglage précis | [5 · Réglages · Commandes](#5-rglages-commandes) à [9 · Réglages · Transporteurs](#9-rglages-transporteurs) |
 | Un réglage différent par produit | [10 · Réglages produit](#10-rglages-produit) |
@@ -50,6 +51,43 @@ Avant de commencer dans WooCommerce, réglez quatre choses dans votre backoffice
 
 ::: details Vous préférez installer manuellement ?
 Téléchargez le ZIP de la version sur [github.com/myparcelnl/woocommerce/releases](https://github.com/myparcelnl/woocommerce/releases) et téléversez-le via **Extensions → Ajouter une extension → Téléverser une extension**.
+:::
+
+## Canal de vente via le MyParcel Backoffice
+En plus de connecter le plugin avec votre clé API (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)), vous enregistrez WooCommerce comme **canal de vente** dans votre backoffice MyParcel : vous utilisez les deux. Le plugin gère le checkout et les réglages WooCommerce, tandis que le canal de vente permet à MyParcel de communiquer directement avec votre boutique via son API REST et d'importer vos commandes.
+
+::: tip Ce que fait chaque connexion
+- Le **plugin + la clé API** (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)) ajoute les options de livraison au checkout WooCommerce et vous permet de gérer les expéditions depuis WordPress.
+- Le **canal de vente** (cette section) permet à MyParcel de récupérer vos commandes directement depuis WooCommerce et se gère depuis le backoffice.
+:::
+
+### Créer le canal de vente
+1. Connectez-vous sur [backoffice.myparcel.com](https://backoffice.myparcel.com) et allez dans **Réglages de la boutique → Canaux de vente**.
+2. Cliquez sur **Ajouter un canal de vente** (en haut à droite).
+
+![L'aperçu des canaux de vente dans le backoffice MyParcel, avec le bouton Ajouter un canal de vente en haut à droite.](../../platforms/images/woocommerce/backoffice-sales-channels.png)
+
+3. Saisissez un **Nom** qui vous aide à reconnaître le canal (par exemple *Ma boutique WooCommerce*).
+4. Sous **Type de canal de vente**, choisissez **WooCommerce**.
+5. Renseignez l'**URL de la boutique**, l'adresse de votre boutique WooCommerce (par exemple `https://votre-boutique.com`).
+6. Cliquez sur **Enregistrer**. Le canal est créé et affiche un badge **Données manquantes** jusqu'à ce que vous ajoutiez les identifiants.
+
+![Ajout d'un canal de vente WooCommerce : choisissez le type et renseignez l'URL de votre boutique, puis Enregistrer.](../../platforms/images/woocommerce/backoffice-add-channel.png)
+
+### Authentifier le canal (consumer key et secret)
+WooCommerce permet à MyParcel de lire vos commandes avec une **Consumer key** et un **Consumer secret** issus de son API REST.
+
+1. Dans l'administration **WooCommerce**, allez dans **WooCommerce → Réglages → Avancé → API REST** et cliquez sur **Ajouter une clé**. Donnez-lui une description, réglez les **Permissions** sur *Lecture/Écriture* et générez la clé : WooCommerce n'affiche la Consumer key et le Consumer secret qu'une seule fois, copiez-les donc maintenant.
+2. De retour dans le backoffice, ouvrez le canal et cliquez sur **Définir les identifiants**.
+3. Dans la boîte de dialogue **Remplacer la clé et le secret**, collez la **Consumer key** et le **Consumer secret**.
+4. Cliquez sur **Connecter**.
+
+![La boîte de dialogue « Remplacer la clé et le secret » demande votre Consumer key et votre Consumer secret WooCommerce.](../../platforms/images/woocommerce/backoffice-credentials.png)
+
+Une fois connecté, le badge **Données manquantes** disparaît, le canal affiche **Connecté** et MyParcel commence à synchroniser vos commandes WooCommerce.
+
+::: warning Ça ne se connecte pas ?
+Causes les plus fréquentes : un espace en trop collé avec la clé ou le secret · la clé de l'API REST a été créée en *Lecture* seule au lieu de *Lecture/Écriture* · l'**URL de la boutique** pointe vers une autre boutique ou il manque `https://`.
 :::
 
 ## 3 · Connecter le plugin (clé API)

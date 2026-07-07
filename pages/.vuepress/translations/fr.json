@@ -139,6 +139,9 @@
   "no results": "aucun résultat",
 
   "Getting started": "Démarrage",
+  "Requests": "Requêtes",
+  "Responses": "Réponses",
+  "Character encoding": "Encodage des caractères",
   "Delivery options": "Options de livraison",
   "Webhooks": "Webhooks",
   "Data types": "Types de données",

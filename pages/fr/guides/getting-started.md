@@ -52,7 +52,7 @@ Une fois le token en main, appelez la Shipment API pour créer une expédition. 
 Choisissez le parcours qui correspond à votre intégration :
 
 - [Authentification en détail](authentication.md) : scopes, refresh tokens, révocation.
-- [Options de livraison](delivery-options.md) : points de retrait, livraison en soirée, remise contre signature.
+- [Options de livraison](../platforms/delivery-options.md) : points de retrait, livraison en soirée, remise contre signature.
 - [Webhooks](webhooks.md) : soyez notifié dès qu'une expédition est remise ou livrée.
 - [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) : évitez le HTTP brut et utilisez nos bibliothèques.
 - [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) ou un autre plugin e-commerce : installez, configurez, terminé.
