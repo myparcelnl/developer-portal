@@ -27,12 +27,11 @@ Enough to link CS-Cart to MyParcel today. For the details, see [Looking for…](
 | --- | --- |
 | Understand how the connection works | [1 · How the connection works](#1-how-the-connection-works) |
 | Know exactly what data to collect | [2 · What you need and where to find it](#2-what-you-need-and-where-to-find-it) |
-| Prepare your MyParcel account | [3 · Preparing your MyParcel account](#3-preparing-your-myparcel-account) |
-| Create the sales channel | [4 · Creating the sales channel](#4-creating-the-sales-channel) |
-| Authenticate with e-mail and API key | [5 · Authenticating the channel](#5-authenticating-the-channel) |
-| Process orders day to day | [6 · Daily use](#6-daily-use) |
-| Something's not working | [7 · Something's not working, diagnostics](#7-somethings-not-working-diagnostics) |
-| Answer to a frequently asked question | [8 · FAQ](#8-faq) |
+| Create the sales channel | [3 · Creating the sales channel](#3-creating-the-sales-channel) |
+| Authenticate with e-mail and API key | [4 · Authenticating the channel](#4-authenticating-the-channel) |
+| Process orders day to day | [5 · Daily use](#5-daily-use) |
+| Something's not working | [6 · Something's not working, diagnostics](#6-somethings-not-working-diagnostics) |
+| Answer to a frequently asked question | [7 · FAQ](#7-faq) |
 
 ## 1 · How the connection works
 Unlike WooCommerce, PrestaShop or Magento, which use a plugin inside the shop, CS-Cart has **no module to install**. Instead, MyParcel connects to CS-Cart the way an external system does: over the **CS-Cart REST API**.
@@ -58,14 +57,7 @@ In CS-Cart, the API key belongs to a specific administrator and only works if **
 The e-mail address and API key together give full read access to your CS-Cart orders. Don't share them, and only enter them in the official MyParcel backoffice ([backoffice.myparcel.nl](https://backoffice.myparcel.nl)).
 :::
 
-## 3 · Preparing your MyParcel account
-Before you add the channel, take care of three things in your MyParcel backoffice:
-
-1. **Billing and return address**, *Shop settings → General*. This appears on every label.
-2. **Activate carriers**, *Shop settings → Carriers*. Only enabled carriers can be chosen on your shipments later.
-3. **Default package type**, *Account settings → Shipments*. Imported CS-Cart orders fall back to this type.
-
-## 4 · Creating the sales channel
+## 3 · Creating the sales channel
 1. Log in to [backoffice.myparcel.nl](https://backoffice.myparcel.nl) and go to **Shop settings → Sales Channels**.
 2. Click **Add sales channel** (top right).
 
@@ -78,7 +70,7 @@ Before you add the channel, take care of three things in your MyParcel backoffic
 
 ![The Add sales channel form. Under Type of sales channel, choose CS-Cart; a Webshop URL field then appears.](./images/cscart/backoffice-add-channel.png)
 
-## 5 · Authenticating the channel
+## 4 · Authenticating the channel
 A sales channel needs permission to read your CS-Cart orders. For CS-Cart this is done with your **CS-Cart e-mail address** and **CS-Cart API key** (see [What you need and where to find it](#2-what-you-need-and-where-to-find-it)).
 
 1. Open the channel and click **Set credentials**.
@@ -95,7 +87,7 @@ Once connected, the **Missing data** badge disappears, the channel shows **Conne
 Most common causes: an extra space pasted with the e-mail or API key · API access not enabled for that administrator in CS-Cart · a webshop URL that doesn't match the shop the key belongs to · the API key belongs to a different administrator than the e-mail you entered.
 :::
 
-## 6 · Daily use
+## 5 · Daily use
 After the channel is connected, MyParcel imports your CS-Cart orders automatically:
 
 1. New CS-Cart orders appear as shipments in your MyParcel **Shipments** overview.
@@ -106,18 +98,18 @@ After the channel is connected, MyParcel imports your CS-Cart orders automatical
 Select multiple new orders with the checkbox at the top of the Shipments overview and use *Process* + *Print labels* to handle a whole batch in one go.
 :::
 
-## 7 · Something's not working, diagnostics
+## 6 · Something's not working, diagnostics
 Run through this table top to bottom, most issues are fixed within a few minutes.
 
 | Symptom | What to check |
 | --- | --- |
-| **Channel stays on "Missing data"** | The authentication step isn't finished. Open the channel, click **Set credentials** and enter your CS-Cart e-mail and API key ([§5](#5-authenticating-the-channel)). |
+| **Channel stays on "Missing data"** | The authentication step isn't finished. Open the channel, click **Set credentials** and enter your CS-Cart e-mail and API key ([§4](#4-authenticating-the-channel)). |
 | **"Connect" is refused** | Re-paste the e-mail and API key without extra spaces. Check that **API access is enabled** for that administrator in CS-Cart, and that the e-mail and key belong to the **same** administrator. |
 | **No orders are imported** | Check the **Webshop URL** is correct and reachable (`https://…`), and that the administrator whose key you used can see the orders in CS-Cart. |
 | **Some orders are missing** | MyParcel imports orders it can read over the API. Make sure the orders exist and are visible to the API user in CS-Cart. |
 | **Wrong package type on orders** | Imported orders fall back to your **default package type** in *Account settings → Shipments*. Adjust it there, or change individual shipments before processing. |
 
-## 8 · FAQ
+## 7 · FAQ
 
 ### Is there a CS-Cart plugin?
 No. CS-Cart connects to MyParcel only through a **Sales channel** in the MyParcel backoffice, over the CS-Cart REST API. There is nothing to install inside CS-Cart.

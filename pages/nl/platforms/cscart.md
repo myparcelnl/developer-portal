@@ -27,12 +27,11 @@ Genoeg om CS-Cart vandaag aan MyParcel te koppelen. Voor de details, zie [Wat zo
 | --- | --- |
 | Begrijpen hoe de koppeling werkt | [1 · Hoe de koppeling werkt](#1-hoe-de-koppeling-werkt) |
 | Precies weten welke gegevens je nodig hebt | [2 · Wat je nodig hebt en waar je het vindt](#2-wat-je-nodig-hebt-en-waar-je-het-vindt) |
-| Je MyParcel-account voorbereiden | [3 · Je MyParcel-account voorbereiden](#3-je-myparcel-account-voorbereiden) |
-| De sales channel aanmaken | [4 · De sales channel aanmaken](#4-de-sales-channel-aanmaken) |
-| Authenticeren met e-mail en API-key | [5 · De koppeling authenticeren](#5-de-koppeling-authenticeren) |
-| Bestellingen dagelijks verwerken | [6 · Dagelijks gebruik](#6-dagelijks-gebruik) |
-| Er werkt iets niet | [7 · Er werkt iets niet, diagnose](#7-er-werkt-iets-niet-diagnose) |
-| Antwoord op een veelgestelde vraag | [8 · FAQ](#8-faq) |
+| De sales channel aanmaken | [3 · De sales channel aanmaken](#3-de-sales-channel-aanmaken) |
+| Authenticeren met e-mail en API-key | [4 · De koppeling authenticeren](#4-de-koppeling-authenticeren) |
+| Bestellingen dagelijks verwerken | [5 · Dagelijks gebruik](#5-dagelijks-gebruik) |
+| Er werkt iets niet | [6 · Er werkt iets niet, diagnose](#6-er-werkt-iets-niet-diagnose) |
+| Antwoord op een veelgestelde vraag | [7 · FAQ](#7-faq) |
 
 ## 1 · Hoe de koppeling werkt
 Anders dan WooCommerce, PrestaShop of Magento, die een plugin in de webshop gebruiken, heeft CS-Cart **geen module om te installeren**. In plaats daarvan koppelt MyParcel met CS-Cart zoals een extern systeem dat doet: via de **CS-Cart REST API**.
@@ -58,14 +57,7 @@ In CS-Cart hoort de API-key bij een specifieke beheerder en werkt hij alleen als
 Het e-mailadres en de API-key geven samen volledige leestoegang tot je CS-Cart-bestellingen. Deel ze niet en vul ze alleen in de officiële MyParcel-backoffice in ([backoffice.myparcel.nl](https://backoffice.myparcel.nl)).
 :::
 
-## 3 · Je MyParcel-account voorbereiden
-Regel voordat je de channel toevoegt drie dingen in je MyParcel-backoffice:
-
-1. **Factuur- en retouradres**, *Shopinstellingen → Algemeen*. Dit komt op al je labels.
-2. **Vervoerders activeren**, *Shopinstellingen → Vervoerders*. Alleen aangevinkte vervoerders kun je later op je zendingen kiezen.
-3. **Standaard pakkettype**, *Accountinstellingen → Zendingen*. Geïmporteerde CS-Cart-orders vallen terug op dit type.
-
-## 4 · De sales channel aanmaken
+## 3 · De sales channel aanmaken
 1. Log in op [backoffice.myparcel.nl](https://backoffice.myparcel.nl) en ga naar **Shopinstellingen → Sales Channels**.
 2. Klik op **Add sales channel** (rechtsboven).
 
@@ -78,7 +70,7 @@ Regel voordat je de channel toevoegt drie dingen in je MyParcel-backoffice:
 
 ![Het Add sales channel-formulier. Kies bij Type of sales channel de optie CS-Cart; daarna verschijnt het Webshop URL-veld.](../../platforms/images/cscart/backoffice-add-channel.png)
 
-## 5 · De koppeling authenticeren
+## 4 · De koppeling authenticeren
 Een sales channel heeft toestemming nodig om je CS-Cart-bestellingen te lezen. Voor CS-Cart doe je dit met je **CS-Cart-e-mailadres** en **CS-Cart API-key** (zie [Wat je nodig hebt en waar je het vindt](#2-wat-je-nodig-hebt-en-waar-je-het-vindt)).
 
 1. Open de channel en klik op **Set credentials**.
@@ -95,7 +87,7 @@ Na het verbinden verdwijnt het label **Missing data**, staat de channel op **Con
 Meest voorkomende oorzaken: een extra spatie meegeplakt met het e-mailadres of de API-key · API-toegang niet ingeschakeld voor die beheerder in CS-Cart · een webshop-URL die niet hoort bij de shop van de key · de API-key hoort bij een andere beheerder dan het ingevulde e-mailadres.
 :::
 
-## 6 · Dagelijks gebruik
+## 5 · Dagelijks gebruik
 Zodra de channel verbonden is, importeert MyParcel je CS-Cart-bestellingen automatisch:
 
 1. Nieuwe CS-Cart-bestellingen verschijnen als zendingen in je MyParcel-overzicht **Zendingen**.
@@ -106,18 +98,18 @@ Zodra de channel verbonden is, importeert MyParcel je CS-Cart-bestellingen autom
 Selecteer meerdere nieuwe bestellingen met de checkbox bovenaan het zendingenoverzicht en gebruik *Verwerken* + *Labels printen* om een hele batch in één keer af te handelen.
 :::
 
-## 7 · Er werkt iets niet, diagnose
+## 6 · Er werkt iets niet, diagnose
 Loop deze tabel van boven naar onder door, de meeste problemen zijn binnen een paar minuten opgelost.
 
 | Symptoom | Wat te checken |
 | --- | --- |
-| **Channel blijft op "Missing data" staan** | De authenticatiestap is niet afgerond. Open de channel, klik op **Set credentials** en vul je CS-Cart-e-mail en API-key in ([§5](#5-de-koppeling-authenticeren)). |
+| **Channel blijft op "Missing data" staan** | De authenticatiestap is niet afgerond. Open de channel, klik op **Set credentials** en vul je CS-Cart-e-mail en API-key in ([§4](#4-de-koppeling-authenticeren)). |
 | **"Connect" wordt geweigerd** | Plak het e-mailadres en de API-key opnieuw zonder extra spaties. Controleer of **API access is ingeschakeld** voor die beheerder in CS-Cart en of het e-mailadres en de key bij **dezelfde** beheerder horen. |
 | **Er worden geen bestellingen geïmporteerd** | Controleer of de **Webshop URL** klopt en bereikbaar is (`https://…`), en of de beheerder van wie je de key gebruikt de bestellingen in CS-Cart kan zien. |
 | **Sommige bestellingen ontbreken** | MyParcel importeert bestellingen die het via de API kan lezen. Zorg dat de bestellingen bestaan en zichtbaar zijn voor de API-gebruiker in CS-Cart. |
 | **Verkeerd pakkettype op bestellingen** | Geïmporteerde bestellingen vallen terug op je **standaard pakkettype** in *Accountinstellingen → Zendingen*. Pas het daar aan, of wijzig losse zendingen vóór verwerking. |
 
-## 8 · FAQ
+## 7 · FAQ
 
 ### Is er een CS-Cart-plugin?
 Nee. CS-Cart koppelt alleen via een **Sales channel** in de MyParcel-backoffice, over de CS-Cart REST API. Er is niets te installeren in CS-Cart zelf.
