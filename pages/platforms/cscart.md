@@ -7,10 +7,6 @@ description: "Connect your CS-Cart shop to MyParcel through a Sales channel in t
 CS-Cart connects to MyParcel through a **Sales channel** that you create in the MyParcel backoffice, there is no CS-Cart app or plugin to install. Once the channel is authenticated, MyParcel reads your CS-Cart orders directly over the CS-Cart REST API and imports them, ready to label and ship. You need three things from your CS-Cart back office: the **webshop URL**, your **CS-Cart e-mail address** and a **CS-Cart API key**.
 :::
 
-::: warning Only via a Sales channel
-For CS-Cart there is **no plugin or app** in a marketplace. The **only** way to connect CS-Cart to MyParcel is by adding a **Sales channel** of type *CS-Cart* in your MyParcel backoffice, as described below. If you're looking for a module to install in CS-Cart, there isn't one, everything is set up from the MyParcel side.
-:::
-
 ## Quickstart, your first connection in 10 minutes
 Enough to link CS-Cart to MyParcel today. For the details, see [Looking for…](#looking-for) below.
 

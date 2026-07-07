@@ -7,10 +7,6 @@ description: "Koppel je CS-Cart-webshop aan MyParcel via een Sales channel in de
 CS-Cart koppel je aan MyParcel via een **Sales channel** die je aanmaakt in de MyParcel-backoffice, er is geen CS-Cart-app of -plugin om te installeren. Zodra de koppeling geauthenticeerd is, leest MyParcel je CS-Cart-bestellingen rechtstreeks uit via de CS-Cart REST API en importeert ze, klaar om te labelen en te verzenden. Je hebt drie dingen nodig uit je CS-Cart back office: de **webshop-URL**, je **CS-Cart-e-mailadres** en een **CS-Cart API-key**.
 :::
 
-::: warning Alleen via een Sales channel
-Voor CS-Cart is er **geen plugin of app** in een marketplace. De **enige** manier om CS-Cart aan MyParcel te koppelen is door een **Sales channel** van het type *CS-Cart* aan te maken in je MyParcel-backoffice, zoals hieronder beschreven. Zoek je een module om in CS-Cart te installeren: die is er niet, alles wordt aan de MyParcel-kant ingesteld.
-:::
-
 ## Snelstart, je eerste koppeling in 10 minuten
 Genoeg om CS-Cart vandaag aan MyParcel te koppelen. Voor de details, zie [Wat zoek je?](#wat-zoek-je) hieronder.
 
