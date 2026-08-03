@@ -48,6 +48,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Shopify', link: '/platforms/shopify.html' },
       { text: 'Lightspeed', link: '/platforms/lightspeed.html' },
       { text: 'CS-Cart', link: '/platforms/cscart.html' },
+      { text: 'OpenCart 4', link: '/platforms/opencart.html' },
     ],
   },
     {
@@ -101,6 +102,7 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/shopify.html',
   '/platforms/lightspeed.html',
   '/platforms/cscart.html',
+  '/platforms/opencart.html',
 ];
 
 const LOCALIZED_PATHS_BY_LANG: Record<Exclude<Lang, 'en'>, Set<string>> = {
