@@ -54,7 +54,11 @@ Téléchargez le ZIP de la version sur [github.com/myparcelnl/woocommerce/releas
 :::
 
 ## Canal de vente via le MyParcel Backoffice
-En plus de connecter le plugin avec votre clé API (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)), vous enregistrez WooCommerce comme **canal de vente** dans votre backoffice MyParcel : vous utilisez les deux. Le plugin gère le checkout et les réglages WooCommerce, tandis que le canal de vente permet à MyParcel de communiquer directement avec votre boutique via son API REST et d'importer vos commandes.
+::: warning Avant de configurer ceci
+Un canal de vente est optionnel et n'est pas encore disponible sur tous les comptes. Le plugin fonctionne sans. Un canal de vente ajoute la synchronisation directe des commandes, et dans certaines situations il peut créer des commandes en double — voir [14 · Utilisation quotidienne](#14-utilisation-quotidienne) pour l'éviter.
+:::
+
+En plus de connecter le plugin avec votre clé API (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)), vous pouvez aussi enregistrer WooCommerce comme **canal de vente** dans votre backoffice MyParcel. Le plugin gère le checkout et les réglages WooCommerce, tandis que le canal de vente permet à MyParcel de communiquer directement avec votre boutique via son API REST et d'importer vos commandes.
 
 ::: tip Ce que fait chaque connexion
 - Le **plugin + la clé API** (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)) ajoute les options de livraison au checkout WooCommerce et vous permet de gérer les expéditions depuis WordPress.
@@ -88,6 +92,19 @@ Une fois connecté, le badge **Données manquantes** disparaît, le canal affich
 
 ::: warning Ça ne se connecte pas ?
 Causes les plus fréquentes : un espace en trop collé avec la clé ou le secret · la clé de l'API REST a été créée en *Lecture* seule au lieu de *Lecture/Écriture* · l'**URL de la boutique** pointe vers une autre boutique ou il manque `https://`.
+:::
+
+### Ce qui se passe quand vous exportez un envoi
+Vous pouvez exporter et imprimer un envoi depuis la liste des commandes ou depuis la page détail de la commande ([§12](#12-la-page-dtail-de-commande)). Ce que vous obtenez dans votre backoffice MyParcel dépend de ce qui existait en premier : l'envoi ou la commande.
+
+| Ce que vous faites | Ce qui se passe dans le backoffice |
+| --- | --- |
+| Vous exportez l'envoi **avant** que le canal de vente ait importé la commande | Une seule commande, liée à votre envoi, sous **Actief** (Actif) — sans les métadonnées optionnelles comme les produits (selon les fonctionnalités du compte), car l'envoi existait déjà avant que le canal de vente ne synchronise la commande. |
+| Vous exportez l'envoi **après** que le canal de vente a importé la commande | Deux commandes : la commande importée avec ses métadonnées, plus une deuxième commande issue de votre export, sous **Actief** (Actif) et sans métadonnées. |
+| Vous n'exportez aucun envoi depuis le plugin | Une seule commande via le canal de vente, sous **Te importeren** (À importer) ou **Actief** (Actif), selon les paramètres de votre backoffice. |
+
+::: warning N'exportez pas depuis le plugin
+Vous utilisez un canal de vente ? Créez l'envoi et imprimez le label depuis le backoffice MyParcel. C'est la seule façon de garder une seule commande avec toutes ses données. Voir [§14 · Utilisation quotidienne](#14-utilisation-quotidienne).
 :::
 
 ## 3 · Connecter le plugin (clé API)
@@ -392,6 +409,10 @@ Ce que votre client voit une fois l'adresse de livraison remplie, apparaît dès
 Le client choisit un transporteur et un moment de livraison depuis un **carrousel de dates**, un **créneau horaire** et des **options supplémentaires** facultatives (signature, destinataire uniquement). Sous la livraison à domicile apparaît un bloc **Retrait à un point relais** avec une carte interactive, les horaires d'ouverture et une bascule liste/carte.
 
 ## 14 · Utilisation quotidienne
+
+::: warning Vous utilisez un canal de vente ?
+Si un [canal de vente](#canal-de-vente-via-le-myparcel-backoffice) est aussi connecté, créez l'envoi et imprimez le label depuis le backoffice MyParcel, pas depuis ici — cela évite les commandes en double dans le backoffice MyParcel. Le reste de cette page fonctionne comme décrit.
+:::
 
 ### Workflow 1, par commande
 1. Ouvrez *WooCommerce → Commandes* et cliquez sur une commande.

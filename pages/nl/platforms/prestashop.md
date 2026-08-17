@@ -57,7 +57,11 @@ Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Mo
 :::
 
 ## Sales channel via de MyParcel Backoffice
-Naast het koppelen van de plugin met je API key (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) registreer je PrestaShop als **Sales channel** in je MyParcel-backoffice — je gebruikt ze allebei. De plugin verzorgt de PrestaShop-checkout en -instellingen; de sales channel laat MyParcel rechtstreeks via de webservice-API met je shop praten en je bestellingen ophalen.
+::: warning Voor je dit instelt
+Een sales channel is optioneel en nog niet beschikbaar op elk account. De plugin werkt ook zonder. Een sales channel voegt directe order-synchronisatie toe, en in sommige situaties ontstaan er dubbele orders — zie [13 · Dagelijks gebruik](#13-dagelijks-gebruik) om dat te voorkomen.
+:::
+
+Naast het koppelen van de plugin met je API key (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) kun je PrestaShop ook registreren als **Sales channel** in je MyParcel-backoffice. De plugin verzorgt de PrestaShop-checkout en -instellingen; de sales channel laat MyParcel rechtstreeks via de webservice-API met je shop praten en je bestellingen ophalen.
 
 ::: tip Wat doet elke koppeling?
 - De **plugin + API key** (zie [Plugin koppelen](#3-plugin-koppelen-api-key)) voegt bezorgopties toe aan de PrestaShop-checkout en laat je verzenden vanuit je PrestaShop back office beheren.
@@ -91,6 +95,19 @@ Zodra de verbinding er is, verdwijnt het label **Missing data**, toont het kanaa
 
 ::: warning Lukt verbinden niet?
 Meest voorkomende oorzaken: een extra spatie meegeplakt bij de key · de webservice staat niet aan in PrestaShop · de sleutel heeft geen rechten voor de benodigde resources · de **Webshop URL** wijst naar een andere shop of mist `https://`.
+:::
+
+### Wat gebeurt er als je een zending exporteert
+Je exporteert en print een zending vanuit de bestellingenlijst of vanaf de order-detailpagina ([§11](#11-de-order-detailpagina)). Wat je in je MyParcel-backoffice krijgt, hangt af van wat er eerst was: de zending of de order.
+
+| Wat je doet | Wat er in de backoffice gebeurt |
+| --- | --- |
+| Je exporteert de zending **voordat** de sales channel de order heeft geïmporteerd | Eén order, gekoppeld aan je zending, onder **Actief** — zonder de optionele metadata zoals producten (afhankelijk van account features), omdat de zending al bestond voordat de sales channel de order synchroniseerde. |
+| Je exporteert de zending **nadat** de sales channel de order heeft geïmporteerd | Twee orders: de geïmporteerde order mét metadata, plus een tweede order uit je export, onder **Actief** en zonder metadata. |
+| Je exporteert geen zending vanuit de plugin | Eén order via de sales channel, onder **Te importeren** of **Actief**, afhankelijk van instellingen in de backoffice. |
+
+::: warning Exporteer niet vanuit de plugin
+Gebruik je een sales channel? Maak de zending dan aan en print het label vanuit de MyParcel-backoffice. Alleen zo houd je één order met alle gegevens. Zie [§13 · Dagelijks gebruik](#13-dagelijks-gebruik).
 :::
 
 ## 3 · Plugin koppelen (API-key)
@@ -335,6 +352,10 @@ Boven de widget kiest de klant een vervoerder + dienst (bv. *PostNL — Super sn
 Onder thuisbezorging staat een tweede blok **Ophalen bij een afhaallocatie**, gemarkeerd *Meest duurzaam*. Bij openen verschijnt een interactieve kaart met PostNL/DHL-punten in de buurt, met openingstijden per dag. De klant kan switchen tussen *Lijst* en *Kaart* (mits ingeschakeld in [§8](#8-settings-checkout)).
 
 ## 13 · Dagelijks gebruik
+
+::: warning Gebruik je een sales channel?
+Is er ook een [sales channel](#sales-channel-via-de-myparcel-backoffice) gekoppeld? Maak de zending dan aan en print het label vanuit de MyParcel-backoffice, niet vanaf hier — dat voorkomt dubbele orders in de MyParcel-backoffice. De rest van deze pagina werkt zoals beschreven.
+:::
 
 ### Workflow 1 — per order
 1. Open de order-detailpagina.

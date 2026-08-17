@@ -57,7 +57,11 @@ Rimuovi completamente i moduli MyParcel precedenti (incluse le tabelle del datab
 :::
 
 ## Canale di vendita tramite il Backoffice MyParcel
-Oltre a collegare il plugin con la tua API key (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)), registri PrestaShop come **canale di vendita** (Sales channel) nel tuo backoffice MyParcel — usi entrambi. Il plugin gestisce il checkout e le impostazioni di PrestaShop, mentre il canale di vendita consente a MyParcel di comunicare direttamente con il tuo negozio tramite la sua API webservice e importare i tuoi ordini.
+::: warning Prima di configurare
+Un canale di vendita è opzionale e non è ancora disponibile su tutti gli account. Il plugin funziona anche senza. Un canale di vendita aggiunge la sincronizzazione diretta degli ordini e in alcune situazioni può creare ordini duplicati — vedi [13 · Uso quotidiano](#13-uso-quotidiano) per evitarlo.
+:::
+
+Oltre a collegare il plugin con la tua API key (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)), puoi anche registrare PrestaShop come **canale di vendita** (Sales channel) nel tuo backoffice MyParcel. Il plugin gestisce il checkout e le impostazioni di PrestaShop, mentre il canale di vendita consente a MyParcel di comunicare direttamente con il tuo negozio tramite la sua API webservice e importare i tuoi ordini.
 
 ::: tip Cosa fa ogni collegamento
 - Il **plugin + API key** (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)) aggiunge le opzioni di consegna al checkout di PrestaShop e ti permette di gestire le spedizioni dal tuo back office PrestaShop.
@@ -91,6 +95,19 @@ Una volta connesso, l'etichetta **Missing data** scompare, il canale mostra **Co
 
 ::: warning La connessione non riesce?
 Cause più comuni: uno spazio extra incollato con la key · il webservice non è attivo in PrestaShop · la chiave non ha i permessi per le risorse richieste · la **Webshop URL** punta a un altro negozio o manca `https://`.
+:::
+
+### Cosa succede quando esporti una spedizione
+Puoi esportare e stampare una spedizione dalla lista ordini o dalla pagina dettaglio ordine ([§11](#11-la-pagina-dettaglio-ordine)). Quello che ottieni nel tuo backoffice MyParcel dipende da cosa c'era prima: la spedizione o l'ordine.
+
+| Cosa fai | Cosa succede nel backoffice |
+| --- | --- |
+| Esporti la spedizione **prima** che il canale di vendita abbia importato l'ordine | Un solo ordine, collegato alla tua spedizione, sotto **Actief** (Attivo) — senza i metadati opzionali come i prodotti (a seconda delle funzionalità dell'account), perché la spedizione esisteva già prima che il canale di vendita sincronizzasse l'ordine. |
+| Esporti la spedizione **dopo** che il canale di vendita ha importato l'ordine | Due ordini: l'ordine importato con i suoi metadati, più un secondo ordine dalla tua esportazione, sotto **Actief** (Attivo) e senza metadati. |
+| Non esporti nessuna spedizione dal plugin | Un solo ordine tramite il canale di vendita, sotto **Te importeren** (Da importare) o **Actief** (Attivo), a seconda delle impostazioni nel backoffice. |
+
+::: warning Non esportare dal plugin
+Usi un canale di vendita? Crea la spedizione e stampa l'etichetta dal backoffice MyParcel. È l'unico modo per avere un solo ordine con tutti i dati. Vedi [§13 · Uso quotidiano](#13-uso-quotidiano).
 :::
 
 ## 3 · Collegare il plugin (API key)
@@ -335,6 +352,10 @@ Sopra il widget il cliente sceglie un vettore + servizio (es. *PostNL — Conseg
 Sotto la consegna a domicilio c'è un secondo blocco **Ritiro presso un pickup point**, contrassegnato *Più sostenibile*. All'apertura appare una mappa interattiva con punti PostNL/DHL nelle vicinanze, con orari di apertura per giorno. Il cliente può passare tra *Lista* e *Mappa* (se attivato in [§8](#8-impostazioni-checkout)).
 
 ## 13 · Uso quotidiano
+
+::: warning Usi un canale di vendita?
+Se hai collegato anche un [canale di vendita](#canale-di-vendita-tramite-il-backoffice-myparcel), crea la spedizione e stampa l'etichetta dal backoffice MyParcel, non da qui — così eviti ordini duplicati nel backoffice MyParcel. Il resto di questa pagina funziona come descritto.
+:::
 
 ### Workflow 1 — per ordine
 1. Apri la pagina dettaglio ordine.

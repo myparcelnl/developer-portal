@@ -27,7 +27,6 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | --- | --- |
 | First-time setup | [Quickstart](#quickstart-your-first-parcel-in-15-minutes) |
 | Connect your account | [3 · Connecting the app](#3-connecting-the-app-api-key) |
-| Connect via a sales channel | [Connecting via a sales channel](#connecting-via-a-sales-channel) |
 | Look up a specific setting | [4 · Settings · General](#4-settings-general) to [7 · Settings · Worldwide shipments](#7-settings-worldwide-shipments) |
 | Link a shipping method to a carrier | [5 · Settings · Export & zones](#5-settings-export-zones) |
 | A different setting per product | [8 · Product settings](#8-product-settings) |
@@ -61,25 +60,6 @@ Open **Apps → MyParcel** and click **Instellingen** (Settings) in the top righ
 ::: warning Not working?
 Most common causes: didn't click *Opslaan* (Save) · a space copied before/after the key · key from a different shop · key from a different environment (live vs sandbox) than your MyParcel account.
 :::
-
-### Connecting via a sales channel
-Instead of copying the API key into the app by hand, you can connect through a **sales channel** in your MyParcel backoffice. MyParcel then connects to your Shopify shop directly.
-
-1. Log in to [backoffice.myparcel.com](https://backoffice.myparcel.com) and go to **Shop settings → Sales Channels**.
-2. Click **Add sales channel** (top right).
-
-![The Sales Channels overview in the MyParcel backoffice, with the Add sales channel button at the top right.](./images/shopify/backoffice-sales-channels.png)
-
-3. Fill in a **Name** for the channel and choose **Shopify** as the **Type of sales channel**.
-4. Fill in your **Store ID** — the first part of your `.myshopify.com` address (for the shop `my-shop.myshopify.com`, the Store ID is `my-shop`).
-5. Click **Save**. The channel is created with a **Missing data** badge.
-
-![Adding a Shopify sales channel: choose the type and fill in your Store ID, then Save.](./images/shopify/backoffice-add-channel.png)
-
-6. Open the channel and click **Create connection**.
-7. Log in to your Shopify environment when prompted and approve the connection. Shopify sends you back to the backoffice and the channel shows **Connected**.
-
-![A Shopify sales channel uses your Store ID and a Create connection button — clicking it asks you to log in to Shopify and approve the connection.](./images/shopify/backoffice-credentials.png)
 
 ### What does the app do in your Shopify admin?
 | Where? | What can you do? |
