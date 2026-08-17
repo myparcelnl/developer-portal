@@ -57,7 +57,11 @@ Supprimez complètement les anciens modules MyParcel (y compris les tables de la
 :::
 
 ## Canal de vente via le MyParcel Backoffice
-En plus de connecter le plugin avec votre clé API (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)), vous enregistrez PrestaShop comme **canal de vente** dans votre backoffice MyParcel : vous utilisez les deux. Le plugin gère le checkout et les réglages PrestaShop, tandis que le canal de vente permet à MyParcel de communiquer directement avec votre boutique via son API webservice et d'importer vos commandes.
+::: warning Avant de configurer ceci
+Un canal de vente est optionnel et n'est pas encore disponible sur tous les comptes. Le plugin fonctionne sans. Un canal de vente ajoute la synchronisation directe des commandes, et dans certaines situations il peut créer des commandes en double — voir [13 · Utilisation quotidienne](#13-utilisation-quotidienne) pour l'éviter.
+:::
+
+En plus de connecter le plugin avec votre clé API (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)), vous pouvez aussi enregistrer PrestaShop comme **canal de vente** dans votre backoffice MyParcel. Le plugin gère le checkout et les réglages PrestaShop, tandis que le canal de vente permet à MyParcel de communiquer directement avec votre boutique via son API webservice et d'importer vos commandes.
 
 ::: tip Ce que fait chaque connexion
 - Le **plugin + la clé API** (voir [Connecter le plugin](#3-connecter-le-plugin-cl-api)) ajoute les options de livraison au checkout PrestaShop et vous permet de gérer les expéditions depuis le back-office PrestaShop.
@@ -91,6 +95,19 @@ Une fois connecté, le badge **Données manquantes** disparaît, le canal affich
 
 ::: warning Ça ne se connecte pas ?
 Causes les plus fréquentes : un espace en trop collé avec la clé · le webservice n'est pas activé dans PrestaShop · la clé n'a aucune permission pour les ressources requises · l'**URL de la boutique** pointe vers une autre boutique ou il manque `https://`.
+:::
+
+### Ce qui se passe quand vous exportez un envoi
+Vous pouvez exporter et imprimer un envoi depuis la liste des commandes ou depuis la page détail de la commande ([§11](#11-la-page-de-dtail-de-la-commande)). Ce que vous obtenez dans votre back-office MyParcel dépend de ce qui existait en premier : l'envoi ou la commande.
+
+| Ce que vous faites | Ce qui se passe dans le back-office |
+| --- | --- |
+| Vous exportez l'envoi **avant** que le canal de vente ait importé la commande | Une seule commande, liée à votre envoi, sous **Actief** (Actif) — sans les métadonnées optionnelles comme les produits (selon les fonctionnalités du compte), car l'envoi existait déjà avant que le canal de vente ne synchronise la commande. |
+| Vous exportez l'envoi **après** que le canal de vente a importé la commande | Deux commandes : la commande importée avec ses métadonnées, plus une deuxième commande issue de votre export, sous **Actief** (Actif) et sans métadonnées. |
+| Vous n'exportez aucun envoi depuis le plugin | Une seule commande via le canal de vente, sous **Te importeren** (À importer) ou **Actief** (Actif), selon les paramètres de votre back-office. |
+
+::: warning N'exportez pas depuis le plugin
+Vous utilisez un canal de vente ? Créez l'envoi et imprimez le label depuis le back-office MyParcel. C'est la seule façon de garder une seule commande avec toutes ses données. Voir [§13 · Utilisation quotidienne](#13-utilisation-quotidienne).
 :::
 
 ## 3 · Connecter le plugin (clé API)
@@ -335,6 +352,10 @@ Au-dessus du widget, le client choisit un transporteur + un service (par ex. *Po
 Sous la livraison à domicile se trouve un second bloc **Retrait dans un point relais**, marqué *Le plus durable*. Lorsqu'il est ouvert, une carte interactive apparaît avec les points PostNL/DHL à proximité, avec les heures d'ouverture par jour. Le client peut basculer entre *Liste* et *Carte* (si activé dans le [§8](#8-rglages-checkout)).
 
 ## 13 · Utilisation quotidienne
+
+::: warning Vous utilisez un canal de vente ?
+Si un [canal de vente](#canal-de-vente-via-le-myparcel-backoffice) est aussi connecté, créez l'envoi et imprimez le label depuis le backoffice MyParcel, pas depuis ici — cela évite les commandes en double dans le backoffice MyParcel. Le reste de cette page fonctionne comme décrit.
+:::
 
 ### Workflow 1, par commande
 1. Ouvrez la page de détail de la commande.

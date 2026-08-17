@@ -57,7 +57,11 @@ Remove earlier MyParcel modules completely (including database tables via *Modul
 :::
 
 ## Sales channel via the MyParcel Backoffice
-As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you register PrestaShop as a **Sales channel** in your MyParcel backoffice — you use both. The plugin handles the PrestaShop checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its webservice API and import your orders.
+::: warning Before you set this up
+A sales channel is optional and is not available on every account yet. The plugin works without one. A sales channel adds direct order sync on top, and in some situations it can create duplicate orders — see [13 · Daily use](#13-daily-use) for how to prevent that.
+:::
+
+As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you can also register PrestaShop as a **Sales channel** in your MyParcel backoffice. The plugin handles the PrestaShop checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its webservice API and import your orders.
 
 ::: tip What each connection does
 - The **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) adds delivery options to the PrestaShop checkout and lets you manage shipping from your PrestaShop back office.
@@ -91,6 +95,19 @@ Once connected, the **Missing data** badge disappears, the channel shows **Conne
 
 ::: warning Not connecting?
 Most common causes: an extra space pasted with the key · the webservice isn't enabled in PrestaShop · the key has no permissions for the required resources · the **Webshop URL** points to a different shop or is missing `https://`.
+:::
+
+### What happens when you export a shipment
+You can export and print a shipment from the order list or from the order detail page ([§11](#11-the-order-detail-page)). What you get in your MyParcel backoffice depends on what was there first — the shipment or the order.
+
+| What you do | What happens in the backoffice |
+| --- | --- |
+| You export the shipment **before** the sales channel imported the order | One order, linked to your shipment, under **Actief** (Active) — without the optional metadata such as products (depending on account features), because the shipment already existed before the sales channel synced the order. |
+| You export the shipment **after** the sales channel imported the order | Two orders: the imported order with its metadata, plus a second order from your export, under **Actief** (Active) and without metadata. |
+| You export no shipment from the plugin | One order from the sales channel, under **Te importeren** (To import) or **Actief** (Active), depending on your settings in the backoffice. |
+
+::: warning Do not export from the plugin
+Using a sales channel? Create the shipment and print the label from the MyParcel backoffice. That is the only way to keep one order with all its data. See [§13 · Daily use](#13-daily-use).
 :::
 
 ## 3 · Connecting the plugin (API key)
@@ -335,6 +352,10 @@ Above the widget the customer picks a carrier + service (e.g. *PostNL — Super 
 Below home delivery sits a second block **Pickup at a pickup location**, marked *Most sustainable*. When opened, an interactive map appears with PostNL/DHL points nearby, with opening hours per day. The customer can switch between *List* and *Map* (if enabled in [§8](#8-settings-checkout)).
 
 ## 13 · Daily use
+
+::: warning Using a sales channel?
+If a [sales channel](#sales-channel-via-the-myparcel-backoffice) is also connected, create the shipment and print the label from the MyParcel backoffice instead of from here, to avoid duplicate orders in MyParcel. Everything else on this page still works as described.
+:::
 
 ### Workflow 1 — per order
 1. Open the order detail page.

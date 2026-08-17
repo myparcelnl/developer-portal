@@ -54,7 +54,11 @@ Download the release ZIP from [github.com/myparcelnl/woocommerce/releases](https
 :::
 
 ## Sales channel via the MyParcel Backoffice
-As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you register WooCommerce as a **Sales channel** in your MyParcel backoffice — you use both. The plugin handles the WooCommerce checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its REST API and import your orders.
+::: warning Before you set this up
+A sales channel is optional and is not available on every account yet. The plugin works without one. A sales channel adds direct order sync on top, and in some situations it can create duplicate orders — see [14 · Daily use](#14-daily-use) for how to prevent that.
+:::
+
+As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you can also register WooCommerce as a **Sales channel** in your MyParcel backoffice. The plugin handles the WooCommerce checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its REST API and import your orders.
 
 ::: tip What each connection does
 - The **plugin + API key** (see [Connecting the plugin](#3-connecting-the-plugin-api-key)) adds delivery options to the WooCommerce checkout and lets you manage shipping from WordPress.
@@ -88,6 +92,19 @@ Once connected, the **Missing data** badge disappears, the channel shows **Conne
 
 ::: warning Not connecting?
 Most common causes: an extra space pasted with the key or secret · the REST API key was created with *Read* only instead of *Read/Write* · the **Webshop URL** points to a different shop or is missing `https://`.
+:::
+
+### What happens when you export a shipment
+You can export and print a shipment from the order list or from the order detail page ([§12](#12-the-order-detail-page)). What you get in your MyParcel backoffice depends on what was there first — the shipment or the order.
+
+| What you do | What happens in the backoffice |
+| --- | --- |
+| You export the shipment **before** the sales channel imported the order | One order, linked to your shipment, under **Actief** (Active) — without the optional metadata such as products (depending on account features), because the shipment already existed before the sales channel synced the order. |
+| You export the shipment **after** the sales channel imported the order | Two orders: the imported order with its metadata, plus a second order from your export, under **Actief** (Active) and without metadata. |
+| You export no shipment from the plugin | One order from the sales channel, under **Te importeren** (To import) or **Actief** (Active), depending on your settings in the backoffice. |
+
+::: warning Do not export from the plugin
+Using a sales channel? Create the shipment and print the label from the MyParcel backoffice. That is the only way to keep one order with all its data. See [§14 · Daily use](#14-daily-use).
 :::
 
 ## 3 · Connecting the plugin (API key)
@@ -392,6 +409,10 @@ What your customer sees once the delivery address is filled in — appears as so
 The customer picks a carrier and delivery moment from a **date carousel**, a **time slot** and optional **extra options** (signature, only recipient). Below home delivery, a **Pickup at a pickup location** block appears with an interactive map, opening hours and a list/map toggle.
 
 ## 14 · Daily use
+
+::: warning Using a sales channel?
+If a [sales channel](#sales-channel-via-the-myparcel-backoffice) is also connected, create the shipment and print the label from the MyParcel backoffice instead of from here, to avoid duplicate orders in MyParcel. Everything else on this page still works as described.
+:::
 
 ### Workflow 1 — per order
 1. Open *WooCommerce → Orders* and click an order.

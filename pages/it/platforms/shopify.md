@@ -27,7 +27,6 @@ Quanto basta per spedire oggi il tuo primo ordine reale. Per una configurazione 
 | --- | --- |
 | Prima configurazione | [Avvio rapido](#avvio-rapido-il-tuo-primo-pacco-in-15-minuti) |
 | Collegare il tuo account | [3 · Collegare l'app](#3-collegare-lapp-api-key) |
-| Collegare tramite un sales channel | [Collegamento tramite un sales channel](#collegamento-tramite-un-sales-channel) |
 | Cercare un'impostazione specifica | [4 · Impostazioni · Generale](#4-impostazioni-generale) fino a [7 · Impostazioni · Spedizioni mondiali](#7-impostazioni-spedizioni-mondiali) |
 | Collegare un metodo di spedizione a un corriere | [5 · Impostazioni · Esportazione e zone](#5-impostazioni-esportazione-e-zone) |
 | Un'impostazione diversa per prodotto | [8 · Impostazioni prodotto](#8-impostazioni-prodotto) |
@@ -61,25 +60,6 @@ Apri **App → MyParcel** e clicca su **Instellingen** (Impostazioni) in alto a 
 ::: warning Non funziona?
 Cause più comuni: non hai cliccato *Opslaan* (Salva) · uno spazio copiato prima/dopo la chiave · chiave di un altro negozio · chiave di un ambiente diverso (live vs sandbox) rispetto al tuo account MyParcel.
 :::
-
-### Collegamento tramite un sales channel
-Invece di copiare la API key a mano nell'app, puoi collegarti tramite un **sales channel** nel tuo backoffice MyParcel. MyParcel si collega allora direttamente al tuo negozio Shopify.
-
-1. Accedi a [backoffice.myparcel.com](https://backoffice.myparcel.com) e vai su **Shop settings → Sales Channels** (Impostazioni negozio → Canali di vendita).
-2. Clicca in alto a destra su **Add sales channel** (Aggiungi canale di vendita).
-
-![La panoramica Sales Channels nel backoffice MyParcel, con il pulsante Add sales channel in alto a destra.](../../platforms/images/shopify/backoffice-sales-channels.png)
-
-3. Inserisci un **Name** (Nome) per il canale e scegli **Shopify** in **Type of sales channel** (Tipo di canale di vendita).
-4. Inserisci il tuo **Store ID** — la prima parte del tuo indirizzo `.myshopify.com` (per il negozio `il-mio-negozio.myshopify.com` lo Store ID è `il-mio-negozio`).
-5. Clicca **Save** (Salva). Il canale viene creato con l'etichetta **Missing data** (Dati mancanti).
-
-![Aggiungere un canale di vendita Shopify: scegli il tipo e inserisci il tuo Store ID, poi clicca Save.](../../platforms/images/shopify/backoffice-add-channel.png)
-
-6. Apri il canale e clicca **Create connection** (Crea collegamento).
-7. Accedi al tuo ambiente Shopify quando richiesto e approva il collegamento. Shopify ti rimanda al backoffice e il canale mostra **Connected** (Connesso).
-
-![Un canale di vendita Shopify usa il tuo Store ID e un pulsante Create connection — cliccarlo ti chiede di accedere a Shopify e approvare il collegamento.](../../platforms/images/shopify/backoffice-credentials.png)
 
 ### Cosa fa l'app nel tuo admin Shopify?
 | Dove? | Cosa puoi fare? |
