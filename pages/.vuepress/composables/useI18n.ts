@@ -30,8 +30,8 @@ export function setLang(l: Lang) {
 }
 
 /**
- * Walk the DOM and translate every element with `data-i18n` /
- * `data-i18n-placeholder` attributes. API reference pages are skipped
+ * Walk the DOM and translate every element with `data-i18n`,
+ * `data-i18n-title` or `data-i18n-placeholder` attributes. API reference pages are skipped
  * so endpoint paths/parameters keep their canonical English names.
  */
 export function applyTranslationsTo(scope: ParentNode = document) {
@@ -51,6 +51,16 @@ export function applyTranslationsTo(scope: ParentNode = document) {
       el.setAttribute('data-i18n-original', original);
     }
     el.textContent = dict[key] ?? original;
+  }
+
+  for (const el of scope.querySelectorAll<HTMLElement>('[data-i18n-title]')) {
+    const key = el.getAttribute('data-i18n-title');
+    if (!key) continue;
+    const original = el.getAttribute('data-i18n-title-original') ?? el.title;
+    if (!el.hasAttribute('data-i18n-title-original')) {
+      el.setAttribute('data-i18n-title-original', original);
+    }
+    el.title = dict[key] ?? original;
   }
 
   for (const el of scope.querySelectorAll<HTMLInputElement>('[data-i18n-placeholder]')) {
