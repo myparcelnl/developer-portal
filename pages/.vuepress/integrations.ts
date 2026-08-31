@@ -333,8 +333,9 @@ export const integrationGroups: IntegrationGroup[] = [
       'Sell through marketplaces or manage several sales channels at once, and ship the resulting orders through MyParcel.',
     items: [
       {
-        name: 'bol.com',
-        logo: 'bol-com.svg',
+        name: 'bol',
+        logo: 'bol.svg',
+        logoBg: '#041397',
         markets: NLBE,
         byMyParcel: true,
         links: [
