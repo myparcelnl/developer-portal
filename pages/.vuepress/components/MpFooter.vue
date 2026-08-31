@@ -12,7 +12,7 @@
         <div class="mp-footer__label" data-i18n="Product">Product</div>
         <a href="/api/" data-i18n="API Reference">API Reference</a>
         <a href="/guides/getting-started.html" data-i18n="Documentation">Documentation</a>
-        <a href="/platforms/woocommerce.html" data-i18n="Integrations">Integrations</a>
+        <a href="/integrations.html" data-i18n="Integrations">Integrations</a>
       </div>
       <div class="mp-footer__col">
         <div class="mp-footer__label" data-i18n="Resources">Resources</div>
