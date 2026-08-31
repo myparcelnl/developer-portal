@@ -42,6 +42,7 @@ export const docsSidebar: SidebarGroup[] = [
   {
     label: 'Platform integrations',
     items: [
+      { text: 'All integrations', link: '/integrations.html' },
       { text: 'WooCommerce', link: '/platforms/woocommerce.html' },
       { text: 'Magento 2', link: '/platforms/magento2.html' },
       { text: 'PrestaShop', link: '/platforms/prestashop.html' },

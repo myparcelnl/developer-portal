@@ -11,6 +11,7 @@ import ApiLayout from './ApiLayout.vue';
 import ApiOverviewLayout from './ApiOverviewLayout.vue';
 import AboutLayout from './AboutLayout.vue';
 import ContactLayout from './ContactLayout.vue';
+import IntegrationsLayout from './IntegrationsLayout.vue';
 import { docsSidebar, localizeSidebar, detectLang, toSlugPath, isReferenceProsePath, BASE } from '../sidebar';
 
 const page = usePageData();
@@ -42,6 +43,7 @@ const isApi = computed(() => {
 const isApiOverview = computed(() => slugPath.value === '/api/');
 const isAbout = computed(() => slugPath.value === '/about.html');
 const isContact = computed(() => slugPath.value === '/contact.html');
+const isIntegrations = computed(() => slugPath.value === '/integrations.html');
 
 const localizedSidebar = computed(() => localizeSidebar(docsSidebar, lang.value));
 
@@ -85,6 +87,7 @@ const next = computed(() =>
   <ApiLayout v-else-if="isApi" />
   <AboutLayout v-else-if="isAbout" />
   <ContactLayout v-else-if="isContact" />
+  <IntegrationsLayout v-else-if="isIntegrations" />
   <template v-else>
     <MpHeader />
 
