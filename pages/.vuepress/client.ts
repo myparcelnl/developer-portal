@@ -5,6 +5,7 @@ import ApiLayout from './layouts/ApiLayout.vue';
 import ApiOverviewLayout from './layouts/ApiOverviewLayout.vue';
 import AboutLayout from './layouts/AboutLayout.vue';
 import ContactLayout from './layouts/ContactLayout.vue';
+import IntegrationsLayout from './layouts/IntegrationsLayout.vue';
 import { applyTranslationsTo } from './composables/useI18n';
 import { initApiPage } from './composables/useApiInteractions';
 import { initMobileSidebars } from './composables/useMobileSidebar';
@@ -41,6 +42,7 @@ export default defineClientConfig({
     ApiOverviewLayout,
     AboutLayout,
     ContactLayout,
+    IntegrationsLayout,
   },
   enhance({ router }) {
     if (typeof window === 'undefined') return;

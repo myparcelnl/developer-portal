@@ -565,7 +565,15 @@ onMounted(async () => {
         <img class="mp-platform__img" src="/images/integrations/cscart.svg" alt="" width="48" height="48" loading="lazy">
         <span class="mp-platform__name">CS-Cart</span>
       </a>
+      <a class="mp-platform" href="/platforms/opencart.html">
+        <img class="mp-platform__img" src="/images/integrations/opencart.svg" alt="" width="48" height="48" loading="lazy">
+        <span class="mp-platform__name">OpenCart 4</span>
+      </a>
     </div>
+    <a class="mp-platform-all" href="/integrations.html">
+      <span data-i18n="See all integrations, SDKs and utilities">See all integrations, SDKs and utilities</span>
+      <span aria-hidden="true">→</span>
+    </a>
   </section>
 
   <MpFooter />
