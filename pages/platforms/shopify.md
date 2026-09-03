@@ -199,6 +199,5 @@ Yes — enable pickup in your zone mapping ([§5](#5-settings-export-zones)). Th
 Yes — return labels can be emailed to the customer. See your MyParcel backoffice for the return portal options.
 
 ## Resources & support
-- [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — manual & issues.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — find and add the MyParcel app.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, billing.

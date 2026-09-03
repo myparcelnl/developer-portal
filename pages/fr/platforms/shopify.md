@@ -199,6 +199,5 @@ Oui, activez le point de retrait dans votre association de zone ([§5](#5-rglage
 Oui, les étiquettes de retour peuvent être envoyées par e-mail au client. Consultez votre backoffice MyParcel pour les options du portail de retour.
 
 ## Ressources & support
-- [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify), manuel & issues.
 - [apps.shopify.com ↗](https://apps.shopify.com/), trouvez et ajoutez l'application MyParcel.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com), compte, clé API, facturation.

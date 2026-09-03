@@ -199,6 +199,5 @@ Sì — attiva il ritiro nel collegamento della zona ([§5](#5-impostazioni-espo
 Sì — le etichette di reso possono essere inviate via email al cliente. Vedi il tuo backoffice MyParcel per le opzioni del portale resi.
 
 ## Risorse e supporto
-- [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — manuale & issue.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — trova e aggiungi l'app MyParcel.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, fatturazione.
