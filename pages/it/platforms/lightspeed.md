@@ -218,5 +218,4 @@ Assicurati che il corriere sia attivo con un tipo di consegna abilitato e che la
 Si imposta nel tuo backoffice MyParcel (*Impostazioni negozio → Generale*), non nell'app. Le modifiche si applicano subito.
 
 ## Risorse e supporto
-- [github.com/myparcelnl/lightspeed ↗](https://github.com/myparcelnl/lightspeed) — manuale & issue.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, fatturazione.

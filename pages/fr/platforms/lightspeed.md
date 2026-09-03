@@ -218,5 +218,4 @@ Assurez-vous que le transporteur est activé avec un type de livraison activé, 
 Cela se règle dans votre backoffice MyParcel (*Réglages de la boutique → Général*), pas dans l'application. Les modifications s'appliquent immédiatement.
 
 ## Ressources & support
-- [github.com/myparcelnl/lightspeed ↗](https://github.com/myparcelnl/lightspeed), manuel & issues.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com), compte, clé API, facturation.
