@@ -218,5 +218,4 @@ Zorg dat de vervoerder aan staat met een ingeschakeld bezorgtype, en dat de **Ma
 Dat stel je in je MyParcel-backoffice in (*Shopinstellingen → Algemeen*), niet in de app. Wijzigingen gelden direct.
 
 ## Bronnen & support
-- [github.com/myparcelnl/lightspeed ↗](https://github.com/myparcelnl/lightspeed) — handleiding & issues.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, facturatie.

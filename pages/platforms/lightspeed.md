@@ -218,5 +218,4 @@ Make sure the carrier is on with a delivery type enabled, and that the **Mappatu
 That's set in your MyParcel backoffice (*Shop settings → General*), not in the app. Changes apply immediately.
 
 ## Resources & support
-- [github.com/myparcelnl/lightspeed ↗](https://github.com/myparcelnl/lightspeed) — manual & issues.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, billing.

@@ -199,6 +199,5 @@ Ja — zet afhaalpunt aan in je zone-koppeling ([§5](#5-instellingen-export-zon
 Ja — retourlabels kunnen naar de klant gemaild worden. Zie je MyParcel-backoffice voor de retourportaal-opties.
 
 ## Bronnen & support
-- [github.com/myparcelnl/shopify ↗](https://github.com/myparcelnl/shopify) — handleiding & issues.
 - [apps.shopify.com ↗](https://apps.shopify.com/) — vind en voeg de MyParcel-app toe.
 - [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, facturatie.
