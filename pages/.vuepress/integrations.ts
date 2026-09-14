@@ -5,15 +5,66 @@
 // rendered verbatim; every other string on the page is an English key that the
 // data-i18n runtime translates, so this list never needs a locale copy.
 //
-// `markets` records where an integration is actually usable. Most of our
-// integrations are built for the Dutch and Belgian market; the ones that are
-// also built for Italy carry 'it'. Everything API-level (SDKs, PDK, Delivery
-// Options, Chrome extension) is market-agnostic and uses ALL_MARKETS.
+// `markets` records where an integration is actually usable, see MARKETS below.
 
-export type Market = 'nlbe' | 'it';
+import type { Lang } from './sidebar';
 
-/** Every market, for integrations that are not tied to a country. */
-export const ALL_MARKETS: Market[] = ['nlbe', 'it'];
+export interface MarketDef {
+  /** Stable id, used as the filter value. */
+  id: string;
+  /** Translated chip label. */
+  label: string;
+  /**
+   * UI language this market belongs to. Browsing the portal in that language
+   * pre-selects the market, so an Italian visitor lands on the Italian list.
+   */
+  lang?: Lang;
+  /** Translated line shown above the results while this market is selected. */
+  note?: string;
+}
+
+/**
+ * Every market we ship integrations for. This is the only place a market is
+ * declared: the filter chips, the pre-selected market per language, the note
+ * above the results and the `Market` type below are all derived from it, so
+ * adding a market is one entry here and nothing else.
+ *
+ * A market only gets a filter chip when it actually narrows the catalogue.
+ * Every integration works in the Netherlands and Belgium, so a chip for it
+ * would return the same list as "All markets"; the entry still carries `lang`
+ * so it starts working by itself the day that stops being true.
+ */
+export const MARKETS = [
+  {
+    id: 'nlbe',
+    label: 'Netherlands & Belgium',
+    lang: 'nl',
+  },
+  {
+    id: 'it',
+    label: 'Italy',
+    lang: 'it',
+    note: 'Only what is available in Italy: the plug-ins and sales channels built for that market, plus everything that talks to our API directly.',
+  },
+] as const satisfies readonly MarketDef[];
+
+export type Market = (typeof MARKETS)[number]['id'];
+
+/**
+ * Integrations that talk to our API directly (SDKs, the PDK, Delivery Options)
+ * are not tied to a country and work in every market, including ones we add
+ * later. Kept distinct from listing every market explicitly: a plug-in that
+ * happens to be available everywhere today must not silently claim a market
+ * added tomorrow.
+ */
+export const ANY_MARKET = 'any';
+
+export type MarketScope = typeof ANY_MARKET | readonly Market[];
+
+/** True when an integration is usable in the given market. */
+export function availableIn(item: Integration, market: Market): boolean {
+  return item.markets === ANY_MARKET || item.markets.includes(market);
+}
 
 export interface IntegrationLink {
   /** Translated label key. */
@@ -29,7 +80,7 @@ export interface Integration {
   /** Filename inside /images/integrations/. */
   logo: string;
   /** Where the integration is usable. */
-  markets: Market[];
+  markets: MarketScope;
   /** Built and maintained by MyParcel itself. */
   byMyParcel?: boolean;
   /** Documented as end-of-life; kept listed for shops still running it. */
@@ -58,7 +109,8 @@ export interface IntegrationGroup {
   items: Integration[];
 }
 
-const NLBE: Market[] = ['nlbe'];
+const NLBE: readonly Market[] = ['nlbe'];
+const NLBE_IT: readonly Market[] = ['nlbe', 'it'];
 
 /** Shorthand builders, purely to keep the list below readable. */
 const docs = (url: string): IntegrationLink => ({ label: 'Documentation', url });
@@ -83,7 +135,7 @@ export const integrationGroups: IntegrationGroup[] = [
       {
         name: 'WooCommerce',
         logo: 'woocommerce.svg',
-        markets: ALL_MARKETS,
+        markets: NLBE_IT,
         byMyParcel: true,
         links: [
           docs('/platforms/woocommerce.html'),
@@ -94,14 +146,14 @@ export const integrationGroups: IntegrationGroup[] = [
       {
         name: 'PrestaShop',
         logo: 'prestashop.svg',
-        markets: ALL_MARKETS,
+        markets: NLBE_IT,
         byMyParcel: true,
         links: [docs('/platforms/prestashop.html'), github('myparcelnl/prestashop')],
       },
       {
         name: 'Shopify',
         logo: 'shopify.svg',
-        markets: ALL_MARKETS,
+        markets: NLBE_IT,
         byMyParcel: true,
         links: [
           docs('/platforms/shopify.html'),
@@ -111,7 +163,7 @@ export const integrationGroups: IntegrationGroup[] = [
       {
         name: 'Lightspeed',
         logo: 'lightspeed.svg',
-        markets: ALL_MARKETS,
+        markets: NLBE_IT,
         byMyParcel: true,
         links: [
           docs('/platforms/lightspeed.html'),
@@ -129,14 +181,14 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'CS-Cart',
         logo: 'cscart.svg',
         connection: 'Sales channel',
-        markets: ALL_MARKETS,
+        markets: NLBE_IT,
         byMyParcel: true,
         links: [docs('/platforms/cscart.html')],
       },
       {
         name: 'OpenCart 4',
         logo: 'opencart.svg',
-        markets: ALL_MARKETS,
+        markets: NLBE_IT,
         byMyParcel: true,
         links: [docs('/platforms/opencart.html')],
       },
@@ -269,7 +321,7 @@ export const integrationGroups: IntegrationGroup[] = [
       {
         name: 'Base',
         logo: 'base.svg',
-        markets: ALL_MARKETS,
+        markets: NLBE_IT,
         links: [site('https://base.com/')],
       },
       {
@@ -537,7 +589,7 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'PHP SDK',
         logo: 'php.svg',
         logoBg: '#787CB5',
-        markets: ALL_MARKETS,
+        markets: ANY_MARKET,
         byMyParcel: true,
         links: [docs('/guides/php-sdk.html'), github('myparcelnl/sdk')],
       },
@@ -545,28 +597,28 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'JavaScript / Node.js SDK',
         logo: 'js.svg',
         logoBg: '#F7DF1E',
-        markets: ALL_MARKETS,
+        markets: ANY_MARKET,
         byMyParcel: true,
         links: [docs('/guides/javascript-sdk.html'), github('myparcelnl/js-sdk')],
       },
       {
         name: 'C# / .NET SDK',
         logo: 'c-sharp.svg',
-        markets: ALL_MARKETS,
+        markets: ANY_MARKET,
         links: [github('janssenr/MyParcelApi.Net')],
       },
       {
         name: 'Ruby SDK',
         logo: 'ruby.svg',
         logoBg: '#F44336',
-        markets: ALL_MARKETS,
+        markets: ANY_MARKET,
         links: [github('paypronl/myparcel')],
       },
       {
         name: 'PHP PDK',
         logo: 'php.svg',
         logoBg: 'var(--mp-goldfish)',
-        markets: ALL_MARKETS,
+        markets: ANY_MARKET,
         byMyParcel: true,
         links: [oldPortal('documentation/52.pdk/'), github('myparcelnl/pdk')],
       },
@@ -574,7 +626,7 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'JS PDK',
         logo: 'js.svg',
         logoBg: 'var(--mp-goldfish)',
-        markets: ALL_MARKETS,
+        markets: ANY_MARKET,
         byMyParcel: true,
         links: [oldPortal('documentation/52.pdk/'), github('myparcelnl/js-pdk')],
       },
@@ -590,7 +642,7 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'Delivery Options',
         logo: 'delivery-options.svg',
         logoBg: 'var(--mp-goldfish)',
-        markets: ALL_MARKETS,
+        markets: ANY_MARKET,
         byMyParcel: true,
         links: [docs('/platforms/delivery-options.html'), github('myparcelnl/delivery-options')],
       },
