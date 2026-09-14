@@ -27,6 +27,7 @@ const isHome = computed(() => isActive('/', true));
 const isGuides = computed(() => isActive('/guides/') || isActive('/platforms/'));
 const isApi = computed(() => isActive('/api/'));
 const isAbout = computed(() => isActive('/about.html', true));
+const isIntegrations = computed(() => isActive('/integrations.html', true));
 const isContact = computed(() => isActive('/contact.html', true));
 
 const apiLinks = [
@@ -41,11 +42,16 @@ const apiLinks = [
 ];
 
 const platformLinks = [
+  { name: 'All integrations', href: '/integrations.html' },
   { name: 'WooCommerce', href: '/platforms/woocommerce.html' },
   { name: 'Magento 2', href: '/platforms/magento2.html' },
   { name: 'PrestaShop', href: '/platforms/prestashop.html' },
+  { name: 'Shopify', href: '/platforms/shopify.html' },
+  { name: 'Lightspeed', href: '/platforms/lightspeed.html' },
+  { name: 'CS-Cart', href: '/platforms/cscart.html' },
+  { name: 'OpenCart 4', href: '/platforms/opencart.html' },
 ];
-const isPlatforms = computed(() => isActive('/platforms/'));
+const isPlatforms = computed(() => isActive('/platforms/') || isActive('/integrations.html', true));
 
 const apiOpen = ref(false);
 const mobileOpen = ref(false);
@@ -149,6 +155,7 @@ onBeforeUnmount(() => {
           </li>
         </ul>
       </div>
+      <a href="/integrations.html" class="mp-nav__link" :class="{ 'is-active': isIntegrations }" data-i18n="Integrations">Integrations</a>
       <a href="/about.html" class="mp-nav__link" :class="{ 'is-active': isAbout }" data-i18n="About">About</a>
       <a href="/contact.html" class="mp-nav__link" :class="{ 'is-active': isContact }" data-i18n="Contact">Contact</a>
     </div>
@@ -275,7 +282,7 @@ onBeforeUnmount(() => {
                 :href="link.href"
                 class="mp-mobile-drawer__sublink"
               >
-                <span>{{ link.name }}</span>
+                <span :data-i18n="link.name">{{ link.name }}</span>
               </a>
             </div>
           </div>
