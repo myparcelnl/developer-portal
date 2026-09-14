@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
 import MpBreadcrumb from '../components/MpBreadcrumb.vue';
-import { integrationGroups, type Integration, type Market } from '../integrations';
+import { integrationGroups, availableIn, MARKETS, type Integration, type Market } from '../integrations';
 import { isLocalizedPath, BASE, type Lang } from '../sidebar';
 import { lang as uiLang } from '../composables/useI18n';
 import markUrl from '../../images/myparcel-mark.svg?url';
@@ -35,13 +35,6 @@ const mounted = ref(false);
 const market = ref<MarketFilter>('all');
 const query = ref('');
 
-onMounted(() => {
-  mounted.value = true;
-  // An Italian visitor almost certainly wants the Italian market, so start
-  // there. Every other language starts on the full list.
-  if (uiLang.value === 'it') market.value = 'it';
-});
-
 const linkLang = computed<Lang>(() => (mounted.value ? (uiLang.value as Lang) : 'en'));
 
 /** Resolve an integration link to a real href, localised where we can. */
@@ -58,7 +51,7 @@ function matchesQuery(item: Integration): boolean {
 }
 
 function matchesMarket(item: Integration, m: MarketFilter): boolean {
-  return m === 'all' || item.markets.includes(m);
+  return m === 'all' || availableIn(item, m);
 }
 
 function isVisible(item: Integration): boolean {
@@ -77,20 +70,42 @@ function meta(item: Integration): string[] {
   return out;
 }
 
-// Only two chips: every integration works in the Dutch and Belgian market, so
-// a 'Netherlands & Belgium' filter returned the exact same 63 items as 'All
-// markets'. The one real question is whether something works in Italy.
-const marketFilters: { value: MarketFilter; label: string }[] = [
-  { value: 'all', label: 'All markets' },
-  { value: 'it', label: 'Italy' },
-];
-
 const allItems = computed(() => integrationGroups.flatMap((g) => g.items));
+
+/**
+ * A market earns a chip only when it actually narrows the catalogue. Every
+ * integration works in the Netherlands and Belgium, so that chip would return
+ * the same list as "All markets" and is left out. Measured against the full
+ * catalogue rather than the current results, so chips do not come and go while
+ * someone is typing in the filter box.
+ */
+const narrowingMarkets = computed(() =>
+  MARKETS.filter((m) => allItems.value.some((item) => !availableIn(item, m.id))),
+);
+
+const marketFilters = computed<{ value: MarketFilter; label: string }[]>(() => [
+  { value: 'all', label: 'All markets' },
+  ...narrowingMarkets.value.map((m) => ({ value: m.id as MarketFilter, label: m.label })),
+]);
+
+/** Markets that explain themselves above the results while selected. */
+const marketNotes = MARKETS.filter((m) => 'note' in m && m.note);
+
+onMounted(() => {
+  mounted.value = true;
+  // A market can name the UI language it belongs to, so browsing in Italian
+  // starts on the Italian list. Only markets that earn a chip are offered,
+  // otherwise we would pre-select a filter the visitor cannot see or undo.
+  const preselect = MARKETS.find((m) => m.lang === uiLang.value);
+  if (preselect && narrowingMarkets.value.some((m) => m.id === preselect.id)) {
+    market.value = preselect.id;
+  }
+});
 
 /** Per-chip counts, so you can see what a market holds before switching. */
 const marketCounts = computed(() =>
   Object.fromEntries(
-    marketFilters.map((f) => [
+    marketFilters.value.map((f) => [
       f.value,
       allItems.value.filter((i) => matchesMarket(i, f.value) && matchesQuery(i)).length,
     ]),
@@ -156,8 +171,13 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
       </label>
     </div>
 
-    <p v-if="market === 'it'" class="mp-int-note">
-      <span data-i18n="Only what is available in Italy: the plug-ins and sales channels built for that market, plus everything that talks to our API directly.">Only what is available in Italy: the plug-ins and sales channels built for that market, plus everything that talks to our API directly.</span>
+    <p
+      v-for="m in marketNotes"
+      v-show="market === m.id"
+      :key="m.id"
+      class="mp-int-note"
+    >
+      <span :data-i18n="m.note">{{ m.note }}</span>
     </p>
 
     <!-- ============================================================
