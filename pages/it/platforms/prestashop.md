@@ -45,7 +45,7 @@ Prima di iniziare in PrestaShop, sistema quattro cose nel tuo backoffice MyParce
 
 ## 2 · Installare il plugin
 ::: warning Requisiti di versione
-Plugin 5.7.x funziona su **PrestaShop 1.7.8 fino a 8.x** con **PHP 7.4+** (consigliato 8.1/8.2). PrestaShop 9 non è ancora supportato — vedi [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Plugin 5.7.x funziona su **PrestaShop 1.7.8 fino a 9.x** con **PHP 7.4+**, fino a PHP 8.5 incluso. PrestaShop 9 è supportato dalla versione plugin 5.2.0, compreso il checkout Hummingbird.
 :::
 
 1. Scarica lo ZIP della release da [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -406,7 +406,7 @@ Qualcosa non funziona come previsto? Scorri questa tabella dall'alto in basso �
 ## 15 · FAQ
 
 ### Il plugin funziona su PrestaShop 9?
-Non ancora. La versione 5.7.x supporta PrestaShop 1.7.8 fino a 8.x. Il supporto a PrestaShop 9 è in roadmap; segui [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Sì, dalla versione plugin 5.2.0. Quella release ha aggiunto il supporto per PrestaShop 9 e PHP 8.5, e copre il checkout Hummingbird incluso in PrestaShop 9. Vedi [PR #483](https://github.com/myparcelnl/prestashop/pull/483).
 
 ### Posso usare più vettori contemporaneamente?
 Sì. Attiva per vettore sotto *Vettori → \[Nome vettore\] → Opzioni di consegna → Attiva opzioni di consegna*.
