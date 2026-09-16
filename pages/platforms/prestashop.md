@@ -45,7 +45,7 @@ Before you start in PrestaShop, take care of four things in your MyParcel backof
 
 ## 2 · Installing the plugin
 ::: warning Version requirements
-Plugin 5.7.x works on **PrestaShop 1.7.8 through 8.x** with **PHP 7.4+** (8.1/8.2 recommended). PrestaShop 9 isn't supported yet — see [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Plugin 5.7.x works on **PrestaShop 1.7.8 through 9.x** with **PHP 7.4+**, up to and including PHP 8.5. PrestaShop 9 is supported from plugin version 5.2.0, including its Hummingbird checkout.
 :::
 
 1. Download the release ZIP from [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -406,7 +406,7 @@ Something not behaving as expected? Run through this table top to bottom — thr
 ## 15 · FAQ
 
 ### Does the plugin work on PrestaShop 9?
-Not yet. Version 5.7.x supports PrestaShop 1.7.8 through 8.x. PrestaShop 9 support is on the roadmap; follow [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Yes, from plugin version 5.2.0. That release added support for PrestaShop 9 and PHP 8.5, and covers the Hummingbird checkout that ships with PrestaShop 9. See [PR #483](https://github.com/myparcelnl/prestashop/pull/483).
 
 ### Can I use multiple carriers at once?
 Yes. Activate per carrier under *Carriers → \[Carrier name\] → Delivery options → Enable delivery options*.

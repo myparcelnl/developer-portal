@@ -45,7 +45,7 @@ Avant de commencer dans PrestaShop, réglez quatre choses dans votre back-office
 
 ## 2 · Installer le plugin
 ::: warning Prérequis de version
-Le plugin 5.7.x fonctionne sur **PrestaShop 1.7.8 à 8.x** avec **PHP 7.4+** (8.1/8.2 recommandé). PrestaShop 9 n'est pas encore pris en charge, voir [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Le plugin 5.7.x fonctionne sur **PrestaShop 1.7.8 à 9.x** avec **PHP 7.4+**, jusqu'à PHP 8.5 inclus. PrestaShop 9 est pris en charge à partir de la version 5.2.0 du plugin, y compris sa commande Hummingbird.
 :::
 
 1. Téléchargez le ZIP de la release depuis [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -406,7 +406,7 @@ Quelque chose ne se comporte pas comme prévu ? Parcourez ce tableau de haut en 
 ## 15 · FAQ
 
 ### Le plugin fonctionne-t-il sur PrestaShop 9 ?
-Pas encore. La version 5.7.x prend en charge PrestaShop 1.7.8 à 8.x. La prise en charge de PrestaShop 9 est sur la roadmap ; suivez l'[issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Oui, à partir de la version 5.2.0 du plugin. Cette version a ajouté la prise en charge de PrestaShop 9 et de PHP 8.5, et couvre la commande Hummingbird livrée avec PrestaShop 9. Voir la [PR #483](https://github.com/myparcelnl/prestashop/pull/483).
 
 ### Puis-je utiliser plusieurs transporteurs à la fois ?
 Oui. Activez par transporteur sous *Transporteurs → \[Nom du transporteur\] → Options de livraison → Activer les options de livraison*.

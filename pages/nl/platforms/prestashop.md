@@ -45,7 +45,7 @@ Voordat je in PrestaShop begint, regel je vier dingen in je MyParcel-backoffice:
 
 ## 2 · Plugin installeren
 ::: warning Versie-eisen
-Plugin 5.7.x werkt op **PrestaShop 1.7.8 t/m 8.x** met **PHP 7.4+** (8.1/8.2 aanbevolen). PrestaShop 9 wordt nog niet ondersteund — zie [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Plugin 5.7.x werkt op **PrestaShop 1.7.8 t/m 9.x** met **PHP 7.4+**, tot en met PHP 8.5. PrestaShop 9 wordt ondersteund vanaf plugin-versie 5.2.0, inclusief de Hummingbird-checkout.
 :::
 
 1. Download de release-ZIP via [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -406,7 +406,7 @@ Werkt iets niet zoals verwacht? Loop deze tabel van boven naar onder door — dr
 ## 15 · FAQ
 
 ### Werkt de plugin op PrestaShop 9?
-Nog niet. Versie 5.7.x ondersteunt PrestaShop 1.7.8 t/m 8.x. PrestaShop 9-ondersteuning staat op de roadmap; volg [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Ja, vanaf plugin-versie 5.2.0. Die release voegde ondersteuning toe voor PrestaShop 9 en PHP 8.5, en dekt de Hummingbird-checkout die met PrestaShop 9 meekomt. Zie [PR #483](https://github.com/myparcelnl/prestashop/pull/483).
 
 ### Kan ik meerdere vervoerders tegelijk gebruiken?
 Ja. Activeer per vervoerder onder *Vervoerders → \[Vervoerdernaam\] → Bezorgopties → Bezorgopties inschakelen*.
