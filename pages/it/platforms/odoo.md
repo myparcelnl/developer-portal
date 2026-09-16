@@ -175,7 +175,7 @@ Tre campi prodotto standard di Odoo contano però, perché MyParcel li usa:
 | Campo | Dove | Perché è importante |
 | --- | --- | --- |
 | **Weight** | Prodotto → scheda *Inventory* | Determina il prezzo di spedizione e quale tipo di collo è adatto. Senza peso l'app ripiega su un minimo di 10 grammi, rendendo i preventivi poco realistici. |
-| **HS Code** | Prodotto → scheda *Accounting* o *Purchase* | Obbligatorio per spedizioni fuori dall'UE. Deve avere 6, 8 o 10 cifre, e 10 cifre per gli Stati Uniti. |
+| **HS Code** | Prodotto → scheda *Accounting* o *Purchase* | Obbligatorio per spedizioni fuori dall'UE. Deve avere 6, 8 o 10 cifre, e per gli Stati Uniti sono obbligatorie 10 cifre. |
 | **Country of Origin** | Accanto all'HS Code | Obbligatorio per spedizioni fuori dall'UE, finisce sulla dichiarazione doganale. |
 
 Per ordini all'interno dell'UE puoi lasciare HS Code e Country of Origin vuoti.
@@ -238,7 +238,7 @@ Una giornata tipo di spedizioni:
 | **Email address is required** | **Add Email to Shipment** è attivo per questo metodo, ma il contatto non ha un indirizzo email. Aggiungilo, oppure disattiva l'impostazione. |
 | **Phone number is required** | Lo stesso, per **Add Phone to Shipment**. |
 | **Invalid email address provided** | L'indirizzo email del contatto non è valido. Correggilo sul contatto. |
-| **The HS Code does not have the correct amount of digits** | I codici HS devono avere 6, 8 o 10 cifre, e 10 cifre per gli Stati Uniti. Correggi il codice sul prodotto. |
+| **The HS Code does not have the correct amount of digits** | I codici HS devono avere 6, 8 o 10 cifre, e per gli Stati Uniti sono obbligatorie 10 cifre. Correggi il codice sul prodotto. |
 | **No country of origin found for this product** | Imposta **Country of Origin** su ogni prodotto di una spedizione che lascia l'UE. |
 | **Package type needed for MyParcel carriers** | **Package Type** è vuoto sul metodo di spedizione. Scegline uno nella scheda MyParcel Settings. |
 | **Receipt code can not be selected with any other option** | Il codice di ritiro funziona solo da solo, e solo insieme all'assicurazione. Disattiva le altre opzioni. |
