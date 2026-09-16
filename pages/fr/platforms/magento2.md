@@ -256,6 +256,7 @@ Chaque produit dispose d'une section **MyParcel Options** sur sa page d'édition
 - **Fit in mailbox**, combien d'unités tiennent dans un colis boîte aux lettres ? `0` = automatique selon le poids, `-1` = ne tient pas dans la boîte aux lettres.
 - **Disable delivery options**, masque le bloc d'options de livraison MyParcel quand ce produit est dans le panier. Pour les produits numériques ou les cartes cadeaux.
 - **Exclude parcel lockers**, masque les consignes à colis comme point de retrait pour ce produit.
+- **24 hour priority**, propose ce produit en livraison prioritaire. Disponible à partir de la version 5.9.0 du plugin. Si le réglage général de livraison prioritaire est désactivé, la commande n'affiche la case que si au moins un produit du panier a cette option activée. Le réglage produit peut uniquement activer la priorité, jamais la désactiver : si le client décoche la case lors de la commande, ce choix est conservé.
 
 ## 8 · L'expérience checkout
 Dès que le client renseigne une adresse de livraison, le bloc MyParcel apparaît avec les options de livraison. Les options affichées dépendent des transporteurs actifs, des produits dans le panier et des surcharges spécifiques au produit de [§7](#7-rglages-produit).

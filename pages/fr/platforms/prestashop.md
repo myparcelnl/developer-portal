@@ -45,7 +45,7 @@ Avant de commencer dans PrestaShop, réglez quatre choses dans votre back-office
 
 ## 2 · Installer le plugin
 ::: warning Prérequis de version
-Le plugin 5.0.x fonctionne sur **PrestaShop 1.7.8 à 8.x** avec **PHP 7.4+** (8.1/8.2 recommandé). PrestaShop 9 n'est pas encore pris en charge, voir [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Le plugin 5.7.x fonctionne sur **PrestaShop 1.7.8 à 8.x** avec **PHP 7.4+** (8.1/8.2 recommandé). PrestaShop 9 n'est pas encore pris en charge, voir [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
 :::
 
 1. Téléchargez le ZIP de la release depuis [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -53,7 +53,7 @@ Le plugin 5.0.x fonctionne sur **PrestaShop 1.7.8 à 8.x** avec **PHP 7.4+** (8.
 3. Attendez la fin de l'installation, recherchez `myparcel` et cliquez sur **Configurer**.
 
 ::: details L'installation échoue avec « Pdk instance must be set to use facades »
-Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données via *Gestionnaire de modules → Désinstaller*). Faites d'abord une sauvegarde de la base de données, puis videz manuellement les tables commençant par `ps_myparcelnl_` et réinstallez la 5.0.x.
+Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données via *Gestionnaire de modules → Désinstaller*). Faites d'abord une sauvegarde de la base de données, puis videz manuellement les tables commençant par `ps_myparcelnl_` et réinstallez la 5.7.x.
 :::
 
 ## Canal de vente via le MyParcel Backoffice
@@ -236,6 +236,10 @@ Ce que votre client voit dans le checkout, ou plutôt ne voit pas.
 - **Type de prix**, *Inclus* (dans le prix total) ou *Séparé* (affiché à part). *Inclus évite les surprises.*
 - **Titre des options de livraison**, en-tête au-dessus du bloc MyParcel. Par ex. *Comment souhaitez-vous recevoir votre colis ?*
 - **Afficher les champs de taxe au checkout**, champs TVA pour les commandes professionnelles.
+
+::: tip Professionnels et particuliers voient des options différentes
+La différence entre professionnels et particuliers va plus loin que ces champs de TVA. Depuis la version 5.6.0 du plugin, la commande propose aux clients professionnels les options de livraison que leur transporteur offre réellement aux entreprises, qui ne sont pas toujours celles des particuliers. Le plugin le déduit du nom d'entreprise dans l'adresse de livraison. Il n'y a rien à configurer, cela suit le transporteur. Le côté technique se trouve dans le [widget Delivery Options](/fr/platforms/delivery-options.html#options-de-livraison-pour-les-professionnels-et-les-particuliers).
+:::
 - **Jours de fermeture**, sélecteur de dates pour les jours fériés. Ces jours-là, le checkout masque les options de livraison.
 
 ### Points relais
@@ -270,6 +274,10 @@ Les options appliquées automatiquement à chaque nouvel envoi.
 - **Assurer jusqu'à** / **(NL)** / **(UE)** / **(UE + Reste du monde)**, maximums par région.
 - **Assurer pour un pourcentage**, par ex. 100 % de la valeur de la commande.
 
+::: note Les montants assurés peuvent différer
+Le plugin actualise périodiquement les données des transporteurs, et les montants qu'un transporteur ne propose plus disparaissent de la liste. Ce que vous voyez peut donc différer des montants donnés en exemple dans ce manuel, y compris ceux du [§4](#4-quel-profil-de-boutique-tes-vous).
+:::
+
 ### Réglages d'export par défaut pour les retours
 - **Type de colis par défaut**, Colis / Petit paquet / Colis boîte aux lettres / Timbre numérique.
 - **Activer plus grand que 100 × 70 × 58 cm**, pour les retours hors format.
@@ -290,6 +298,7 @@ Les options appliquées automatiquement à chaque nouvel envoi.
 - **Livraison en soirée** + prix, 18h00–22h00.
 - **Livraison le lundi** + prix, pour un dépôt le samedi.
 - **Livraison le samedi** + prix.
+- **Livraison le jour même** + prix, pour les transporteurs qui la proposent. Depuis la 5.7.1, ces réglages apparaissent aussi pour les transporteurs qui proposent le jour même comme type de livraison, tel Trunkrs.
 - **Signature** + prix, signature avec supplément éventuel.
 - **Destinataire uniquement** + prix, destinataire uniquement avec supplément éventuel.
 :::
@@ -334,6 +343,7 @@ Ouvrez une commande individuelle. Sous les détails PrestaShop standard, vous vo
 - Transporteur et type de colis pour cet envoi
 - Assurance activée/désactivée + montant assuré
 - Options de livraison sélectionnées (livraison en soirée, signature, destinataire uniquement…)
+- Depuis la 5.7.3, également la livraison le jour même, tôt le matin, fraîche et surgelée, dans la mesure où le transporteur les propose. Auparavant, ces quatre options étaient perdues lors de l'import des commandes et restaient vides ici.
 - Boutons : *Exporter* · *Imprimer le label* · *Voir le Track & Trace*
 
 ::: warning Enregistrez les modifications avant d'imprimer
@@ -350,6 +360,8 @@ Au-dessus du widget, le client choisit un transporteur + un service (par ex. *Po
 - **Options supplémentaires** comme *Signature (2,00 €)* ou *Destinataire uniquement* avec suppléments distincts.
 
 Sous la livraison à domicile se trouve un second bloc **Retrait dans un point relais**, marqué *Le plus durable*. Lorsqu'il est ouvert, une carte interactive apparaît avec les points PostNL/DHL à proximité, avec les heures d'ouverture par jour. Le client peut basculer entre *Liste* et *Carte* (si activé dans le [§8](#8-rglages-checkout)).
+
+Les clients professionnels et particuliers ne voient pas forcément les mêmes options de livraison. Si le client renseigne un nom d'entreprise, la commande compte comme professionnelle, voir [§8](#8-rglages-checkout).
 
 ## 13 · Utilisation quotidienne
 
@@ -383,7 +395,7 @@ Quelque chose ne se comporte pas comme prévu ? Parcourez ce tableau de haut en 
 | --- | --- |
 | **Checkout : « Aucun transporteur disponible »** | Les transporteurs PrestaShop sont-ils liés à une zone d'expédition avec des prix pour l'adresse de livraison ? Allez dans *Expédition → Transporteurs*. Ce n'est qu'ensuite que les options de livraison MyParcel apparaissent. |
 | **Aucune option de livraison visible** | (1) [§8](#8-rglages-checkout) : *Afficher les options de livraison* activé ? (2) [§9](#9-rglages-transporteurs) : au moins un transporteur avec *Activer les options de livraison* activé ? |
-| **L'installation échoue, *« Pdk instance must be set to use facades »*** | Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données `ps_myparcelnl_*`) et réinstallez la 5.0.x. |
+| **L'installation échoue, *« Pdk instance must be set to use facades »*** | Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données `ps_myparcelnl_*`) et réinstallez la 5.7.x. |
 | **Erreur de province : *« state must be at most 2 characters »*** | Le pack de langue NL crée les provinces sous la forme `NL-LI` (4 caractères). Dans *International → Localisation → Provinces*, changez les codes iso en 2 caractères. Voir [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **« Invalid API key » alors que la connexion fonctionne** | Fermez complètement la config du plugin et rouvrez-la. Si le problème persiste : copiez à nouveau la clé depuis *backoffice.myparcel.nl → Paramètres de la boutique → Intégration*. |
 | **Les réglages PostNL ne sont pas enregistrés** | Cliquez sur **Enregistrer** en bas de chaque onglet avant de changer. Sinon, vérifiez les *Options de débogage* pour les messages d'erreur. |
@@ -394,7 +406,7 @@ Quelque chose ne se comporte pas comme prévu ? Parcourez ce tableau de haut en 
 ## 15 · FAQ
 
 ### Le plugin fonctionne-t-il sur PrestaShop 9 ?
-Pas encore. La version 5.0.x prend en charge PrestaShop 1.7.8 à 8.x. La prise en charge de PrestaShop 9 est sur la roadmap ; suivez l'[issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Pas encore. La version 5.7.x prend en charge PrestaShop 1.7.8 à 8.x. La prise en charge de PrestaShop 9 est sur la roadmap ; suivez l'[issue #415](https://github.com/myparcelnl/prestashop/issues/415).
 
 ### Puis-je utiliser plusieurs transporteurs à la fois ?
 Oui. Activez par transporteur sous *Transporteurs → \[Nom du transporteur\] → Options de livraison → Activer les options de livraison*.
@@ -420,4 +432,4 @@ Non. Le plugin est gratuit. Vous ne payez que pour les envois via votre tarif My
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), compte, clé API, facturation.
 - [Contacter le support MyParcel](../../contact.md), **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Ce manuel est écrit pour la version **5.0.x** du plugin. Dans les versions plus récentes, les noms ou l'ordre des champs peuvent légèrement varier ; la disposition générale du plugin reste identique.
+Ce manuel est écrit pour la version **5.7.x** du plugin. Dans les versions plus récentes, les noms ou l'ordre des champs peuvent légèrement varier ; la disposition générale du plugin reste identique.

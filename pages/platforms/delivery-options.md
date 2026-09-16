@@ -199,6 +199,24 @@ This configuration will show only morning and evening delivery options. For a fu
 The umbrella `allowDeliveryOptions` flag from v6 no longer exists. To hide home delivery entirely for a carrier, set every `allow*Delivery` key for that carrier to `false`. To hide a carrier completely, also set `allowPickupLocations` to `false` (or better yet, just don't include the carrier in `carrierSettings` at all).
 :::
 
+::: note Same-day delivery comes in two shapes
+Carriers expose same-day delivery in one of two ways: as a shipment option, the way DHL For You does, or as a delivery type of its own, the way Trunkrs does. Since v7.4.4 the widget understands both and maps them onto the same internal `same_day` type, so `allowSameDayDelivery`, `priceSameDayDelivery` and `cutoffTimeSameDay` cover either shape. Before that, a delivery-type carrier fell back to standard delivery or showed nothing at all. The selection is emitted the way the carrier represents it: as the `same_day` delivery type, or as the `sameDayDelivery` shipment option combined with the carrier's own delivery type.
+:::
+
+### Business and consumer delivery options
+
+Carriers do not always offer the same delivery options to businesses as to consumers. Set `isBusiness` on the config and the widget forwards it onto the capabilities request, so each checkout gets the options that actually apply to it.
+
+```json
+{
+  "isBusiness": true
+}
+```
+
+The integrating platform decides what to pass. In the MyParcel plugins the PDK derives it from whether the checkout address carries a company name. `true` and `false` are two different answers to the API, a business versus a known consumer, and both are forwarded. Leave the key out and the widget omits it from the request, which is what happens on platforms that do not send it yet.
+
+This is the mechanism behind the different checkout options that business customers see in the WooCommerce and PrestaShop plugins. Available since v7.5.0.
+
 ### Cutoff times and drop off days
 
 Drop off days are the days on which you can drop off your parcels at the carrier. This is used to calculate the next available delivery dates.
@@ -288,6 +306,12 @@ These are all the possible configuration options. The `strings` object is used f
     // widget will log a warning. Do NOT use this in production.
     "apiKey": "",
 
+    // boolean, whether the recipient is a business. Forwarded onto the
+    // capabilities request so business and consumer checkouts each get their
+    // own delivery options. Omit it and the widget leaves it out of the
+    // request, which is what older platforms do. Since v7.5.0.
+    "isBusiness": false,
+
     // string, ISO 639-1 language code. Defaults to the browser language.
     "locale": "",
 
@@ -369,10 +393,14 @@ These are all the possible configuration options. The `strings` object is used f
     "priceSameDayDelivery": 0,
 
     // Monday delivery. Requires Sunday as a drop-off day. For myparcel + postnl only.
+    // Since v7.4.5 this is read from your carrier settings rather than from the
+    // carrier's capabilities, because Monday delivery is a request parameter and
+    // not a capability. Before that, the setting had no effect.
     "allowMondayDelivery": true,
     "priceMondayDelivery": 0,
 
     // Saturday delivery. Requires Friday as a drop-off day. For sendmyparcel + bpost only.
+    // Read from your carrier settings as well, see the note above. Since v7.4.5.
     "allowSaturdayDelivery": false,
     "priceSaturdayDelivery": 0,
 

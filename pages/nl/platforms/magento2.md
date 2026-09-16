@@ -256,6 +256,7 @@ Op elk product verschijnt een sectie **MyParcel Options** op de edit-pagina. Dez
 - **Fit in mailbox** — hoeveel stuks passen in één brievenbuspakje? `0` = automatisch op gewicht, `-1` = past niet in brievenbus.
 - **Disable delivery options** — verbergt het MyParcel-bezorgoptieblok als dit product in het mandje ligt. Voor digitale producten of cadeaubonnen.
 - **Exclude parcel lockers** — verbergt pakketautomaten als afhaalpunt voor dit product.
+- **24 hour priority**, biedt dit product aan met prioriteitslevering. Beschikbaar vanaf plugin-versie 5.9.0. Staat de algemene instelling voor prioriteitslevering uit, dan toont de checkout het vinkje alleen als minstens één product in het mandje dit aan heeft staan. De productinstelling kan prioriteit alleen aanzetten, nooit uitzetten: zet de klant het vinkje in de checkout uit, dan blijft die keuze staan.
 
 ## 8 · De checkout-ervaring
 Zodra de klant een bezorgadres invult verschijnt het MyParcel-blok met bezorgopties. Welke opties er staan hangt af van: de actieve vervoerders, de producten in het winkelwagentje en de product-specifieke overrides uit [§7](#7-productinstellingen).

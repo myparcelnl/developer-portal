@@ -45,7 +45,7 @@ Before you start in PrestaShop, take care of four things in your MyParcel backof
 
 ## 2 · Installing the plugin
 ::: warning Version requirements
-Plugin 5.0.x works on **PrestaShop 1.7.8 through 8.x** with **PHP 7.4+** (8.1/8.2 recommended). PrestaShop 9 isn't supported yet — see [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Plugin 5.7.x works on **PrestaShop 1.7.8 through 8.x** with **PHP 7.4+** (8.1/8.2 recommended). PrestaShop 9 isn't supported yet — see [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
 :::
 
 1. Download the release ZIP from [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -53,7 +53,7 @@ Plugin 5.0.x works on **PrestaShop 1.7.8 through 8.x** with **PHP 7.4+** (8.1/8.
 3. Wait for the install to finish, search for `myparcel` and click **Configure**.
 
 ::: details Installation fails with "Pdk instance must be set to use facades"
-Remove earlier MyParcel modules completely (including database tables via *Module Manager → Uninstall*). Make a database backup first, then manually clear tables that start with `ps_myparcelnl_` and reinstall 5.0.x.
+Remove earlier MyParcel modules completely (including database tables via *Module Manager → Uninstall*). Make a database backup first, then manually clear tables that start with `ps_myparcelnl_` and reinstall 5.7.x.
 :::
 
 ## Sales channel via the MyParcel Backoffice
@@ -236,6 +236,10 @@ What your customer sees in the checkout — or rather doesn't see.
 - **Price type** — *Included* (in total price) or *Separate* (shown apart). *Included avoids surprises.*
 - **Delivery options title** — heading above the MyParcel block. E.g. *How would you like your parcel?*
 - **Show tax fields at checkout** — VAT fields for business orders.
+
+::: tip Business and consumer see different options
+The difference between business and consumer goes further than these VAT fields. Since plugin version 5.6.0 the checkout offers business customers the delivery options their carrier actually has for businesses, which are not always the ones consumers get. The plugin decides this from the company name in the checkout address. There is nothing to configure, it follows the carrier. The technical side lives in the [Delivery Options widget](/platforms/delivery-options.html#business-and-consumer-delivery-options).
+:::
 - **Closed days** — date picker for holidays. On these days the checkout hides delivery options.
 
 ### Pickup points
@@ -270,6 +274,10 @@ The options applied automatically to every new shipment.
 - **Insure up to** / **(NL)** / **(EU)** / **(EU + Rest of World)** — maximums per region.
 - **Insure for percentage** — e.g. 100% of the order value.
 
+::: note Insured amounts can differ
+The plugin refreshes its carrier data periodically, and amounts a carrier no longer offers drop out of the list. What you see can therefore differ from the amounts used as examples in this manual, including those in [§4](#4-which-shop-profile-are-you).
+:::
+
 ### Default export settings for returns
 - **Default package type** — Parcel / Small package / Mailbox parcel / Digital stamp.
 - **Enable larger than 100 × 70 × 58 cm** — for oversized returns.
@@ -290,6 +298,7 @@ The options applied automatically to every new shipment.
 - **Evening delivery** + price — 18:00–22:00.
 - **Monday delivery** + price — for Saturday drop-off.
 - **Saturday delivery** + price.
+- **Same-day delivery** + price, for carriers that offer it. Since 5.7.1 these settings also appear for carriers that offer same-day as their delivery type, such as Trunkrs.
 - **Signature** + price — signature with optional surcharge.
 - **Only recipient** + price — only-recipient with optional surcharge.
 :::
@@ -334,6 +343,7 @@ Open an individual order. Below the standard PrestaShop details you see a **MyPa
 - Carrier and package type for this shipment
 - Insurance on/off + insured amount
 - Selected delivery options (evening delivery, signature, only recipient…)
+- Since 5.7.3 also same-day, early morning, fresh and frozen delivery, where the carrier offers them. Before that these four were dropped during the order import and stayed empty here.
 - Buttons: *Export* · *Print label* · *View Track & Trace*
 
 ::: warning Save changes before printing
@@ -350,6 +360,8 @@ Above the widget the customer picks a carrier + service (e.g. *PostNL — Super 
 - **Extra options** like *Signature (€2.00)* or *Only recipient* with separate surcharges.
 
 Below home delivery sits a second block **Pickup at a pickup location**, marked *Most sustainable*. When opened, an interactive map appears with PostNL/DHL points nearby, with opening hours per day. The customer can switch between *List* and *Map* (if enabled in [§8](#8-settings-checkout)).
+
+Business and consumer customers do not necessarily see the same delivery options here. Fill in a company name and the order counts as business, see [§8](#8-settings-checkout).
 
 ## 13 · Daily use
 
@@ -383,7 +395,7 @@ Something not behaving as expected? Run through this table top to bottom — thr
 | --- | --- |
 | **Checkout: "No carriers available"** | PrestaShop carriers linked to a shipping zone with prices for the delivery address? Go to *Shipping → Carriers*. Only then do MyParcel delivery options appear. |
 | **No delivery options visible** | (1) [§8](#8-settings-checkout): *Show delivery options* on? (2) [§9](#9-settings-carriers): at least one carrier with *Enable delivery options* on? |
-| **Installation fails — *"Pdk instance must be set to use facades"*** | Remove older MyParcel modules completely (incl. database tables `ps_myparcelnl_*`) and reinstall 5.0.x. |
+| **Installation fails — *"Pdk instance must be set to use facades"*** | Remove older MyParcel modules completely (incl. database tables `ps_myparcelnl_*`) and reinstall 5.7.x. |
 | **Province error: *"state must be at most 2 characters"*** | NL language pack creates provinces as `NL-LI` (4 characters). In *International → Locations → Provinces*, change the iso codes to 2 characters. See [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **"Invalid API key" while connection works** | Close plugin config completely and reopen. If the issue persists: copy the key again from *backoffice.myparcel.nl → Shop settings → Integration*. |
 | **PostNL settings not saved** | Click **Save** at the bottom of every tab before switching. Otherwise check *Debug options* for error messages. |
@@ -394,7 +406,7 @@ Something not behaving as expected? Run through this table top to bottom — thr
 ## 15 · FAQ
 
 ### Does the plugin work on PrestaShop 9?
-Not yet. Version 5.0.x supports PrestaShop 1.7.8 through 8.x. PrestaShop 9 support is on the roadmap; follow [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Not yet. Version 5.7.x supports PrestaShop 1.7.8 through 8.x. PrestaShop 9 support is on the roadmap; follow [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
 
 ### Can I use multiple carriers at once?
 Yes. Activate per carrier under *Carriers → \[Carrier name\] → Delivery options → Enable delivery options*.
@@ -420,4 +432,4 @@ No. The plugin is free. You only pay for the shipments via your MyParcel rate.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, billing.
 - [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-This manual is written for plugin version **5.0.x**. In newer versions field names or order may shift slightly; the overall plugin layout stays the same.
+This manual is written for plugin version **5.7.x**. In newer versions field names or order may shift slightly; the overall plugin layout stays the same.

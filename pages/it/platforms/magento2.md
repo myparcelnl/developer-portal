@@ -26,11 +26,11 @@ Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazion
 | Cosa vuoi fare? | Vai a |
 | --- | --- |
 | Configurazione iniziale | [Avvio rapido](#avvio-rapido-il-primo-pacco-in-15-minuti) |
-| Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-e-il-tuo-profilo-shop) |
+| Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-il-tuo-profilo-shop) |
 | Impostazioni generali del plugin | [5 · Impostazioni · General](#5-impostazioni-general) |
 | Opzioni specifiche per vettore | [6 · Impostazioni · Vettori](#6-impostazioni-vettori) |
 | Un'impostazione diversa per prodotto | [7 · Impostazioni prodotto](#7-impostazioni-prodotto) |
-| Cosa vede un cliente al checkout | [8 · L'esperienza di checkout](#8-l-esperienza-di-checkout) |
+| Cosa vede un cliente al checkout | [8 · L'esperienza di checkout](#8-lesperienza-di-checkout) |
 | Elaborazione bulk per 50+ ordini/giorno | [9 · Uso quotidiano](#9-uso-quotidiano) |
 | Qualcosa non funziona | [10 · Qualcosa non funziona — diagnostica](#10-qualcosa-non-funziona-diagnostica) |
 | Risposta a una domanda frequente | [11 · FAQ](#11-faq) |
@@ -124,7 +124,7 @@ Tre profili tipici con impostazioni consigliate. Scegline uno, applica le impost
 | Insure orders | No | Non disponibile per pacco da cassetta postale |
 
 ::: tip Altri scenari?
-Per gioielli costosi, internazionale o requisiti speciali — vedi [11 · FAQ](#11-faq) o i profili shop estesi nel [manuale WooCommerce](./woocommerce.html#4-qual-e-il-tuo-profilo-shop) (applicabili a tutte le piattaforme).
+Per gioielli costosi, internazionale o requisiti speciali — vedi [11 · FAQ](#11-faq) o i profili shop estesi nel [manuale WooCommerce](./woocommerce.html#4-qual-il-tuo-profilo-shop) (applicabili a tutte le piattaforme).
 :::
 
 ## 5 · Impostazioni · General
@@ -256,6 +256,7 @@ Su ogni prodotto appare una sezione **MyParcel Options** sulla pagina di edit. S
 - **Fit in mailbox** — quanti pezzi stanno in un pacco da cassetta postale? `0` = automatico su peso, `-1` = non sta nella cassetta postale.
 - **Disable delivery options** — nasconde il blocco opzioni di consegna MyParcel se questo prodotto è nel carrello. Per prodotti digitali o gift card.
 - **Exclude parcel lockers** — nasconde gli automatici come pickup point per questo prodotto.
+- **24 hour priority**, offre questo prodotto con consegna prioritaria. Disponibile dalla versione plugin 5.9.0. Se l'impostazione generale della consegna prioritaria è disattivata, il checkout mostra la casella solo se almeno un prodotto nel carrello ha questa opzione attiva. L'impostazione di prodotto può solo attivare la priorità, mai disattivarla: se il cliente toglie la spunta nel checkout, quella scelta resta.
 
 ## 8 · L'esperienza di checkout
 Appena il cliente compila un indirizzo di consegna appare il blocco MyParcel con le opzioni di consegna. Quali opzioni ci sono dipende da: i vettori attivi, i prodotti nel carrello e gli override specifici del prodotto da [§7](#7-impostazioni-prodotto).

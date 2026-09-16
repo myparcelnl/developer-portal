@@ -199,6 +199,24 @@ Cette configuration n'affichera que les options de livraison le matin et le soir
 Le drapeau générique `allowDeliveryOptions` de la v6 n'existe plus. Pour masquer entièrement la livraison à domicile pour un transporteur, définissez toutes les clés `allow*Delivery` de ce transporteur sur `false`. Pour masquer complètement un transporteur, définissez également `allowPickupLocations` sur `false` (ou mieux encore, n'incluez tout simplement pas le transporteur dans `carrierSettings`).
 :::
 
+::: note La livraison le jour même existe sous deux formes
+Les transporteurs exposent la livraison le jour même de deux manières : comme option d'expédition, à la façon de DHL For You, ou comme type de livraison à part entière, à la façon de Trunkrs. Depuis la v7.4.4, le widget comprend les deux et les ramène au même type interne `same_day`, si bien que `allowSameDayDelivery`, `priceSameDayDelivery` et `cutoffTimeSameDay` couvrent les deux formes. Auparavant, un transporteur du second type retombait sur la livraison standard ou n'affichait rien. La sélection est émise telle que le transporteur la représente : comme type de livraison `same_day`, ou comme option d'expédition `sameDayDelivery` combinée au type de livraison du transporteur.
+:::
+
+### Options de livraison pour les professionnels et les particuliers
+
+Les transporteurs n'offrent pas toujours les mêmes options de livraison aux professionnels qu'aux particuliers. Définissez `isBusiness` dans la configuration et le widget le transmet à la requête de capacités, de sorte que chaque commande reçoive les options qui la concernent réellement.
+
+```json
+{
+  "isBusiness": true
+}
+```
+
+C'est la plateforme intégratrice qui décide de la valeur transmise. Dans les plugins MyParcel, le PDK la déduit de la présence d'un nom d'entreprise dans l'adresse de la commande. `true` et `false` sont deux réponses distinctes pour l'API, un professionnel face à un particulier identifié, et les deux sont transmises. Omettez la clé et le widget l'exclut de la requête, ce qui correspond au comportement des plateformes qui ne l'envoient pas encore.
+
+C'est le mécanisme derrière les options de commande différentes que voient les clients professionnels dans les plugins WooCommerce et PrestaShop. Disponible depuis la v7.5.0.
+
 ### Heures limites et jours de dépôt
 
 Les jours de dépôt sont les jours où vous pouvez déposer vos colis chez le transporteur. Ils servent à calculer les prochaines dates de livraison disponibles.
@@ -288,6 +306,12 @@ Voici toutes les options de configuration possibles. L'objet `strings` est utili
     // widget will log a warning. Do NOT use this in production.
     "apiKey": "",
 
+    // boolean, whether the recipient is a business. Forwarded onto the
+    // capabilities request so business and consumer checkouts each get their
+    // own delivery options. Omit it and the widget leaves it out of the
+    // request, which is what older platforms do. Since v7.5.0.
+    "isBusiness": false,
+
     // string, ISO 639-1 language code. Defaults to the browser language.
     "locale": "",
 
@@ -369,10 +393,14 @@ Voici toutes les options de configuration possibles. L'objet `strings` est utili
     "priceSameDayDelivery": 0,
 
     // Monday delivery. Requires Sunday as a drop-off day. For myparcel + postnl only.
+    // Since v7.4.5 this is read from your carrier settings rather than from the
+    // carrier's capabilities, because Monday delivery is a request parameter and
+    // not a capability. Before that, the setting had no effect.
     "allowMondayDelivery": true,
     "priceMondayDelivery": 0,
 
     // Saturday delivery. Requires Friday as a drop-off day. For sendmyparcel + bpost only.
+    // Read from your carrier settings as well, see the note above. Since v7.4.5.
     "allowSaturdayDelivery": false,
     "priceSaturdayDelivery": 0,
 

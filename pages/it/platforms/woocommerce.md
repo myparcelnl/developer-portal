@@ -27,10 +27,10 @@ Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazion
 | --- | --- |
 | Configurazione iniziale | [Avvio rapido](#avvio-rapido-il-primo-pacco-in-15-minuti) |
 | Collegare anche dal backoffice (sales channel) | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel) |
-| Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-e-il-tuo-profilo-shop) |
+| Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-il-tuo-profilo-shop) |
 | Cercare un'impostazione specifica | [5 · Impostazioni · Ordini](#5-impostazioni-ordini) fino a [9 · Impostazioni · Vettori](#9-impostazioni-vettori) |
 | Un'impostazione diversa per prodotto | [10 · Impostazioni prodotto](#10-impostazioni-prodotto) |
-| Cosa vede un cliente al checkout | [12 · L'esperienza di checkout](#12-l-esperienza-di-checkout) |
+| Cosa vede un cliente al checkout | [13 · L'esperienza di checkout](#13-lesperienza-di-checkout) |
 | Elaborazione bulk per 50+ ordini/giorno | [14 · Uso quotidiano](#14-uso-quotidiano) |
 | Qualcosa non funziona | [15 · Qualcosa non funziona — diagnostica](#15-qualcosa-non-funziona-diagnostica) |
 | Risposta a una domanda frequente | [16 · FAQ](#16-faq) |
@@ -271,6 +271,10 @@ Cosa il cliente vede e può scegliere al pagamento.
 - **Titolo opzioni di consegna** — intestazione sopra il widget.
 - **CSS personalizzato** — styling proprio.
 
+::: tip Aziende e privati vedono opzioni diverse
+Dalla versione plugin 6.8.0 il checkout propone ai clienti aziendali le opzioni di consegna che il loro vettore offre davvero alle aziende, che non sempre coincidono con quelle dei privati. Il plugin lo deduce dal nome azienda nell'indirizzo di consegna: se è compilato, l'ordine conta come aziendale. Non c'è nulla da configurare, segue il vettore. Il lato tecnico si trova nel [widget Delivery Options](/platforms/delivery-options.html#business-and-consumer-delivery-options).
+:::
+
 ### Pickup point
 - **Visualizzazione predefinita** — *Mappa* o *Lista*.
 - **Gli utenti possono passare tra lista e mappa** — *Consigliato on.*
@@ -301,6 +305,10 @@ Qui sotto illustro **PostNL** come esempio — DHL For You, DHL Parcel Connect, 
 - **Assicurare fino a (EU)** / **(EU + Resto del mondo)** — massimi per regione.
 - **Assicurare per percentuale** — es. 100% del valore ordine.
 
+::: note Gli importi assicurati possono variare
+Il plugin aggiorna periodicamente i dati dei vettori, e gli importi che un vettore non offre più escono dall'elenco. Quello che vedi può quindi differire dagli importi usati come esempio in questo manuale.
+:::
+
 ::: details Opzioni di consegna — tutti i campi
 **Opzioni per consegna a domicilio**
 - **Attiva consegna a domicilio** — toggle master.
@@ -314,6 +322,7 @@ Qui sotto illustro **PostNL** come esempio — DHL For You, DHL Parcel Connect, 
 - **Consegna mattutina** + Prezzo consegna mattutina.
 - **Consegna serale** + Prezzo consegna serale.
 - **Consegna lunedì** + Prezzo consegna lunedì.
+- **Consegna in giornata** + Prezzo consegna in giornata, per i vettori che la offrono. Dalla 6.9.0 queste impostazioni compaiono anche per i vettori che offrono la consegna in giornata come tipo di consegna, come Trunkrs. Prima, un vettore del genere non compariva affatto nelle sotto-schede.
 
 **Opzioni di spedizione**
 - **Solo destinatario** + supplemento.
@@ -408,6 +417,8 @@ Cosa il tuo cliente vede appena l'indirizzo di consegna è compilato — appare 
 
 Il cliente sceglie un vettore e momento di consegna da un **carosello di date**, una **fascia oraria** ed eventualmente **opzioni extra** (firma, solo destinatario). Sotto la consegna a domicilio c'è un blocco **Ritiro presso un pickup point** con mappa interattiva, orari di apertura e toggle lista/mappa.
 
+Clienti aziendali e privati non vedono necessariamente gli stessi momenti di consegna. Se il cliente inserisce un nome azienda, l'ordine conta come aziendale, vedi [§8](#8-impostazioni-checkout).
+
 ## 14 · Uso quotidiano
 
 ::: warning Usi un canale di vendita?
@@ -489,3 +500,5 @@ Torna indietro tramite [WP Rollback](https://wordpress.org/plugins/wp-rollback/)
 - [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — listing del plugin.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, fatturazione.
 - [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+
+Questo manuale è scritto per la versione plugin **6.9.x**. In versioni più recenti i nomi o l'ordine dei campi possono variare leggermente; la struttura principale del plugin resta uguale.
