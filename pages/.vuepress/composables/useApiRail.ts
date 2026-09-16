@@ -6,15 +6,38 @@ const STORAGE_KEY = 'mp-code-rail-width';
 const MIN_PX = 320;
 const MAX_PX = 720;
 const DEFAULT_PX = 440;
+/** Never let the rail squeeze the endpoint column below this. */
+const MIN_CONTENT_PX = 380;
+
+function cssVar(name: string, fallback: number): number {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue(name);
+  const n = parseFloat(raw);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+/** Upper bound for the rail on this viewport, so the content column survives. */
+function maxAllowed(): number {
+  const sidebar = cssVar('--mp-sidebar-width', 260);
+  return Math.min(MAX_PX, window.innerWidth - sidebar - MIN_CONTENT_PX);
+}
 
 function clamp(n: number): number {
-  return Math.max(MIN_PX, Math.min(MAX_PX, n));
+  return Math.max(MIN_PX, Math.min(maxAllowed(), n));
+}
+
+/** Apply a width; `persist` false for automatic corrections (e.g. on resize),
+ *  so shrinking the window never overwrites the width the user chose. */
+function applyWidth(px: number, persist = true) {
+  const v = clamp(px);
+  document.documentElement.style.setProperty('--mp-code-rail-width', `${v}px`);
+  if (persist) {
+    try { localStorage.setItem(STORAGE_KEY, String(v)); } catch {}
+  }
+  return v;
 }
 
 function setWidth(px: number) {
-  const v = clamp(px);
-  document.documentElement.style.setProperty('--mp-code-rail-width', `${v}px`);
-  try { localStorage.setItem(STORAGE_KEY, String(v)); } catch {}
+  applyWidth(px, true);
 }
 
 function injectHandle(rail: HTMLElement) {
@@ -85,18 +108,29 @@ function injectHandle(rail: HTMLElement) {
   rail.prepend(handle);
 }
 
+let resizeBound = false;
+
 export function initApiRail() {
   if (typeof document === 'undefined') return;
-  // Restore stored preference on first call
+  // Restore stored preference on first call. Clamped, so a wide rail saved on
+  // a large screen does not swallow the content column on a smaller one.
+  let stored = 0;
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && Number(stored) > 0) {
-      document.documentElement.style.setProperty(
-        '--mp-code-rail-width',
-        `${clamp(Number(stored))}px`,
-      );
-    }
+    stored = Number(localStorage.getItem(STORAGE_KEY)) || 0;
   } catch {}
+  if (stored > 0) applyWidth(stored, false);
+
+  // Re-clamp when the window changes: the ceiling depends on the viewport.
+  if (!resizeBound) {
+    resizeBound = true;
+    window.addEventListener('resize', () => {
+      let pref = 0;
+      try {
+        pref = Number(localStorage.getItem(STORAGE_KEY)) || 0;
+      } catch {}
+      applyWidth(pref || cssVar('--mp-code-rail-width', DEFAULT_PX), false);
+    });
+  }
 
   document.querySelectorAll<HTMLElement>('aside.mp-code-rail').forEach(injectHandle);
 }
