@@ -175,7 +175,7 @@ Trois champs produit standard d'Odoo comptent toutefois, parce que MyParcel les 
 | Champ | Où | Pourquoi c'est important |
 | --- | --- | --- |
 | **Weight** | Produit → onglet *Inventory* | Détermine le prix d'expédition et le type de colis adapté. Sans poids, l'application retombe sur un minimum de 10 grammes, ce qui rend les devis irréalistes. |
-| **HS Code** | Produit → onglet *Accounting* ou *Purchase* | Obligatoire pour les expéditions hors UE. Le code doit compter 6, 8 ou 10 chiffres, et 10 chiffres pour les États-Unis. |
+| **HS Code** | Produit → onglet *Accounting* ou *Purchase* | Obligatoire pour les expéditions hors UE. Le code doit compter 6, 8 ou 10 chiffres, et 10 chiffres sont obligatoires pour les États-Unis. |
 | **Country of Origin** | À côté du HS Code | Obligatoire pour les expéditions hors UE, il figure sur la déclaration douanière. |
 
 Pour les commandes au sein de l'UE, vous pouvez laisser HS Code et Country of Origin vides.
@@ -238,7 +238,7 @@ Une journée d'expédition typique :
 | **Email address is required** | **Add Email to Shipment** est activé pour cette méthode, mais le contact n'a pas d'adresse e-mail. Ajoutez-en une, ou désactivez le réglage. |
 | **Phone number is required** | Idem, pour **Add Phone to Shipment**. |
 | **Invalid email address provided** | L'adresse e-mail du contact est mal formée. Corrigez-la sur le contact. |
-| **The HS Code does not have the correct amount of digits** | Les codes HS doivent compter 6, 8 ou 10 chiffres, et 10 chiffres pour les États-Unis. Corrigez le code sur le produit. |
+| **The HS Code does not have the correct amount of digits** | Les codes HS doivent compter 6, 8 ou 10 chiffres, et 10 chiffres sont obligatoires pour les États-Unis. Corrigez le code sur le produit. |
 | **No country of origin found for this product** | Renseignez **Country of Origin** sur chaque produit d'une expédition qui quitte l'UE. |
 | **Package type needed for MyParcel carriers** | **Package Type** est vide sur la méthode d'expédition. Choisissez-en un dans l'onglet MyParcel Settings. |
 | **Receipt code can not be selected with any other option** | Le code de retrait ne fonctionne que seul, et uniquement avec une assurance. Décochez les autres options. |

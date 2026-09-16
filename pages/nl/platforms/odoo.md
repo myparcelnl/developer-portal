@@ -175,7 +175,7 @@ Drie standaard Odoo-productvelden zijn wel van belang, omdat MyParcel ze gebruik
 | Veld | Waar | Waarom het uitmaakt |
 | --- | --- | --- |
 | **Weight** | Product → tabblad *Inventory* | Bepaalt de verzendprijs en welk pakkettype past. Zonder gewicht valt de app terug op minimaal 10 gram, waardoor prijsopgaven onrealistisch worden. |
-| **HS Code** | Product → tabblad *Accounting* of *Purchase* | Verplicht voor zendingen buiten de EU. De code moet 6, 8 of 10 cijfers hebben, en 10 cijfers voor de Verenigde Staten. |
+| **HS Code** | Product → tabblad *Accounting* of *Purchase* | Verplicht voor zendingen buiten de EU. De code moet 6, 8 of 10 cijfers hebben, en voor de Verenigde Staten zijn 10 cijfers verplicht. |
 | **Country of Origin** | Naast de HS Code | Verplicht voor zendingen buiten de EU, dit komt op de douaneaangifte. |
 
 Voor orders binnen de EU mag je HS Code en Country of Origin leeg laten.
@@ -238,7 +238,7 @@ Een typische verzenddag:
 | **Email address is required** | **Add Email to Shipment** staat aan voor deze methode, maar de contactpersoon heeft geen e-mailadres. Vul er een in, of zet de instelling uit. |
 | **Phone number is required** | Idem, voor **Add Phone to Shipment**. |
 | **Invalid email address provided** | Het e-mailadres van de contactpersoon klopt niet. Corrigeer het op de contactpersoon. |
-| **The HS Code does not have the correct amount of digits** | HS-codes moeten 6, 8 of 10 cijfers hebben, en 10 cijfers voor de Verenigde Staten. Corrigeer de code op het product. |
+| **The HS Code does not have the correct amount of digits** | HS-codes moeten 6, 8 of 10 cijfers hebben, en voor de Verenigde Staten zijn 10 cijfers verplicht. Corrigeer de code op het product. |
 | **No country of origin found for this product** | Vul **Country of Origin** in op elk product in een zending die de EU verlaat. |
 | **Package type needed for MyParcel carriers** | **Package Type** is leeg op de verzendmethode. Kies er een op het tabblad MyParcel Settings. |
 | **Receipt code can not be selected with any other option** | Ontvangstcode werkt alleen op zichzelf, en alleen samen met verzekering. Zet de andere opties uit. |

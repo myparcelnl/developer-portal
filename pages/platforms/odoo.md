@@ -171,7 +171,7 @@ Three standard Odoo product fields do matter, because MyParcel uses them:
 | Field | Where | Why it matters |
 | --- | --- | --- |
 | **Weight** | Product → *Inventory* tab | Decides the shipping price and which package type fits. Without a weight the app falls back to a minimum of 10 grams, which makes quotes unrealistic. |
-| **HS Code** | Product → *Accounting* or *Purchase* tab | Required for shipments outside the EU. It must be 6, 8 or 10 digits, and 10 digits for the United States. |
+| **HS Code** | Product → *Accounting* or *Purchase* tab | Required for shipments outside the EU. It must be 6, 8 or 10 digits, and 10 digits is a requirement for the United States. |
 | **Country of Origin** | Next to the HS Code | Required for shipments outside the EU, it goes on the customs declaration. |
 
 For orders inside the EU you can leave HS Code and Country of Origin empty.
@@ -234,7 +234,7 @@ A typical shipping day:
 | **Email address is required** | **Add Email to Shipment** is on for this method, but the contact has no email address. Add one, or switch the setting off. |
 | **Phone number is required** | Same, for **Add Phone to Shipment**. |
 | **Invalid email address provided** | The contact's email address is malformed. Correct it on the contact. |
-| **The HS Code does not have the correct amount of digits** | HS codes must be 6, 8 or 10 digits, and 10 digits for the United States. Correct it on the product. |
+| **The HS Code does not have the correct amount of digits** | HS codes must be 6, 8 or 10 digits, and 10 digits is a requirement for the United States. Correct it on the product. |
 | **No country of origin found for this product** | Set **Country of Origin** on every product in a shipment leaving the EU. |
 | **Package type needed for MyParcel carriers** | **Package Type** is empty on the delivery method. Pick one on the MyParcel Settings tab. |
 | **Receipt code can not be selected with any other option** | Receipt Code only works on its own, and only together with insurance. Clear the other options. |
