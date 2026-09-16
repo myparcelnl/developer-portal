@@ -256,6 +256,7 @@ Every product has a **MyParcel Options** section on its edit page. This override
 - **Fit in mailbox** — how many fit in one mailbox parcel? `0` = automatic by weight, `-1` = doesn't fit in mailbox.
 - **Disable delivery options** — hides the MyParcel delivery options block when this product is in the cart. For digital products or gift cards.
 - **Exclude parcel lockers** — hides parcel lockers as a pickup point for this product.
+- **24 hour priority**, offers this product with priority delivery. Available from plugin version 5.9.0. When the general priority delivery setting is off, the checkout only shows the priority checkbox if at least one product in the cart has this on. The product setting can switch priority on, never off: a customer who deselects it in the checkout keeps that choice.
 
 ## 8 · The checkout experience
 Once the customer fills in a delivery address, the MyParcel block appears with delivery options. Which options show depends on: the active carriers, the products in the cart, and the product-specific overrides from [§7](#7-product-settings).

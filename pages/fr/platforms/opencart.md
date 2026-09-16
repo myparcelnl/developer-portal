@@ -8,7 +8,7 @@ L'extension MyParcel connecte votre boutique OpenCart 4 à MyParcel. Les clients
 :::
 
 ::: warning Pré-version
-L'extension OpenCart 4 est actuellement en pré-version (version `0.2.0`). Elle nécessite **OpenCart 4.1.0.3 ou une version plus récente** et **PHP 8.2 ou une version plus récente**. Les écrans et les noms de champs peuvent encore changer d'une version à l'autre.
+L'extension OpenCart 4 est actuellement en pré-version (version `1.0.0-beta.10`) et le lancement de la 1.0 se prépare. Elle nécessite **OpenCart 4.1.0.3 ou une version plus récente** et **PHP 8.2 ou une version plus récente**. Les écrans et les noms de champs peuvent encore changer d'une version à l'autre.
 :::
 
 ## Démarrage rapide, votre premier colis en 15 minutes

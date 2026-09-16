@@ -271,6 +271,10 @@ Ce que votre client voit et peut choisir lors du paiement.
 - **Titre des options de livraison**, en-tête au-dessus du widget.
 - **CSS personnalisé**, votre propre style.
 
+::: tip Professionnels et particuliers voient des options différentes
+Depuis la version 6.8.0 du plugin, la commande propose aux clients professionnels les options de livraison que leur transporteur offre réellement aux entreprises, qui ne sont pas toujours celles des particuliers. Le plugin le déduit du nom d'entreprise dans l'adresse de livraison : s'il est renseigné, la commande compte comme professionnelle. Il n'y a rien à configurer, cela suit le transporteur. Le côté technique se trouve dans le [widget Delivery Options](/fr/platforms/delivery-options.html#options-de-livraison-pour-les-professionnels-et-les-particuliers).
+:::
+
 ### Points relais
 - **Affichage par défaut**, *Carte* ou *Liste*.
 - **Les utilisateurs peuvent basculer entre liste et carte**, *Recommandé activé.*
@@ -301,6 +305,10 @@ Ci-dessous, je détaille **PostNL** à titre d'exemple, DHL For You, DHL Parcel 
 - **Assurer jusqu'à (UE)** / **(UE + Reste du monde)**, maximums par région.
 - **Assurer pour un pourcentage**, par ex. 100 % de la valeur de la commande.
 
+::: note Les montants assurés peuvent différer
+Le plugin actualise périodiquement les données des transporteurs, et les montants qu'un transporteur ne propose plus disparaissent de la liste. Ce que vous voyez peut donc différer des montants donnés en exemple dans ce manuel.
+:::
+
 ::: details Options de livraison, tous les champs
 **Options de livraison à domicile**
 - **Activer la livraison à domicile**, interrupteur principal.
@@ -314,6 +322,7 @@ Ci-dessous, je détaille **PostNL** à titre d'exemple, DHL For You, DHL Parcel 
 - **Livraison le matin** + prix de la livraison le matin.
 - **Livraison le soir** + prix de la livraison le soir.
 - **Livraison le lundi** + prix de la livraison le lundi.
+- **Livraison le jour même** + prix de la livraison le jour même, pour les transporteurs qui la proposent. Depuis la 6.9.0, ces réglages apparaissent aussi pour les transporteurs qui proposent le jour même comme type de livraison, tel Trunkrs. Auparavant, un tel transporteur n'apparaissait pas du tout dans les sous-onglets.
 
 **Options d'expédition**
 - **Destinataire uniquement** + supplément.
@@ -408,6 +417,8 @@ Ce que votre client voit une fois l'adresse de livraison remplie, apparaît dès
 
 Le client choisit un transporteur et un moment de livraison depuis un **carrousel de dates**, un **créneau horaire** et des **options supplémentaires** facultatives (signature, destinataire uniquement). Sous la livraison à domicile apparaît un bloc **Retrait à un point relais** avec une carte interactive, les horaires d'ouverture et une bascule liste/carte.
 
+Les clients professionnels et particuliers ne voient pas forcément les mêmes moments de livraison ici. Si le client renseigne un nom d'entreprise, la commande compte comme professionnelle, voir [§8](#8-rglages-checkout).
+
 ## 14 · Utilisation quotidienne
 
 ::: warning Vous utilisez un canal de vente ?
@@ -489,3 +500,5 @@ Revenez en arrière via [WP Rollback](https://wordpress.org/plugins/wp-rollback/
 - [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/), fiche du plugin.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), compte, clé API, facturation.
 - [Contacter le support MyParcel](../../contact.md), **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+
+Ce manuel est écrit pour la version **6.9.x** du plugin. Dans les versions plus récentes, les noms ou l'ordre des champs peuvent légèrement varier ; la disposition générale du plugin reste identique.
