@@ -45,7 +45,7 @@ Voordat je in PrestaShop begint, regel je vier dingen in je MyParcel-backoffice:
 
 ## 2 · Plugin installeren
 ::: warning Versie-eisen
-Plugin 5.0.x werkt op **PrestaShop 1.7.8 t/m 8.x** met **PHP 7.4+** (8.1/8.2 aanbevolen). PrestaShop 9 wordt nog niet ondersteund — zie [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Plugin 5.7.x werkt op **PrestaShop 1.7.8 t/m 9.x** met **PHP 7.4+**, tot en met PHP 8.5. PrestaShop 9 wordt ondersteund vanaf plugin-versie 5.2.0, inclusief de Hummingbird-checkout.
 :::
 
 1. Download de release-ZIP via [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -53,7 +53,7 @@ Plugin 5.0.x werkt op **PrestaShop 1.7.8 t/m 8.x** met **PHP 7.4+** (8.1/8.2 aan
 3. Wacht tot installatie klaar is, zoek op `myparcel` en klik **Configureer**.
 
 ::: details Installatie mislukt met "Pdk instance must be set to use facades"
-Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Module Manager → Verwijderen*). Maak eerst een database-backup, leeg dan handmatig tabellen die met `ps_myparcelnl_` beginnen en installeer 5.0.x opnieuw.
+Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Module Manager → Verwijderen*). Maak eerst een database-backup, leeg dan handmatig tabellen die met `ps_myparcelnl_` beginnen en installeer 5.7.x opnieuw.
 :::
 
 ## Sales channel via de MyParcel Backoffice
@@ -236,6 +236,10 @@ Wat je klant in de checkout ziet — of liever niet ziet.
 - **Prijs type** — *Inbegrepen* (in totaalprijs) of *Apart* (los getoond). *Inbegrepen voorkomt verrassingen.*
 - **Bezorgopties titel** — kop boven het MyParcel-blok. Bv. *Hoe wil je je pakket ontvangen?*
 - **Toon belastingvelden bij het afrekenen** — BTW-velden voor zakelijke bestellingen.
+
+::: tip Zakelijk en particulier zien andere opties
+Het verschil tussen zakelijk en particulier gaat verder dan deze BTW-velden. Vanaf plugin-versie 5.6.0 biedt de checkout zakelijke klanten de bezorgopties die hun vervoerder werkelijk voor zakelijke zendingen heeft, en dat zijn niet altijd dezelfde als voor particulieren. De plugin leidt dit af uit de bedrijfsnaam in het bezorgadres. Er valt niets in te stellen, het volgt de vervoerder. De technische kant staat bij de [Delivery Options-widget](/platforms/delivery-options.html#business-and-consumer-delivery-options).
+:::
 - **Gesloten dagen** — datumkiezer voor feestdagen. Op deze dagen verbergt de checkout bezorgopties.
 
 ### Afhaalpunten
@@ -270,6 +274,10 @@ Welke opties standaard meegegeven worden aan elke nieuwe zending.
 - **Verzekeren tot** / **(NL)** / **(EU)** / **(EU + Rest Wereld)** — maxima per regio.
 - **Verzekeren voor percentage** — bv. 100% van orderwaarde.
 
+::: note Verzekerde bedragen kunnen afwijken
+De plugin ververst de vervoerdersgegevens periodiek, en bedragen die een vervoerder niet meer aanbiedt vallen uit de lijst. Wat jij ziet kan dus afwijken van de bedragen die in deze handleiding als voorbeeld staan, inclusief die in [§4](#4-welk-shop-profiel-ben-jij).
+:::
+
 ### Standaard exportinstellingen voor retouren
 - **Standaard pakkettype** — Pakket / Klein pakket / Brievenbuspakje / Digitale postzegel.
 - **Activeer groter dan 100 × 70 × 58 cm** — voor oversized retouren.
@@ -290,6 +298,7 @@ Welke opties standaard meegegeven worden aan elke nieuwe zending.
 - **Avondbezorging** + prijs — 18:00–22:00.
 - **Maandagbezorging** + prijs — voor zaterdag-afgifte.
 - **Zaterdagbezorging** + prijs.
+- **Sameday-bezorging** + prijs, voor vervoerders die dat aanbieden. Vanaf 5.7.1 verschijnen deze instellingen ook bij vervoerders die sameday als bezorgvorm aanbieden, zoals Trunkrs.
 - **Handtekening** + prijs — handtekening met eventuele toeslag.
 - **Alleen ontvanger** + prijs — alleen-ontvanger met eventuele toeslag.
 :::
@@ -334,6 +343,7 @@ Open een individuele order. Onder de standaard PrestaShop-gegevens zie je een **
 - Vervoerder en pakkettype voor deze zending
 - Verzekering aan/uit + verzekerd bedrag
 - Geselecteerde bezorgopties (avondbezorging, handtekening, alleen ontvanger…)
+- Vanaf 5.7.3 ook sameday, vroege ochtend, vers en diepvries, voor zover de vervoerder ze aanbiedt. Daarvoor vielen deze vier weg bij de order-import en bleven ze hier leeg.
 - Knoppen: *Exporteren* · *Print label* · *Track & Trace bekijken*
 
 ::: warning Sla wijzigingen op vóór printen
@@ -350,6 +360,8 @@ Boven de widget kiest de klant een vervoerder + dienst (bv. *PostNL — Super sn
 - **Extra opties** zoals *Handtekening (€2,00)* of *Alleen ontvanger* met aparte toeslagen.
 
 Onder thuisbezorging staat een tweede blok **Ophalen bij een afhaallocatie**, gemarkeerd *Meest duurzaam*. Bij openen verschijnt een interactieve kaart met PostNL/DHL-punten in de buurt, met openingstijden per dag. De klant kan switchen tussen *Lijst* en *Kaart* (mits ingeschakeld in [§8](#8-settings-checkout)).
+
+Zakelijke en particuliere klanten zien hier niet per se dezelfde bezorgopties. Vult de klant een bedrijfsnaam in, dan telt de order als zakelijk, zie [§8](#8-settings-checkout).
 
 ## 13 · Dagelijks gebruik
 
@@ -383,7 +395,7 @@ Werkt iets niet zoals verwacht? Loop deze tabel van boven naar onder door — dr
 | --- | --- |
 | **Checkout: "Geen vervoerders beschikbaar"** | PrestaShop-vervoerders gekoppeld aan een verzendzone met prijzen voor het bezorgadres? Ga naar *Verzending → Vervoerders*. Pas daarna verschijnen MyParcel-bezorgopties. |
 | **Geen bezorgopties zichtbaar** | (1) [§8](#8-settings-checkout): *Bezorgopties tonen* aan? (2) [§9](#9-settings-vervoerders): minstens één vervoerder met *Bezorgopties inschakelen* aan? |
-| **Installatie mislukt — *"Pdk instance must be set to use facades"*** | Verwijder oudere MyParcel-modules volledig (incl. database-tabellen `ps_myparcelnl_*`) en installeer 5.0.x opnieuw. |
+| **Installatie mislukt — *"Pdk instance must be set to use facades"*** | Verwijder oudere MyParcel-modules volledig (incl. database-tabellen `ps_myparcelnl_*`) en installeer 5.7.x opnieuw. |
 | **Provincie-fout: *"state must be at most 2 characters"*** | NL-taalpakket maakt provincies als `NL-LI` (4 tekens). Pas in *Internationaal → Locaties → Provincies* de iso-codes naar 2 tekens. Zie [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **"Invalid API key" terwijl koppeling werkt** | Sluit plugin-config volledig en open opnieuw. Bij blijvende problemen: kopieer de key opnieuw uit *backoffice.myparcel.nl → Shopinstellingen → Integratie*. |
 | **PostNL-instellingen worden niet opgeslagen** | Klik **Opslaan** onderaan élke tab vóór je wisselt. Check anders *Debugopties* op foutmeldingen. |
@@ -394,7 +406,7 @@ Werkt iets niet zoals verwacht? Loop deze tabel van boven naar onder door — dr
 ## 15 · FAQ
 
 ### Werkt de plugin op PrestaShop 9?
-Nog niet. Versie 5.0.x ondersteunt PrestaShop 1.7.8 t/m 8.x. PrestaShop 9-ondersteuning staat op de roadmap; volg [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Ja, vanaf plugin-versie 5.2.0. Die release voegde ondersteuning toe voor PrestaShop 9 en PHP 8.5, en dekt de Hummingbird-checkout die met PrestaShop 9 meekomt. Zie [PR #483](https://github.com/myparcelnl/prestashop/pull/483).
 
 ### Kan ik meerdere vervoerders tegelijk gebruiken?
 Ja. Activeer per vervoerder onder *Vervoerders → \[Vervoerdernaam\] → Bezorgopties → Bezorgopties inschakelen*.
@@ -420,4 +432,4 @@ Nee. De plugin is gratis. Je betaalt alleen voor de zendingen via je MyParcel-ta
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
 - [Contact MyParcel-support](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Deze handleiding is geschreven voor plugin-versie **5.0.x**. Bij nieuwere versies kunnen veld-namen of -volgorde licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.
+Deze handleiding is geschreven voor plugin-versie **5.7.x**. Bij nieuwere versies kunnen veld-namen of -volgorde licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.

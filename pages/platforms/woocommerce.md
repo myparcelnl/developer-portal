@@ -271,6 +271,10 @@ What your customer sees and can choose at checkout.
 - **Delivery options title** — heading above the widget.
 - **Custom CSS** — your own styling.
 
+::: tip Business and consumer see different options
+Since plugin version 6.8.0 the checkout offers business customers the delivery options their carrier actually has for businesses, which are not always the ones consumers get. The plugin decides this from the company name in the checkout address: fill one in and the order counts as business. There is nothing to configure, it follows the carrier. The technical side lives in the [Delivery Options widget](/platforms/delivery-options.html#business-and-consumer-delivery-options).
+:::
+
 ### Pickup points
 - **Default view** — *Map* or *List*.
 - **Users can switch between list and map** — *Recommended on.*
@@ -301,6 +305,10 @@ Below I walk through **PostNL** as an example — DHL For You, DHL Parcel Connec
 - **Insure up to (EU)** / **(EU + Rest of World)** — maximums per region.
 - **Insure for percentage** — e.g. 100% of the order value.
 
+::: note Insured amounts can differ
+The plugin refreshes its carrier data periodically, and amounts a carrier no longer offers drop out of the list. What you see can therefore differ from the amounts used as examples in this manual.
+:::
+
 ::: details Delivery options — all fields
 **Home delivery options**
 - **Enable home delivery** — master toggle.
@@ -314,6 +322,7 @@ Below I walk through **PostNL** as an example — DHL For You, DHL Parcel Connec
 - **Morning delivery** + morning delivery price.
 - **Evening delivery** + evening delivery price.
 - **Monday delivery** + Monday delivery price.
+- **Same-day delivery** + same-day delivery price, for carriers that offer it. Since 6.9.0 these settings also appear for carriers that offer same-day as their delivery type, such as Trunkrs. Before that, such a carrier did not show up in the sub-tabs at all.
 
 **Shipping options**
 - **Only recipient** + surcharge.
@@ -408,6 +417,8 @@ What your customer sees once the delivery address is filled in — appears as so
 
 The customer picks a carrier and delivery moment from a **date carousel**, a **time slot** and optional **extra options** (signature, only recipient). Below home delivery, a **Pickup at a pickup location** block appears with an interactive map, opening hours and a list/map toggle.
 
+Business and consumer customers do not necessarily see the same delivery moments here. Fill in a company name and the order counts as business, see [§8](#8-settings-checkout).
+
 ## 14 · Daily use
 
 ::: warning Using a sales channel?
@@ -489,3 +500,5 @@ Roll back via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) or the G
 - [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — plugin listing.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, billing.
 - [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+
+This manual is written for plugin version **6.9.x**. In newer versions field names or order may shift slightly; the overall plugin layout stays the same.

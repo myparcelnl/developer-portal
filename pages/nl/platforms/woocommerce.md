@@ -30,7 +30,7 @@ Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je
 | Aanbevolen instellingen voor jouw type shop | [4 · Welk shop-profiel ben jij?](#4-welk-shop-profiel-ben-jij) |
 | Een specifieke instelling opzoeken | [5 · Settings · Bestellingen](#5-settings-bestellingen) tot [9 · Settings · Vervoerders](#9-settings-vervoerders) |
 | Per product een afwijkende instelling | [10 · Productinstellingen](#10-productinstellingen) |
-| Wat een klant in de checkout ziet | [12 · De checkout-ervaring](#12-de-checkout-ervaring) |
+| Wat een klant in de checkout ziet | [13 · De checkout-ervaring](#13-de-checkout-ervaring) |
 | Bulkverwerking voor 50+ orders/dag | [14 · Dagelijks gebruik](#14-dagelijks-gebruik) |
 | Iets werkt niet | [15 · Iets werkt niet — diagnose](#15-iets-werkt-niet-diagnose) |
 | Antwoord op een veelgestelde vraag | [16 · FAQ](#16-faq) |
@@ -271,6 +271,10 @@ Wat je klant ziet en kan kiezen bij het afrekenen.
 - **Bezorgopties titel** — kop boven de widget.
 - **Custom CSS** — eigen styling.
 
+::: tip Zakelijk en particulier zien andere opties
+Vanaf plugin-versie 6.8.0 biedt de checkout zakelijke klanten de bezorgopties die hun vervoerder werkelijk voor zakelijke zendingen heeft, en dat zijn niet altijd dezelfde als voor particulieren. De plugin leidt dit af uit de bedrijfsnaam in het bezorgadres: staat die ingevuld, dan telt de order als zakelijk. Er valt niets in te stellen, het volgt de vervoerder. De technische kant staat bij de [Delivery Options-widget](/platforms/delivery-options.html#business-and-consumer-delivery-options).
+:::
+
 ### Afhaalpunten
 - **Standaard weergave** — *Kaart* of *Lijst*.
 - **Gebruikers kunnen wisselen tussen lijst en kaart** — *Aanbevolen aan.*
@@ -301,6 +305,10 @@ Hieronder loop ik **PostNL** als voorbeeld door — DHL For You, DHL Parcel Conn
 - **Verzekeren tot (EU)** / **(EU + Rest Wereld)** — maxima per regio.
 - **Verzekeren voor percentage** — bv. 100% van orderwaarde.
 
+::: note Verzekerde bedragen kunnen afwijken
+De plugin ververst de vervoerdersgegevens periodiek, en bedragen die een vervoerder niet meer aanbiedt vallen uit de lijst. Wat jij ziet kan dus afwijken van de bedragen die in deze handleiding als voorbeeld staan.
+:::
+
 ::: details Bezorgopties — alle velden
 **Opties voor thuisbezorging**
 - **Thuisbezorging inschakelen** — master-toggle.
@@ -314,6 +322,7 @@ Hieronder loop ik **PostNL** als voorbeeld door — DHL For You, DHL Parcel Conn
 - **Ochtendbezorging** + Prijs ochtendbezorging.
 - **Avondbezorging** + Prijs avondbezorging.
 - **Maandagbezorging** + Prijs maandagbezorging.
+- **Sameday-bezorging** + Prijs sameday-bezorging, voor vervoerders die dat aanbieden. Vanaf 6.9.0 verschijnen deze instellingen ook bij vervoerders die sameday als bezorgvorm aanbieden, zoals Trunkrs. Daarvoor kwam zo'n vervoerder helemaal niet in de subtabs voor.
 
 **Verzendopties**
 - **Alleen ontvanger** + toeslag.
@@ -408,6 +417,8 @@ Wat je klant ziet zodra het bezorgadres is ingevuld — verschijnt zodra ten min
 
 De klant kiest een vervoerder en bezorgmoment uit een **datum-carrousel**, een **tijdvak** en eventueel **extra opties** (handtekening, alleen ontvanger). Onder thuisbezorging staat een **Ophalen bij een afhaallocatie**-blok met interactieve kaart, openingstijden en lijst/kaart-toggle.
 
+Zakelijke en particuliere klanten zien hier niet per se dezelfde bezorgmomenten. Vult de klant een bedrijfsnaam in, dan telt de order als zakelijk, zie [§8](#8-settings-checkout).
+
 ## 14 · Dagelijks gebruik
 
 ::: warning Gebruik je een sales channel?
@@ -489,3 +500,5 @@ Rol terug via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) of de Gi
 - [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — plugin-listing.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, facturatie.
 - [Contact MyParcel-support](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+
+Deze handleiding is geschreven voor plugin-versie **6.9.x**. Bij nieuwere versies kunnen veld-namen of -volgorde licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.

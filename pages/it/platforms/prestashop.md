@@ -27,10 +27,10 @@ Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazion
 | --- | --- |
 | Configurazione iniziale | [Avvio rapido](#avvio-rapido-il-primo-pacco-in-15-minuti) |
 | Collegare anche dal backoffice (sales channel) | [Canale di vendita tramite il Backoffice MyParcel](#canale-di-vendita-tramite-il-backoffice-myparcel) |
-| Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-e-il-tuo-profilo-shop) |
+| Impostazioni consigliate per il tuo tipo di shop | [4 · Qual è il tuo profilo shop?](#4-qual-il-tuo-profilo-shop) |
 | Cercare un'impostazione specifica | [5 · Impostazioni · Ordini](#5-impostazioni-ordini) fino a [9 · Impostazioni · Vettori](#9-impostazioni-vettori) |
 | Un'impostazione diversa per prodotto | [10 · Impostazioni prodotto](#10-impostazioni-prodotto) |
-| Cosa vede un cliente al checkout | [12 · L'esperienza di checkout](#12-l-esperienza-di-checkout) |
+| Cosa vede un cliente al checkout | [12 · L'esperienza di checkout](#12-lesperienza-di-checkout) |
 | Elaborare 50+ ordini al giorno | [13 · Uso quotidiano](#13-uso-quotidiano) |
 | Qualcosa non funziona | [14 · Qualcosa non funziona — diagnostica](#14-qualcosa-non-funziona-diagnostica) |
 | Risposta a una domanda frequente | [15 · FAQ](#15-faq) |
@@ -45,7 +45,7 @@ Prima di iniziare in PrestaShop, sistema quattro cose nel tuo backoffice MyParce
 
 ## 2 · Installare il plugin
 ::: warning Requisiti di versione
-Plugin 5.0.x funziona su **PrestaShop 1.7.8 fino a 8.x** con **PHP 7.4+** (consigliato 8.1/8.2). PrestaShop 9 non è ancora supportato — vedi [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Plugin 5.7.x funziona su **PrestaShop 1.7.8 fino a 9.x** con **PHP 7.4+**, fino a PHP 8.5 incluso. PrestaShop 9 è supportato dalla versione plugin 5.2.0, compreso il checkout Hummingbird.
 :::
 
 1. Scarica lo ZIP della release da [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -53,7 +53,7 @@ Plugin 5.0.x funziona su **PrestaShop 1.7.8 fino a 8.x** con **PHP 7.4+** (consi
 3. Aspetta che l'installazione sia finita, cerca `myparcel` e clicca **Configura**.
 
 ::: details Installazione fallita con "Pdk instance must be set to use facades"
-Rimuovi completamente i moduli MyParcel precedenti (incluse le tabelle del database tramite *Module Manager → Disinstalla*). Fai prima un backup del database, svuota poi manualmente le tabelle che iniziano con `ps_myparcelnl_` e installa di nuovo 5.0.x.
+Rimuovi completamente i moduli MyParcel precedenti (incluse le tabelle del database tramite *Module Manager → Disinstalla*). Fai prima un backup del database, svuota poi manualmente le tabelle che iniziano con `ps_myparcelnl_` e installa di nuovo 5.7.x.
 :::
 
 ## Canale di vendita tramite il Backoffice MyParcel
@@ -236,6 +236,10 @@ Cosa il tuo cliente vede al checkout — o piuttosto non vede.
 - **Tipo di prezzo** — *Incluso* (nel prezzo totale) o *Separato* (mostrato a parte). *Incluso evita sorprese.*
 - **Titolo opzioni di consegna** — intestazione sopra il blocco MyParcel. Es. *Come vuoi ricevere il tuo pacco?*
 - **Mostrare campi fiscali al checkout** — campi IVA per ordini business.
+
+::: tip Aziende e privati vedono opzioni diverse
+La differenza tra aziende e privati va oltre questi campi IVA. Dalla versione plugin 5.6.0 il checkout propone ai clienti aziendali le opzioni di consegna che il loro vettore offre davvero alle aziende, che non sempre coincidono con quelle dei privati. Il plugin lo deduce dal nome azienda nell'indirizzo di consegna. Non c'è nulla da configurare, segue il vettore. Il lato tecnico si trova nel [widget Delivery Options](/platforms/delivery-options.html#business-and-consumer-delivery-options).
+:::
 - **Giorni chiusi** — selettore date per festività. In questi giorni il checkout nasconde le opzioni di consegna.
 
 ### Pickup point
@@ -270,6 +274,10 @@ Quali opzioni vengono passate per default a ogni nuova spedizione.
 - **Assicurare fino a** / **(NL)** / **(EU)** / **(EU + Resto del mondo)** — massimi per regione.
 - **Assicurare per percentuale** — es. 100% del valore ordine.
 
+::: note Gli importi assicurati possono variare
+Il plugin aggiorna periodicamente i dati dei vettori, e gli importi che un vettore non offre più escono dall'elenco. Quello che vedi può quindi differire dagli importi usati come esempio in questo manuale, compresi quelli in [§4](#4-qual-il-tuo-profilo-shop).
+:::
+
 ### Impostazioni di esportazione predefinite per resi
 - **Tipo di pacco predefinito** — Pacco / Pacco piccolo / Pacco da cassetta postale / Francobollo digitale.
 - **Attiva più grande di 100 × 70 × 58 cm** — per resi oversize.
@@ -290,6 +298,7 @@ Quali opzioni vengono passate per default a ogni nuova spedizione.
 - **Consegna serale** + prezzo — 18:00–22:00.
 - **Consegna lunedì** + prezzo — per consegna sabato.
 - **Consegna sabato** + prezzo.
+- **Consegna in giornata** + prezzo, per i vettori che la offrono. Dalla 5.7.1 queste impostazioni compaiono anche per i vettori che offrono la consegna in giornata come tipo di consegna, come Trunkrs.
 - **Firma** + prezzo — firma con eventuale supplemento.
 - **Solo destinatario** + prezzo — solo destinatario con eventuale supplemento.
 :::
@@ -334,6 +343,7 @@ Apri un singolo ordine. Sotto i dati standard PrestaShop vedi un blocco **MyParc
 - Vettore e tipo di pacco per questa spedizione
 - Assicurazione on/off + importo assicurato
 - Opzioni di consegna selezionate (consegna serale, firma, solo destinatario…)
+- Dalla 5.7.3 anche consegna in giornata, mattino presto, fresco e surgelato, per quanto il vettore le offra. Prima queste quattro venivano perse durante l'import degli ordini e restavano vuote qui.
 - Pulsanti: *Esporta* · *Stampa etichetta* · *Visualizza Track & Trace*
 
 ::: warning Salva le modifiche prima di stampare
@@ -350,6 +360,8 @@ Sopra il widget il cliente sceglie un vettore + servizio (es. *PostNL — Conseg
 - **Opzioni extra** come *Firma (€2,00)* o *Solo destinatario* con supplementi separati.
 
 Sotto la consegna a domicilio c'è un secondo blocco **Ritiro presso un pickup point**, contrassegnato *Più sostenibile*. All'apertura appare una mappa interattiva con punti PostNL/DHL nelle vicinanze, con orari di apertura per giorno. Il cliente può passare tra *Lista* e *Mappa* (se attivato in [§8](#8-impostazioni-checkout)).
+
+Clienti aziendali e privati non vedono necessariamente le stesse opzioni di consegna. Se il cliente inserisce un nome azienda, l'ordine conta come aziendale, vedi [§8](#8-impostazioni-checkout).
 
 ## 13 · Uso quotidiano
 
@@ -383,7 +395,7 @@ Qualcosa non funziona come previsto? Scorri questa tabella dall'alto in basso �
 | --- | --- |
 | **Checkout: "Nessun vettore disponibile"** | Vettori PrestaShop collegati a una zona di spedizione con prezzi per l'indirizzo di consegna? Vai a *Spedizione → Vettori*. Solo dopo appaiono le opzioni di consegna MyParcel. |
 | **Nessuna opzione di consegna visibile** | (1) [§8](#8-impostazioni-checkout): *Mostrare opzioni di consegna* on? (2) [§9](#9-impostazioni-vettori): almeno un vettore con *Attiva opzioni di consegna* on? |
-| **Installazione fallita — *"Pdk instance must be set to use facades"*** | Rimuovi completamente i moduli MyParcel più vecchi (incl. tabelle database `ps_myparcelnl_*`) e installa di nuovo 5.0.x. |
+| **Installazione fallita — *"Pdk instance must be set to use facades"*** | Rimuovi completamente i moduli MyParcel più vecchi (incl. tabelle database `ps_myparcelnl_*`) e installa di nuovo 5.7.x. |
 | **Errore provincia: *"state must be at most 2 characters"*** | Il pacchetto lingua NL crea province come `NL-LI` (4 caratteri). Modifica in *Internazionale → Località → Province* i codici iso a 2 caratteri. Vedi [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **"Invalid API key" mentre il collegamento funziona** | Chiudi completamente la config plugin e riapri. Se persiste: ricopia la key da *backoffice.myparcel.nl → Impostazioni shop → Integrazione*. |
 | **Le impostazioni PostNL non vengono salvate** | Clicca **Salva** in fondo a ogni tab prima di cambiare. Altrimenti controlla *Opzioni di debug* per messaggi di errore. |
@@ -394,7 +406,7 @@ Qualcosa non funziona come previsto? Scorri questa tabella dall'alto in basso �
 ## 15 · FAQ
 
 ### Il plugin funziona su PrestaShop 9?
-Non ancora. La versione 5.0.x supporta PrestaShop 1.7.8 fino a 8.x. Il supporto a PrestaShop 9 è in roadmap; segui [issue #415](https://github.com/myparcelnl/prestashop/issues/415).
+Sì, dalla versione plugin 5.2.0. Quella release ha aggiunto il supporto per PrestaShop 9 e PHP 8.5, e copre il checkout Hummingbird incluso in PrestaShop 9. Vedi [PR #483](https://github.com/myparcelnl/prestashop/pull/483).
 
 ### Posso usare più vettori contemporaneamente?
 Sì. Attiva per vettore sotto *Vettori → \[Nome vettore\] → Opzioni di consegna → Attiva opzioni di consegna*.
@@ -420,4 +432,4 @@ No. Il plugin è gratuito. Paghi solo per le spedizioni alla tua tariffa MyParce
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, fatturazione.
 - [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Questo manuale è scritto per la versione plugin **5.0.x**. In versioni più recenti i nomi o l'ordine dei campi possono variare leggermente; la struttura principale del plugin resta uguale.
+Questo manuale è scritto per la versione plugin **5.7.x**. In versioni più recenti i nomi o l'ordine dei campi possono variare leggermente; la struttura principale del plugin resta uguale.
