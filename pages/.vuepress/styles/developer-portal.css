@@ -2314,7 +2314,12 @@ a.mp-stat--uptime:hover {
   flex: 1;
   padding: var(--mp-space-10) var(--mp-space-12);
   min-width: 0;
-  max-width: 960px;
+  /* `min(960px, 100%)` rather than a bare 960px: this is a grid item with auto
+     margins, so a length-only max-width is resolved against the content itself
+     and the column keeps its 960px even when the grid track is narrower. It
+     then paints over the code rail as soon as the rail is widened. The 100%
+     term ties the cap to the actual track width. */
+  max-width: min(960px, 100%);
   margin: 0 auto; /* centre the content column within the main grid cell */
 }
 
