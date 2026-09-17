@@ -19,5 +19,8 @@
   "dependencies": {
     "js-yaml": "^4.1.1",
     "vue-recaptcha": "^2.0.3"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
   }
 }
