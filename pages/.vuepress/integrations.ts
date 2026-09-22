@@ -391,7 +391,7 @@ export const integrationGroups: IntegrationGroup[] = [
         markets: NLBE,
         byMyParcel: true,
         links: [
-          oldPortal('documentation/18.bol.html'),
+          docs('/platforms/bol.html'),
           site('https://partnerplatform.bol.com/nl/intermediair/myparcel/'),
         ],
       },
