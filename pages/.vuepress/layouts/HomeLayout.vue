@@ -185,9 +185,16 @@ onMounted(async () => {
 
     <div class="mp-hero__inner">
       <div class="mp-hero__copy">
-        <div class="mp-hero__tag">
-          <span class="mp-hero__tag-dot"></span>
-          <span data-i18n="DEVELOPER PORTAL · v1">DEVELOPER PORTAL · v1</span>
+        <div class="mp-hero__tags">
+          <div class="mp-hero__tag">
+            <span class="mp-hero__tag-dot"></span>
+            <span data-i18n="DEVELOPER PORTAL · v1">DEVELOPER PORTAL · v1</span>
+          </div>
+          <a class="mp-hero__announce" href="https://mcp.myparcel.ai/beta">
+            <span class="mp-hero__announce-label" data-i18n="MCP beta">MCP beta</span>
+            <span data-i18n="Connect your AI assistant to MyParcel">Connect your AI assistant to MyParcel</span>
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
         <h1 class="mp-hero__title" data-i18n="Ship smarter. Build faster.">Ship smarter. Build faster.</h1>
         <p class="mp-hero__sub" data-i18n="Everything developers need to integrate MyParcel — guides, SDKs, plugins and auto-generated API reference. Built for webshops shipping 100 or 100,000+ parcels per month.">
