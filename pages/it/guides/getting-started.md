@@ -48,6 +48,20 @@ Con il token in mano, chiama l'API MyParcel per creare una spedizione. Etichette
 }
 ```
 
+## Ambiente di test
+Testa la tua integrazione prima di andare in produzione:
+
+- **Widget Delivery options** — prova ogni configurazione nel [sandbox](https://myparcelnl.github.io/delivery-options/).
+- **API** — usa un account di test separato e la sua API key, così puoi sviluppare e verificare senza toccare spedizioni reali. Chiedi a MyParcel l'accesso di test se non hai ancora un account di test.
+
+## Platform
+MyParcel gestisce diversi platform. Imposta nelle tue richieste quello a cui appartiene il tuo account:
+
+- `myparcel` — MyParcel (Paesi Bassi)
+- `belgie` — SendMyParcel (Belgio)
+
+Esiste anche un identificatore numerico di platform (`1` MyParcel, `2` Flespakket, `3` SendMyParcel / Belgio). Vedi [Tipi di dato · platform](data-types.md#platform).
+
 ## Prossimi passi
 Scegli il percorso che corrisponde alla tua integrazione:
 

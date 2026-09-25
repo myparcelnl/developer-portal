@@ -48,6 +48,20 @@ Met de token in handen roep je de Shipment API aan om een zending te maken. Labe
 }
 ```
 
+## Testomgeving
+Test je integratie voordat je live gaat:
+
+- **Delivery options-widget** — probeer elke configuratie in de [sandbox](https://myparcelnl.github.io/delivery-options/).
+- **API** — gebruik een apart testaccount en de bijbehorende API key, zodat je kunt bouwen en testen zonder echte zendingen te raken. Vraag MyParcel om testtoegang als je nog geen testaccount hebt.
+
+## Platforms
+MyParcel draait meerdere platforms. Stel in je verzoeken het platform in waar je account bij hoort:
+
+- `myparcel` — MyParcel (Nederland)
+- `belgie` — SendMyParcel (België)
+
+Er bestaat ook een numerieke platform-identifier (`1` MyParcel, `2` Flespakket, `3` SendMyParcel / België). Zie [Datatypes · platform](data-types.md#platform).
+
 ## Volgende stappen
 Pak het pad dat bij jouw integratie past:
 
