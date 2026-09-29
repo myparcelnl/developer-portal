@@ -48,6 +48,20 @@ With the token in hand, call the Shipment API to create a shipment. Labels and t
 }
 ```
 
+## Test environment
+Test your integration before going live:
+
+- **Delivery options widget** — try every configuration in the [sandbox](https://myparcelnl.github.io/delivery-options/).
+- **API** — use a separate test account and its API key so you can build and verify without affecting real shipments. Ask MyParcel for test access if you don't have a test account yet.
+
+## Platforms
+MyParcel runs several platforms. Set the one your account belongs to in your requests:
+
+- `myparcel` — MyParcel (Netherlands)
+- `belgie` — SendMyParcel (Belgium)
+
+A numeric platform identifier also exists (`1` MyParcel, `2` Flespakket, `3` SendMyParcel / België). See [Data types · platform](data-types.md#platform).
+
 ## Next steps
 Pick whichever path matches your integration:
 
