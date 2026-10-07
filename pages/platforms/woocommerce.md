@@ -34,6 +34,7 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | Bulk processing for 50+ orders/day | [14 · Daily use](#14-daily-use) |
 | Something's not working | [15 · Something's not working — diagnostics](#15-somethings-not-working-diagnostics) |
 | Answer to a frequently asked question | [16 · FAQ](#16-faq) |
+| Change the plugin with code (filters and actions) | [17 · For developers: filters and actions](#17-for-developers-filters-and-actions) |
 
 ## 1 · Preparing your MyParcel account
 Before you start in WooCommerce, take care of four things in your MyParcel backoffice:
@@ -494,6 +495,78 @@ Yes — under *Carriers → \[carrier\] → Enable carrier pickup*.
 
 ### I updated the plugin and now something isn't working
 Roll back via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) or the GitHub release. Report the bug at [github.com/myparcelnl/woocommerce/issues](https://github.com/myparcelnl/woocommerce/issues).
+
+## 17 · For developers: filters and actions
+Use these WordPress hooks to change what the plugin does from your theme or from a small plugin of your own. You need to know how to add PHP code to a WordPress site with [`add_filter()`](https://developer.wordpress.org/reference/functions/add_filter/) and [`add_action()`](https://developer.wordpress.org/reference/functions/add_action/).
+
+### Change the address that the plugin sends to MyParcel
+Some shops do not store the address in the standard WooCommerce fields. For example, the shop puts the house number in *Apartment, suite, unit, etc.* (address line 2) or in a custom checkout field. MyParcel then gets an address without a house number, and the label fails.
+
+The filter `mpwc_checkout_wc_address_fields` lets you correct the address before the plugin uses it. This example moves address line 2 to the end of address line 1:
+
+```php
+add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, string $addressType) {
+    if (! empty($fields['address2'])) {
+        $fields['address1'] = trim($fields['address1'] . ' ' . $fields['address2']);
+        $fields['address2'] = null;
+    }
+
+    return $fields;
+}, 10, 3);
+```
+
+The filter gets three arguments:
+
+| Argument | What it holds |
+| --- | --- |
+| `$fields` | The address as an array, with the keys `email`, `phone`, `person`, `address1`, `address2`, `cc` (the country code), `city`, `company`, `postalCode`, `region` and `state`. For an order that the customer placed with the MyParcel Address widget, the keys are `email`, `phone`, `person`, `street`, `number`, `numberSuffix`, `boxNumber`, `streetAdditionalInfo`, `cc`, `city`, `postalCode`, `region`, `state` and `isBusiness`. |
+| `$object` | The `WC_Order` when the plugin reads an order, or the `WC_Customer` when it reads the cart in the checkout. Read your custom fields from this object, for example with `$object->get_meta()`. |
+| `$addressType` | `shipping` or `billing`. The filter runs for both addresses. |
+
+What happens with the address you return:
+
+- **Netherlands and Belgium:** when the plugin reads an order, it splits `address1` into street, house number and suffix after your filter. It does not split when the order has a street, house number or suffix from the separate address fields or from the Address widget. In that case, return `street`, `number` and `numberSuffix` yourself.
+- **Your values win:** a value you return replaces the value from the separate address fields and from the EORI and VAT number fields.
+- **Business or consumer:** the plugin uses `company` to decide whether the order is a business order. Return a company name to make the order a business order. An `isBusiness` value has no effect.
+- **More than one call:** the filter can run more than once for the same order in one request. Return the same result for the same input, and do not save data or send requests from the filter.
+
+This filter is available in plugin versions released after 6.10.3.
+
+### All filters
+
+| Filter | What it changes | Default value | Extra arguments |
+| --- | --- | --- | --- |
+| `mpwc_checkout_wc_address_fields` | The address the plugin sends to MyParcel. See [Change the address that the plugin sends to MyParcel](#change-the-address-that-the-plugin-sends-to-myparcel). | The address from the order or the cart | `$object`, `$addressType` |
+| `mpwc_checkout_show_delivery_options` | Whether the checkout shows the delivery options. The filter runs only when *Show delivery options* is on. | `true` when the cart has a product that is not virtual and not on backorder. With *Show delivery options for backorders* on, a product on backorder counts too. | none |
+| `mpwc_checkout_delivery_options_position` | The WooCommerce hook at which the classic checkout shows the delivery options. | The *Position in checkout* setting | none |
+| `mpwc_checkout_order_delivery_options` | The delivery options of an order, when the plugin reads the order. | The saved delivery options of the order | `$order` (`WC_Order`) |
+| `mpwc_checkout_separate_address_fields_priority` | The priority at which the plugin adds the street, house number and suffix fields to the classic checkout. | `10` | none |
+| `mpwc_checkout_tax_fields_priority` | The priority at which the plugin adds the EORI and VAT number fields to the classic checkout. | `10` | none |
+| `mpwc_checkout_field_street_class` | The CSS classes of the street field. | `['form-row-third', 'first']` | none |
+| `mpwc_checkout_field_number_class` | The CSS classes of the house number field. | `['form-row-third']` | none |
+| `mpwc_checkout_field_number_suffix_class` | The CSS classes of the suffix field. | `['form-row-third', 'last']` | none |
+| `mpwc_checkout_field_eori_number_class` | The CSS classes of the EORI number field. | `['form-row']` | none |
+| `mpwc_checkout_field_vat_number_class` | The CSS classes of the VAT number field. | `['form-row']` | none |
+| `mpwc_checkout_field_street_priority` | The position of the street field in the form. | `60` | none |
+| `mpwc_checkout_field_number_priority` | The position of the house number field in the form. | `61` | none |
+| `mpwc_checkout_field_number_suffix_priority` | The position of the suffix field in the form. | `62` | none |
+| `mpwc_checkout_field_eori_number_priority` | The position of the EORI number field in the form. | `900` | none |
+| `mpwc_checkout_field_vat_number_priority` | The position of the VAT number field in the form. | `901` | none |
+| `mpwc_track_trace_in_email_priority` | The priority at which the plugin adds the Track & Trace link to the order email. | `10` | none |
+| `mpwc_track_trace_in_order_details_priority` | The priority at which the plugin adds the Track & Trace link to the order details in *My account*. | `10` | none |
+| `mpwc_track_trace_in_my_account_priority` | The priority at which the plugin adds the Track & Trace button to the orders list in *My account*. | `10` | none |
+| `mpwc_track_trace_in_email_text` | The text in front of the Track & Trace link in the order email. | The translated Track & Trace text | `$shipment` (the last shipment with a Track & Trace link) |
+| `mpwc_track_trace_in_order_details_text` | The text in front of the Track & Trace link in the order details. | The translated Track & Trace text | `$shipment` (the last shipment with a Track & Trace link) |
+| `mpwc_track_trace_label` | The label of the Track & Trace button in the orders list in *My account*. | The translated Track & Trace text | `$shipment` (the last shipment with a Track & Trace link) |
+
+### Actions
+
+| Action | When it runs |
+| --- | --- |
+| `woocommerce_myparcel_before_delivery_options` | Just before the plugin renders the delivery options in the checkout. |
+| `woocommerce_myparcel_after_delivery_options` | Just after the plugin renders the delivery options in the checkout. |
+
+Use these actions to add your own HTML around the delivery options.
 
 ## Resources & support
 - [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — source code, releases, issues.
