@@ -34,6 +34,7 @@ Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je
 | Bulkverwerking voor 50+ orders/dag | [14 · Dagelijks gebruik](#14-dagelijks-gebruik) |
 | Iets werkt niet | [15 · Iets werkt niet — diagnose](#15-iets-werkt-niet-diagnose) |
 | Antwoord op een veelgestelde vraag | [16 · FAQ](#16-faq) |
+| De plugin aanpassen met code (filters en actions) | [17 · Voor developers: filters en actions](#17-voor-developers-filters-en-actions) |
 
 ## 1 · Voorbereiden in je MyParcel-account
 Voordat je in WooCommerce begint, regel je vier dingen in je MyParcel-backoffice:
@@ -494,6 +495,80 @@ Ja — onder *Vervoerders → \[carrier\] → Activeer pakket laten ophalen door
 
 ### Plugin-update gedaan en nu werkt iets niet meer
 Rol terug via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) of de GitHub-release. Meld de bug op [github.com/myparcelnl/woocommerce/issues](https://github.com/myparcelnl/woocommerce/issues).
+
+## 17 · Voor developers: filters en actions
+Met deze WordPress hooks pas je aan wat de plugin doet, vanuit je thema of vanuit een kleine eigen plugin. Je moet weten hoe je PHP-code toevoegt aan een WordPress-site met [`add_filter()`](https://developer.wordpress.org/reference/functions/add_filter/) en [`add_action()`](https://developer.wordpress.org/reference/functions/add_action/).
+
+### Het adres aanpassen dat de plugin naar MyParcel stuurt
+Sommige shops slaan het adres niet op in de standaard WooCommerce-velden. De shop zet bijvoorbeeld het huisnummer in *Apartment, suite, unit, etc.* (adresregel 2) of in een eigen checkout-veld. MyParcel krijgt dan een adres zonder huisnummer, en het label mislukt.
+
+Met de filter `mpwc_checkout_wc_address_fields` corrigeer je het adres voordat de plugin het gebruikt. Dit voorbeeld zet adresregel 2 achter adresregel 1:
+
+```php
+add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, string $addressType) {
+    if (! empty($fields['address2'])) {
+        $fields['address1'] = trim($fields['address1'] . ' ' . $fields['address2']);
+        $fields['address2'] = null;
+    }
+
+    return $fields;
+}, 10, 3);
+```
+
+De filter krijgt vier argumenten:
+
+| Argument | Wat erin zit |
+| --- | --- |
+| `$fields` | Het adres als array, met de keys `email`, `phone`, `person`, `address1`, `address2`, `cc` (de landcode), `city`, `company`, `postalCode`, `region` en `state`. Bij een order die de klant plaatste met de MyParcel Adressenwidget zijn de keys `email`, `phone`, `person`, `street`, `number`, `numberSuffix`, `boxNumber`, `streetAdditionalInfo`, `cc`, `city`, `postalCode`, `region`, `state` en `isBusiness`. |
+| `$object` | De `WC_Order` als de plugin een order leest, of de `WC_Customer` als de plugin de cart leest in de checkout. Lees je eigen velden uit dit object, bijvoorbeeld met `$object->get_meta()`. |
+| `$addressType` | `shipping` of `billing`. De filter draait voor beide adressen. |
+| `$source` | `order` als de plugin een order leest, of `customer` als de plugin de cart leest in de checkout. Gebruik dit argument in plaats van de class van `$object` om te zien waar het adres vandaan komt. Om het te krijgen, registreer je de filter met `4` toegestane argumenten: `add_filter('mpwc_checkout_wc_address_fields', $callback, 10, 4)`. |
+
+Wat er gebeurt met het adres dat je teruggeeft:
+
+- **Nederland en België:** als de plugin een order leest, splitst ze `address1` na jouw filter in straat, huisnummer en toevoeging. Ze splitst niet als de order een straat, huisnummer of toevoeging heeft uit de aparte adresvelden of uit de Adressenwidget. Geef in dat geval zelf `street`, `number` en `numberSuffix` terug.
+- **Jouw waarden gaan voor:** een waarde die je teruggeeft vervangt de waarde uit de aparte adresvelden en uit de EORI- en BTW-nummervelden.
+- **Zakelijk of particulier:** de plugin gebruikt `company` om te bepalen of de order zakelijk is. Geef een bedrijfsnaam terug om de order zakelijk te maken. Een `isBusiness`-waarde heeft geen effect.
+- **Geen array teruggegeven:** als je filter geen array teruggeeft, gebruikt de plugin het adres zonder jouw wijzigingen en schrijft ze een waarschuwing in de log.
+- **Meer dan één call:** de filter kan in één request vaker draaien voor dezelfde order. Geef bij dezelfde invoer hetzelfde resultaat terug, en sla geen data op en stuur geen requests vanuit de filter.
+
+Deze filter is beschikbaar in plugin-versies die na 6.10.3 zijn uitgebracht.
+
+### Alle filters
+
+| Filter | Wat hij aanpast | Standaardwaarde | Extra argumenten |
+| --- | --- | --- | --- |
+| `mpwc_checkout_wc_address_fields` | Het adres dat de plugin naar MyParcel stuurt. Zie [Het adres aanpassen dat de plugin naar MyParcel stuurt](#het-adres-aanpassen-dat-de-plugin-naar-myparcel-stuurt). | Het adres uit de order of de cart | `$object`, `$addressType`, `$source` |
+| `mpwc_checkout_show_delivery_options` | Of de checkout de delivery options toont. De filter draait alleen als *Bezorgopties tonen* aan staat. | `true` als de cart een product heeft dat niet virtueel is en niet op backorder staat. Met *Bezorgopties tonen voor backorders* aan telt een product op backorder ook mee. | geen |
+| `mpwc_checkout_delivery_options_position` | De WooCommerce hook waarbij de klassieke checkout de delivery options toont. | De instelling *Positie in checkout* | geen |
+| `mpwc_checkout_order_delivery_options` | De delivery options van een order, als de plugin de order leest. | De opgeslagen delivery options van de order | `$order` (`WC_Order`) |
+| `mpwc_checkout_separate_address_fields_priority` | De priority waarmee de plugin de velden voor straat, huisnummer en toevoeging toevoegt aan de klassieke checkout. | `10` | geen |
+| `mpwc_checkout_tax_fields_priority` | De priority waarmee de plugin de EORI- en BTW-nummervelden toevoegt aan de klassieke checkout. | `10` | geen |
+| `mpwc_checkout_field_street_class` | De CSS-classes van het straatveld. | `['form-row-third', 'first']` | geen |
+| `mpwc_checkout_field_number_class` | De CSS-classes van het huisnummerveld. | `['form-row-third']` | geen |
+| `mpwc_checkout_field_number_suffix_class` | De CSS-classes van het toevoegingsveld. | `['form-row-third', 'last']` | geen |
+| `mpwc_checkout_field_eori_number_class` | De CSS-classes van het EORI-nummerveld. | `['form-row']` | geen |
+| `mpwc_checkout_field_vat_number_class` | De CSS-classes van het BTW-nummerveld. | `['form-row']` | geen |
+| `mpwc_checkout_field_street_priority` | De positie van het straatveld in het formulier. | `60` | geen |
+| `mpwc_checkout_field_number_priority` | De positie van het huisnummerveld in het formulier. | `61` | geen |
+| `mpwc_checkout_field_number_suffix_priority` | De positie van het toevoegingsveld in het formulier. | `62` | geen |
+| `mpwc_checkout_field_eori_number_priority` | De positie van het EORI-nummerveld in het formulier. | `900` | geen |
+| `mpwc_checkout_field_vat_number_priority` | De positie van het BTW-nummerveld in het formulier. | `901` | geen |
+| `mpwc_track_trace_in_email_priority` | De priority waarmee de plugin de Track & Trace-link toevoegt aan de order-e-mail. | `10` | geen |
+| `mpwc_track_trace_in_order_details_priority` | De priority waarmee de plugin de Track & Trace-link toevoegt aan de orderdetails in *Mijn account*. | `10` | geen |
+| `mpwc_track_trace_in_my_account_priority` | De priority waarmee de plugin de Track & Trace-knop toevoegt aan de orderlijst in *Mijn account*. | `10` | geen |
+| `mpwc_track_trace_in_email_text` | De tekst vóór de Track & Trace-link in de order-e-mail. | De vertaalde Track & Trace-tekst | `$shipment` (de laatste zending met een Track & Trace-link) |
+| `mpwc_track_trace_in_order_details_text` | De tekst vóór de Track & Trace-link in de orderdetails. | De vertaalde Track & Trace-tekst | `$shipment` (de laatste zending met een Track & Trace-link) |
+| `mpwc_track_trace_label` | Het label van de Track & Trace-knop in de orderlijst in *Mijn account*. | De vertaalde Track & Trace-tekst | `$shipment` (de laatste zending met een Track & Trace-link) |
+
+### Actions
+
+| Action | Wanneer hij draait |
+| --- | --- |
+| `woocommerce_myparcel_before_delivery_options` | Vlak voordat de plugin de delivery options toont in de checkout. |
+| `woocommerce_myparcel_after_delivery_options` | Vlak nadat de plugin de delivery options toont in de checkout. |
+
+Gebruik deze actions om je eigen HTML rond de delivery options te zetten.
 
 ## Bronnen & support
 - [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — broncode, releases, issues.

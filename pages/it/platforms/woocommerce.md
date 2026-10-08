@@ -34,6 +34,7 @@ Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazion
 | Elaborazione bulk per 50+ ordini/giorno | [14 · Uso quotidiano](#14-uso-quotidiano) |
 | Qualcosa non funziona | [15 · Qualcosa non funziona — diagnostica](#15-qualcosa-non-funziona-diagnostica) |
 | Risposta a una domanda frequente | [16 · FAQ](#16-faq) |
+| Cambiare il plugin con il codice (filter e action) | [17 · Per sviluppatori: filter e action](#17-per-sviluppatori-filter-e-action) |
 
 ## 1 · Preparare il tuo account MyParcel
 Prima di iniziare in WooCommerce, sistema quattro cose nel tuo backoffice MyParcel:
@@ -494,6 +495,80 @@ Sì — sotto *Vettori → \[carrier\] → Attiva ritiro pacco da parte del vett
 
 ### Update plugin fatto e ora qualcosa non funziona più
 Torna indietro tramite [WP Rollback](https://wordpress.org/plugins/wp-rollback/) o la release GitHub. Segnala il bug su [github.com/myparcelnl/woocommerce/issues](https://github.com/myparcelnl/woocommerce/issues).
+
+## 17 · Per sviluppatori: filter e action
+Usa questi hook di WordPress per cambiare il comportamento del plugin dal tuo tema o da un piccolo plugin tuo. Devi saper aggiungere codice PHP a un sito WordPress con [`add_filter()`](https://developer.wordpress.org/reference/functions/add_filter/) e [`add_action()`](https://developer.wordpress.org/reference/functions/add_action/).
+
+### Cambiare l'indirizzo che il plugin invia a MyParcel
+Alcuni shop non salvano l'indirizzo nei campi standard di WooCommerce. Per esempio, lo shop mette il numero civico in *Apartment, suite, unit, etc.* (riga indirizzo 2) o in un campo checkout personalizzato. MyParcel riceve allora un indirizzo senza numero civico e l'etichetta non si crea.
+
+Il filter `mpwc_checkout_wc_address_fields` ti permette di correggere l'indirizzo prima che il plugin lo usi. Questo esempio sposta la riga indirizzo 2 in fondo alla riga indirizzo 1:
+
+```php
+add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, string $addressType) {
+    if (! empty($fields['address2'])) {
+        $fields['address1'] = trim($fields['address1'] . ' ' . $fields['address2']);
+        $fields['address2'] = null;
+    }
+
+    return $fields;
+}, 10, 3);
+```
+
+Il filter riceve quattro argomenti:
+
+| Argomento | Cosa contiene |
+| --- | --- |
+| `$fields` | L'indirizzo come array, con le chiavi `email`, `phone`, `person`, `address1`, `address2`, `cc` (il codice paese), `city`, `company`, `postalCode`, `region` e `state`. Per un ordine che il cliente ha fatto con il MyParcel Address widget, le chiavi sono `email`, `phone`, `person`, `street`, `number`, `numberSuffix`, `boxNumber`, `streetAdditionalInfo`, `cc`, `city`, `postalCode`, `region`, `state` e `isBusiness`. |
+| `$object` | Il `WC_Order` quando il plugin legge un ordine, o il `WC_Customer` quando legge il carrello nel checkout. Leggi i tuoi campi personalizzati da questo oggetto, per esempio con `$object->get_meta()`. |
+| `$addressType` | `shipping` o `billing`. Il filter gira per entrambi gli indirizzi. |
+| `$source` | `order` quando il plugin legge un ordine, o `customer` quando legge il carrello nel checkout. Usa questo argomento al posto della classe di `$object` per sapere da dove viene l'indirizzo. Per riceverlo, registra il filter con `4` argomenti accettati: `add_filter('mpwc_checkout_wc_address_fields', $callback, 10, 4)`. |
+
+Cosa succede con l'indirizzo che restituisci:
+
+- **Paesi Bassi e Belgio:** quando il plugin legge un ordine, dopo il tuo filter divide `address1` in via, numero civico e aggiunta. Non divide se l'ordine ha già una via, un numero civico o un'aggiunta dai campi indirizzo separati o dall'Address widget. In quel caso, restituisci tu `street`, `number` e `numberSuffix`.
+- **I tuoi valori vincono:** un valore che restituisci sostituisce il valore dei campi indirizzo separati e dei campi per numero EORI e partita IVA.
+- **Azienda o privato:** il plugin usa `company` per decidere se l'ordine è aziendale. Restituisci un nome azienda per rendere l'ordine aziendale. Un valore `isBusiness` non ha effetto.
+- **Nessun array restituito:** quando il tuo filter non restituisce un array, il plugin usa l'indirizzo senza le tue modifiche e scrive un warning nel log.
+- **Più chiamate:** il filter può girare più volte per lo stesso ordine nella stessa request. Restituisci lo stesso risultato per lo stesso input e non salvare dati né inviare request dal filter.
+
+Questo filter è disponibile nelle versioni del plugin rilasciate dopo la 6.10.3.
+
+### Tutti i filter
+
+| Filter | Cosa cambia | Valore predefinito | Argomenti extra |
+| --- | --- | --- | --- |
+| `mpwc_checkout_wc_address_fields` | L'indirizzo che il plugin invia a MyParcel. Vedi [Cambiare l'indirizzo che il plugin invia a MyParcel](#cambiare-lindirizzo-che-il-plugin-invia-a-myparcel). | L'indirizzo dell'ordine o del carrello | `$object`, `$addressType`, `$source` |
+| `mpwc_checkout_show_delivery_options` | Se il checkout mostra le delivery options. Il filter gira solo quando *Mostrare opzioni di consegna* è attivo. | `true` quando il carrello ha un prodotto non virtuale e non in backorder. Con *Mostrare opzioni di consegna per backorder* attivo, conta anche un prodotto in backorder. | nessuno |
+| `mpwc_checkout_delivery_options_position` | L'hook di WooCommerce in cui il checkout classico mostra le delivery options. | L'impostazione *Posizione nel checkout* | nessuno |
+| `mpwc_checkout_order_delivery_options` | Le delivery options di un ordine, quando il plugin legge l'ordine. | Le delivery options salvate dell'ordine | `$order` (`WC_Order`) |
+| `mpwc_checkout_separate_address_fields_priority` | La priorità con cui il plugin aggiunge al checkout classico i campi via, numero civico e aggiunta. | `10` | nessuno |
+| `mpwc_checkout_tax_fields_priority` | La priorità con cui il plugin aggiunge al checkout classico i campi per numero EORI e partita IVA. | `10` | nessuno |
+| `mpwc_checkout_field_street_class` | Le classi CSS del campo via. | `['form-row-third', 'first']` | nessuno |
+| `mpwc_checkout_field_number_class` | Le classi CSS del campo numero civico. | `['form-row-third']` | nessuno |
+| `mpwc_checkout_field_number_suffix_class` | Le classi CSS del campo aggiunta. | `['form-row-third', 'last']` | nessuno |
+| `mpwc_checkout_field_eori_number_class` | Le classi CSS del campo numero EORI. | `['form-row']` | nessuno |
+| `mpwc_checkout_field_vat_number_class` | Le classi CSS del campo partita IVA. | `['form-row']` | nessuno |
+| `mpwc_checkout_field_street_priority` | La posizione del campo via nel modulo. | `60` | nessuno |
+| `mpwc_checkout_field_number_priority` | La posizione del campo numero civico nel modulo. | `61` | nessuno |
+| `mpwc_checkout_field_number_suffix_priority` | La posizione del campo aggiunta nel modulo. | `62` | nessuno |
+| `mpwc_checkout_field_eori_number_priority` | La posizione del campo numero EORI nel modulo. | `900` | nessuno |
+| `mpwc_checkout_field_vat_number_priority` | La posizione del campo partita IVA nel modulo. | `901` | nessuno |
+| `mpwc_track_trace_in_email_priority` | La priorità con cui il plugin aggiunge il link Track & Trace all'email dell'ordine. | `10` | nessuno |
+| `mpwc_track_trace_in_order_details_priority` | La priorità con cui il plugin aggiunge il link Track & Trace ai dettagli dell'ordine in *Il mio account*. | `10` | nessuno |
+| `mpwc_track_trace_in_my_account_priority` | La priorità con cui il plugin aggiunge il pulsante Track & Trace alla lista ordini in *Il mio account*. | `10` | nessuno |
+| `mpwc_track_trace_in_email_text` | Il testo prima del link Track & Trace nell'email dell'ordine. | Il testo Track & Trace tradotto | `$shipment` (l'ultima spedizione con un link Track & Trace) |
+| `mpwc_track_trace_in_order_details_text` | Il testo prima del link Track & Trace nei dettagli dell'ordine. | Il testo Track & Trace tradotto | `$shipment` (l'ultima spedizione con un link Track & Trace) |
+| `mpwc_track_trace_label` | Il testo del pulsante Track & Trace nella lista ordini in *Il mio account*. | Il testo Track & Trace tradotto | `$shipment` (l'ultima spedizione con un link Track & Trace) |
+
+### Action
+
+| Action | Quando gira |
+| --- | --- |
+| `woocommerce_myparcel_before_delivery_options` | Subito prima che il plugin mostri le delivery options nel checkout. |
+| `woocommerce_myparcel_after_delivery_options` | Subito dopo che il plugin ha mostrato le delivery options nel checkout. |
+
+Usa queste action per aggiungere il tuo HTML intorno alle delivery options.
 
 ## Risorse e supporto
 - [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — codice sorgente, release, issue.
