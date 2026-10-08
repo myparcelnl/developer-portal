@@ -515,19 +515,21 @@ add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, 
 }, 10, 3);
 ```
 
-The filter gets three arguments:
+The filter gets four arguments:
 
 | Argument | What it holds |
 | --- | --- |
 | `$fields` | The address as an array, with the keys `email`, `phone`, `person`, `address1`, `address2`, `cc` (the country code), `city`, `company`, `postalCode`, `region` and `state`. For an order that the customer placed with the MyParcel Address widget, the keys are `email`, `phone`, `person`, `street`, `number`, `numberSuffix`, `boxNumber`, `streetAdditionalInfo`, `cc`, `city`, `postalCode`, `region`, `state` and `isBusiness`. |
 | `$object` | The `WC_Order` when the plugin reads an order, or the `WC_Customer` when it reads the cart in the checkout. Read your custom fields from this object, for example with `$object->get_meta()`. |
 | `$addressType` | `shipping` or `billing`. The filter runs for both addresses. |
+| `$source` | `order` when the plugin reads an order, or `customer` when it reads the cart in the checkout. Use this argument instead of the class of `$object` to find out where the address comes from. To get it, register the filter with `4` accepted arguments: `add_filter('mpwc_checkout_wc_address_fields', $callback, 10, 4)`. |
 
 What happens with the address you return:
 
 - **Netherlands and Belgium:** when the plugin reads an order, it splits `address1` into street, house number and suffix after your filter. It does not split when the order has a street, house number or suffix from the separate address fields or from the Address widget. In that case, return `street`, `number` and `numberSuffix` yourself.
 - **Your values win:** a value you return replaces the value from the separate address fields and from the EORI and VAT number fields.
 - **Business or consumer:** the plugin uses `company` to decide whether the order is a business order. Return a company name to make the order a business order. An `isBusiness` value has no effect.
+- **No array returned:** when your filter does not return an array, the plugin uses the address without your changes and logs a warning.
 - **More than one call:** the filter can run more than once for the same order in one request. Return the same result for the same input, and do not save data or send requests from the filter.
 
 This filter is available in plugin versions released after 6.10.3.
@@ -536,7 +538,7 @@ This filter is available in plugin versions released after 6.10.3.
 
 | Filter | What it changes | Default value | Extra arguments |
 | --- | --- | --- | --- |
-| `mpwc_checkout_wc_address_fields` | The address the plugin sends to MyParcel. See [Change the address that the plugin sends to MyParcel](#change-the-address-that-the-plugin-sends-to-myparcel). | The address from the order or the cart | `$object`, `$addressType` |
+| `mpwc_checkout_wc_address_fields` | The address the plugin sends to MyParcel. See [Change the address that the plugin sends to MyParcel](#change-the-address-that-the-plugin-sends-to-myparcel). | The address from the order or the cart | `$object`, `$addressType`, `$source` |
 | `mpwc_checkout_show_delivery_options` | Whether the checkout shows the delivery options. The filter runs only when *Show delivery options* is on. | `true` when the cart has a product that is not virtual and not on backorder. With *Show delivery options for backorders* on, a product on backorder counts too. | none |
 | `mpwc_checkout_delivery_options_position` | The WooCommerce hook at which the classic checkout shows the delivery options. | The *Position in checkout* setting | none |
 | `mpwc_checkout_order_delivery_options` | The delivery options of an order, when the plugin reads the order. | The saved delivery options of the order | `$order` (`WC_Order`) |
