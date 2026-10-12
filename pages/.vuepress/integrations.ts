@@ -232,7 +232,7 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'CCV',
         logo: 'ccv.png',
         markets: NLBE,
-        links: [extDocs('https://myparcelnl.github.io/ccv-shop'), site('https://www.ccvshop.nl/')],
+        links: [docs('/platforms/ccvshop.html'), site('https://www.ccvshop.nl/')],
       },
       {
         name: 'Mijnwebwinkel',
