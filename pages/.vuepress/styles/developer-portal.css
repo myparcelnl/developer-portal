@@ -782,7 +782,8 @@ mp-header, mp-footer { display: contents; }
 }
 .mp-hero__tags .mp-hero__tag { margin-bottom: 0; }
 
-/* Solid orange with deep ink: white on --mp-goldfish would not reach readable contrast. */
+/* White pill like the tag beside it; only the label chip carries the orange.
+   Deep ink on --mp-goldfish, because white on that orange does not reach readable contrast. */
 .mp-hero__announce {
   display: inline-flex;
   align-items: center;
@@ -790,23 +791,30 @@ mp-header, mp-footer { display: contents; }
   font-size: 13px;
   font-weight: 600;
   color: var(--mp-deep);
-  background: var(--mp-goldfish);
-  padding: 6px 14px 6px 6px;
+  background: #ffffff;
+  padding: 4px 12px 4px 4px;
   border-radius: var(--mp-radius-pill);
+  box-shadow: 0 1px 2px rgba(15, 92, 71, 0.08);
   text-decoration: none;
+  transition: box-shadow 0.15s ease;
 }
-.mp-hero__announce:hover { filter: brightness(1.06); }
+.mp-hero__announce:hover { box-shadow: 0 2px 8px rgba(15, 92, 71, 0.16); }
 .mp-hero__announce-label {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--mp-goldfish);
-  background: var(--mp-deep);
+  color: var(--mp-deep);
+  background: var(--mp-goldfish);
   padding: 3px 8px;
   border-radius: var(--mp-radius-pill);
   white-space: nowrap;
 }
+.mp-hero__announce-arrow {
+  color: var(--mp-fresh);
+  transition: transform 0.15s ease;
+}
+.mp-hero__announce:hover .mp-hero__announce-arrow { transform: translateX(2px); }
 
 .mp-hero__tag-dot {
   width: 6px;
@@ -4063,6 +4071,9 @@ pre.mp-code-block code.hljs {
 /* Hero — deeper background with faint mint glow instead of solid mint */
 [data-theme="dark"] .mp-hero { background: #021f1a; }
 [data-theme="dark"] .mp-hero__tag { background: rgba(255, 255, 255, 0.06); color: #6ee7b7; box-shadow: none; }
+[data-theme="dark"] .mp-hero__announce { background: rgba(255, 255, 255, 0.06); color: #ffffff; box-shadow: none; }
+[data-theme="dark"] .mp-hero__announce:hover { background: rgba(255, 255, 255, 0.10); }
+[data-theme="dark"] .mp-hero__announce-arrow { color: #6ee7b7; }
 [data-theme="dark"] .mp-hero__title { color: #ffffff; }
 [data-theme="dark"] .mp-hero__sub { color: var(--mp-text-muted); }
 

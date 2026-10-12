@@ -193,7 +193,7 @@ onMounted(async () => {
           <a class="mp-hero__announce" href="https://mcp.myparcel.ai/beta">
             <span class="mp-hero__announce-label" data-i18n="MCP beta">MCP beta</span>
             <span data-i18n="Connect your AI assistant to MyParcel">Connect your AI assistant to MyParcel</span>
-            <span aria-hidden="true">→</span>
+            <span class="mp-hero__announce-arrow" aria-hidden="true">→</span>
           </a>
         </div>
         <h1 class="mp-hero__title" data-i18n="Ship smarter. Build faster.">Ship smarter. Build faster.</h1>
