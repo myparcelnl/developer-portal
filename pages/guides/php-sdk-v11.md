@@ -28,10 +28,15 @@ v11 has no stable release yet, so Composer needs the `@beta` flag to accept it. 
 
 v11 authenticates in one of two ways:
 
-- **An API key.** Every service on this page except MyParcel Connect takes the key of your MyParcel account as its first constructor argument. Use this for an integration against your own shop.
+- **An API key.** Most services on this page take the key of your MyParcel account as their first constructor argument. Use this for an integration against your own shop.
 - **MyParcel Connect.** For an integration you publish and other people install. The merchant authorises the shop in their own browser and you never handle their API key. Connect authenticates the e-commerce services only, which today means the order push. See [MyParcel Connect](#myparcel-connect).
 
-If you pass no API key to a factory, the SDK reads the `API_KEY` environment variable.
+If you pass no API key to a factory, the SDK reads the `API_KEY` environment variable, and after that the older `API_KEY_NL` and `API_KEY_BE`. Without any key it throws an `InvalidArgumentException`.
+
+Some services work differently:
+
+- `CapabilitiesService` has no API key argument. It always reads the key from the environment variables above, see [Carrier capabilities](#carrier-capabilities).
+- `MultiColloShipmentService` and the value mapping classes make no API calls and need no key.
 
 ## Services
 
@@ -119,6 +124,14 @@ $url = $labels->getLinkOfLabels();
 // Send the PDF to the browser as a download
 $labels->downloadPdfOfLabels(true);
 ```
+
+The second argument of `setPdfOfLabels()` and `setLinkOfLabels()` sets both the paper format and where the labels go on the page. It defaults to `1`.
+
+| Value | Result |
+| --- | --- |
+| A number from `1` to `4` | A4, filling the positions from that number up to 4. `2` prints on positions 2, 3 and 4. |
+| An array, such as `[1, 3]` | A4, on exactly those positions |
+| Anything else, such as `false` | A6 |
 
 ## Print directly
 
@@ -219,6 +232,8 @@ $shipment = (new Shipment())
 $capabilities = (new CapabilitiesService())->fromShipment($shipment);
 ```
 
+`CapabilitiesService` takes no API key. It reads the key from the `API_KEY` environment variable, so set that before you call it. To use a key from elsewhere, pass your own implementation of `CapabilitiesClientInterface` to the constructor.
+
 A capabilities request drops option names it does not know or the API does not support. Ask the request which names it will drop, so your application can report them:
 
 ```php
@@ -283,9 +298,21 @@ $service = new ShipmentCreateService('your-api-key', $api);
 
 The second and third arguments of `make()` override the API host and the user agent.
 
+This works for the services that send their requests through the generated client: creating, finding and deleting shipments, and track and trace. `CarrierContractDefinitionsService` takes the client as its third argument, after the host. The labels, print and returns services build the request with the generated client but send it with a separate HTTP client, so headers set through `make()` do not reach those requests.
+
 ### Test your integration
 
-The shipment services take a generated API client as their second constructor argument. In your own tests, pass a mock of that client, so no test reaches the real API.
+Most services take a generated API client as their second constructor argument. In your own tests, pass a mock of that client, so no test reaches the real API.
+
+| Service | Constructor arguments after the API key |
+| --- | --- |
+| `ShipmentCreateService`, `ShipmentQueryService`, `ShipmentDeleteService`, `ShipmentTrackTraceService` | `ShipmentApi`, host |
+| `ShipmentLabelsService`, `ShipmentPrintService`, `ReturnShipmentService` | `ShipmentApi`, PSR-18 HTTP client, host |
+| `CarrierContractDefinitionsService` | host, `ShipmentApi` |
+| `ApiKeyService` | the generated IAM `DefaultApi`, host |
+| `WebhookService` | `WebhookApi`, host |
+
+The labels, print and returns services send their requests with the PSR-18 client, so mock that one too. `CapabilitiesService` takes a `CapabilitiesClientInterface` as its only argument.
 
 ## Upgrading from v10
 
