@@ -177,4 +177,4 @@ documenting behaviour, check the screenshot or the plugin repository under
      Without a review, write "No person has reviewed the changes yet."
 4. Split large work into a stack of small pull requests with [`gh stack`](https://gh.io/stacks).
 
-Never put a credential or customer data in a pull request, a commit or a page.
+Never put a credential or customer data in a pull request, a commit, a page, an image or a screenshot.
