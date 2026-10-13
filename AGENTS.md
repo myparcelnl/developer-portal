@@ -1,43 +1,48 @@
-# CLAUDE.md
+# developer.myparcel.com
 
-Working notes for this repository. Read `README.md` first for setup and the
-directory map; this file covers the conventions that are not obvious from the
-code and the traps that have already cost time.
+MyParcel has two developer portals: this one, and [myparcelnl/developer](https://github.com/myparcelnl/developer) (developer.myparcel.nl). When you change content that both have, such as an SDK page or a plugin manual, check the other one too.
+
+## Agent skills
+
+Use these skills when they are available:
+
+| Task                                   | Skill                                               |
+| -------------------------------------- | --------------------------------------------------- |
+| Create or change a `.md` file          | `ai-basekit:documentation`                          |
+| Write prose                            | `external-integrations-basekit:writing-style`       |
+| Open a pull request or a stack of them | `external-integrations-basekit:github-pull-request` |
+
+If one is missing, tell the user once. MyParcel employees install them with:
+
+```
+/plugin marketplace add mypadev/ai-plugins
+/plugin install ai-basekit@myparcel-claude-code-marketplace
+/plugin install external-integrations-basekit@myparcel-claude-code-marketplace
+```
+
+Without the skills, follow [Writing](#writing) and [Pull requests](#pull-requests).
 
 ## Build and verify
 
-```bash
-npm run docs:dev      # http://localhost:8080
-npm run docs:build    # static site into pages/.vuepress/dist/
-```
+`docs:build` catches broken asset paths and Vue template errors that `docs:dev`
+serves without complaint. Never start the dev server with a bare shell command
+in an agent session; use the preview tooling so the process is managed.
 
-Always run `docs:build` before opening a PR. It catches broken asset paths and
-Vue template errors that `docs:dev` happily serves.
+## Localized pages
 
-Never start the dev server with a bare shell command in an agent session; use
-the preview tooling so the process is managed.
+Some pages have a copy under `pages/nl/`, `pages/fr/` or `pages/it/`, at the
+same path as the English page. Agents often change only the English page.
 
-## Layout routing
+- When you change an English page, check for copies with
+  `ls pages/{nl,fr,it}/<path>` and make the same change in each, in the same
+  pull request.
+- From a translated page, link to an English-only page with a relative path,
+  for example `../../guides/php-sdk-v11.md`.
+- `LOCALIZED_PATHS_BY_LANG` in `pages/.vuepress/sidebar.ts` and the pre-paint
+  redirect script in `config.ts` list the translated paths. **Keep the two lists
+  in sync**, or a visitor gets redirected to a page that does not exist.
 
-There is no per-page `layout:` front matter except on the home page. Instead
-`pages/.vuepress/layouts/Layout.vue` inspects the current route and delegates:
-
-| Route | Layout |
-| --- | --- |
-| `/` (or `home: true`) | `HomeLayout` |
-| `/api/` | `ApiOverviewLayout` |
-| `/api/*.html` | `ApiLayout` |
-| `/about.html` | `AboutLayout` |
-| `/contact.html` | `ContactLayout` |
-| `/integrations.html` | `IntegrationsLayout` |
-| `/guides/*`, `/platforms/*` | three-column docs frame |
-| anything else | `mp-standalone` |
-
-Adding a page with its own layout means three edits: the markdown file (front
-matter only), a `computed` route test plus a branch in `Layout.vue`, and a
-registration in `client.ts`.
-
-## Translations
+## Translations of UI text
 
 Copy is authored in English and translated at runtime by walking the DOM, see
 `pages/.vuepress/composables/useI18n.ts`. The English string is both the
@@ -65,11 +70,27 @@ Consequences worth knowing:
   separators; rewriting them with a JSON serialiser wipes those and produces a
   diff that touches the whole file.
 
-Some pages are translated as real files under `pages/{nl,it,fr}/` instead. Which
-paths have translated copies is declared in `pages/.vuepress/sidebar.ts`
-(`LOCALIZED_PATHS_BY_LANG`) and mirrored in the pre-paint redirect script in
-`config.ts`. **Those two lists must stay in sync**, or a visitor gets
-redirected to a page that does not exist.
+Page content is translated as files instead, see [Localized pages](#localized-pages).
+
+## Layout routing
+
+There is no per-page `layout:` front matter except on the home page. Instead
+`pages/.vuepress/layouts/Layout.vue` inspects the current route and delegates:
+
+| Route                       | Layout                  |
+| --------------------------- | ----------------------- |
+| `/` (or `home: true`)       | `HomeLayout`            |
+| `/api/`                     | `ApiOverviewLayout`     |
+| `/api/*.html`               | `ApiLayout`             |
+| `/about.html`               | `AboutLayout`           |
+| `/contact.html`             | `ContactLayout`         |
+| `/integrations.html`        | `IntegrationsLayout`    |
+| `/guides/*`, `/platforms/*` | three-column docs frame |
+| anything else               | `mp-standalone`         |
+
+Adding a page with its own layout means three edits: the markdown file (front
+matter only), a `computed` route test plus a branch in `Layout.vue`, and a
+registration in `client.ts`.
 
 ## Styling
 
@@ -122,9 +143,12 @@ layout.
   offers six channel types: bol, Shopify, WooCommerce, Lightspeed, PrestaShop
   and CS-Cart.
 
-## House style for prose
+## Writing
 
-- No em-dashes. Use commas, or restructure the sentence.
+- Simplified Technical English (ASD-STE100): one idea per sentence, active voice, present tense, "you" for the reader. No em dashes.
+- Use the names the product, the API and the code use. Never invent a term, an identifier or a code example.
+- Use obvious placeholders such as `<api-key>`, never a value that looks real.
+- When you change a heading or move a page, update the navigation and every link to it.
 - Write for a shop owner or an integrator, not for the team that built it.
 - Plugin manuals follow a fixed shape: a `::: tip In short` block, a
   quickstart, a "Looking for…" table, numbered settings chapters and a
@@ -136,3 +160,21 @@ Screenshots of the MyParcel Backoffice under `pages/platforms/images/` are
 primary sources; several claims in the docs are verifiable from them. When
 documenting behaviour, check the screenshot or the plugin repository under
 `github.com/myparcelnl` before asserting it.
+
+## Pull requests
+
+1. Branch from `main`. Run the build before you open the pull request.
+2. Title: a conventional commit, for example `docs(php-sdk): mark the php sdk guide as v10`.
+3. Body, in this order:
+   - One sentence on what the pull request does.
+   - The changes, one line each. Not a list of files.
+   - References: `Fixes INT-1234` or `Refs INT-1234` for the Jira ticket (MyParcel employees), `Fixes #123` only for a GitHub issue the pull request closes.
+   - The AI disclaimer, when an AI agent wrote any of it. It says that an AI agent wrote it, which sections a person wrote by hand, and whether a person reviewed the output:
+     ```
+     > [!NOTE]
+     > An AI agent wrote this pull request. A person wrote the "Installation" section by hand. A person reviewed the changes.
+     ```
+     Without a review, write "No person has reviewed the changes yet."
+4. Split large work into a stack of small pull requests with [`gh stack`](https://gh.io/stacks).
+
+Never put a credential or customer data in a pull request, a commit or a page.
