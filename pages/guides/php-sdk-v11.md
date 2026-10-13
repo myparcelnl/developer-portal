@@ -5,10 +5,6 @@ description: "Use myparcelnl/sdk v11 to create shipments, fetch labels, track pa
 
 Use this page to integrate with MyParcel through `myparcelnl/sdk` v11: create shipments, fetch labels, follow track and trace, create returns, subscribe to webhooks, check what a carrier offers, and connect a shop with MyParcel Connect to push orders.
 
-::: warning v11 is in beta
-v11 has no stable release yet. Class names and method signatures can still change between beta releases. Check the [releases ↗](https://github.com/myparcelnl/sdk/releases) before you upgrade to a newer beta. The [PHP SDK](php-sdk.md) page documents v10.
-:::
-
 ## Requirements
 
 | | Version |
@@ -19,10 +15,8 @@ v11 has no stable release yet. Class names and method signatures can still chang
 ## Install
 
 ```
-composer require myparcelnl/sdk:^11.0@beta
+composer require myparcelnl/sdk:^11.0
 ```
-
-v11 has no stable release yet, so Composer needs the `@beta` flag to accept it. Without it, Composer installs v10.
 
 ## Authentication
 
@@ -33,11 +27,6 @@ v11 authenticates in one of two ways:
 
 If you pass no API key to a factory, the SDK reads the `API_KEY` environment variable, and after that the older `API_KEY_NL` and `API_KEY_BE`. Without any key it throws an `InvalidArgumentException`.
 
-Some services work differently:
-
-- `CapabilitiesService` has no API key argument. It always reads the key from the environment variables above, see [Carrier capabilities](#carrier-capabilities).
-- `MultiColloShipmentService` and the value mapping classes make no API calls and need no key.
-
 ## Services
 
 | Service | Use it to |
@@ -46,15 +35,15 @@ Some services work differently:
 | `ShipmentQueryService` | Find shipments by ID or by reference |
 | `ShipmentDeleteService` | Delete concept shipments |
 | `ShipmentLabelsService` | Get label PDFs, links or direct downloads |
-| `ShipmentPrintService` | Print shipments to a printer group |
+| `ShipmentPrintService` | Create shipments and print their labels on a printer group |
 | `ShipmentTrackTraceService` | Fetch track and trace data |
 | `ReturnShipmentService` | Create related or unrelated return shipments |
 | `MultiColloShipmentService` | Split a shipment into several colli |
 | `WebhookService` | Subscribe to, unsubscribe from and list webhooks |
 | `ApiKeyService` | Check an API key and read who it belongs to |
-| `CapabilitiesService` | Check what a carrier offers for a given shipment |
-| `CarrierContractDefinitionsService` | Fetch the carrier contracts of an account |
-| `ApiMapperService` | Convert carrier, delivery type and package type values between API versions |
+| `CapabilitiesService` | Check what a carrier offers for a given destination, package and set of options |
+| `CarrierContractDefinitionsService` | Fetch everything each carrier can offer an account, across all its contracts |
+| `ApiMapperService` | Convert carrier, delivery type and package type values between different endpoint definitions |
 | `ConnectService` | Connect a shop with MyParcel Connect and keep its access token usable |
 
 ## Create a shipment
@@ -62,6 +51,8 @@ Some services work differently:
 Build a `Shipment`, put it in a `ShipmentCollection` and pass the collection to `ShipmentCreateService`:
 
 ```php
+use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefCapabilitiesSharedCarrierV2;
+use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefShipmentPackageTypeV2;
 use MyParcelNL\Sdk\Collection\ShipmentCollection;
 use MyParcelNL\Sdk\Model\Shipment\Shipment;
 use MyParcelNL\Sdk\Services\Shipment\ShipmentCreateService;
@@ -75,8 +66,8 @@ $shipment = (new Shipment())
         'city'        => 'Hoofddorp',
         'postal_code' => '2132 JE',
     ])
-    ->setCarrier(1)
-    ->withPackageType('PACKAGE');
+    ->setCarrier(RefCapabilitiesSharedCarrierV2::POSTNL)
+    ->withPackageType(RefShipmentPackageTypeV2::PACKAGE);
 
 $collection = (new ShipmentCollection())->push($shipment);
 
@@ -84,6 +75,8 @@ $service = new ShipmentCreateService('your-api-key');
 $mapping = $service->create($collection);
 // [shipmentId => referenceIdentifier, ...]
 ```
+
+Use the enum classes of the generated client for carriers, package types and other fixed values, as in this example, rather than plain strings or numbers. `setCarrier()` converts the carrier name to the carrier ID the shipment API expects.
 
 `create()` returns the ID of each new shipment with its reference identifier. Keep the ID: every other shipment service works with it.
 
@@ -109,6 +102,7 @@ A shipment you find carries its barcode (`getBarcode()`) and the link to the con
 ## Labels
 
 ```php
+use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefShipmentLabelPrintingPosition;
 use MyParcelNL\Sdk\Services\Labels\ShipmentLabelsService;
 
 $labels = new ShipmentLabelsService('your-api-key');
@@ -118,30 +112,42 @@ $labels->setPdfOfLabels([12345, 12346]);
 $pdf = $labels->getLabelPdf();
 
 // A link to the PDF
-$labels->setLinkOfLabels([12345], 1);
+$labels->setLinkOfLabels([12345], RefShipmentLabelPrintingPosition::TOP_LEFT_QUADRANT);
 $url = $labels->getLinkOfLabels();
 
 // Send the PDF to the browser as a download
-$labels->downloadPdfOfLabels(true);
+$labels->downloadPdfOfLabels();
 ```
 
-The second argument of `setPdfOfLabels()` and `setLinkOfLabels()` sets both the paper format and where the labels go on the page. It defaults to `1`.
+`downloadPdfOfLabels()` sends the PDF with its own headers and then ends the script with `exit`, so call it last. Pass `true` to open the PDF in the browser instead of downloading it.
+
+The second argument of `setPdfOfLabels()` and `setLinkOfLabels()` sets both the paper format and where the labels go on the page. Use the constants of `RefShipmentLabelPrintingPosition` for the positions: `TOP_LEFT_QUADRANT` (1), `TOP_RIGHT_QUADRANT` (2), `BOTTOM_LEFT_QUADRANT` (3) and `BOTTOM_RIGHT_QUADRANT` (4). The default is the top left quadrant.
 
 | Value | Result |
 | --- | --- |
-| A number from `1` to `4` | A4, filling the positions from that number up to 4. `2` prints on positions 2, 3 and 4. |
-| An array, such as `[1, 3]` | A4, on exactly those positions |
+| One position | A4, filling the page from that position onwards. `TOP_RIGHT_QUADRANT` prints on positions 2, 3 and 4. |
+| An array of positions | A4, on exactly those positions |
 | Anything else, such as `false` | A6 |
 
-## Print directly
+## Printer groups
 
-`ShipmentPrintService` sends the labels of a collection to a printer group in the merchant's MyParcel account:
+`ShipmentPrintService` creates the shipments in a collection and sends their labels straight to a printer group, without a PDF in between. It does not print shipments that already exist.
 
 ```php
 use MyParcelNL\Sdk\Services\Shipment\ShipmentPrintService;
 
-$result = (new ShipmentPrintService('your-api-key'))->print($collection, 'your-printer-group-id');
+$mapping = (new ShipmentPrintService('your-api-key'))->print($collection, 'your-printer-group-id');
+// [shipmentId => referenceIdentifier, ...]
 ```
+
+The account needs a working printer group before this call succeeds. Set it up through the [Printing API](../api/printing.md):
+
+1. Create a printer group with [`POST /create-printer-group`](../api/printing.md#post-create-printer-group).
+2. Make the printers known with [`POST /sync-printers`](../api/printing.md#post-sync-printers), then add one to the group with [`POST /assign-printer-to-group`](../api/printing.md#post-assign-printer-to-group).
+3. Give the shop access to the group with [`POST /allow-shops-access-to-printer-group`](../api/printing.md#post-allow-shops-access-to-printer-group).
+4. Turn on direct printing with [`POST /enable-direct-printing`](../api/printing.md#post-enable-direct-printing).
+
+The SDK has no public service to list printer groups. Read the ID of the group from [`GET /printer-groups`](../api/printing.md#get-printer-groups).
 
 ## Track and trace
 
@@ -158,18 +164,28 @@ Each trace holds the status, the barcode and the history of the shipment. `getLi
 A related return is linked to a shipment you already sent. An unrelated return stands on its own:
 
 ```php
+use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefTypesCarrier;
 use MyParcelNL\Sdk\Services\Returns\ReturnShipmentService;
 
 $returns = new ReturnShipmentService('your-api-key');
 
 $related = $returns->createRelated([
-    ['parent' => 12345, 'carrier' => 1],
-], true);
+    [
+        'parent'  => 12345,
+        'carrier' => RefTypesCarrier::POSTNL,
+        'name'    => 'John Doe',
+        'email'   => 'john@example.com',
+    ],
+]);
 
 $unrelated = $returns->createUnrelated([
-    ['carrier' => 1, 'recipient' => [/* address */]],
+    ['carrier' => RefTypesCarrier::POSTNL, 'recipient' => [/* address */]],
 ]);
 ```
+
+The rows go to the API as they are, so the carrier is a numeric carrier ID here. `RefTypesCarrier` holds those IDs. A related return needs the parent shipment, the carrier, and the name and email address of the consumer. An unrelated return needs at least the carrier.
+
+`createRelated()` takes a second argument, `$sendMail`. Set it to `true` and MyParcel emails the return label to the consumer of the original shipment. It defaults to `false`. Leave it off while you test, or a real customer receives the mail.
 
 ## Multi-collo
 
@@ -219,20 +235,36 @@ Use this in a settings screen, so a merchant learns that a key is wrong before t
 
 ## Carrier capabilities
 
-`CapabilitiesService` tells you what a carrier offers for one specific shipment, based on input such as the destination country, the weight, the package type and the delivery options:
+`CapabilitiesService` tells you what a carrier offers for a given destination, package and set of options. Describe what you want to send in a `CapabilitiesRequest` and pass it to `get()`. You do not need to build a shipment first:
 
 ```php
-use MyParcelNL\Sdk\Model\Shipment\Shipment;
+use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\PhysicalPropertiesWeightV2;
+use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefCapabilitiesSharedCarrierV2;
+use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefShipmentPackageTypeV2;
+use MyParcelNL\Sdk\Model\Capabilities\CapabilitiesRequest;
 use MyParcelNL\Sdk\Services\Capabilities\CapabilitiesService;
 
-$shipment = (new Shipment())
-    ->withRecipientCountryCode('NL')
-    ->withWeight(2000);
+$request = CapabilitiesRequest::forCountry('NL')
+    ->withCarrier(RefCapabilitiesSharedCarrierV2::POSTNL)
+    ->withPackageType(RefShipmentPackageTypeV2::PACKAGE)
+    ->withPhysicalProperties([
+        'weight' => ['value' => 2000, 'unit' => PhysicalPropertiesWeightV2::UNIT_G],
+    ]);
 
-$capabilities = (new CapabilitiesService())->fromShipment($shipment);
+$capabilities = (new CapabilitiesService())->get($request);
+
+$capabilities->getPackageTypes();
+$capabilities->getDeliveryTypes();
+$capabilities->getShipmentOptions();
 ```
 
-`CapabilitiesService` takes no API key. It reads the key from the `API_KEY` environment variable, so set that before you call it. To use a key from elsewhere, pass your own implementation of `CapabilitiesClientInterface` to the constructor.
+The request also takes a delivery type, a direction, a sender, shipment options and a pickup location. The response merges every result the API returns, so set a carrier when you want the answer for one carrier. Without one, `getCarrier()` returns `null` as soon as the results span more than one carrier.
+
+If you already have a `Shipment`, `fromShipment($shipment)` builds the request from it.
+
+::: warning Known issue
+`CapabilitiesService` has no API key argument and reads the key from the `API_KEY` environment variable. Without that variable it throws an `InvalidArgumentException`. Until this changes, set `API_KEY`, or pass your own implementation of `CapabilitiesClientInterface` to the constructor.
+:::
 
 A capabilities request drops option names it does not know or the API does not support. Ask the request which names it will drop, so your application can report them:
 
@@ -247,9 +279,9 @@ $request->getUnsupportedOptions(); // ['tracked']
 
 This checks option names only. It does not check option values, and it does not tell you which options a carrier offers.
 
-## Carrier contracts
+## Contract definitions
 
-`CarrierContractDefinitionsService` returns the carrier contracts of an account. Use it to build carrier settings or to find out which carriers an account can use. Use `CapabilitiesService` instead when the answer depends on a specific shipment.
+`CarrierContractDefinitionsService` returns, for each carrier, everything an account can use across all its contracts: the package types, delivery types, shipment options, transaction types and the maximum number of colli. It is the superset of the capabilities of the account, not a list of the contracts themselves. Use it to build carrier settings or to find out which carriers an account can use. Use `CapabilitiesService` when the answer depends on a destination, a package or a set of options.
 
 ```php
 use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\CapabilitiesPostContractDefinitionsRequestV2;
@@ -316,35 +348,7 @@ The labels, print and returns services send their requests with the PSR-18 clien
 
 ## Upgrading from v10
 
-v11 replaces the consignment stack with generated API clients and typed services. [Upgrading to v11 ↗](https://github.com/myparcelnl/sdk/blob/v11/UPGRADE.md) has a before and after example for every change. The most common replacements:
-
-| v10 (removed) | v11 |
-| --- | --- |
-| `MyParcelCollection` with `AbstractConsignment` | `ShipmentCollection` with `Shipment` |
-| `ConsignmentFactory::createByCarrierId()` | `new Shipment()` with fluent setters |
-| `MyParcelCollection::createConcepts()` | `ShipmentCreateService::create()` |
-| `MyParcelCollection::setLatestData()` | `ShipmentQueryService::find()`, `findMany()`, `findByReferenceId()` |
-| `MyParcelCollection::deleteConcepts()` | `ShipmentDeleteService::deleteMany()` |
-| `MyParcelCollection::setPdfOfLabels()` | `ShipmentLabelsService::setPdfOfLabels()` |
-| `MyParcelCollection::generateReturnConsignments()` | `ReturnShipmentService::createRelated()` |
-| `MyParcelCollection::createUnrelatedReturns()` | `ReturnShipmentService::createUnrelated()` |
-| `$consignment->getBarcode()`, `getBarcodeUrl()` | `ShipmentTrackTraceService::fetchTrackTraceData()` |
-| `AbstractWebhookWebService` and its subclasses | `WebhookService` |
-| `CheckApiKeyWebService::apiKeyIsCorrect()` | `ApiKeyService::isValid()` |
-| `CarrierOptionsWebService` | `CarrierContractDefinitionsService` (not a one-to-one replacement) |
-| Delivery options adapters | `ShipmentOptions` |
-
-Also removed in v11:
-
-- All consignment models, the delivery options adapters, `MyParcelCollection` and `ConsignmentFactory`.
-- The drop-off point.
-- `ValidatePostalCode`, `TrackTraceUrl`, `Utils` and `LabelHelper`.
-
-Deprecated, still working in v11: `CarrierApiMapping`, `DeliveryTypeApiMapping`, `PackageTypeApiMapping` and `ApiMappingInterface`. Use `ApiMapperService`. Replace `RefTypesCarrierV2` with `RefCapabilitiesSharedCarrierV2`.
-
-Enum values are validated more loosely but consistently since beta.29. If you relied on an exception for an unknown enum value, test that path again.
-
-Some v10 classes still exist in v11, such as the Order v1 fulfilment classes and `AccountWebService`. Most of them are marked `@internal` and will be replaced. Do not build new code on them. [Upgrading to v11 ↗](https://github.com/myparcelnl/sdk/blob/v11/UPGRADE.md#what-still-works) lists them.
+v11 replaces the consignment stack of v10 with generated API clients and typed services, and removes or deprecates a number of classes. [Upgrading to v11 ↗](https://github.com/myparcelnl/sdk/blob/v11/UPGRADE.md) in the SDK repository lists every change, with a before and after example for each one. The [PHP SDK](php-sdk.md) page documents v10.
 
 ## MyParcel Connect
 
