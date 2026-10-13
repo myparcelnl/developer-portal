@@ -54,5 +54,5 @@ Scegli il percorso che corrisponde alla tua integrazione:
 - [Autenticazione approfondita](authentication.md) — scope, refresh token, revoca.
 - [Opzioni di consegna](../../platforms/delivery-options.md) — pickup point, consegna serale, firma.
 - [Webhook](webhooks.md) — ricevi notifiche quando una spedizione viene consegnata al carrier o recapitata.
-- [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — salta l'HTTP grezzo e usa le nostre librerie.
+- [PHP SDK](../../guides/php-sdk-v11.md) / [JavaScript SDK](javascript-sdk.md) — salta l'HTTP grezzo e usa le nostre librerie.
 - [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) o un altro plugin e-commerce — installa, configura, fatto.

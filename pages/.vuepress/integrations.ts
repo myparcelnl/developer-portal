@@ -591,7 +591,7 @@ export const integrationGroups: IntegrationGroup[] = [
         logoBg: '#787CB5',
         markets: ANY_MARKET,
         byMyParcel: true,
-        links: [docs('/guides/php-sdk.html'), github('myparcelnl/sdk')],
+        links: [docs('/guides/php-sdk-v11.html'), github('myparcelnl/sdk')],
       },
       {
         name: 'JavaScript / Node.js SDK',

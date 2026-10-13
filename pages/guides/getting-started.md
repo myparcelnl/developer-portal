@@ -54,5 +54,5 @@ Pick whichever path matches your integration:
 - [Authentication in depth](authentication.md) — scopes, refresh tokens, revocation.
 - [Delivery options](../platforms/delivery-options.md) — pickup points, evening delivery, signed-for.
 - [Webhooks](webhooks.md) — get notified when a shipment is handed over or delivered.
-- [PHP SDK](php-sdk.md) / [JavaScript SDK](javascript-sdk.md) — skip the raw HTTP and use our libraries.
+- [PHP SDK](php-sdk-v11.md) / [JavaScript SDK](javascript-sdk.md) — skip the raw HTTP and use our libraries.
 - [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) or another e-commerce plugin — install, configure, done.

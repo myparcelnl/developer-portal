@@ -1,5 +1,5 @@
 ---
-title: PHP SDK
+title: PHP SDK v10
 description: "Riferimento tecnico per il pacchetto Composer ufficiale myparcelnl/sdk. Copre installazione, ciclo di vita del consignment, carrier, etichette, resi, Fulfilment Order API e stampa diretta."
 ---
 
@@ -22,12 +22,12 @@ Il PHP SDK avvolge l'API REST di MyParcel in un modello a oggetti tipizzato: cos
 | Migrare da una versione precedente | [17 · Migrazione](#_17-migrazione-da-versioni-precedenti) |
 
 ::: warning Stato di questa pagina
-La vecchia versione su [developer.myparcel.nl/documentation/50.php-sdk.html ↗](https://developer.myparcel.nl/documentation/50.php-sdk.html) è obsoleta (PHP 7.1, namespace `MyParcel\Sdk`). Questa pagina è scritta per `myparcelnl/sdk` v10.7+ e usa il namespace attuale `MyParcelNL\Sdk\`.
+La vecchia versione su [developer.myparcel.nl/documentation/50.php-sdk.html ↗](https://developer.myparcel.nl/documentation/50.php-sdk.html) è obsoleta (PHP 7.1, namespace `MyParcel\Sdk`). Questa pagina è scritta per `myparcelnl/sdk` v10.7+ e usa il namespace attuale `MyParcelNL\Sdk\`. Per la v11, vedi [PHP SDK v11](../../guides/php-sdk-v11.md).
 :::
 
 ## 1 · Installazione
 ```
-composer require myparcelnl/sdk
+composer require myparcelnl/sdk:^10.0
 ```
 
 Autoload PSR-4 — nessun `require` manuale necessario. Sorgente: [Packagist ↗](https://packagist.org/packages/myparcelnl/sdk).
@@ -50,9 +50,9 @@ Carrier  ──►  Consignment  ──►  MyParcelCollection
 ( ID/nome)    (un pacchetto)    (batch + label-IO)
 ```
 
-- **Carrier** — un modello statico per ogni vettore con `ID`, `NAME` e la classe `Consignment` associata. Vedi [`src/Model/Carrier`](https://github.com/myparcelnl/sdk/tree/main/src/Model/Carrier).
-- **Consignment** — tutti i dati di un singolo collo (mittente, destinatario, opzioni, proprietà fisiche). Le sottoclassi specifiche per carrier (es. `PostNLConsignment`) determinano quali combinazioni di `delivery_type`, `package_type` e `shipment_option` sono ammesse. Vedi [`src/Model/Consignment`](https://github.com/myparcelnl/sdk/tree/main/src/Model/Consignment).
-- **MyParcelCollection** — raccoglie i consignment, parla con l'API (`POST /shipments`, `/shipment_labels`, `/track_traces`), genera PDF di etichette e gestisce il multi-collo. Vedi [`src/Helper/MyParcelCollection.php`](https://github.com/myparcelnl/sdk/blob/main/src/Helper/MyParcelCollection.php).
+- **Carrier** — un modello statico per ogni vettore con `ID`, `NAME` e la classe `Consignment` associata. Vedi [`src/Model/Carrier`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Carrier).
+- **Consignment** — tutti i dati di un singolo collo (mittente, destinatario, opzioni, proprietà fisiche). Le sottoclassi specifiche per carrier (es. `PostNLConsignment`) determinano quali combinazioni di `delivery_type`, `package_type` e `shipment_option` sono ammesse. Vedi [`src/Model/Consignment`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Consignment).
+- **MyParcelCollection** — raccoglie i consignment, parla con l'API (`POST /shipments`, `/shipment_labels`, `/track_traces`), genera PDF di etichette e gestisce il multi-collo. Vedi [`src/Helper/MyParcelCollection.php`](https://github.com/myparcelnl/sdk/blob/10.x/src/Helper/MyParcelCollection.php).
 
 Namespace di alto livello:
 
@@ -517,7 +517,7 @@ Principali break per minor:
 | **v10.3.x** | Fix dei deprecation di PHP 8.4; gli importi delle assicurazioni vengono convertiti correttamente in centesimi. |
 | **v10.x → v9** | `setUserAgent()` è deprecato — usa `setUserAgentForProposition()`. |
 
-Changelog completo: [github.com/myparcelnl/sdk/blob/main/CHANGELOG.md ↗](https://github.com/myparcelnl/sdk/blob/main/CHANGELOG.md).
+Changelog completo: [github.com/myparcelnl/sdk/blob/10.x/CHANGELOG.md ↗](https://github.com/myparcelnl/sdk/blob/10.x/CHANGELOG.md).
 
 ## 18 · Contributi e supporto
 - **Sorgente** — [github.com/myparcelnl/sdk ↗](https://github.com/myparcelnl/sdk) (MIT)
@@ -525,4 +525,4 @@ Changelog completo: [github.com/myparcelnl/sdk/blob/main/CHANGELOG.md ↗](https
 - **Slack** — `#sdk` su [myparcel-dev.slack.com ↗](https://join.slack.com/t/myparcel-dev/shared_invite/enQtNDkyNTg3NzA1MjM4LTM0Y2IzNmZlY2NkOWFlNTIyODY5YjFmNGQyYzZjYmQzMzliNDBjYzBkOGMwYzA0ZDYzNmM1NzAzNDY1ZjEzOTM)
 - **E-mail** — [support@myparcel.nl](mailto:support@myparcel.nl)
 
-Linee guida per le PR: branch da `main`, scrivi i test con Mockery (niente HTTP live), commit secondo [Conventional Commits](https://www.conventionalcommits.org/).
+Linee guida per le PR: branch da `10.x`, scrivi i test con Mockery (niente HTTP live), commit secondo [Conventional Commits](https://www.conventionalcommits.org/).

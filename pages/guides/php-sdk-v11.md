@@ -348,7 +348,7 @@ The labels, print and returns services send their requests with the PSR-18 clien
 
 ## Upgrading from v10
 
-v11 replaces the consignment stack of v10 with generated API clients and typed services, and removes or deprecates a number of classes. [Upgrading to v11 ↗](https://github.com/myparcelnl/sdk/blob/v11/UPGRADE.md) in the SDK repository lists every change, with a before and after example for each one. The [PHP SDK](php-sdk.md) page documents v10.
+v11 replaces the consignment stack of v10 with generated API clients and typed services, and removes or deprecates a number of classes. [Upgrading to v11 ↗](https://github.com/myparcelnl/sdk/blob/main/UPGRADE.md) in the SDK repository lists every change, with a before and after example for each one. The [PHP SDK v10](php-sdk.md) page documents v10.
 
 ## MyParcel Connect
 
@@ -400,7 +400,7 @@ use MyParcelNL\Sdk\Model\Connect\ConnectConfig;
 $config = new ConnectConfig($platform, $encryptionKey);
 ```
 
-- `$platform` picks the e-commerce service the SDK calls. [`ConnectPlatform::getAllowableEnumValues()` ↗](https://github.com/myparcelnl/sdk/blob/v11/src/Model/Connect/ConnectPlatform.php) returns the values it accepts.
+- `$platform` picks the e-commerce service the SDK calls. [`ConnectPlatform::getAllowableEnumValues()` ↗](https://github.com/myparcelnl/sdk/blob/main/src/Model/Connect/ConnectPlatform.php) returns the values it accepts.
 - `$encryptionKey` encrypts the private key and the access token before the SDK hands them to your storage. Keep it out of the database, for example in an environment variable or a secret manager. A key stored next to the data it protects protects nothing.
 
 Each `with` method returns a copy, so a config can be shared:
@@ -411,18 +411,18 @@ $config = $config
     ->withScopes([/* see ConnectScope */]);   // narrow the permissions you ask for
 ```
 
-**A storage class**, implementing [`ConnectStorageInterface` ↗](https://github.com/myparcelnl/sdk/blob/v11/src/Services/Connect/ConnectStorageInterface.php). The SDK keeps no state of its own: it calls your storage to read and write the shop's connection.
+**A storage class**, implementing [`ConnectStorageInterface` ↗](https://github.com/myparcelnl/sdk/blob/main/src/Services/Connect/ConnectStorageInterface.php). The SDK keeps no state of its own: it calls your storage to read and write the shop's connection.
 
 You implement all seven of its methods, a load and a save for each of three records plus a `clear()`.
 Each one is close to a single line, because every record has a `toArray()` and a static
 `fromArray()`: your side of it is deciding where the array goes and reading it back. Use whatever
 your application already keeps settings in, such as a database table or your platform's own settings
-store. [`FileConnectStorage` ↗](https://github.com/myparcelnl/sdk/blob/v11/dev/connect-poc/FileConnectStorage.php)
+store. [`FileConnectStorage` ↗](https://github.com/myparcelnl/sdk/blob/main/dev/connect-poc/FileConnectStorage.php)
 implements every method, so you can read the shape in one file. Read it as an example and not as a
 pattern to copy: it keeps the records in a JSON file, its writes take no lock, and two requests at
 the same time lose one of them.
 
-The three records do not last equally long, and [the interface ↗](https://github.com/myparcelnl/sdk/blob/v11/src/Services/Connect/ConnectStorageInterface.php) documents where each one belongs:
+The three records do not last equally long, and [the interface ↗](https://github.com/myparcelnl/sdk/blob/main/src/Services/Connect/ConnectStorageInterface.php) documents where each one belongs:
 
 | Record | Keep it | If you lose it |
 | --- | --- | --- |
@@ -566,6 +566,6 @@ cancelled.
 
 ### A working example
 
-[`dev/connect-poc` ↗](https://github.com/myparcelnl/sdk/tree/v11/dev/connect-poc) in the SDK repository is a page that runs this whole flow: it connects a shop, refreshes and drops the token, and pushes an order you can edit. Its `index.php` puts every call above in the order they happen. It ships with the source and not with the package, so `composer require` does not pull it in.
+[`dev/connect-poc` ↗](https://github.com/myparcelnl/sdk/tree/main/dev/connect-poc) in the SDK repository is a page that runs this whole flow: it connects a shop, refreshes and drops the token, and pushes an order you can edit. Its `index.php` puts every call above in the order they happen. It ships with the source and not with the package, so `composer require` does not pull it in.
 
-Its default setup uses MyParcel's own development infrastructure. Outside MyParcel, follow [Without traefik ↗](https://github.com/myparcelnl/sdk/tree/v11/dev/connect-poc#without-traefik) in its README: run the page with PHP's built-in server and give it an HTTPS URL that reaches your machine, such as one from ngrok or Cloudflare Tunnel.
+Its default setup uses MyParcel's own development infrastructure. Outside MyParcel, follow [Without traefik ↗](https://github.com/myparcelnl/sdk/tree/main/dev/connect-poc#without-traefik) in its README: run the page with PHP's built-in server and give it an HTTPS URL that reaches your machine, such as one from ngrok or Cloudflare Tunnel.
