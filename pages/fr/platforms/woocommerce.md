@@ -502,7 +502,15 @@ Utilisez ces hooks WordPress pour modifier le comportement du plugin depuis votr
 ### Modifier l'adresse envoyée par le plugin à MyParcel
 Certaines boutiques ne stockent pas l'adresse dans les champs WooCommerce standard. Par exemple, la boutique met le numéro de maison dans *Apartment, suite, unit, etc.* (ligne d'adresse 2) ou dans un champ de commande personnalisé. MyParcel reçoit alors une adresse sans numéro de maison, et l'étiquette échoue.
 
-Le filtre `mpwc_checkout_wc_address_fields` vous permet de corriger l'adresse avant que le plugin l'utilise. Cet exemple déplace la ligne d'adresse 2 à la fin de la ligne d'adresse 1 :
+Le filtre `mpwc_checkout_wc_address_fields` vous permet de corriger l'adresse avant que le plugin la prépare pour MyParcel. Le contenu de `$fields` dépend du checkout :
+
+- **Widget Adresse :** pour une commande passée avec le widget Adresse de MyParcel, `street`, `number` et `numberSuffix` du widget.
+- **Champs d'adresse séparés :** pour une commande passée avec les champs d'adresse séparés, `address1` contient la rue, le numéro de maison et le complément, séparés par des espaces.
+- **Aucun des deux :** `address1` et `address2` tels que le client les a remplis.
+
+Un autre plugin de checkout peut modifier ces champs avant que votre filtre s'exécute. Testez votre filtre avec le checkout de votre shop.
+
+Cet exemple déplace la ligne d'adresse 2 à la fin de la ligne d'adresse 1 :
 
 ```php
 add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, string $addressType) {
@@ -526,7 +534,9 @@ Le filtre reçoit quatre arguments :
 
 Ce qui se passe avec l'adresse que vous renvoyez :
 
-- **Pays-Bas et Belgique :** quand le plugin lit une commande, il divise `address1` en rue, numéro de maison et complément après votre filtre. Il ne divise pas quand la commande a une rue, un numéro de maison ou un complément issus des champs d'adresse séparés ou du widget Adresse. Dans ce cas, renvoyez vous-même `street`, `number` et `numberSuffix`.
+- **`street` remplace `address1` :** quand l'adresse a une `street`, le plugin envoie `street`, `number` et `numberSuffix` à MyParcel, et ignore `address1` et `address2`. Si vous renvoyez les deux ensembles, le plugin utilise donc `street`, `number` et `numberSuffix`.
+- **Champs d'adresse séparés :** quand la commande a des valeurs issues des champs d'adresse séparés, le plugin les ajoute après votre filtre comme `street`, `number` et `numberSuffix`, sauf si vous renvoyez vous-même ces clés. Comme `street` remplace `address1`, une modification de `address1` seul n'a alors aucun effet. Renvoyez vous-même `street`, `number` et `numberSuffix`.
+- **Pays-Bas et Belgique :** quand le plugin lit une commande sans rue, numéro de maison ni complément, il divise `address1` en rue, numéro de maison et complément après votre filtre.
 - **Vos valeurs l'emportent :** une valeur que vous renvoyez remplace la valeur des champs d'adresse séparés et des champs de numéro EORI et de TVA.
 - **Professionnel ou particulier :** le plugin utilise `company` pour décider si la commande est professionnelle. Renvoyez un nom d'entreprise pour que la commande compte comme professionnelle. Une valeur `isBusiness` n'a aucun effet.
 - **Aucun array renvoyé :** quand votre filtre ne renvoie pas d'array, le plugin utilise l'adresse sans vos modifications et enregistre un avertissement dans les logs.

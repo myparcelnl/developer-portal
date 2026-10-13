@@ -502,7 +502,15 @@ Met deze WordPress hooks pas je aan wat de plugin doet, vanuit je thema of vanui
 ### Het adres aanpassen dat de plugin naar MyParcel stuurt
 Sommige shops slaan het adres niet op in de standaard WooCommerce-velden. De shop zet bijvoorbeeld het huisnummer in *Apartment, suite, unit, etc.* (adresregel 2) of in een eigen checkout-veld. MyParcel krijgt dan een adres zonder huisnummer, en het label mislukt.
 
-Met de filter `mpwc_checkout_wc_address_fields` corrigeer je het adres voordat de plugin het gebruikt. Dit voorbeeld zet adresregel 2 achter adresregel 1:
+Met de filter `mpwc_checkout_wc_address_fields` corrigeer je het adres voordat de plugin het voor MyParcel klaarmaakt. Wat `$fields` bevat, hangt af van de checkout:
+
+- **Adressenwidget:** voor een order die met de MyParcel Adressenwidget is geplaatst, `street`, `number` en `numberSuffix` uit de widget.
+- **Aparte adresvelden:** voor een order die met de aparte adresvelden is geplaatst, bevat `address1` de straat, het huisnummer en de toevoeging, gescheiden door spaties.
+- **Geen van beide:** `address1` en `address2` zoals de klant ze heeft ingevuld.
+
+Een andere checkout plugin kan deze velden aanpassen voordat jouw filter draait. Test je filter met de checkout van je shop.
+
+Dit voorbeeld zet adresregel 2 achter adresregel 1:
 
 ```php
 add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, string $addressType) {
@@ -526,7 +534,9 @@ De filter krijgt vier argumenten:
 
 Wat er gebeurt met het adres dat je teruggeeft:
 
-- **Nederland en België:** als de plugin een order leest, splitst ze `address1` na jouw filter in straat, huisnummer en toevoeging. Ze splitst niet als de order een straat, huisnummer of toevoeging heeft uit de aparte adresvelden of uit de Adressenwidget. Geef in dat geval zelf `street`, `number` en `numberSuffix` terug.
+- **`street` vervangt `address1`:** als het adres een `street` heeft, stuurt de plugin `street`, `number` en `numberSuffix` naar MyParcel en negeert ze `address1` en `address2`. Geef je beide sets terug, dan gebruikt de plugin dus `street`, `number` en `numberSuffix`.
+- **Aparte adresvelden:** als de order waarden uit de aparte adresvelden heeft, voegt de plugin die na jouw filter toe als `street`, `number` en `numberSuffix`, tenzij je deze keys zelf teruggeeft. Omdat `street` `address1` vervangt, heeft een wijziging in alleen `address1` dan geen effect. Geef zelf `street`, `number` en `numberSuffix` terug.
+- **Nederland en België:** als de plugin een order zonder straat, huisnummer of toevoeging leest, splitst ze `address1` na jouw filter in straat, huisnummer en toevoeging.
 - **Jouw waarden gaan voor:** een waarde die je teruggeeft vervangt de waarde uit de aparte adresvelden en uit de EORI- en BTW-nummervelden.
 - **Zakelijk of particulier:** de plugin gebruikt `company` om te bepalen of de order zakelijk is. Geef een bedrijfsnaam terug om de order zakelijk te maken. Een `isBusiness`-waarde heeft geen effect.
 - **Geen array teruggegeven:** als je filter geen array teruggeeft, gebruikt de plugin het adres zonder jouw wijzigingen en schrijft ze een waarschuwing in de log.

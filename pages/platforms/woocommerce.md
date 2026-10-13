@@ -502,7 +502,15 @@ Use these WordPress hooks to change what the plugin does from your theme or from
 ### Change the address that the plugin sends to MyParcel
 Some shops do not store the address in the standard WooCommerce fields. For example, the shop puts the house number in *Apartment, suite, unit, etc.* (address line 2) or in a custom checkout field. MyParcel then gets an address without a house number, and the label fails.
 
-The filter `mpwc_checkout_wc_address_fields` lets you correct the address before the plugin uses it. This example moves address line 2 to the end of address line 1:
+The filter `mpwc_checkout_wc_address_fields` lets you correct the address before the plugin prepares it for MyParcel. What `$fields` holds depends on the checkout:
+
+- **Address widget:** for an order placed with the MyParcel Address widget, `street`, `number` and `numberSuffix` from the widget.
+- **Separate address fields:** for an order placed with the separate address fields, `address1` holds the street, house number and suffix, joined with spaces.
+- **Neither:** `address1` and `address2` as the customer filled them in.
+
+Another checkout plugin can change these fields before your filter runs. Test your filter with the checkout of your shop.
+
+This example moves address line 2 to the end of address line 1:
 
 ```php
 add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, string $addressType) {
@@ -526,7 +534,9 @@ The filter gets four arguments:
 
 What happens with the address you return:
 
-- **Netherlands and Belgium:** when the plugin reads an order, it splits `address1` into street, house number and suffix after your filter. It does not split when the order has a street, house number or suffix from the separate address fields or from the Address widget. In that case, return `street`, `number` and `numberSuffix` yourself.
+- **`street` replaces `address1`:** when the address has a `street`, the plugin sends `street`, `number` and `numberSuffix` to MyParcel, and ignores `address1` and `address2`. So when you return both sets, the plugin uses `street`, `number` and `numberSuffix`.
+- **Separate address fields:** when the order has values from the separate address fields, the plugin adds them as `street`, `number` and `numberSuffix` after your filter, unless you return these keys yourself. Because `street` replaces `address1`, a change to only `address1` then has no effect. Return `street`, `number` and `numberSuffix` yourself.
+- **Netherlands and Belgium:** when the plugin reads an order without a street, house number or suffix, it splits `address1` into street, house number and suffix after your filter.
 - **Your values win:** a value you return replaces the value from the separate address fields and from the EORI and VAT number fields.
 - **Business or consumer:** the plugin uses `company` to decide whether the order is a business order. Return a company name to make the order a business order. An `isBusiness` value has no effect.
 - **No array returned:** when your filter does not return an array, the plugin uses the address without your changes and logs a warning.

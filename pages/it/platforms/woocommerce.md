@@ -502,7 +502,15 @@ Usa questi hook di WordPress per cambiare il comportamento del plugin dal tuo te
 ### Cambiare l'indirizzo che il plugin invia a MyParcel
 Alcuni shop non salvano l'indirizzo nei campi standard di WooCommerce. Per esempio, lo shop mette il numero civico in *Apartment, suite, unit, etc.* (riga indirizzo 2) o in un campo checkout personalizzato. MyParcel riceve allora un indirizzo senza numero civico e l'etichetta non si crea.
 
-Il filter `mpwc_checkout_wc_address_fields` ti permette di correggere l'indirizzo prima che il plugin lo usi. Questo esempio sposta la riga indirizzo 2 in fondo alla riga indirizzo 1:
+Il filter `mpwc_checkout_wc_address_fields` ti permette di correggere l'indirizzo prima che il plugin lo prepari per MyParcel. Cosa contiene `$fields` dipende dal checkout:
+
+- **Address widget:** per un ordine effettuato con l'Address widget di MyParcel, `street`, `number` e `numberSuffix` dal widget.
+- **Campi indirizzo separati:** per un ordine effettuato con i campi indirizzo separati, `address1` contiene via, numero civico e aggiunta, separati da spazi.
+- **Nessuno dei due:** `address1` e `address2` come li ha compilati il cliente.
+
+Un altro plugin di checkout può modificare questi campi prima che il tuo filter venga eseguito. Testa il tuo filter con il checkout del tuo shop.
+
+Questo esempio sposta la riga indirizzo 2 in fondo alla riga indirizzo 1:
 
 ```php
 add_filter('mpwc_checkout_wc_address_fields', function (array $fields, $object, string $addressType) {
@@ -526,7 +534,9 @@ Il filter riceve quattro argomenti:
 
 Cosa succede con l'indirizzo che restituisci:
 
-- **Paesi Bassi e Belgio:** quando il plugin legge un ordine, dopo il tuo filter divide `address1` in via, numero civico e aggiunta. Non divide se l'ordine ha già una via, un numero civico o un'aggiunta dai campi indirizzo separati o dall'Address widget. In quel caso, restituisci tu `street`, `number` e `numberSuffix`.
+- **`street` sostituisce `address1`:** quando l'indirizzo ha una `street`, il plugin invia a MyParcel `street`, `number` e `numberSuffix` e ignora `address1` e `address2`. Quindi, se restituisci entrambi i gruppi, il plugin usa `street`, `number` e `numberSuffix`.
+- **Campi indirizzo separati:** quando l'ordine ha valori dai campi indirizzo separati, il plugin li aggiunge dopo il tuo filter come `street`, `number` e `numberSuffix`, a meno che tu non restituisca queste chiavi. Poiché `street` sostituisce `address1`, una modifica solo ad `address1` allora non ha effetto. Restituisci tu `street`, `number` e `numberSuffix`.
+- **Paesi Bassi e Belgio:** quando il plugin legge un ordine senza via, numero civico o aggiunta, dopo il tuo filter divide `address1` in via, numero civico e aggiunta.
 - **I tuoi valori vincono:** un valore che restituisci sostituisce il valore dei campi indirizzo separati e dei campi per numero EORI e partita IVA.
 - **Azienda o privato:** il plugin usa `company` per decidere se l'ordine è aziendale. Restituisci un nome azienda per rendere l'ordine aziendale. Un valore `isBusiness` non ha effetto.
 - **Nessun array restituito:** quando il tuo filter non restituisce un array, il plugin usa l'indirizzo senza le tue modifiche e scrive un warning nel log.
