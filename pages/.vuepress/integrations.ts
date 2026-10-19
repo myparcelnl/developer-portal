@@ -410,10 +410,7 @@ export const integrationGroups: IntegrationGroup[] = [
         logo: 'etsy.svg',
         markets: NLBE,
         byMyParcel: true,
-        links: [
-          oldPortal('documentation/30.etsy.html'),
-          site('https://www.myparcel.nl/koppelingen/etsy-verzenden/'),
-        ],
+        links: [docs('/platforms/etsy.html'), site('https://www.myparcel.nl/koppelingen/etsy-verzenden/')],
       },
       {
         name: 'e-tailize',
