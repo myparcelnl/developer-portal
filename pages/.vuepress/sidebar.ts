@@ -57,6 +57,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Ecwid', link: '/platforms/ecwid.html' },
       { text: 'bol', link: '/platforms/bol.html' },
       { text: 'Chrome extension', link: '/platforms/chrome-extension.html' },
+      { text: 'Etsy', link: '/platforms/etsy.html' },
     ],
   },
     {
@@ -117,6 +118,7 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/ecwid.html',
   '/platforms/bol.html',
   '/platforms/chrome-extension.html',
+  '/platforms/etsy.html',
 ];
 
 const LOCALIZED_PATHS_BY_LANG: Record<Exclude<Lang, 'en'>, Set<string>> = {
