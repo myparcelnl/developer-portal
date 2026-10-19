@@ -197,10 +197,7 @@ export const integrationGroups: IntegrationGroup[] = [
         logo: 'ecwid.svg',
         markets: NLBE,
         byMyParcel: true,
-        links: [
-          oldPortal('documentation/17.ecwid.html'),
-          site('https://www.ecwid.com/apps/shipping/myparcel/'),
-        ],
+        links: [docs('/platforms/ecwid.html'), site('https://www.ecwid.com/apps/shipping/myparcel/')],
       },
       {
         name: 'Shopware',

@@ -53,6 +53,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'OpenCart 4', link: '/platforms/opencart.html' },
       { text: 'Odoo', link: '/platforms/odoo.html' },
       { text: 'CCV Shop', link: '/platforms/ccvshop.html' },
+      { text: 'Ecwid', link: '/platforms/ecwid.html' },
       { text: 'bol', link: '/platforms/bol.html' },
     ],
   },
@@ -110,6 +111,7 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/opencart.html',
   '/platforms/odoo.html',
   '/platforms/ccvshop.html',
+  '/platforms/ecwid.html',
   '/platforms/bol.html',
 ];
 
