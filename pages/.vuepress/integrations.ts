@@ -651,7 +651,7 @@ export const integrationGroups: IntegrationGroup[] = [
         logo: 'chrome.svg',
         markets: NLBE,
         byMyParcel: true,
-        links: [oldPortal('documentation/40.chrome-extension.html')],
+        links: [docs('/platforms/chrome-extension.html')],
       },
       {
         name: 'Plug&Pay',

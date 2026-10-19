@@ -54,6 +54,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Odoo', link: '/platforms/odoo.html' },
       { text: 'CCV Shop', link: '/platforms/ccvshop.html' },
       { text: 'bol', link: '/platforms/bol.html' },
+      { text: 'Chrome extension', link: '/platforms/chrome-extension.html' },
     ],
   },
     {
@@ -111,6 +112,7 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/odoo.html',
   '/platforms/ccvshop.html',
   '/platforms/bol.html',
+  '/platforms/chrome-extension.html',
 ];
 
 const LOCALIZED_PATHS_BY_LANG: Record<Exclude<Lang, 'en'>, Set<string>> = {
