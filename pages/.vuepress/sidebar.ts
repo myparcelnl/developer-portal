@@ -55,6 +55,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'CCV Shop', link: '/platforms/ccvshop.html' },
       { text: 'bol', link: '/platforms/bol.html' },
       { text: 'Etsy', link: '/platforms/etsy.html' },
+      { text: 'Chrome extension', link: '/platforms/chrome-extension.html' },
     ],
   },
     {
@@ -113,6 +114,7 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/ccvshop.html',
   '/platforms/bol.html',
   '/platforms/etsy.html',
+  '/platforms/chrome-extension.html',
 ];
 
 const LOCALIZED_PATHS_BY_LANG: Record<Exclude<Lang, 'en'>, Set<string>> = {
