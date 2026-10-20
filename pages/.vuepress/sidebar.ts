@@ -37,6 +37,7 @@ export const docsSidebar: SidebarGroup[] = [
     items: [
       { text: 'PHP SDK v10', link: '/guides/php-sdk.html' },
       { text: 'PHP SDK v11', link: '/guides/php-sdk-v11.html' },
+      { text: 'PHP SDK v12', link: '/guides/php-sdk-v12.html' },
       { text: 'JavaScript SDK', link: '/guides/javascript-sdk.html' },
     ],
   },
