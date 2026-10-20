@@ -152,6 +152,12 @@ export default defineUserConfig({
     },
   }),
 
+  // VuePress extracts the markdown headers but no longer sends them to the
+  // client. MpDocsToc reads them from the page data, so copy them there.
+  extendsPage: (page) => {
+    page.data.headers = page.headers;
+  },
+
   // The default theme injects a pre-paint script that defaults to dark when
   // localStorage is empty and the OS prefers dark. We always want light by
   // default, so seed the storage and reset data-theme before first paint.
