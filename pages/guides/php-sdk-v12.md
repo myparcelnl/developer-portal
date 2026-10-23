@@ -570,6 +570,9 @@ MyParcel sends commands to your plugin, for example when order lines of an order
 command is a signed `POST` request to one URL in your plugin: the command endpoint. Your plugin
 checks the request, stores the command, replies, and then does the work.
 
+Once a shop receives commands, stop listening to the shipment webhooks and events of the Core API
+for that shop. The commands carry the same information, and handling both ships every order twice.
+
 #### Give MyParcel your command endpoint
 
 Pass the URL as `commandEndpoint` when you start the connect flow:
@@ -592,7 +595,8 @@ header('Location: ' . $connect->start(
 
 MyParcel takes the URL when the connect flow completes. The SDK then stores it with the
 installation, and `$connect->getCommandEndpoint()` returns it from storage. A reconnect replaces it,
-also with `null` when you leave it out. `disconnect()` removes it.
+also with `null` when you leave it out. `disconnect()` removes it. `$connect->getConnectionId()`
+returns the connection ID the same way; every command carries it.
 
 #### The request MyParcel sends
 
@@ -624,27 +628,114 @@ the other headers or the query string.
 
 #### Check every request
 
-Before you act on a request, check its signature and its `connectionId`. The signature follows these
-standards:
+Before you act on a request, prove that it comes from MyParcel and is meant for this shop.
+`CommandRequestVerifier` runs the checks for you:
+
+```php
+use MyParcelNL\Sdk\Exception\CommandCheckUnavailableException;
+use MyParcelNL\Sdk\Exception\UnauthorizedCommandException;
+use MyParcelNL\Sdk\Services\Ecommerce\CommandRequestVerifier;
+
+$rawBody  = file_get_contents('php://input');
+$verifier = new CommandRequestVerifier($connect, $jwksStorage);
+
+try {
+    $verifier->verify($_SERVER['REQUEST_METHOD'], getallheaders(), $rawBody);
+} catch (UnauthorizedCommandException $exception) {
+    return 401;   // A check failed. MyParcel drops the command.
+} catch (CommandCheckUnavailableException $exception) {
+    return 503;   // The key set could not be fetched. MyParcel sends the command again.
+}
+```
+
+- `$connect` is your `ConnectService`. The verifier reads the stored command endpoint and connection
+  ID from it, and the Connect host the key set comes from.
+- `$jwksStorage` is a class you write, see [Store the key set](#store-the-key-set).
+- `verify()` takes the method, the headers and the raw body. Pass the headers as your framework
+  gives them: names in any casing, and a header that arrived more than once as a list. Pass the body
+  bytes exactly as received. The digest is over those bytes, so a decoded and re-encoded body fails
+  the check.
+- `verify()` returns when every check passed, and throws when one did not. Never put the exception
+  message in the response: it names the failed check, for your own log.
+
+##### What the verifier checks
+
+The signature follows these standards:
 
 - [RFC 9421 HTTP Message Signatures ↗](https://www.rfc-editor.org/rfc/rfc9421) for `Signature-Input`
   and `Signature`, with ECDSA P-256 SHA-256.
 - [RFC 9530 Digest Fields ↗](https://www.rfc-editor.org/rfc/rfc9530) for `Content-Digest`.
-- [RFC 8941 Structured Field Values ↗](https://www.rfc-editor.org/rfc/rfc8941) for the syntax of both
-  signature headers.
+- [RFC 8941 Structured Field Values ↗](https://www.rfc-editor.org/rfc/rfc8941) for the syntax of
+  all three headers.
 - [RFC 7517 JSON Web Key ↗](https://www.rfc-editor.org/rfc/rfc7517) for the key set that holds the
   public key, at `/.well-known/jwks.json` on the Connect host.
 
-Use your stored command endpoint, `$connect->getCommandEndpoint()`, as `@target-uri`. Do not build it
-from the request. If the signature or the `connectionId` is wrong, reply `401`.
+The verifier runs these checks, in this order. The cheap ones come first, so a request that is not
+even shaped like a command costs no network call:
 
-::: note An SDK helper is coming
-A coming beta of SDK v12 adds a helper that checks the signature for you.
-:::
+1. `Signature-Input` and `Signature` are RFC 8941 dictionaries with exactly one member each, labelled
+   `myparcel`. Header lines that arrived more than once are joined with a comma first.
+2. The covered components are exactly `("@method" "@target-uri" "content-type" "content-digest")`,
+   in this order, without parameters.
+3. `alg` is `ecdsa-p256-sha256`. `created` and `expires` are integers, `keyid` is a string.
+4. Time: `created` is within 60 seconds of the clock, in both directions. `expires` is in the
+   future. `expires - created` is at most 60. There is no extra tolerance.
+5. `Content-Digest` has exactly one member, `sha-256`, equal to the SHA-256 of the raw body.
+6. `keyid` is the `kid` of a key in MyParcel's key set with `kty: EC`, `crv: P-256` and
+   `alg: ES256`. The key set comes from `/.well-known/jwks.json` on the Connect host, never from a
+   URL in the request.
+7. The signature verifies over the signature base. `@target-uri` is your stored command endpoint,
+   `$connect->getCommandEndpoint()`, not a URL rebuilt from the request.
+8. The body is a JSON object, and its `connectionId` equals `$connect->getConnectionId()`.
+
+A failed check throws `UnauthorizedCommandException`. The SDK throws
+`CommandCheckUnavailableException` instead when it cannot finish a check because the key set could
+not be fetched, so you reply `503` and MyParcel tries again. A `401` there would drop the command
+for good.
+
+The verifier proves who sent the request, not that it is new. MyParcel resends a command after a
+timeout, and a captured request stays valid for up to 60 seconds. Dropping duplicates is your job:
+see [Store the command, then reply](#store-the-command-then-reply).
+
+##### Store the key set
+
+MyParcel signs with a private key and publishes the public half in a key set. The verifier keeps
+that set in a storage class you write, implementing
+[`JwksStorageInterface` ↗](https://github.com/myparcelnl/sdk/blob/beta/src/Services/Connect/JwksStorageInterface.php).
+It has two methods, a load and a save for one record, `JwksCache`. Like the Connect records it has a
+`toArray()` and a static `fromArray()`, so each method is close to one line:
+
+```php
+use MyParcelNL\Sdk\Model\Connect\JwksCache;
+use MyParcelNL\Sdk\Services\Connect\JwksStorageInterface;
+
+final class TransientJwksStorage implements JwksStorageInterface
+{
+    public function loadJwks(): ?JwksCache
+    {
+        $raw = get_transient('myparcel_jwks');
+
+        return $raw ? JwksCache::fromArray(json_decode($raw, true)) : null;
+    }
+
+    public function saveJwks(JwksCache $jwks): void
+    {
+        set_transient('myparcel_jwks', json_encode($jwks->toArray()), HOUR_IN_SECONDS);
+    }
+}
+```
+
+Nothing in the record is a secret, and it is safe to lose: the next command fetches the set again.
+The SDK applies these rules, so you do not have to:
+
+- A stored set is used for at most one hour. After that, the next command fetches it again.
+- A `keyid` that is not in the stored set makes the SDK fetch the set again, at most once a minute.
+  A `keyid` that is still unknown after that is a failed check.
+- A fetch that fails, or answers without a usable key, is not stored, and the request gets a `503`.
 
 #### Read the command
 
-When the signature and the `connectionId` are correct, `CommandReader` turns the body into the model for its type:
+After `verify()` returns, `CommandReader` turns the body into the model for its type:
 
 ```php
 use MyParcelNL\Sdk\Client\Generated\Jane\EcommerceApi\Model\OrderShipmentsCommand;
@@ -668,7 +759,12 @@ if (!$command instanceof OrderShipmentsCommand) {
 ```
 
 `read()` takes the raw body exactly as you received it. It does not check the signature or the
-connection ID, so check those first.
+connection ID: that is what `verify()` did.
+
+All four exceptions implement `CommandResponseInterface`, whose `getStatusCode()` returns the status
+to reply with: `401` for `UnauthorizedCommandException`, `503` for `CommandCheckUnavailableException`,
+`404` for `UnknownCommandException` and `400` for `InvalidCommandException`. One catch block then
+replies for all of them, as the example below does.
 
 An enum value that the SDK does not know yet stays the raw string. For example, `$command->order->status`
 is an `OrderShipmentsOrderStatus` for a known status, and a string for a status that MyParcel adds
@@ -691,14 +787,18 @@ For example, with a table in your own storage that has the `connectionId` and `c
 key, and the raw body in the same row. Your controller then reads, stores and replies:
 
 ```php
-function receiveCommand(string $rawBody): int
+use MyParcelNL\Sdk\Client\Generated\Jane\EcommerceApi\Model\OrderShipmentsCommand;
+use MyParcelNL\Sdk\Exception\CommandResponseInterface;
+use MyParcelNL\Sdk\Services\Ecommerce\CommandReader;
+use MyParcelNL\Sdk\Services\Ecommerce\CommandRequestVerifier;
+
+function receiveCommand(string $method, array $headers, string $rawBody): int
 {
     try {
+        (new CommandRequestVerifier($connect, $jwksStorage))->verify($method, $headers, $rawBody);
         $command = (new CommandReader())->read($rawBody);
-    } catch (UnknownCommandException $exception) {
-        return 404;
-    } catch (InvalidCommandException $exception) {
-        return 400;
+    } catch (CommandResponseInterface $exception) {
+        return $exception->getStatusCode();   // 401, 503, 404 or 400. Log the message, never send it.
     }
 
     if (!$command instanceof OrderShipmentsCommand) {
@@ -739,16 +839,19 @@ MyParcel ignores the response body. It sends a command again only after a timeou
 | Status                                | Use it when                                                                    | MyParcel                      |
 | ------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------- |
 | `202` (or another `2xx`)              | You stored the command, or it is a duplicate                                   | Done                          |
-| `401`                                 | The signature or the `connectionId` is wrong                                   | Logs it and drops the command |
-| `404`                                 | Your plugin does not handle the type, or the order is unknown                  | Logs it and drops the command |
-| `400`                                 | The signature and the `connectionId` are correct, but the command is not valid | Logs it and drops the command |
+| `401`                                 | `verify()` threw `UnauthorizedCommandException`                                | Logs it and drops the command |
+| `404`                                 | `read()` threw `UnknownCommandException`, your plugin does not handle the type, or the order is unknown | Logs it and drops the command |
+| `400`                                 | `read()` threw `InvalidCommandException`                                       | Logs it and drops the command |
 | Another `4xx`, such as `409` or `422` | Your plugin refuses the command                                                | Logs it and drops the command |
 | `408`, `429`                          | Your plugin is busy                                                            | Sends it again later          |
-| `503` (or another `5xx`)              | A temporary failure, such as your database, or fetching the key set            | Sends it again later          |
+| `503` (or another `5xx`)              | `verify()` threw `CommandCheckUnavailableException`, or your own storage failed | Sends it again later          |
 | `3xx`                                 | Do not use                                                                     | Drops the command             |
 
-Reply `5xx`, not `401`, when your plugin cannot check the signature because of its own failure, for
-example when it cannot fetch the key set. A `401` drops the command for good.
+Reply `5xx`, not `401`, when your plugin cannot finish a check because of its own failure. The SDK
+makes that split for you with the two exceptions. A `401` drops the command for good.
+
+Do not log the `Signature` header, and check that the request logging of your framework does not
+write request headers.
 
 #### Order shipments
 
