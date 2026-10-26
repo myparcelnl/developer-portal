@@ -1,37 +1,33 @@
 ---
 title: Aan de slag met MyParcel
-description: "Begin binnen enkele minuten met verzenden vanuit je platform. Maak een account aan, haal een API-token op en stuur je eerste zending met één HTTP-call."
+description: "Begin binnen enkele minuten met verzenden vanuit je platform. Maak een account aan, kopieer je API-key en stuur je eerste zending met één HTTP-call."
 ---
 
 ## Overzicht
 MyParcel biedt één HTTP API op [`api.myparcel.nl`](../../api/myparcel.md). Die dekt authenticatie, zendingen, orders, vervoerders, delivery options en webhooks.
 
-De referentie wordt hier automatisch gegenereerd uit de OpenAPI-spec — die loopt dus nooit uit de pas met het live platform.
+De API-referentie op deze portal wordt gegenereerd uit de gepubliceerde OpenAPI-specs.
 
-## Stap 1 · Credentials ophalen
-Na aanmelden genereer je een `client_id` en `client_secret` in de MyParcel-backoffice onder **Instellingen → API-toegang**.
+## Stap 1 · Je API-key ophalen
+Open na aanmelden **Shopinstellingen → Integratie** in de [MyParcel-backoffice](https://backoffice.myparcel.nl) en kopieer de API-key.
 
-Houd het secret op je server. Stuur het nooit naar de browser.
+Houd de key op je server. Stuur hem nooit naar de browser.
 
-## Stap 2 · Inwisselen voor een token
-Wissel je credentials in voor een bearer token. De token is 1 uur geldig.
+## Stap 2 · Je requests authenticeren
+Codeer de key in base64 en stuur hem in de `Authorization`-header van elke request:
 
 ```
-// POST https://api.myparcel.nl/oauth/token
-{
-  "grant_type": "client_credentials",
-  "client_id": "mp_client_AB12CD34",
-  "client_secret": "…",
-  "scope": "shipments.read shipments.write"
-}
+Authorization: bearer <base64-gecodeerde API-key>
 ```
+
+Zie [Authenticatie](authentication.md) voor voorbeelden in shell en PHP.
 
 ## Stap 3 · Maak je eerste zending
-Met de token in handen roep je de Shipment API aan om een zending te maken. Labels en tracking-URL's krijg je direct terug.
+Met de header op zijn plek roep je de Shipment API aan om een zending te maken. Labels en tracking-URL's krijg je direct terug.
 
 ```
 // POST https://api.myparcel.nl/shipments
-// Authorization: bearer …
+// Authorization: bearer <base64-gecodeerde API-key>
 {
   "carrier": "postnl",
   "recipient": {
@@ -51,8 +47,8 @@ Met de token in handen roep je de Shipment API aan om een zending te maken. Labe
 ## Volgende stappen
 Pak het pad dat bij jouw integratie past:
 
-- [Authenticatie in detail](authentication.md) — scopes, refresh tokens, intrekken.
-- [Delivery options](../../platforms/delivery-options.md) — afhaalpunten, avondbezorging, handtekening.
-- [Webhooks](webhooks.md) — krijg een melding zodra een zending is overgedragen of bezorgd.
-- [PHP SDK](../../guides/php-sdk-v11.md) / [JavaScript SDK](javascript-sdk.md) — sla de raw HTTP over en gebruik onze libraries.
-- [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) of een andere e-commerce-plugin — installeren, instellen, klaar.
+- [Authenticatie](authentication.md): de key meesturen, en wat een `401` betekent.
+- [Delivery options](../../platforms/delivery-options.md: afhaalpunten, avondbezorging, handtekening.
+- [Webhooks](webhooks.md: krijg een melding zodra een zending is overgedragen of bezorgd.
+- [PHP SDK](../../guides/php-sdk-v12.md) / [JavaScript SDK](javascript-sdk.md: sla de raw HTTP over en gebruik onze libraries.
+- [WooCommerce](../platforms/woocommerce.md), [Magento 2](../platforms/magento2.md), [PrestaShop](../platforms/prestashop.md) of een andere e-commerce-plugin: installeren, instellen, klaar.
