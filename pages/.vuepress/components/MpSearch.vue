@@ -337,7 +337,7 @@ onBeforeUnmount(() => {
   outline: none;
   background: transparent;
   font: inherit;
-  font-size: 16px;
+  font-size: var(--mp-fs-lg);
   color: var(--mp-text, #002621);
 }
 .mp-cmdk__input::placeholder {
@@ -347,7 +347,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--mp-border, #e1e6e4);
   background: var(--mp-bg-subtle, #f7faf9);
   color: var(--mp-text-muted, #5e7973);
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   padding: 4px 8px;
   border-radius: 6px;
@@ -361,7 +361,7 @@ onBeforeUnmount(() => {
 }
 .mp-cmdk__hint {
   padding: 10px 14px 6px;
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   color: var(--mp-text-muted, #5e7973);
   letter-spacing: 0.04em;
@@ -378,7 +378,7 @@ onBeforeUnmount(() => {
 }
 .mp-cmdk__group-label {
   padding: 10px 14px 4px;
-  font-size: 10px;
+  font-size: var(--mp-fs-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -431,7 +431,7 @@ onBeforeUnmount(() => {
 .mp-cmdk__title {
   color: var(--mp-text, #002621);
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--mp-fs-base);
   line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
@@ -440,7 +440,7 @@ onBeforeUnmount(() => {
 .mp-cmdk__path {
   color: var(--mp-text-muted, #5e7973);
   font-family: var(--mp-mono, ui-monospace, monospace);
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -455,7 +455,7 @@ onBeforeUnmount(() => {
 .mp-cmdk__empty {
   padding: 48px 24px;
   color: var(--mp-text-muted, #5e7973);
-  font-size: 14px;
+  font-size: var(--mp-fs-base);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -468,20 +468,20 @@ onBeforeUnmount(() => {
 .mp-cmdk__empty p {
   margin: 0;
   color: var(--mp-text, #002621);
-  font-size: 15px;
+  font-size: var(--mp-fs-md);
 }
 .mp-cmdk__empty strong {
   color: var(--mp-text-accent, #0F7859);
 }
 .mp-cmdk__empty span {
-  font-size: 13px;
+  font-size: var(--mp-fs-sm);
 }
 .mp-cmdk__foot {
   display: flex;
   gap: 14px;
   padding: 10px 16px;
   border-top: 1px solid var(--mp-border-soft, #ecefed);
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   color: var(--mp-text-muted, #5e7973);
   background: var(--mp-bg-subtle, #f7faf9);
 }
@@ -493,7 +493,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--mp-border, #e1e6e4);
   border-radius: 4px;
   font-family: var(--mp-mono, ui-monospace, monospace);
-  font-size: 10px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
 }
 </style>

@@ -57,7 +57,7 @@ function indent(depth: number): string {
   display: inline-block;
   margin-left: 6px;
   padding: 1px 6px;
-  font-size: 10px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   letter-spacing: 0.04em;
   color: #b03a2e;
@@ -70,7 +70,7 @@ function indent(depth: number): string {
   display: inline-block;
   margin: 2px 4px 2px 0;
   padding: 2px 6px;
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-family: var(--mp-mono, ui-monospace, monospace);
   color: var(--mp-text-muted, #5e7973);
   background: var(--mp-bg, #fff);

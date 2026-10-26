@@ -6,7 +6,7 @@
 
 scenarios:
   - title: "Single note, NL author"
-    description: "Most common case — a warehouse packer leaves a Dutch-locale note."
+    description: "Most common case: a warehouse packer leaves a Dutch-locale note."
     request:
       body:
         - id: "550e8400-e29b-41d4-a716-446655440000"
@@ -20,7 +20,7 @@ scenarios:
           ids: ["7f1e2c3a-..."]
 
   - title: "Batch of 3 notes across 3 orders"
-    description: "Bulk-import flow — back-office attaches one note per order from a CSV upload."
+    description: "Bulk-import flow: back-office attaches one note per order from a CSV upload."
     request:
       body:
         - id: "550e8400-e29b-41d4-a716-446655440000"
@@ -46,7 +46,7 @@ scenarios:
           title: "Order is no longer OPEN"
 
   - title: "Mixed-locale internal annotations"
-    description: "Multi-region team — Italian operator on an order destined for a Belgian customer."
+    description: "Multi-region team: Italian operator on an order destined for a Belgian customer."
     request:
       body:
         - id: "550e8400-e29b-41d4-a716-446655440010"

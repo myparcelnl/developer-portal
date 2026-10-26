@@ -74,7 +74,9 @@ function applyFilter(scope: HTMLElement, query: string) {
   const counter = scope.querySelector<HTMLElement>('[data-mp-filter-count]');
   if (counter) {
     if (!q) {
-      counter.textContent = `${total} endpoints`;
+      // The filter searches every API in the sidebar, so say so; otherwise the
+      // total reads as a contradiction of the page's own endpoint count.
+      counter.textContent = `${total} endpoints across all APIs`;
       counter.classList.remove('is-empty');
     } else if (matched === 0) {
       counter.textContent = `No matches for "${query}"`;
@@ -147,6 +149,18 @@ function injectFilter(sidebar: HTMLElement) {
   }
   // Populate the result counter on first paint
   applyFilter(sidebar, '');
+
+  // Endpoints arrive later, once the live OpenAPI spec has loaded, so the
+  // first count is often 0. Recount whenever the number of items changes.
+  // Comparing counts (rather than reacting to every mutation) avoids a loop,
+  // because applyFilter itself rewrites item markup when highlighting.
+  let lastCount = sidebar.querySelectorAll('.mp-sidebar__item').length;
+  new MutationObserver(() => {
+    const count = sidebar.querySelectorAll('.mp-sidebar__item').length;
+    if (count === lastCount) return;
+    lastCount = count;
+    applyFilter(sidebar, input.value);
+  }).observe(sidebar, { childList: true, subtree: true });
 }
 
 // ---- Scroll-spy ------------------------------------------------------------

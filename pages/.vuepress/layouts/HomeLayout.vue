@@ -8,6 +8,14 @@ import {
   formatUptime,
   type StatusSummary,
 } from '../composables/useStatusPage';
+import { apiList, apiMeta } from '../api-meta';
+import { docsSidebar } from '../sidebar';
+
+// Counts on the start cards come from the same data as the sidebar and the
+// API reference, so they cannot drift from what the portal actually lists.
+const guideCount = docsSidebar.find((g) => g.label === 'Documentation')?.items.length ?? 0;
+const platformCount =
+  (docsSidebar.find((g) => g.label === 'Platform integrations')?.items.length ?? 1) - 1; // minus "All integrations"
 
 // Parses "15,000+", "99.99%", "<24h", "20+" → { prefix, target, decimals, suffix }
 // so the count-up keeps the surrounding characters intact while only the
@@ -53,7 +61,7 @@ function runAnimation(root: Element) {
   });
   statsEntered.value = true;
 
-  if (reduce) return; // numeric animation skipped — labels just fade in
+  if (reduce) return; // reduced motion: the final numbers stay as rendered
 
   const duration = 1400;
   const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -111,7 +119,7 @@ onMounted(() => {
         return;
       }
     }
-  }, { threshold: 0.4 });
+  }, { threshold: 0.1 });
   observer.observe(target);
 });
 
@@ -198,10 +206,8 @@ onMounted(async () => {
           </a>
         </div>
         <h1 class="mp-hero__title" data-i18n="Ship smarter. Build faster.">Ship smarter. Build faster.</h1>
-        <p class="mp-hero__sub" data-i18n="Everything developers need to integrate MyParcel — guides, SDKs, plugins and auto-generated API reference. Built for webshops shipping 100 or 100,000+ parcels per month.">
-          Everything developers need to integrate MyParcel — guides, SDKs,
-          plugins and auto-generated API reference. Built for webshops
-          shipping 100 or 100,000+ parcels per month.
+        <p class="mp-hero__sub" data-i18n="Everything developers need to integrate MyParcel: guides, SDKs, plugins and auto-generated API reference. Built for webshops shipping 100 or 100,000+ parcels per month.">
+          Everything developers need to integrate MyParcel: guides, SDKs, plugins and auto-generated API reference. Built for webshops shipping 100 or 100,000+ parcels per month.
         </p>
         <div class="mp-hero__cta">
           <a href="/guides/getting-started.html" class="mp-btn mp-btn--primary">
@@ -289,8 +295,8 @@ onMounted(async () => {
         </div>
       </a>
       <div class="mp-stat" :class="{ 'mp-stat--enter': statsEntered }">
-        <div class="mp-stat__value">&lt;24h</div>
-        <div class="mp-stat__label" data-i18n="docs freshness">docs freshness</div>
+        <div class="mp-stat__value">{{ apiList.length }}</div>
+        <div class="mp-stat__label" data-i18n="APIs">APIs</div>
       </div>
     </div>
   </section>
@@ -321,7 +327,7 @@ onMounted(async () => {
         <div class="mp-api-card__meta">
           <span class="mp-freshness">
             <span class="mp-freshness__dot"></span>
-            <span data-i18n="9 guides">9 guides · 2 SDKs · 12 platforms</span>
+            <span>{{ guideCount }} <span data-i18n="guides">guides</span> · 2 <span data-i18n="SDKs">SDKs</span> · {{ platformCount }} <span data-i18n="platforms">platforms</span></span>
           </span>
           <div class="mp-api-card__cta">
             <span data-i18n="Open documentation">Open documentation</span>
@@ -343,15 +349,14 @@ onMounted(async () => {
         </div>
         <div class="mp-api-card__name" data-i18n="API Reference">API Reference</div>
         <div class="mp-api-card__url" data-i18n="Auto-generated from OpenAPI">Auto-generated from OpenAPI</div>
-        <p class="mp-api-card__desc" data-i18n="Every endpoint, every parameter, every schema — generated directly from the OpenAPI spec of the Shipment API. Never out of date.">
-          Every endpoint, every parameter, every schema — generated
-          directly from the OpenAPI spec of the Shipment API.
-          Never out of date.
+        <p class="mp-api-card__desc" data-i18n="Every endpoint, parameter and schema, generated from the published OpenAPI spec of each API.">
+          Every endpoint, parameter and schema, generated from the
+          published OpenAPI spec of each API.
         </p>
         <div class="mp-api-card__meta">
           <span class="mp-freshness">
             <span class="mp-freshness__dot"></span>
-            <span data-i18n="Updated 2h ago">2 APIs · Updated 2h ago</span>
+            <span>{{ apiList.length }} <span data-i18n="APIs">APIs</span></span>
           </span>
           <div class="mp-api-card__cta">
             <span data-i18n="Open reference">Open reference</span>
@@ -380,13 +385,12 @@ onMounted(async () => {
               <path d="M3.3 7 12 12l8.7-5M12 22V12"/>
             </svg>
           </div>
-          <span class="mp-api-card__badge">v2</span>
         </div>
         <div class="mp-api-card__name">Shipment API</div>
         <div class="mp-api-card__url">api.myparcel.nl</div>
-        <p class="mp-api-card__desc">Shipments, delivery options, drop-off/pickup locations, track &amp; trace, notifications and webhooks — the core shipping API.</p>
+        <p class="mp-api-card__desc">The core shipping API: shipments, delivery options, drop-off/pickup locations, track &amp; trace, notifications and webhooks.</p>
         <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>29 endpoints</span></span>
+          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/myparcel.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>
@@ -396,13 +400,12 @@ onMounted(async () => {
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
-          <span class="mp-api-card__badge">v1</span>
         </div>
         <div class="mp-api-card__name">Order API</div>
         <div class="mp-api-card__url">order.api.myparcel.nl</div>
         <p class="mp-api-card__desc">Orders, packages, picklists, packing slips and assignment flows.</p>
         <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>14 endpoints</span></span>
+          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/order.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>
@@ -412,13 +415,12 @@ onMounted(async () => {
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
           </div>
-          <span class="mp-api-card__badge">v1</span>
         </div>
         <div class="mp-api-card__name">Rule API</div>
         <div class="mp-api-card__url">rule.api.myparcel.nl</div>
         <p class="mp-api-card__desc">Configure order rule groups to automate fulfilment decisions per shop.</p>
         <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>4 endpoints</span></span>
+          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/rule.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>
@@ -428,13 +430,12 @@ onMounted(async () => {
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <span class="mp-api-card__badge">v1</span>
         </div>
         <div class="mp-api-card__name">Address API</div>
         <div class="mp-api-card__url">address.api.myparcel.nl</div>
         <p class="mp-api-card__desc">Look up and validate addresses against postal data.</p>
         <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>2 endpoints</span></span>
+          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/address.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>
@@ -444,13 +445,12 @@ onMounted(async () => {
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           </div>
-          <span class="mp-api-card__badge">v1</span>
         </div>
         <div class="mp-api-card__name">Printing API</div>
         <div class="mp-api-card__url">printing.api.myparcel.nl</div>
-        <p class="mp-api-card__desc">Direct printing — manage printers, printer groups and sync status.</p>
+        <p class="mp-api-card__desc">Direct printing: manage printers, printer groups and sync status.</p>
         <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>11 endpoints</span></span>
+          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/printing.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>
@@ -460,13 +460,12 @@ onMounted(async () => {
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg>
           </div>
-          <span class="mp-api-card__badge">v1</span>
         </div>
         <div class="mp-api-card__name">Product API</div>
         <div class="mp-api-card__url">product.api.myparcel.nl</div>
         <p class="mp-api-card__desc">Product catalog: create, update, query products and manage inventory.</p>
         <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>4 endpoints</span></span>
+          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/product.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>
@@ -476,13 +475,12 @@ onMounted(async () => {
           <div class="mp-api-card__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h12v18H3V9l6-6zM9 3v6H3"/></svg>
           </div>
-          <span class="mp-api-card__badge">v1</span>
         </div>
         <div class="mp-api-card__name">Purchase Order API</div>
         <div class="mp-api-card__url">purchase-order.api.myparcel.nl</div>
-        <p class="mp-api-card__desc">Manage purchase orders — creation, receipts, inventory intake.</p>
+        <p class="mp-api-card__desc">Manage purchase orders: creation, receipts, inventory intake.</p>
         <div class="mp-api-card__meta">
-          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>12 endpoints</span></span>
+          <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/purchase-order.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
           <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
         </div>
       </a>

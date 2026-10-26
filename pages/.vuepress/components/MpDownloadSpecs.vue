@@ -81,8 +81,8 @@ onBeforeUnmount(() => {
     </button>
 
     <div v-if="open" class="mp-download-specs__menu" role="menu">
-      <div class="mp-download-specs__hint" data-i18n="Each API publishes its own openapi.yaml. Pick a spec to download — opens in a new tab if your browser previews YAML.">
-        Each API publishes its own <code>openapi.yaml</code>. Pick a spec to download — opens in a new tab if your browser previews YAML.
+      <div class="mp-download-specs__hint" data-i18n="Each API publishes its own openapi.yaml. Pick a spec to download. It opens in a new tab if your browser previews YAML.">
+        Each API publishes its own <code>openapi.yaml</code>. Pick a spec to download. It opens in a new tab if your browser previews YAML.
       </div>
       <ul>
         <li v-for="s in specs" :key="s.host">
@@ -143,7 +143,7 @@ onBeforeUnmount(() => {
 }
 .mp-download-specs__hint {
   padding: 12px 14px;
-  font-size: 12px;
+  font-size: var(--mp-fs-xs);
   color: var(--mp-text-muted, #5e7973);
   border-bottom: 1px solid var(--mp-border-soft, #ecefed);
   background: var(--mp-bg-subtle, #f7faf9);
@@ -154,7 +154,7 @@ onBeforeUnmount(() => {
   padding: 1px 5px;
   border-radius: 4px;
   border: 1px solid var(--mp-border, #e1e6e4);
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
 }
 .mp-download-specs__menu ul {
   list-style: none;
@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
 }
 .mp-download-specs__name {
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--mp-fs-base);
   grid-column: 1;
 }
 .mp-download-specs__host {
@@ -190,7 +190,7 @@ onBeforeUnmount(() => {
 }
 .mp-download-specs__host code {
   font-family: var(--mp-mono, ui-monospace, monospace);
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   color: var(--mp-text-muted, #5e7973);
   background: transparent;
   padding: 0;

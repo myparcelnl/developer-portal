@@ -14,9 +14,8 @@ import MpFooter from '../components/MpFooter.vue';
     </nav>
 
     <h1 class="mp-docs-content__title" data-i18n="About MyParcel">About MyParcel</h1>
-    <p class="mp-docs-content__lede" data-i18n="MyParcel helps 15,000+ Dutch and Belgian merchants ship parcels across 20+ carriers — from solo sellers to scale-ups. This developer portal is our home for every integrator building on top of the MyParcel platform.">
-      MyParcel helps 15,000+ Dutch and Belgian merchants ship parcels
-      across 20+ carriers — from solo sellers to scale-ups. This
+    <p class="mp-docs-content__lede" data-i18n="MyParcel helps 15,000+ Dutch and Belgian merchants ship parcels across 20+ carriers, from solo sellers to scale-ups. This developer portal is our home for every integrator building on top of the MyParcel platform.">
+      MyParcel helps 15,000+ Dutch and Belgian merchants ship parcels across 20+ carriers, from solo sellers to scale-ups. This
       developer portal is our home for every integrator building on
       top of the MyParcel platform.
     </p>
@@ -56,10 +55,10 @@ import MpFooter from '../components/MpFooter.vue';
 
       <h2 id="teams" data-i18n="The teams behind this portal">The teams behind this portal</h2>
       <ul>
-        <li><strong>External Integrations (INT)</strong> — <span data-i18n="owns this portal and the integrations library.">owns this portal and the integrations library.</span></li>
-        <li><strong>Shipment &amp; Billing</strong> — <span data-i18n="owns the core Shipment API and OpenAPI spec.">owns the core Shipment API and OpenAPI spec.</span></li>
-        <li><strong>Cloud Engineering</strong> — <span data-i18n="hosts developer.myparcel.com and every service behind it.">hosts <code>developer.myparcel.com</code> and every service behind it.</span></li>
-        <li><strong>Customer &amp; New Products</strong> — <span data-i18n="runs account-management and billing.">runs account-management and billing.</span></li>
+        <li><strong>External Integrations (INT)</strong>: <span data-i18n="owns this portal and the integrations library.">owns this portal and the integrations library.</span></li>
+        <li><strong>Shipment &amp; Billing</strong>: <span data-i18n="owns the core Shipment API and OpenAPI spec.">owns the core Shipment API and OpenAPI spec.</span></li>
+        <li><strong>Cloud Engineering</strong>: <span data-i18n="hosts developer.myparcel.com and every service behind it.">hosts <code>developer.myparcel.com</code> and every service behind it.</span></li>
+        <li><strong>Customer &amp; New Products</strong>: <span data-i18n="runs account-management and billing.">runs account-management and billing.</span></li>
       </ul>
 
       <h2 id="open-source" data-i18n="Open source">Open source</h2>
@@ -72,7 +71,7 @@ import MpFooter from '../components/MpFooter.vue';
       <h2 id="principles" data-i18n="Our principles">Our principles</h2>
       <ul>
         <li><strong data-i18n="Docs match reality.">Docs match reality.</strong> <span data-i18n="The API reference is auto-generated from the published OpenAPI specs.">The API reference is auto-generated from the published OpenAPI specs.</span></li>
-        <li><strong data-i18n="Public by default.">Public by default.</strong> <span data-i18n="No login wall on the documentation — only live shipments need credentials.">No login wall on the documentation — only live shipments need credentials.</span></li>
+        <li><strong data-i18n="Public by default.">Public by default.</strong> <span data-i18n="No login wall on the documentation. Only live shipments need credentials.">No login wall on the documentation. Only live shipments need credentials.</span></li>
         <li><strong data-i18n="Boring where it counts.">Boring where it counts.</strong> <span data-i18n="HTTP, OpenAPI, JSON. No custom protocols, no surprises.">HTTP, OpenAPI, JSON. No custom protocols, no surprises.</span></li>
       </ul>
 

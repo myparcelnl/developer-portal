@@ -105,7 +105,7 @@ onBeforeUnmount(() => {
         <div class="mp-beta-banner__inner">
           <span class="mp-beta-banner__pill" data-i18n="Beta">Beta</span>
           <span class="mp-beta-banner__msg">
-            <span data-i18n="This developer portal is in beta — content and APIs may change while we polish things up.">This developer portal is in beta — content and APIs may change while we polish things up.</span>
+            <span data-i18n="This developer portal is in beta. Content and APIs may change while we polish things up.">This developer portal is in beta. Content and APIs may change while we polish things up.</span>
             <a href="/contact.html" class="mp-beta-banner__link" data-i18n="Share feedback →">Share feedback →</a>
           </span>
         </div>
@@ -383,7 +383,7 @@ onBeforeUnmount(() => {
   color: inherit;
 }
 .mp-mobile-drawer__logo > span {
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -408,7 +408,7 @@ onBeforeUnmount(() => {
   font-weight: inherit !important;
 }
 .mp-mobile-drawer__logo-sub {
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -418,7 +418,7 @@ onBeforeUnmount(() => {
   border-radius: 999px;
 }
 .mp-mobile-drawer__logo-beta {
-  font-size: 8px;
+  font-size: var(--mp-fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -436,7 +436,7 @@ onBeforeUnmount(() => {
   background: var(--mp-mint);
   border-bottom: 1px solid var(--mp-border-soft);
   color: var(--mp-text-accent);
-  font-size: 13px;
+  font-size: var(--mp-fs-sm);
   line-height: 1.4;
 }
 .mp-beta-banner__inner {
@@ -449,7 +449,7 @@ onBeforeUnmount(() => {
 }
 .mp-beta-banner__pill {
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: var(--mp-fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -508,9 +508,9 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 640px) {
-  .mp-beta-banner { font-size: 12px; }
+  .mp-beta-banner { font-size: var(--mp-fs-xs); }
   .mp-beta-banner__inner { padding: 7px 48px 7px 12px; gap: 8px; }
-  .mp-beta-banner__pill { font-size: 11px; padding: 1px 6px; letter-spacing: 0.08em; }
+  .mp-beta-banner__pill { font-size: var(--mp-fs-xs); padding: 1px 6px; letter-spacing: 0.08em; }
   .mp-beta-banner__close { right: 4px; width: 40px; height: 40px; }
 }
 
@@ -559,7 +559,7 @@ onBeforeUnmount(() => {
   background: transparent;
   font: inherit;
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--mp-fs-md);
   color: var(--mp-text);
   text-decoration: none;
   border-radius: var(--mp-radius-md);
@@ -595,7 +595,7 @@ onBeforeUnmount(() => {
   padding: 9px 12px;
   border-radius: var(--mp-radius-md);
   text-decoration: none;
-  font-size: 14px;
+  font-size: var(--mp-fs-base);
   color: var(--mp-text-body);
 }
 .mp-mobile-drawer__sublink:hover {
@@ -603,7 +603,7 @@ onBeforeUnmount(() => {
 }
 .mp-mobile-drawer__sublink small {
   font-family: var(--mp-mono);
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   color: var(--mp-text-muted);
 }
 
@@ -630,7 +630,7 @@ onBeforeUnmount(() => {
   background: var(--mp-bg-subtle);
 }
 .mp-mobile-drawer__foot-label {
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   color: var(--mp-text-muted);
   letter-spacing: 0.06em;

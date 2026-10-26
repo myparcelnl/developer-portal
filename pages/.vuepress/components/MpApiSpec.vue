@@ -315,13 +315,13 @@ function formatJson(v: any): string {
   background: #fdf2eb;
   border-radius: 12px;
   color: #6b3920;
-  font-size: 14px;
+  font-size: var(--mp-fs-base);
 }
 .mp-spec-error code {
   background: rgba(0,0,0,0.06);
   padding: 4px 8px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: var(--mp-fs-xs);
   word-break: break-word;
 }
 .mp-spec-error .mp-btn {
@@ -330,7 +330,7 @@ function formatJson(v: any): string {
 
 /* Per-API overview prose, placed above the endpoints list */
 .mp-prose {
-  font-size: 14px;
+  font-size: var(--mp-fs-base);
   line-height: 1.65;
   color: var(--mp-text, inherit);
 }
@@ -351,7 +351,7 @@ function formatJson(v: any): string {
 .mp-prose :deep(h4),
 .mp-prose :deep(h5) {
   margin: 1.2em 0 0.4em 0;
-  font-size: 15px;
+  font-size: var(--mp-fs-md);
   font-weight: 600;
 }
 .mp-prose :deep(h3):first-child,
@@ -377,7 +377,7 @@ function formatJson(v: any): string {
 }
 .mp-prose :deep(pre) {
   margin: 0.6em 0;
-  font-size: 12px;
+  font-size: var(--mp-fs-xs);
 }
 
 /* Scenario expanders within the code rail */
@@ -400,7 +400,7 @@ function formatJson(v: any): string {
   justify-content: space-between;
   padding: 8px 12px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--mp-fs-sm);
   font-weight: 500;
   list-style: none;
 }
@@ -413,7 +413,7 @@ function formatJson(v: any): string {
 }
 .mp-scenario__desc {
   margin: 0 12px 8px 12px;
-  font-size: 12px;
+  font-size: var(--mp-fs-xs);
   color: var(--mp-text-muted, #5e7973);
   line-height: 1.5;
 }
@@ -421,12 +421,12 @@ function formatJson(v: any): string {
   margin-top: 0;
   padding-left: 12px;
   padding-right: 12px;
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
 }
 .mp-scenario pre {
   margin: 0;
   border-radius: 0 0 8px 8px;
-  font-size: 12px;
+  font-size: var(--mp-fs-xs);
 }
 
 /* Required badge — also used in the parameters table now */
@@ -434,7 +434,7 @@ function formatJson(v: any): string {
   display: inline-block;
   margin-left: 6px;
   padding: 1px 6px;
-  font-size: 10px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   letter-spacing: 0.04em;
   color: #b03a2e;

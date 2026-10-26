@@ -74,6 +74,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Address API', link: '/api/address.html' },
       { text: 'Printing API', link: '/api/printing.html' },
       { text: 'Product API', link: '/api/product.html' },
+      { text: 'Purchase Order API', link: '/api/purchase-order.html' },
       { text: 'Data types', link: '/guides/data-types.html' },
     ],
   },
