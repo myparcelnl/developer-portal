@@ -1,47 +1,70 @@
 ---
 title: Data types
-description: "Common types, enums and conventions used throughout the Shipment API: strings, money, dates, countries, carriers."
+description: "Common types, enums and conventions used throughout the Shipment API: IDs, prices, dates, countries, carriers and package types."
 ---
 
 ## Identifiers
-Shipments, orders and webhooks use signed 64-bit integer IDs. Tokens and secrets use prefixed opaque strings (`mp_client_*`, `rft_*`).
+Shipments and webhook subscriptions have integer IDs. Orders use UUIDs, such as `db610547-7434-4f6d-9e13-178b686a94d6`.
 
-## Money
-All monetary values are integers in **cents (EUR)** unless the field name explicitly includes a currency (e.g. `amount_usd`).
+## Prices
+A price is an object with an amount in **cents** and a currency. Only `EUR` is supported.
 
 ```
-{ "insurance": 25000 /* = €250.00 */ }
+{ "insurance": { "amount": 25000, "currency": "EUR" } }  // €250.00
+```
+
+## Booleans
+Shipment options are integer booleans: `1` for on, `0` for off.
+
+```
+{ "options": { "signature": 1, "only_recipient": 0 } }
 ```
 
 ## Dates & times
-All timestamps are RFC 3339 in UTC with a trailing `Z`.
+- Dates: `YYYY-MM-DD`, for example `2026-04-20`.
+- Timestamps: `YYYY-MM-DD HH:MM:SS`, for example `2026-04-20 08:12:34`.
 
-```
-{ "created_at": "2026-04-20T08:12:34Z" }
-```
+## Country codes
+Countries are ISO 3166-1 alpha-2 codes (`NL`, `BE`, `DE`, `FR`, …) in the field `cc`.
 
-## Country & language codes
-- Countries: ISO 3166-1 alpha-2 (`NL`, `BE`, `DE`, `FR`, …).
-- Languages: ISO 639-1 (`nl`, `en`, `de`, `fr`, …).
+## Carrier IDs
+- `1`: PostNL
+- `2`: bpost
+- `3`: Cheap Cargo
+- `4`: DPD
+- `9`: DHL For You
+- `10`: DHL Parcel Connect
+- `11`: DHL Europlus
+- `12`: UPS Standard
+- `13`: UPS Express Saver
+- `14`: GLS
+- `15`: BRT
+- `16`: Trunkrs
+- `17`: InPost
+- `18`: Poste Italiane
 
-## Carrier codes
-- `postnl`: PostNL
-- `dhl`: DHL Parcel
-- `dhlforyou`: DHL For You
-- `dpd`: DPD
-- `ups`: UPS
-- `bpost`: bpost
-- `instabox`: Instabox
+IDs `5` to `8` (Instabox, DHL Cheap Cargo, bol and the old UPS) are deprecated. Which carriers you can use depends on your platform and contracts.
+
+## Package types
+- `1`: package
+- `2`: mailbox package
+- `3`: letter
+- `4`: digital stamp
+- `5`: pallet
+- `6`: small package
+- `7`: envelope
 
 ## Error format
-Every 4xx/5xx response has the same shape, so you can handle errors uniformly.
+An error response carries a message, a request ID and a list of errors with numeric codes:
 
 ```
 {
-  "error": {
-    "code": "shipment_not_cancellable",
-    "message": "Shipment 8472402 is already handed_over.",
-    "request_id": "req_01HW7K…"
-  }
+  "message": "…",
+  "request_id": "…",
+  "errors": [
+    { "code": 3501, "message": "Invalid address" }
+  ]
 }
 ```
+
+Handle errors on the `code`, not on the message text.

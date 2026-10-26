@@ -1,41 +1,67 @@
 ---
 title: JavaScript SDK
-description: "Promise-based, fully typed TypeScript client. Works in Node.js 18+ and in server-rendered frameworks (Next.js, Nuxt, Remix, SvelteKit)."
+description: "Promise-based TypeScript client for Node.js and the browser. You create an SDK instance with only the endpoints you need, and send your API key as a header."
 ---
 
 ## Install
 ```
-npm install @myparcelnl/sdk
-pnpm add @myparcelnl/sdk
-yarn add @myparcelnl/sdk
+npm install @myparcel-dev/sdk
+pnpm add @myparcel-dev/sdk
+yarn add @myparcel-dev/sdk
 ```
 
 ## Usage
+Create an SDK with a client and the endpoints you want to call. Private endpoints, such as creating shipments, require an `Authorization` header with your base64-encoded API key, so use them on your server only.
+
 ```
-import { MyParcel } from '@myparcelnl/sdk';
+import { createPrivateSdk, FetchClient, PostShipments } from '@myparcel-dev/sdk';
 
-const mp = new MyParcel({
-  clientId:     process.env.MP_CLIENT_ID,
-  clientSecret: process.env.MP_CLIENT_SECRET,
-  scopes:       ['shipments.read', 'shipments.write'],
+const sdk = createPrivateSdk(
+  new FetchClient({
+    headers: {
+      Authorization: 'bearer ' + Buffer.from(process.env.MYPARCEL_API_KEY).toString('base64'),
+    },
+  }),
+  [new PostShipments()],
+);
+
+const ids = await sdk.postShipments({
+  body: [
+    {
+      carrier: 1,
+      options: {
+        package_type: 1,
+      },
+      recipient: {
+        cc: 'NL',
+        person: 'J. de Vries',
+        street: 'Antareslaan',
+        number: '31',
+        postal_code: '2132JE',
+        city: 'Hoofddorp',
+      },
+    },
+  ],
 });
 
-const shipment = await mp.shipments.create({
-  carrier: 'postnl',
-  recipient: {
-    name:        'J. de Vries',
-    street:      'Antwoordnummer 42',
-    postalCode:  '1012AB',
-    city:        'Amsterdam',
-    country:     'NL',
-  },
-});
+console.log(ids); // [{ id: 123456, reference_identifier: '' }]
+```
 
-console.log(shipment.labelUrl);
+The SDK wraps the body in the API's `data.shipments` envelope and sets the vendor `Content-Type` for you. `carrier: 1` is PostNL and `package_type: 1` is a parcel, see [Data types](data-types.md).
+
+## Public endpoints
+Endpoints that need no API key, such as delivery options, pickup locations and carriers, are safe to call from a browser. Use `createPublicSdk` for those:
+
+```
+import { createPublicSdk, FetchClient, GetCarriers } from '@myparcel-dev/sdk';
+
+const sdk = createPublicSdk(new FetchClient(), [new GetCarriers()]);
+
+const carriers = await sdk.getCarriers();
 ```
 
 ## Types
-Full TypeScript types are generated from the OpenAPI spec at build time, same source of truth as this documentation.
+The package ships its own TypeScript types for every endpoint's parameters and response. Carrier, package type and delivery type IDs are available as constants in `@myparcel-dev/constants`, for example `CarrierId.PostNl` and `PackageTypeId.Package`.
 
 ## Source
 [github.com/myparcelnl/js-sdk ↗](https://github.com/myparcelnl/js-sdk)

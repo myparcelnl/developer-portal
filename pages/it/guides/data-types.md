@@ -1,47 +1,70 @@
 ---
 title: Tipi di dato
-description: "Tipi comuni, enum e convenzioni utilizzati in tutta l'API MyParcel: stringhe, valori monetari, date, paesi, vettori."
+description: "Tipi, enum e convenzioni comuni usati in tutta la Shipment API: ID, prezzi, date, paesi, vettori e tipi di pacco."
 ---
 
 ## Identificatori
-Spedizioni, ordini e webhook utilizzano ID interi signed a 64-bit. Token e secret usano stringhe opache con prefisso (`mp_client_*`, `rft_*`).
+Spedizioni e iscrizioni webhook hanno ID interi. Gli ordini usano UUID, come `db610547-7434-4f6d-9e13-178b686a94d6`.
 
-## Valori monetari
-Tutti i valori monetari sono interi in **centesimi (EUR)** salvo quando il nome del campo include esplicitamente una valuta (es. `amount_usd`).
+## Prezzi
+Un prezzo è un oggetto con un importo in **centesimi** e una valuta. È supportato solo `EUR`.
 
 ```
-{ "insurance": 25000 /* = €250,00 */ }
+{ "insurance": { "amount": 25000, "currency": "EUR" } }  // €250,00
+```
+
+## Booleani
+Le opzioni di spedizione sono booleani interi: `1` per attivo, `0` per disattivo.
+
+```
+{ "options": { "signature": 1, "only_recipient": 0 } }
 ```
 
 ## Date e orari
-Tutti i timestamp sono RFC 3339 in UTC con suffisso `Z`.
+- Date: `YYYY-MM-DD`, ad esempio `2026-04-20`.
+- Timestamp: `YYYY-MM-DD HH:MM:SS`, ad esempio `2026-04-20 08:12:34`.
 
-```
-{ "created_at": "2026-04-20T08:12:34Z" }
-```
+## Codici paese
+I paesi sono codici ISO 3166-1 alpha-2 (`NL`, `BE`, `DE`, `FR`, …) nel campo `cc`.
 
-## Codici paese e lingua
-- Paesi: ISO 3166-1 alpha-2 (`NL`, `BE`, `DE`, `FR`, …).
-- Lingue: ISO 639-1 (`nl`, `en`, `de`, `fr`, …).
+## ID dei vettori
+- `1`: PostNL
+- `2`: bpost
+- `3`: Cheap Cargo
+- `4`: DPD
+- `9`: DHL For You
+- `10`: DHL Parcel Connect
+- `11`: DHL Europlus
+- `12`: UPS Standard
+- `13`: UPS Express Saver
+- `14`: GLS
+- `15`: BRT
+- `16`: Trunkrs
+- `17`: InPost
+- `18`: Poste Italiane
 
-## Codici dei carrier
-- `postnl`: PostNL
-- `dhl`: DHL Parcel
-- `dhlforyou`: DHL For You
-- `dpd`: DPD
-- `ups`: UPS
-- `bpost`: bpost
-- `instabox`: Instabox
+Gli ID da `5` a `8` (Instabox, DHL Cheap Cargo, bol e il vecchio UPS) sono deprecati. I vettori che puoi usare dipendono dalla tua piattaforma e dai tuoi contratti.
+
+## Tipi di pacco
+- `1`: pacco
+- `2`: pacco per cassetta postale
+- `3`: lettera
+- `4`: francobollo digitale
+- `5`: pallet
+- `6`: pacco piccolo
+- `7`: busta
 
 ## Formato degli errori
-Ogni risposta 4xx/5xx ha la stessa struttura, così puoi gestire gli errori in modo uniforme.
+Una risposta di errore contiene un messaggio, un ID di richiesta e un elenco di errori con codici numerici:
 
 ```
 {
-  "error": {
-    "code": "shipment_not_cancellable",
-    "message": "Shipment 8472402 is already handed_over.",
-    "request_id": "req_01HW7K…"
-  }
+  "message": "…",
+  "request_id": "…",
+  "errors": [
+    { "code": 3501, "message": "Invalid address" }
+  ]
 }
 ```
+
+Gestisci gli errori in base al `code`, non al testo del messaggio.

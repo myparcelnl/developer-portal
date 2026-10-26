@@ -1,40 +1,54 @@
 ---
 title: Webhooks
-description: "Subscribe an HTTPS endpoint and MyParcel will POST events to you whenever a shipment changes state, no polling required."
+description: "Subscribe an HTTPS endpoint and MyParcel will POST to it whenever a shipment changes status or a label is ready, no polling required."
 ---
 
 ## Subscribe
 ```
-POST /webhooks
+POST https://api.myparcel.nl/webhook_subscriptions
+Content-Type: application/json;charset=utf-8
+Authorization: bearer <base64-encoded API key>
+
 {
-  "url": "https://example.com/webhooks/myparcel",
-  "events": [
-    "shipment.handed_over",
-    "shipment.delivered",
-    "shipment.delayed"
-  ]
+  "data": {
+    "webhook_subscriptions": [
+      {
+        "hook": "shipment_status_change",
+        "url": "https://example.com/webhooks/myparcel"
+      }
+    ]
+  }
 }
 ```
 
-## Events
-- `shipment.created`
-- `shipment.printed`
-- `shipment.handed_over`
-- `shipment.delivered`
-- `shipment.returned`
-- `shipment.delayed`
+The URL must use HTTPS. A shop has one subscription per hook, so subscribing to the same hook again replaces the existing URL. MyParcel calls the URL in lowercase, so use a lowercase URL.
 
-## Request signing
-Every webhook POST carries an `X-MyParcel-Signature` header, an HMAC-SHA256 of the raw body using your webhook secret. Always verify this header before trusting the payload.
+[See `POST /webhook_subscriptions` →](../api/myparcel.md#post-webhook-subscriptions)
+
+## Hooks
+- `shipment_status_change`: the [status](shipments.md#lifecycle) of a shipment changed. Not sent for status `1`.
+- `shipment_label_created`: a label requested asynchronously is ready. The payload contains a link to the PDF.
+- `order_status_change`: the status of an order changed.
+
+## What you receive
+MyParcel POSTs a JSON body with the events in `data.hooks`, and names the hook in the `X-MyParcel-Hook` header:
 
 ```
-// Node.js example
-const crypto = require('crypto');
-const expected = crypto
-  .createHmac('sha256', secret)
-  .update(rawBody)
-  .digest('hex');
+{
+  "data": {
+    "hooks": [
+      {
+        "shipment_id": 123456,
+        "account_id": 7003,
+        "shop_id": 1897,
+        "status": 2,
+        "barcode": "3SMYPA749883621",
+        "shipment_reference_identifier": "ORDER-2026-01042"
+      }
+    ]
+  }
+}
 ```
 
-## Retries
-MyParcel retries failed deliveries (non-2xx response or timeout > 5s) with exponential backoff for up to 24 hours. After that, the event is dropped and surfaced in the Analytics dashboard.
+## Securing your endpoint
+MyParcel does not document a signature on webhook requests. Make the URL hard to guess, for example with a random token in the path, and ignore requests to any other path. The MyParcel plugins do exactly that.
