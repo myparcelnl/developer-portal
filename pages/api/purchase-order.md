@@ -22,7 +22,7 @@ Add lines to a purchase order. The status of the purchase order must be `CONCEPT
 | 200 | Purchase order with lines added. |
 | 400 | Invalid request syntax |
 
-**Request — POST /add-lines**
+**Request: POST /add-lines**
 
 ::: code-group
 ```bash [cURL]
@@ -178,7 +178,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -214,7 +214,7 @@ Cancel one or multiple purchase orders. The status of the purchase order must be
 | 204 | Purchase orders are cancelled. |
 | 400 | Invalid request syntax |
 
-**Request — POST /cancel**
+**Request: POST /cancel**
 
 ::: code-group
 ```bash [cURL]
@@ -373,7 +373,7 @@ Create a purchase order.
 | 201 | Purchase order is created. |
 | 400 | Invalid request syntax |
 
-**Request — POST /create**
+**Request: POST /create**
 
 ::: code-group
 ```bash [cURL]
@@ -574,7 +574,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 201**
+**Response: 201**
 
 ```json
 {
@@ -633,7 +633,7 @@ Get purchase orders.
 | 200 | The listed purchase orders. |
 | 400 | Invalid request syntax |
 
-**Request — GET /purchase-orders**
+**Request: GET /purchase-orders**
 
 ::: code-group
 ```bash [cURL]
@@ -753,7 +753,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -788,7 +788,7 @@ Download the packing slip of a purchase order. The status of the purchase order 
 | 400 | Invalid request syntax |
 | 404 | Not found. |
 
-**Request — GET /purchase-orders/{purchaseOrderId}/packing-slip**
+**Request: GET /purchase-orders/{purchaseOrderId}/packing-slip**
 
 ::: code-group
 ```bash [cURL]
@@ -908,7 +908,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 "string"
@@ -929,7 +929,7 @@ Remove a purchase order. The status of the purchase order must be `CONCEPT`.
 | 204 | Purchase order is removed. |
 | 400 | Invalid request syntax |
 
-**Request — POST /remove**
+**Request: POST /remove**
 
 ::: code-group
 ```bash [cURL]
@@ -1091,7 +1091,7 @@ Remove lines from a purchase order. The status of the purchase order must be `CO
 | 200 | Purchase order with lines removed. |
 | 400 | Invalid request syntax |
 
-**Request — POST /remove-lines**
+**Request: POST /remove-lines**
 
 ::: code-group
 ```bash [cURL]
@@ -1238,7 +1238,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -1263,7 +1263,7 @@ Set the delivery supplier details for a purchase order. The status of the purcha
 | 200 | Purchase order with delivery supplier details set. |
 | 400 | Invalid request syntax |
 
-**Request — POST /set-delivery-supplier-details**
+**Request: POST /set-delivery-supplier-details**
 
 ::: code-group
 ```bash [cURL]
@@ -1407,7 +1407,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -1458,7 +1458,7 @@ Set the delivery type of a purchase order. The status of the purchase order must
 | 200 | Purchase order with delivery type set. |
 | 400 | Invalid request syntax |
 
-**Request — POST /set-delivery-type**
+**Request: POST /set-delivery-type**
 
 ::: code-group
 ```bash [cURL]
@@ -1602,7 +1602,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -1653,7 +1653,7 @@ Set the expected delivery of a purchase order. The status of the purchase order 
 | 200 | Purchase order with expected delivery set. |
 | 400 | Invalid request syntax |
 
-**Request — POST /set-expected-delivery**
+**Request: POST /set-expected-delivery**
 
 ::: code-group
 ```bash [cURL]
@@ -1806,7 +1806,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -1857,7 +1857,7 @@ Register one or multiple purchase orders. The status of the purchase order must 
 | 204 | Purchase orders are requested to register. |
 | 400 | Invalid request syntax |
 
-**Request — POST /register**
+**Request: POST /register**
 
 ::: code-group
 ```bash [cURL]
@@ -2016,7 +2016,7 @@ Update the quantity of a purchase order line. The status of the purchase order m
 | 200 | Purchase order with quantity of order line updated. |
 | 400 | Invalid request syntax |
 
-**Request — POST /update-line-quantity**
+**Request: POST /update-line-quantity**
 
 ::: code-group
 ```bash [cURL]
@@ -2160,7 +2160,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {

@@ -35,7 +35,7 @@ console.log(shipment.labelUrl);
 ```
 
 ## Tipi
-I tipi TypeScript completi sono generati dalla specifica OpenAPI a build time — la stessa fonte di verità di questa documentazione.
+I tipi TypeScript completi sono generati dalla specifica OpenAPI a build time, la stessa fonte di verità di questa documentazione.
 
 ## Sorgente
 [github.com/myparcelnl/js-sdk ↗](https://github.com/myparcelnl/js-sdk)

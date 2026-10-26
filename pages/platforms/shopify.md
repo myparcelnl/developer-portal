@@ -1,13 +1,13 @@
 ---
 title: Shopify
-description: "From zero to a shipped parcel on Shopify — add the app from the App Store, connect your MyParcel account with an API key, link your shipping methods per zone and print your first label today. Includes quickstart, settings reference, checkout, daily workflow and a diagnostics table."
+description: "From zero to a shipped parcel on Shopify: add the app from the App Store, connect your MyParcel account with an API key, link your shipping methods per zone and print your first label today. Includes quickstart, settings reference, checkout, daily workflow and a diagnostics table."
 ---
 
 ::: tip In short
-The MyParcel app connects your Shopify shop to MyParcel. You link your Shopify shipping methods to a carrier and delivery option per country, print labels straight from Shopify, and Track & Trace is sent to the customer automatically. No code needed — everything runs from the Shopify admin.
+The MyParcel app connects your Shopify shop to MyParcel. You link your Shopify shipping methods to a carrier and delivery option per country, print labels straight from Shopify, and Track & Trace is sent to the customer automatically. No code needed: everything runs from the Shopify admin.
 :::
 
-## Quickstart — your first parcel in 15 minutes
+## Quickstart: your first parcel in 15 minutes
 Enough to ship your first real order today. For deeper configuration, see [Looking for…](#looking-for) below.
 
 1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.com/register](https://www.myparcel.com/register).
@@ -32,15 +32,15 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | A different setting per product | [8 · Product settings](#8-product-settings) |
 | What the customer sees at checkout | [9 · The checkout experience](#9-the-checkout-experience) |
 | Print or export labels | [10 · Daily use](#10-daily-use) |
-| Something's not working | [11 · Something's not working — diagnostics](#11-somethings-not-working-diagnostics) |
+| Something's not working | [11 · Something's not working: diagnostics](#11-somethings-not-working-diagnostics) |
 | Answer to a frequently asked question | [12 · FAQ](#12-faq) |
 
 ## 1 · Preparing your MyParcel account
 Before you start in Shopify, take care of four things in your MyParcel backoffice:
 
-1. **Billing and return address** — *Shop settings → General*. This appears on every label.
-2. **Activate carriers** — *Shop settings → Carriers*. Only enabled carriers appear in the app later.
-3. **Generate an API key** — *Shop settings → Integrations*.
+1. **Billing and return address**: *Shop settings → General*. This appears on every label.
+2. **Activate carriers**: *Shop settings → Carriers*. Only enabled carriers appear in the app later.
+3. **Generate an API key**: *Shop settings → Integrations*.
 4. **Set up your shipping methods** in Shopify under **Settings → Shipping and delivery**. The app links to these methods (see [§5](#5-settings-export-zones)).
 
 ## 2 · Installing the app
@@ -51,11 +51,11 @@ Before you start in Shopify, take care of four things in your MyParcel backoffic
 ## 3 · Connecting the app (API key)
 Open **Apps → MyParcel** and click **Instellingen** (Settings) in the top right. The settings live on a single page; the first block is **Account**.
 
-![MyParcel for Shopify — Account and General settings. The API key field connects your shop to MyParcel.](./images/shopify/account-general.png) The API key is hidden in this screenshot.
+![MyParcel for Shopify: Account and General settings. The API key field connects your shop to MyParcel.](./images/shopify/account-general.png) The API key is hidden in this screenshot.
 
 1. Paste the key from your MyParcel backoffice into **API key**.
 2. Scroll down and click **Opslaan** (Save).
-3. Use **Réinstaller les Webhooks** only if the automatic status updates ever stop working — it restores the connection.
+3. Use **Réinstaller les Webhooks** only if the automatic status updates ever stop working. It restores the connection.
 
 ::: warning Not working?
 Most common causes: didn't click *Opslaan* (Save) · a space copied before/after the key · key from a different shop · key from a different environment (live vs sandbox) than your MyParcel account.
@@ -64,7 +64,7 @@ Most common causes: didn't click *Opslaan* (Save) · a space copied before/after
 ### What does the app do in your Shopify admin?
 | Where? | What can you do? |
 | --- | --- |
-| **Apps → MyParcel** | The *Bestellingen* (Orders) screen — select orders and print or export labels. |
+| **Apps → MyParcel** | The *Bestellingen* (Orders) screen: select orders and print or export labels. |
 | **Apps → MyParcel → Instellingen** | All settings: Account, General, Export & zones, Pickup points, Worldwide shipments. |
 | **Product → Verzending** (Shipping) | Standard Shopify fields (weight, country of origin, HS code) that MyParcel reads. |
 
@@ -77,31 +77,31 @@ In **Instellingen**, below Account, you'll find **Algemene instellingen** (Gener
 
 ![General settings: page format, label description, fulfilment, automatic export, Track & Trace emails.](./images/shopify/account-general.png)
 
-- **Standaard paginakeuze** (Default page format) — Sets the label format. *Standaardprinter (A4)* for a regular printer, *Labelprinter (A6)* for a Zebra/Brother label printer.
-- **Beschrijving op label** (Label description) — The text on your label. Use variables that fill in automatically: `{order_name}` (e.g. #1008), `{order_number}` (e.g. 1008) or `{product_sku}` (e.g. TST-D01).
-- **Fulfilment** — When an order is marked *Fulfilled* in Shopify. Choose *Manueel* (you do it), *Automatisch* (on the carrier's first scan) or *Onmiddellijk* (when you print a label).
-- **Automatische export** (Automatic export) — Whether orders go to MyParcel automatically. *Niet automatisch doorsturen* to do it by hand, or an export option to send shipment info (or the full order, including products for packing slips) automatically.
-- **Verstuur Track & Trace emails vanuit Shopify** (Send Track & Trace emails from Shopify) — *Nee* lets MyParcel send the email; *Ja* lets Shopify send it.
+- **Standaard paginakeuze** (Default page format): Sets the label format. *Standaardprinter (A4)* for a regular printer, *Labelprinter (A6)* for a Zebra/Brother label printer.
+- **Beschrijving op label** (Label description): The text on your label. Use variables that fill in automatically: `{order_name}` (e.g. #1008), `{order_number}` (e.g. 1008) or `{product_sku}` (e.g. TST-D01).
+- **Fulfilment**: When an order is marked *Fulfilled* in Shopify. Choose *Manueel* (you do it), *Automatisch* (on the carrier's first scan) or *Onmiddellijk* (when you print a label).
+- **Automatische export** (Automatic export): Whether orders go to MyParcel automatically. *Niet automatisch doorsturen* to do it by hand, or an export option to send shipment info (or the full order, including products for packing slips) automatically.
+- **Verstuur Track & Trace emails vanuit Shopify** (Send Track & Trace emails from Shopify): *Nee* lets MyParcel send the email; *Ja* lets Shopify send it.
 
 ## 5 · Settings · Export & zones
-This is where you link your Shopify shipping methods to a MyParcel carrier, delivery option and package type — per **zone** (country or region). Create the zones and rates first in Shopify under **Settings → Shipping and delivery**.
+This is where you link your Shopify shipping methods to a MyParcel carrier, delivery option and package type, per **zone** (country or region). Create the zones and rates first in Shopify under **Settings → Shipping and delivery**.
 
 ![Export settings with zones. Each zone maps shipping methods to a carrier and package type.](./images/shopify/export-zones.png)
 
-- **Standaard instelling** (Default setting) — The fallback used when a shipping method isn't recognised. For European and worldwide shipments a parcel shipment is created automatically.
-- **Per zone** — Each zone lists your Shopify shipping methods (e.g. *Standaard* and *Pickup*) with the price and the linked MyParcel options (*Thuislevering*/home delivery or *Afhaalpunt*/pickup, plus the package type).
+- **Standaard instelling** (Default setting): The fallback used when a shipping method isn't recognised. For European and worldwide shipments a parcel shipment is created automatically.
+- **Per zone**: Each zone lists your Shopify shipping methods (e.g. *Standaard* and *Pickup*) with the price and the linked MyParcel options (*Thuislevering*/home delivery or *Afhaalpunt*/pickup, plus the package type).
 
 Click a shipping method to open its mapping:
 
-![Linking a shipping method — Ship via MyParcel, carrier and shipment type.](./images/shopify/zone-link-1.png)
+![Linking a shipping method: Ship via MyParcel, carrier and shipment type.](./images/shopify/zone-link-1.png)
 
-![Linking a shipping method — package type and packaging weight.](./images/shopify/zone-link-2.png)
+![Linking a shipping method: package type and packaging weight.](./images/shopify/zone-link-2.png)
 
-- **Verzenden via MyParcel NL** (Ship via MyParcel) — Set to *Ja* to send this method through MyParcel.
-- **Verzenden via** (Ship via) — The carrier for this method. Which carriers appear depends on the zone (e.g. PostNL, DHL and DPD in the Netherlands; InPost and Poste Italiane in Italy).
-- **Type verzending** (Shipment type) — *Standaard bezorging* (home delivery) or *Ophalen bij afhaalpunt* (pickup point).
-- **Type pakket** (Package type) — e.g. *Pakket* (parcel). Choose a letterbox option if the shipment fits through the letterbox.
-- **Standaard verpakkings gewicht** (Default packaging weight) — Weight of the packaging in grams. Added on top of the product weight.
+- **Verzenden via MyParcel NL** (Ship via MyParcel): Set to *Ja* to send this method through MyParcel.
+- **Verzenden via** (Ship via): The carrier for this method. Which carriers appear depends on the zone (e.g. PostNL, DHL and DPD in the Netherlands; InPost and Poste Italiane in Italy).
+- **Type verzending** (Shipment type): *Standaard bezorging* (home delivery) or *Ophalen bij afhaalpunt* (pickup point).
+- **Type pakket** (Package type): e.g. *Pakket* (parcel). Choose a letterbox option if the shipment fits through the letterbox.
+- **Standaard verpakkings gewicht** (Default packaging weight): Weight of the packaging in grams. Added on top of the product weight.
 
 ::: warning Don't forget to save
 After mapping your methods, scroll to the bottom of the settings page and click **Opslaan** (Save).
@@ -112,62 +112,62 @@ Lower on the settings page you'll find the pickup point and reminder-email optio
 
 ![Pickup point settings and the pickup location reminder email.](./images/shopify/export-zones.png)
 
-- **Automatically choose the closest pickup point** — Picks the nearest point for the customer automatically.
-- **Herinneringsmail afhaallocatie** (Pickup location reminder email) — If the customer didn't choose a pickup point, MyParcel emails a reminder with a link 30 minutes after the order. Set **Herinneringsmail versturen** to *Ja* to enable, fill in a **Contact email** for your own customer service, and pick the **language for PostNL locations** (NL/BE).
+- **Automatically choose the closest pickup point**: Picks the nearest point for the customer automatically.
+- **Herinneringsmail afhaallocatie** (Pickup location reminder email): If the customer didn't choose a pickup point, MyParcel emails a reminder with a link 30 minutes after the order. Set **Herinneringsmail versturen** to *Ja* to enable, fill in a **Contact email** for your own customer service, and pick the **language for PostNL locations** (NL/BE).
 
 ## 7 · Settings · Worldwide shipments
 At the bottom of the settings page, set the customs defaults used for shipments outside the EU when a product has no customs details of its own.
 
 ![Worldwide shipments: default HS code, default weight and default country of origin.](./images/shopify/world-shipments.png)
 
-- **Standaard HS Code** (Default HS code) — Customs code for your products. Look it up at [tarief.douane.nl](https://tarief.douane.nl). A wrong code can get the parcel returned by customs.
-- **Standaard gewicht per pakket (in gram)** (Default weight per parcel, grams) — Used when a product has no weight. Pick a value close to your average.
-- **Standaard land van herkomst** (Default country of origin) — The country you ship from.
+- **Standaard HS Code** (Default HS code): Customs code for your products. Look it up at [tarief.douane.nl](https://tarief.douane.nl). A wrong code can get the parcel returned by customs.
+- **Standaard gewicht per pakket (in gram)** (Default weight per parcel, grams): Used when a product has no weight. Pick a value close to your average.
+- **Standaard land van herkomst** (Default country of origin): The country you ship from.
 
 ## 8 · Product settings
 The MyParcel app does **not** add fields to the Shopify product page. You set shipping details through the standard Shopify fields under **Verzending** (Shipping) on the product or variant. MyParcel reads these.
 
 ![Shopify shipping fields MyParcel reads: package, product weight, country of origin, HS code.](./images/shopify/product-shipping.png)
 
-- **Pakket** (Package) — Shopify's standard package format for this product.
-- **Productgewicht** (Product weight) — Always fill this in; it affects the shipping price.
-- **Landcode van herkomst** (Country of origin, under *Douanegegevens*/Customs) — Where the product comes from. Needed outside the EU.
-- **Harmonized System (HS)-code** (under *Douanegegevens*) — Enter a 6-digit code or search by keyword. Important for worldwide shipments.
+- **Pakket** (Package): Shopify's standard package format for this product.
+- **Productgewicht** (Product weight): Always fill this in; it affects the shipping price.
+- **Landcode van herkomst** (Country of origin, under *Douanegegevens*/Customs): Where the product comes from. Needed outside the EU.
+- **Harmonized System (HS)-code** (under *Douanegegevens*): Enter a 6-digit code or search by keyword. Important for worldwide shipments.
 
 ## 9 · The checkout experience
 What your customer sees once the delivery address is filled in. The options depend on your settings in [§5](#5-settings-export-zones).
 
-![Checkout — the customer chooses Shipping & pickup points or In-store pickup.](./images/shopify/checkout-delivery.png)
+![Checkout: the customer chooses Shipping & pickup points or In-store pickup.](./images/shopify/checkout-delivery.png)
 
 The customer first picks **Verzenden & afhaalpunten** (Shipping & pickup points) or **Ophalen in de winkel** (In-store pickup). The shipping methods for the chosen country then appear.
 
-![Checkout — shipping methods (Standard / Pickup) mapped from your zones.](./images/shopify/checkout-method.png)
+![Checkout: shipping methods (Standard / Pickup) mapped from your zones.](./images/shopify/checkout-method.png)
 
-- **Standaard** (Standard) — Regular home delivery (in the example: free, 3–5 working days).
-- **Pickup** — Collect at a nearby pickup point (in the example: € 2.00, 5–8 working days).
+- **Standaard** (Standard): Regular home delivery (in the example: free, 3–5 working days).
+- **Pickup**: Collect at a nearby pickup point (in the example: € 2.00, 5–8 working days).
 
-If you've enabled pickup points ([§5](#5-settings-export-zones) and [§6](#6-settings-pickup-points)), the customer can choose a pickup point on the thank-you page after checkout. If they don't, a reminder email follows. *Prices and delivery times are examples — they depend on your own settings and contract.*
+If you've enabled pickup points ([§5](#5-settings-export-zones) and [§6](#6-settings-pickup-points)), the customer can choose a pickup point on the thank-you page after checkout. If they don't, a reminder email follows. *Prices and delivery times are examples: they depend on your own settings and contract.*
 
 ## 10 · Daily use
 Open **Apps → MyParcel**. You land on the **Bestellingen** (Orders) screen, with tabs such as *All*, *Paid & Unfulfilled*, *Printed*, *Fulfilled* and *Onvolledig* (Incomplete).
 
-![Orders overview — tabs, checkboxes and per-order status. Customer data is masked here.](./images/shopify/orders-list.png) Customer data is masked in this screenshot.
+![Orders overview: tabs, checkboxes and per-order status. Customer data is masked here.](./images/shopify/orders-list.png) Customer data is masked in this screenshot.
 
 1. Tick the order(s) you want to process.
 2. Use the action bar that appears at the top:
 
 ![Action bar: Printen (print), Bestelling exporteren (export), Maak een concept aan (create draft).](./images/shopify/orders-actions.png)
 
-- **Printen** (Print) — Creates and prints the labels.
-- **Bestelling exporteren** (Export order) — Sends the order(s) to MyParcel.
-- **Maak een concept aan** (Create a draft) — Creates a draft shipment to finish later.
+- **Printen** (Print): Creates and prints the labels.
+- **Bestelling exporteren** (Export order): Sends the order(s) to MyParcel.
+- **Maak een concept aan** (Create a draft): Creates a draft shipment to finish later.
 
 ::: tip When you're billed
 You're only billed once a shipment is actually handed over to the carrier.
 :::
 
-## 11 · Something's not working — diagnostics
-Run through this table top to bottom — most issues are fixed within 5 minutes.
+## 11 · Something's not working: diagnostics
+Run through this table top to bottom: most issues are fixed within 5 minutes.
 
 | Symptom | What to check |
 | --- | --- |
@@ -187,17 +187,17 @@ No. You only pay for the shipments via MyParcel.
 In your MyParcel backoffice under *Shop settings → Integrations*.
 
 ### Which carriers can I use?
-The carriers enabled on your MyParcel account, per zone — for example PostNL, DHL and DPD in the Netherlands, and InPost and Poste Italiane in Italy.
+The carriers enabled on your MyParcel account, per zone, for example PostNL, DHL and DPD in the Netherlands, and InPost and Poste Italiane in Italy.
 
 ### How do I change the sender address on the label?
 That's set in your MyParcel backoffice (*Shop settings → General*), not in the app. Changes apply immediately.
 
 ### Can my customers pick a pickup point?
-Yes — enable pickup in your zone mapping ([§5](#5-settings-export-zones)). The customer chooses a point on the thank-you page.
+Yes, enable pickup in your zone mapping ([§5](#5-settings-export-zones)). The customer chooses a point on the thank-you page.
 
 ### Can I send a return label to my customer?
-Yes — return labels can be emailed to the customer. See your MyParcel backoffice for the return portal options.
+Yes, return labels can be emailed to the customer. See your MyParcel backoffice for the return portal options.
 
 ## Resources & support
-- [apps.shopify.com ↗](https://apps.shopify.com/) — find and add the MyParcel app.
-- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, billing.
+- [apps.shopify.com ↗](https://apps.shopify.com/): find and add the MyParcel app.
+- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com): account, API key, billing.

@@ -21,7 +21,7 @@ Get the list accessible printer groups.
 | --- | --- |
 | 200 | List of accessible printer groups |
 
-**Request — GET /printer-groups**
+**Request: GET /printer-groups**
 
 ::: code-group
 ```bash [cURL]
@@ -137,7 +137,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -167,7 +167,7 @@ Get the list of available printers.
 | --- | --- |
 | 200 | List of printers |
 
-**Request — GET /printers**
+**Request: GET /printers**
 
 ::: code-group
 ```bash [cURL]
@@ -283,7 +283,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -313,7 +313,7 @@ Get the direct printing account status.
 | --- | --- |
 | 200 | Account status |
 
-**Request — GET /status**
+**Request: GET /status**
 
 ::: code-group
 ```bash [cURL]
@@ -429,7 +429,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -452,7 +452,7 @@ Allows shop IDs to access a printer group.
 | 204 | The shop IDs have access to the printer group. |
 | 400 | Invalid request syntax |
 
-**Request — POST /allow-shops-access-to-printer-group**
+**Request: POST /allow-shops-access-to-printer-group**
 
 ::: code-group
 ```bash [cURL]
@@ -614,7 +614,7 @@ Assigns a printer to a printer group.
 | 204 | The printer has been assigned. |
 | 400 | Invalid request syntax |
 
-**Request — POST /assign-printer-to-group**
+**Request: POST /assign-printer-to-group**
 
 ::: code-group
 ```bash [cURL]
@@ -773,7 +773,7 @@ Creates a new printer group.
 | 201 | The created printer group. |
 | 400 | Invalid request syntax |
 
-**Request — POST /create-printer-group**
+**Request: POST /create-printer-group**
 
 ::: code-group
 ```bash [cURL]
@@ -920,7 +920,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 201**
+**Response: 201**
 
 ```json
 {
@@ -947,7 +947,7 @@ Asynchronously enables the account for direct printing.
 | --- | --- |
 | 200 | The account has been enabled. |
 
-**Request — POST /enable-direct-printing**
+**Request: POST /enable-direct-printing**
 
 ::: code-group
 ```bash [cURL]
@@ -1065,7 +1065,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -1091,7 +1091,7 @@ Removes a printer group.
 | 204 | The printer group has been removed. |
 | 400 | Invalid request syntax |
 
-**Request — POST /remove-printer-group**
+**Request: POST /remove-printer-group**
 
 ::: code-group
 ```bash [cURL]
@@ -1244,7 +1244,7 @@ Renames a printer group.
 | 200 | Rename successful |
 | 400 | Invalid request syntax |
 
-**Request — POST /rename-printer-group**
+**Request: POST /rename-printer-group**
 
 ::: code-group
 ```bash [cURL]
@@ -1385,7 +1385,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -1409,7 +1409,7 @@ Asynchronously synchronizes the available printer list.
 | 200 | The available printer list has been synchronized |
 | 400 | Invalid request syntax |
 
-**Request — POST /sync-printers**
+**Request: POST /sync-printers**
 
 ::: code-group
 ```bash [cURL]
@@ -1542,7 +1542,7 @@ Unassigns a printer from a printer group.
 | 204 | The printer has been unassigned. |
 | 400 | Invalid request syntax |
 
-**Request — POST /unassign-printer-from-group**
+**Request: POST /unassign-printer-from-group**
 
 ::: code-group
 ```bash [cURL]

@@ -1,6 +1,6 @@
 ---
 title: Webhook
-description: "Sottoscrivi un endpoint HTTPS e MyParcel ti invierà eventi in POST ogni volta che una spedizione cambia stato — nessun polling richiesto."
+description: "Sottoscrivi un endpoint HTTPS e MyParcel ti invierà eventi in POST ogni volta che una spedizione cambia stato, nessun polling richiesto."
 ---
 
 ## Sottoscrizione
@@ -25,7 +25,7 @@ POST /webhooks
 - `shipment.delayed`
 
 ## Firma delle richieste
-Ogni POST webhook contiene un header `X-MyParcel-Signature` — un HMAC-SHA256 del body raw calcolato con il tuo webhook secret. Verifica sempre questo header prima di fidarti del payload.
+Ogni POST webhook contiene un header `X-MyParcel-Signature`, un HMAC-SHA256 del body raw calcolato con il tuo webhook secret. Verifica sempre questo header prima di fidarti del payload.
 
 ```
 // Esempio Node.js

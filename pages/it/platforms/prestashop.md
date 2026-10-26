@@ -1,13 +1,13 @@
 ---
 title: PrestaShop
-description: "Da zero al pacco spedito su PrestaShop — installa il plugin, collega il tuo account MyParcel, scegli un profilo shop e oggi stesso spedisci la tua prima etichetta. Con avvio rapido, profili shop, riferimento impostazioni, workflow quotidiano e una tabella diagnostica."
+description: "Da zero al pacco spedito su PrestaShop: installa il plugin, collega il tuo account MyParcel, scegli un profilo shop e oggi stesso spedisci la tua prima etichetta. Con avvio rapido, profili shop, riferimento impostazioni, workflow quotidiano e una tabella diagnostica."
 ---
 
 ::: tip In breve
-Il plugin MyParcel collega il tuo shop PrestaShop a MyParcel. I clienti scelgono al checkout un momento di consegna o un pickup point, tu stampi le etichette da PrestaShop e il Track & Trace va automaticamente al cliente. Nessun codice necessario — tutto tramite il back-office.
+Il plugin MyParcel collega il tuo shop PrestaShop a MyParcel. I clienti scelgono al checkout un momento di consegna o un pickup point, tu stampi le etichette da PrestaShop e il Track & Trace va automaticamente al cliente. Nessun codice necessario: tutto tramite il back-office.
 :::
 
-## Avvio rapido — il primo pacco in 15 minuti
+## Avvio rapido: il primo pacco in 15 minuti
 Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazioni più approfondite vedi più avanti [Cosa stai cercando?](#cosa-stai-cercando) qui sotto.
 
 1. **Account.** Non hai ancora un account MyParcel? Creane uno su [myparcel.nl/register](https://www.myparcel.nl/register).
@@ -32,16 +32,16 @@ Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazion
 | Un'impostazione diversa per prodotto | [10 · Impostazioni prodotto](#10-impostazioni-prodotto) |
 | Cosa vede un cliente al checkout | [12 · L'esperienza di checkout](#12-lesperienza-di-checkout) |
 | Elaborare 50+ ordini al giorno | [13 · Uso quotidiano](#13-uso-quotidiano) |
-| Qualcosa non funziona | [14 · Qualcosa non funziona — diagnostica](#14-qualcosa-non-funziona-diagnostica) |
+| Qualcosa non funziona | [14 · Qualcosa non funziona: diagnostica](#14-qualcosa-non-funziona-diagnostica) |
 | Risposta a una domanda frequente | [15 · FAQ](#15-faq) |
 
 ## 1 · Preparare il tuo account MyParcel
 Prima di iniziare in PrestaShop, sistema quattro cose nel tuo backoffice MyParcel:
 
-1. **Indirizzo di fatturazione e reso** — *Impostazioni shop → Generale*. Appare su tutte le etichette.
-2. **Attivare i vettori** — *Impostazioni shop → Vettori*. Solo i vettori spuntati appariranno poi nel plugin.
-3. **Generare API key** — *Impostazioni shop → Integrazione*.
-4. **Importa informazioni ordine** (opzionale) — attiva se vuoi usare la [Modalità ordine](#5-impostazioni-ordini).
+1. **Indirizzo di fatturazione e reso**: *Impostazioni shop → Generale*. Appare su tutte le etichette.
+2. **Attivare i vettori**: *Impostazioni shop → Vettori*. Solo i vettori spuntati appariranno poi nel plugin.
+3. **Generare API key**: *Impostazioni shop → Integrazione*.
+4. **Importa informazioni ordine** (opzionale): attiva se vuoi usare la [Modalità ordine](#5-impostazioni-ordini).
 
 ## 2 · Installare il plugin
 ::: warning Requisiti di versione
@@ -58,7 +58,7 @@ Rimuovi completamente i moduli MyParcel precedenti (incluse le tabelle del datab
 
 ## Canale di vendita tramite il Backoffice MyParcel
 ::: warning Prima di configurare
-Un canale di vendita è opzionale e non è ancora disponibile su tutti gli account. Il plugin funziona anche senza. Un canale di vendita aggiunge la sincronizzazione diretta degli ordini e in alcune situazioni può creare ordini duplicati — vedi [13 · Uso quotidiano](#13-uso-quotidiano) per evitarlo.
+Un canale di vendita è opzionale e non è ancora disponibile su tutti gli account. Il plugin funziona anche senza. Un canale di vendita aggiunge la sincronizzazione diretta degli ordini e in alcune situazioni può creare ordini duplicati. Vedi [13 · Uso quotidiano](#13-uso-quotidiano) per evitarlo.
 :::
 
 Oltre a collegare il plugin con la tua API key (vedi [Collegare il plugin](#3-collegare-il-plugin-api-key)), puoi anche registrare PrestaShop come **canale di vendita** (Sales channel) nel tuo backoffice MyParcel. Il plugin gestisce il checkout e le impostazioni di PrestaShop, mentre il canale di vendita consente a MyParcel di comunicare direttamente con il tuo negozio tramite la sua API webservice e importare i tuoi ordini.
@@ -76,7 +76,7 @@ Oltre a collegare il plugin con la tua API key (vedi [Collegare il plugin](#3-co
 
 3. Inserisci un **Name** (Nome) che ti aiuti a riconoscere il canale (es. *Il mio negozio PrestaShop*).
 4. In **Type of sales channel** (Tipo di canale di vendita) scegli **PrestaShop**.
-5. Inserisci la tua **Webshop URL** — l'indirizzo del tuo negozio PrestaShop (per esempio `https://il-tuo-negozio.com`).
+5. Inserisci la tua **Webshop URL**: l'indirizzo del tuo negozio PrestaShop (per esempio `https://il-tuo-negozio.com`).
 6. Clicca **Save** (Salva). Il canale viene creato e mostra l'etichetta **Missing data** (Dati mancanti) finché non aggiungi la API key.
 
 ![Aggiungere un canale di vendita PrestaShop: scegli il tipo e inserisci l'URL del negozio, poi clicca Save.](../../platforms/images/prestashop/backoffice-add-channel.png)
@@ -102,7 +102,7 @@ Puoi esportare e stampare una spedizione dalla lista ordini o dalla pagina detta
 
 | Cosa fai | Cosa succede nel backoffice |
 | --- | --- |
-| Esporti la spedizione **prima** che il canale di vendita abbia importato l'ordine | Un solo ordine, collegato alla tua spedizione, sotto **Actief** (Attivo) — senza i metadati opzionali come i prodotti (a seconda delle funzionalità dell'account), perché la spedizione esisteva già prima che il canale di vendita sincronizzasse l'ordine. |
+| Esporti la spedizione **prima** che il canale di vendita abbia importato l'ordine | Un solo ordine, collegato alla tua spedizione, sotto **Actief** (Attivo), senza i metadati opzionali come i prodotti (a seconda delle funzionalità dell'account), perché la spedizione esisteva già prima che il canale di vendita sincronizzasse l'ordine. |
 | Esporti la spedizione **dopo** che il canale di vendita ha importato l'ordine | Due ordini: l'ordine importato con i suoi metadati, più un secondo ordine dalla tua esportazione, sotto **Actief** (Attivo) e senza metadati. |
 | Non esporti nessuna spedizione dal plugin | Un solo ordine tramite il canale di vendita, sotto **Te importeren** (Da importare) o **Actief** (Attivo), a seconda delle impostazioni nel backoffice. |
 
@@ -111,13 +111,13 @@ Usi un canale di vendita? Crea la spedizione e stampa l'etichetta dal backoffice
 :::
 
 ## 3 · Collegare il plugin (API key)
-Apri **Moduli → Module manager → MyParcelNL → Configura**. In alto vedi tre pulsanti — *Modifica API key*, *Modifica webhook*, *Opzioni di debug* — più il badge di stato.
+Apri **Moduli → Module manager → MyParcelNL → Configura**. In alto vedi tre pulsanti (*Modifica API key*, *Modifica webhook*, *Opzioni di debug*) più il badge di stato.
 
 ![Barra di collegamento MyParcel: Collegato a MyParcel + tre pulsanti azione.](../../platforms/images/prestashop/01-connection-bar.png) La barra di collegamento appare su ogni pagina del plugin.
 
 1. Clicca **Modifica API key**.
 2. Incolla la key dal tuo backoffice MyParcel.
-3. Clicca **Salva** — entro pochi secondi lo stato cambia in *Collegato a MyParcel*.
+3. Clicca **Salva**. Entro pochi secondi lo stato cambia in *Collegato a MyParcel*.
 
 ::: warning Non funziona?
 Cause più comuni: non hai cliccato *Salva* · spazio copiato prima/dopo la key · key di un altro shop · shop gira su un ambiente diverso (live vs sandbox) rispetto al tuo account MyParcel.
@@ -126,64 +126,64 @@ Cause più comuni: non hai cliccato *Salva* · spazio copiato prima/dopo la key 
 ## 4 · Qual è il tuo profilo shop?
 Tre profili tipici con impostazioni consigliate. Scegline uno, applica le impostazioni, poi affina con [5 · Impostazioni](#5-impostazioni-ordini).
 
-### Piccolo — 1–10 ordini/giorno, solo NL
+### Piccolo: 1–10 ordini/giorno, solo NL
 | Impostazione | Consigliato | Perché |
 | --- | --- | --- |
-| Modalità ordine | On | Ordine completo a MyParcel — meglio per pickup point ed estero in seguito |
+| Modalità ordine | On | Ordine completo a MyParcel, meglio per pickup point ed estero in seguito |
 | Spedizioni concept | On | Ti tiene sotto controllo mentre impari |
 | Elaborazione automatica | Nessuna | Clicca tu *Esporta* per ogni ordine |
 | Formato etichetta | A4 (4 per pagina) | Nessuna stampante etichette necessaria |
 | Track & Trace nell'email | On | Il cliente riceve automaticamente il tracking |
-| PostNL — *Attiva opzioni di consegna* | On | Vettore standard NL |
-| Assicurazione — *Assicurare da €* | 250 | Pacchi sopra €250 assicurati automaticamente |
+| PostNL: *Attiva opzioni di consegna* | On | Vettore standard NL |
+| Assicurazione: *Assicurare da €* | 250 | Pacchi sopra €250 assicurati automaticamente |
 
-### Medio — 10–50 ordini/giorno, NL + BE
+### Medio: 10–50 ordini/giorno, NL + BE
 | Impostazione | Consigliato | Perché |
 | --- | --- | --- |
-| Spedizioni concept | Off | Più veloce — etichette subito definitive |
+| Spedizioni concept | Off | Più veloce: etichette subito definitive |
 | Elaborazione automatica | *In elaborazione* (dopo pagamento) | Niente più click per ordine |
 | Formato etichetta | A6 (stampante etichette) | Stampante etichette Brother/Zebra |
 | Stampa subito | On | Flusso di stampa senza click |
 | PostNL + DHL Parcel Connect | Entrambi attivi | NL e BE coperti |
 | Assicurazione | Da €250, fino a €500 | Scala con il valore ordine |
 
-### Solo cassetta postale — caffè, cartoline, cosmetici
+### Solo cassetta postale: caffè, cartoline, cosmetici
 | Impostazione | Consigliato | Perché |
 | --- | --- | --- |
-| Per prodotto *Tipo di pacco* | Pacco da cassetta postale | Obbligatorio — altrimenti tutto va come pacco |
+| Per prodotto *Tipo di pacco* | Pacco da cassetta postale | Obbligatorio, altrimenti tutto va come pacco |
 | Per prodotto *in cassetta* | Realistico (es. 5) | Numero di pezzi per pacco da cassetta postale |
-| Peso predefinito *pacco da cassetta postale* | 50–100 g | Non impostarlo troppo alto — altrimenti MyParcel torna al pacco |
+| Peso predefinito *pacco da cassetta postale* | 50–100 g | Non impostarlo troppo alto, altrimenti MyParcel torna al pacco |
 | Opzioni di consegna | Off | Per cassetta postale niente scelta di orario |
 | Assicurazione | Off | Non disponibile per pacco da cassetta postale |
 
 ::: tip Altri scenari?
-Per gioielli costosi, internazionale o requisiti speciali — vedi [15 · FAQ](#15-faq) o i profili shop nel [manuale WooCommerce](./woocommerce.html#14-veelvoorkomende-scenarios) (applicabili a tutte le piattaforme).
+Per gioielli costosi, internazionale o requisiti speciali: vedi [15 · FAQ](#15-faq) o i profili shop nel [manuale WooCommerce](./woocommerce.html#14-veelvoorkomende-scenarios) (applicabili a tutte le piattaforme).
 :::
 
 ## 5 · Impostazioni · Ordini
-Il primo tab — qui decidi come gli ordini fluiscono attraverso il tuo shop.
+Il primo tab: qui decidi come gli ordini fluiscono attraverso il tuo shop.
 
 ![Tab Ordini: Generale, Automazione stato ordine, Track & Trace, Pesi predefiniti, Note ordine.](../../platforms/images/prestashop/02-bestellingen-tab.png)
 
 ### Generale
-- **Modalità ordine** — On: ordine completo (dati cliente, righe prodotto, note) a MyParcel. Off: solo un'etichetta. *Consigliato on*, a patto che *Importa informazioni ordine* nel tuo account MyParcel sia attivo.
-- **Spedizioni concept** — On: la spedizione resta concept in MyParcel, puoi ancora modificare. Off: registrazione diretta presso il vettore. *On durante il setup, off quando tutto gira stabile.*
-- **Elaborazione automatica** — Quale stato ordine PrestaShop attiva l'esportazione? *Nessuno* / *In attesa di pagamento* / *In elaborazione* / *Spedito*. Inizia con *Nessuno*.
-- **Invia email di reso** — Il cliente riceve automaticamente un link di reso.
-- **Salva indirizzo cliente nella rubrica** — Gli indirizzi finiscono nella tua rubrica MyParcel.
-- **Condividi informazioni cliente** — Email + numero di telefono a MyParcel. Necessario per email Track & Trace da MyParcel e per spedizioni internazionali. *Consigliato on.*
+- **Modalità ordine**. On: ordine completo (dati cliente, righe prodotto, note) a MyParcel. Off: solo un'etichetta. *Consigliato on*, a patto che *Importa informazioni ordine* nel tuo account MyParcel sia attivo.
+- **Spedizioni concept**. On: la spedizione resta concept in MyParcel, puoi ancora modificare. Off: registrazione diretta presso il vettore. *On durante il setup, off quando tutto gira stabile.*
+- **Elaborazione automatica**: Quale stato ordine PrestaShop attiva l'esportazione? *Nessuno* / *In attesa di pagamento* / *In elaborazione* / *Spedito*. Inizia con *Nessuno*.
+- **Invia email di reso**: Il cliente riceve automaticamente un link di reso.
+- **Salva indirizzo cliente nella rubrica**: Gli indirizzi finiscono nella tua rubrica MyParcel.
+- **Condividi informazioni cliente**: Email + numero di telefono a MyParcel. Necessario per email Track & Trace da MyParcel e per spedizioni internazionali. *Consigliato on.*
 
 ### Automazione stato ordine
-Collega gli eventi MyParcel agli stati PrestaShop — lo stato del pacco resta sincronizzato senza lavoro manuale.
+Collega gli eventi MyParcel agli stati PrestaShop: lo stato del pacco resta sincronizzato senza lavoro manuale.
 
-- **Stato ordine alla creazione etichetta** — spesso *Spedizione in preparazione*.
-- **Stato ordine alla scansione etichetta** — spesso *Spedito*.
-- **Stato ordine alla consegna** — spesso *Consegnato*.
-- **Invia notifica dopo** — da quale stato parte un'email al cliente. Imposta su *Spedito* così i clienti ricevono subito il loro Track & Trace.
+- **Stato ordine alla creazione etichetta**: spesso *Spedizione in preparazione*.
+- **Stato ordine alla scansione etichetta**: spesso *Spedito*.
+- **Stato ordine alla consegna**: spesso *Consegnato*.
+- **Invia notifica dopo**: da quale stato parte un'email al cliente. Imposta su *Spedito* così i clienti ricevono subito il loro Track & Trace.
 
 ### Track & Trace
-- **Track & Trace nell'email** — link nelle email ordine PrestaShop. *Consigliato on.*
-- **Track & Trace nell'account** — visibile anche nell'account cliente sul webshop.
+- **Track & Trace nell'email**: link nelle email ordine PrestaShop. *Consigliato on.*
+- **Track & Trace nell'account**: visibile anche nell'account cliente sul webshop.
 
 ### Pesi predefiniti
 Rete di sicurezza per prodotti senza peso nel catalogo.
@@ -196,8 +196,8 @@ Rete di sicurezza per prodotti senza peso nel catalogo.
 | Francobollo digitale | 10 – 30 g |
 
 ### Note ordine
-- **Barcode in nota** — barcode Track & Trace automaticamente nella nota ordine. Utile per i picker in magazzino.
-- **Titolo del barcode in nota** — intestazione sopra il barcode, es. *Track & Trace*.
+- **Barcode in nota**: barcode Track & Trace automaticamente nella nota ordine. Utile per i picker in magazzino.
+- **Titolo del barcode in nota**: intestazione sopra il barcode, es. *Track & Trace*.
 
 ## 6 · Impostazioni · Etichette
 Come appaiono le etichette di spedizione e come vengono stampate.
@@ -205,47 +205,47 @@ Come appaiono le etichette di spedizione e come vengono stampate.
 ![Tab Etichette: Descrizione, Stampa subito, Richiedi posizione etichetta e Valori predefiniti.](../../platforms/images/prestashop/03-labels-tab.png)
 
 ### Descrizione sull'etichetta
-- **Descrizione** — testo libero, es. numero ordine o riferimento interno.
+- **Descrizione**: testo libero, es. numero ordine o riferimento interno.
 
 ### Comportamento di stampa
-- **Stampa subito** — etichetta direttamente al tuo gruppo stampante appena esporti una spedizione. *Consigliato on* con stampante etichette.
-- **Richiedi posizione etichetta** — prompt per formato, output e posizione per etichetta. On per flessibilità; off per velocità con formato fisso.
+- **Stampa subito**: etichetta direttamente al tuo gruppo stampante appena esporti una spedizione. *Consigliato on* con stampante etichette.
+- **Richiedi posizione etichetta**: prompt per formato, output e posizione per etichetta. On per flessibilità; off per velocità con formato fisso.
 
 ### Valori predefiniti
-- **Output etichetta** — *Apri in nuova scheda* (più veloce per manuale) o *Scarica etichetta*.
-- **Formato etichetta** — *A4 (4 per pagina)* o *A6 (stampante etichette)*.
-- **Posizione/i etichetta su A4** — selezione multipla *In alto a sinistra*/*In alto a destra*/*In basso a sinistra*/*In basso a destra* per sfruttare al massimo i fogli.
+- **Output etichetta**: *Apri in nuova scheda* (più veloce per manuale) o *Scarica etichetta*.
+- **Formato etichetta**: *A4 (4 per pagina)* o *A6 (stampante etichette)*.
+- **Posizione/i etichetta su A4**: selezione multipla *In alto a sinistra*/*In alto a destra*/*In basso a sinistra*/*In basso a destra* per sfruttare al massimo i fogli.
 
 ## 7 · Impostazioni · Dogana
-Obbligatorio per spedizioni fuori dall'UE. Sovrascrivibile per prodotto — vedi [10 · Impostazioni prodotto](#10-impostazioni-prodotto).
+Obbligatorio per spedizioni fuori dall'UE. Sovrascrivibile per prodotto. Vedi [10 · Impostazioni prodotto](#10-impostazioni-prodotto).
 
 ![Tab Dogana: Contenuto pacco, HS code, Paese di origine.](../../platforms/images/prestashop/04-douane-tab.png)
 
-- **Contenuto pacco** — *Merci* (predefinito per webshop), *Documenti*, *Regalo*, *Campione commerciale*, *Reso*.
-- **HS code** — codice doganale armonizzato. Cerca su [tarief.douane.nl](https://tarief.douane.nl). Esempi: `6109.10` (T-shirt), `9503.00` (giocattoli), `3304.99` (make-up).
-- **Paese di origine** — da dove proviene il prodotto (non dove lo conservi).
+- **Contenuto pacco**: *Merci* (predefinito per webshop), *Documenti*, *Regalo*, *Campione commerciale*, *Reso*.
+- **HS code**: codice doganale armonizzato. Cerca su [tarief.douane.nl](https://tarief.douane.nl). Esempi: `6109.10` (T-shirt), `9503.00` (giocattoli), `3304.99` (make-up).
+- **Paese di origine**: da dove proviene il prodotto (non dove lo conservi).
 
 ## 8 · Impostazioni · Checkout
-Cosa il tuo cliente vede al checkout — o piuttosto non vede.
+Cosa il tuo cliente vede al checkout, o piuttosto non vede.
 
 ![Tab Checkout: Opzioni di consegna, Tipo di prezzo, Visualizzazione predefinita, Giorni chiusi, Escludi automatici.](../../platforms/images/prestashop/05-checkout-tab.png)
 
 ### Opzioni di consegna
-- **Mostrare opzioni di consegna** — interruttore principale per il widget di checkout MyParcel. *Consigliato on.*
-- **Mostrare opzioni di consegna per backorder** — off: per prodotti non a magazzino il plugin nasconde le opzioni di consegna. On se i tempi di consegna sono certi.
-- **Tipo di prezzo** — *Incluso* (nel prezzo totale) o *Separato* (mostrato a parte). *Incluso evita sorprese.*
-- **Titolo opzioni di consegna** — intestazione sopra il blocco MyParcel. Es. *Come vuoi ricevere il tuo pacco?*
-- **Mostrare campi fiscali al checkout** — campi IVA per ordini business.
+- **Mostrare opzioni di consegna**: interruttore principale per il widget di checkout MyParcel. *Consigliato on.*
+- **Mostrare opzioni di consegna per backorder**. Off: per prodotti non a magazzino il plugin nasconde le opzioni di consegna. On se i tempi di consegna sono certi.
+- **Tipo di prezzo**: *Incluso* (nel prezzo totale) o *Separato* (mostrato a parte). *Incluso evita sorprese.*
+- **Titolo opzioni di consegna**: intestazione sopra il blocco MyParcel. Es. *Come vuoi ricevere il tuo pacco?*
+- **Mostrare campi fiscali al checkout**: campi IVA per ordini business.
 
 ::: tip Aziende e privati vedono opzioni diverse
 La differenza tra aziende e privati va oltre questi campi IVA. Dalla versione plugin 5.6.0 il checkout propone ai clienti aziendali le opzioni di consegna che il loro vettore offre davvero alle aziende, che non sempre coincidono con quelle dei privati. Il plugin lo deduce dal nome azienda nell'indirizzo di consegna. Non c'è nulla da configurare, segue il vettore. Il lato tecnico si trova nel [widget Delivery Options](/platforms/delivery-options.html#business-and-consumer-delivery-options).
 :::
-- **Giorni chiusi** — selettore date per festività. In questi giorni il checkout nasconde le opzioni di consegna.
+- **Giorni chiusi**: selettore date per festività. In questi giorni il checkout nasconde le opzioni di consegna.
 
 ### Pickup point
-- **Visualizzazione predefinita** — *Lista* (chiara) o *Mappa* (più visiva).
-- **Gli utenti possono passare tra lista e mappa** — *Consigliato on.*
-- **Escludi automatici** — nascondi automatici come opzione di consegna. On se i prodotti sono troppo grandi.
+- **Visualizzazione predefinita**: *Lista* (chiara) o *Mappa* (più visiva).
+- **Gli utenti possono passare tra lista e mappa**: *Consigliato on.*
+- **Escludi automatici**: nascondi automatici come opzione di consegna. On se i prodotti sono troppo grandi.
 
 ## 9 · Impostazioni · Vettori
 Il tab più grande. Sub-tab per ogni vettore che il tuo account MyParcel supporta: PostNL, DHL Parcel Connect, DHL Europlus, UPS Standard, UPS Express Saver, più eventualmente DHL For You / DPD / Bol Parcel Carrier a seconda del tuo contratto.
@@ -253,59 +253,59 @@ Il tab più grande. Sub-tab per ogni vettore che il tuo account MyParcel support
 ![Sub-tab vettori dentro il tab Vettori.](../../platforms/images/prestashop/07-carrier-subtabs.png)
 
 ::: tip Tutti i vettori strutturati allo stesso modo
-Illustro **PostNL** come esempio — gli altri vettori seguono esattamente la stessa struttura, con le proprie opzioni specifiche (es. DHL ha *Tracked*, Trunkrs ha *Fresh*).
+Illustro **PostNL** come esempio: gli altri vettori seguono esattamente la stessa struttura, con le proprie opzioni specifiche (es. DHL ha *Tracked*, Trunkrs ha *Fresh*).
 :::
 
-![Impostazioni PostNL complete — Standard export, Assicurazione, Opzioni di consegna, Consegna a domicilio, Pickup point.](../../platforms/images/prestashop/06-vervoerders-tab.png)
+![Impostazioni PostNL complete: Standard export, Assicurazione, Opzioni di consegna, Consegna a domicilio, Pickup point.](../../platforms/images/prestashop/06-vervoerders-tab.png)
 
 ### Impostazioni di esportazione predefinite
 Quali opzioni vengono passate per default a ogni nuova spedizione.
 
-- **Attiva controllo età (18+)** — per alcol/tabacco/coltelli.
-- **Attiva firma** — per spedizioni di valore.
-- **Attiva solo destinatario** — niente vicini.
-- **Attiva codice di ricezione** — sicurezza extra.
-- **Attiva più grande di 100 × 70 × 58 cm** — segna oversize; possibile supplemento vettore.
-- **Attiva ritorno diretto** — etichetta di reso automatica per abbigliamento/elettronica.
-- **Attiva assicurazione** — attiva l'assicurazione.
+- **Attiva controllo età (18+)**: per alcol/tabacco/coltelli.
+- **Attiva firma**: per spedizioni di valore.
+- **Attiva solo destinatario**: niente vicini.
+- **Attiva codice di ricezione**: sicurezza extra.
+- **Attiva più grande di 100 × 70 × 58 cm**: segna oversize; possibile supplemento vettore.
+- **Attiva ritorno diretto**: etichetta di reso automatica per abbigliamento/elettronica.
+- **Attiva assicurazione**: attiva l'assicurazione.
 
 ### Assicurazione
-- **Assicurare da (€)** — importo soglia.
-- **Assicurare fino a** / **(NL)** / **(EU)** / **(EU + Resto del mondo)** — massimi per regione.
-- **Assicurare per percentuale** — es. 100% del valore ordine.
+- **Assicurare da (€)**: importo soglia.
+- **Assicurare fino a** / **(NL)** / **(EU)** / **(EU + Resto del mondo)**: massimi per regione.
+- **Assicurare per percentuale**: es. 100% del valore ordine.
 
 ::: note Gli importi assicurati possono variare
 Il plugin aggiorna periodicamente i dati dei vettori, e gli importi che un vettore non offre più escono dall'elenco. Quello che vedi può quindi differire dagli importi usati come esempio in questo manuale, compresi quelli in [§4](#4-qual-il-tuo-profilo-shop).
 :::
 
 ### Impostazioni di esportazione predefinite per resi
-- **Tipo di pacco predefinito** — Pacco / Pacco piccolo / Pacco da cassetta postale / Francobollo digitale.
-- **Attiva più grande di 100 × 70 × 58 cm** — per resi oversize.
+- **Tipo di pacco predefinito**: Pacco / Pacco piccolo / Pacco da cassetta postale / Francobollo digitale.
+- **Attiva più grande di 100 × 70 × 58 cm**: per resi oversize.
 
 ### Opzioni di consegna (interruttore principale)
-- **Attiva opzioni di consegna** — senza questo toggle questo vettore non appare affatto al checkout.
+- **Attiva opzioni di consegna**: senza questo toggle questo vettore non appare affatto al checkout.
 
-::: details Opzioni per consegna a domicilio — tutti i campi
-- **Attiva consegna a domicilio** — mostra consegna a domicilio come opzione.
-- **Tipo di pacco predefinito** — di solito *Pacco*.
-- **Prezzo pacco piccolo**, **Prezzo pacco da cassetta postale**, **Prezzo francobollo digitale** — prezzi di spedizione per tipo.
-- **Attiva pacco da cassetta postale internazionale** + **Prezzo** — per pacchi da cassetta postale fuori NL/BE.
-- **Finestra giorni di consegna** — numero di giorni in avanti tra cui sceglie il cliente.
-- **Tempo di elaborazione** — giorni lavorativi che ti servono; conta nella finestra.
-- **Possibilità di spedizione** — spunta i giorni in cui spedisci effettivamente.
-- **Consegna standard** + prezzo — opzione base senza scelta di orario.
-- **Consegna mattutina** + prezzo — prima delle 12:00.
-- **Consegna serale** + prezzo — 18:00–22:00.
-- **Consegna lunedì** + prezzo — per consegna sabato.
+::: details Opzioni per consegna a domicilio: tutti i campi
+- **Attiva consegna a domicilio**: mostra consegna a domicilio come opzione.
+- **Tipo di pacco predefinito**: di solito *Pacco*.
+- **Prezzo pacco piccolo**, **Prezzo pacco da cassetta postale**, **Prezzo francobollo digitale**: prezzi di spedizione per tipo.
+- **Attiva pacco da cassetta postale internazionale** + **Prezzo**: per pacchi da cassetta postale fuori NL/BE.
+- **Finestra giorni di consegna**: numero di giorni in avanti tra cui sceglie il cliente.
+- **Tempo di elaborazione**: giorni lavorativi che ti servono; conta nella finestra.
+- **Possibilità di spedizione**: spunta i giorni in cui spedisci effettivamente.
+- **Consegna standard** + prezzo: opzione base senza scelta di orario.
+- **Consegna mattutina** + prezzo: prima delle 12:00.
+- **Consegna serale** + prezzo: 18:00–22:00.
+- **Consegna lunedì** + prezzo: per consegna sabato.
 - **Consegna sabato** + prezzo.
 - **Consegna in giornata** + prezzo, per i vettori che la offrono. Dalla 5.7.1 queste impostazioni compaiono anche per i vettori che offrono la consegna in giornata come tipo di consegna, come Trunkrs.
-- **Firma** + prezzo — firma con eventuale supplemento.
-- **Solo destinatario** + prezzo — solo destinatario con eventuale supplemento.
+- **Firma** + prezzo: firma con eventuale supplemento.
+- **Solo destinatario** + prezzo: solo destinatario con eventuale supplemento.
 :::
 
 ::: details Opzioni per pickup point
-- **Attiva pickup point** — i clienti possono scegliere un pickup point.
-- **Prezzo ritiro** — spesso più basso della consegna a domicilio.
+- **Attiva pickup point**: i clienti possono scegliere un pickup point.
+- **Prezzo ritiro**: spesso più basso della consegna a domicilio.
 :::
 
 ::: warning Non dimenticare di salvare
@@ -318,20 +318,20 @@ Apri un prodotto, vai a **Moduli** e clicca **Configura** su MyParcelNL. Qui sov
 ![Pagina prodotto: Opzioni MyParcel, Opzioni di consegna prodotto, Opzioni dogana prodotto, Opzioni export prodotto.](../../platforms/images/prestashop/08-product-myparcel.png)
 
 ### Opzioni MyParcel
-- **Tipo di pacco** — *Standard* o forza un tipo per questo prodotto.
-- **in cassetta** — quanti di questo prodotto stanno in un pacco da cassetta postale. `5` = ne stanno cinque. `-1` = usa il default. Se il cliente ne ordina più di quanti ne stanno, l'ordine va automaticamente come Pacco.
+- **Tipo di pacco**: *Standard* o forza un tipo per questo prodotto.
+- **in cassetta**: quanti di questo prodotto stanno in un pacco da cassetta postale. `5` = ne stanno cinque. `-1` = usa il default. Se il cliente ne ordina più di quanti ne stanno, l'ordine va automaticamente come Pacco.
 
 ### Opzioni di consegna prodotto
-- **Ritarda spedizione** — giorni lavorativi extra per prodotti su ordinazione / dropship / made-to-order.
-- **Disattiva opzioni di spedizione** — nasconde tutto il widget di consegna MyParcel se questo prodotto è nel carrello. Per gift card o prodotti digitali.
-- **Escludi automatici** — esclude automatici per questo prodotto.
+- **Ritarda spedizione**: giorni lavorativi extra per prodotti su ordinazione / dropship / made-to-order.
+- **Disattiva opzioni di spedizione**: nasconde tutto il widget di consegna MyParcel se questo prodotto è nel carrello. Per gift card o prodotti digitali.
+- **Escludi automatici**: esclude automatici per questo prodotto.
 
 ### Opzioni dogana prodotto
-- **Paese di origine** — sovrascrive [§7](#7-impostazioni-dogana). Es. globale *Paesi Bassi*, prodotto dropship *Cina*.
-- **Codice dogana** — HS code specifico del prodotto.
+- **Paese di origine**: sovrascrive [§7](#7-impostazioni-dogana). Es. globale *Paesi Bassi*, prodotto dropship *Cina*.
+- **Codice dogana**: HS code specifico del prodotto.
 
 ### Opzioni export prodotto
-- **Attiva controllo età (18+)**, **Attiva assicurazione**, **Attiva più grande di 100 × 70 × 58 cm**, **Attiva solo destinatario**, **Attiva firma**, **Attiva ritorno diretto** — forza per prodotto.
+- **Attiva controllo età (18+)**, **Attiva assicurazione**, **Attiva più grande di 100 × 70 × 58 cm**, **Attiva solo destinatario**, **Attiva firma**, **Attiva ritorno diretto**: forza per prodotto.
 
 ::: tip Lucchetto dietro un'opzione?
 Quell'opzione è disponibile solo presso vettori o contratti specifici. Clicca il lucchetto per la spiegazione.
@@ -347,13 +347,13 @@ Apri un singolo ordine. Sotto i dati standard PrestaShop vedi un blocco **MyParc
 - Pulsanti: *Esporta* · *Stampa etichetta* · *Visualizza Track & Trace*
 
 ::: warning Salva le modifiche prima di stampare
-Modifichi un campo? **Salva** prima di stampare un'etichetta — altrimenti MyParcel elabora i vecchi valori.
+Modifichi un campo? **Salva** prima di stampare un'etichetta, altrimenti MyParcel elabora i vecchi valori.
 :::
 
 ## 12 · L'esperienza di checkout
-Il widget di checkout MyParcel appare dopo aver compilato l'indirizzo di consegna, appena almeno un vettore è attivato e i vettori PrestaShop sono collegati alla zona di spedizione corretta — vedi [diagnostica](#14-qualcosa-non-funziona-diagnostica).
+Il widget di checkout MyParcel appare dopo aver compilato l'indirizzo di consegna, appena almeno un vettore è attivato e i vettori PrestaShop sono collegati alla zona di spedizione corretta. Vedi [diagnostica](#14-qualcosa-non-funziona-diagnostica).
 
-Sopra il widget il cliente sceglie un vettore + servizio (es. *PostNL — Consegna super veloce — €9,95 IVA inclusa*). Sotto si apre **Consegna a casa o al lavoro** con:
+Sopra il widget il cliente sceglie un vettore + servizio (es. *PostNL, Consegna super veloce, €9,95 IVA inclusa*). Sotto si apre **Consegna a casa o al lavoro** con:
 
 - **Carosello di date** con i prossimi giorni lavorativi.
 - **Fascia oraria** per la consegna (es. *10:45–13:15*).
@@ -366,15 +366,15 @@ Clienti aziendali e privati non vedono necessariamente le stesse opzioni di cons
 ## 13 · Uso quotidiano
 
 ::: warning Usi un canale di vendita?
-Se hai collegato anche un [canale di vendita](#canale-di-vendita-tramite-il-backoffice-myparcel), crea la spedizione e stampa l'etichetta dal backoffice MyParcel, non da qui — così eviti ordini duplicati nel backoffice MyParcel. Il resto di questa pagina funziona come descritto.
+Se hai collegato anche un [canale di vendita](#canale-di-vendita-tramite-il-backoffice-myparcel), crea la spedizione e stampa l'etichetta dal backoffice MyParcel, non da qui. Così eviti ordini duplicati nel backoffice MyParcel. Il resto di questa pagina funziona come descritto.
 :::
 
-### Workflow 1 — per ordine
+### Workflow 1: per ordine
 1. Apri la pagina dettaglio ordine.
 2. Controlla tipo di pacco e opzioni di consegna nel blocco MyParcel.
 3. Clicca **Esporta** (concept) → controlla in MyParcel → clicca **Stampa etichetta**.
 
-### Workflow 2 — bulk (10+ ordini/giorno)
+### Workflow 2: bulk (10+ ordini/giorno)
 1. Su **Ordini** filtri un periodo (es. *Pagati oggi*).
 2. Per ordine tramite il menu azione scegli **Esporta**.
 3. In MyParcel elabora le spedizioni (manualmente o con *Elaborazione automatica* da [§5](#5-impostazioni-ordini)).
@@ -388,19 +388,19 @@ Con *Elaborazione automatica* su *In elaborazione* e *Spedizioni concept* off, o
 - **Attiva ritorno diretto** ([§9](#9-impostazioni-vettori)) o l'[override prodotto](#10-impostazioni-prodotto) → etichetta di reso automatica con ogni spedizione.
 - **Invia email di reso** ([§5](#5-impostazioni-ordini)) → il cliente può richiedere autonomamente un'etichetta di reso.
 
-## 14 · Qualcosa non funziona — diagnostica
-Qualcosa non funziona come previsto? Scorri questa tabella dall'alto in basso — tre problemi su quattro si risolvono entro 5 minuti.
+## 14 · Qualcosa non funziona: diagnostica
+Qualcosa non funziona come previsto? Scorri questa tabella dall'alto in basso: tre problemi su quattro si risolvono entro 5 minuti.
 
 | Sintomo | Cosa controllare |
 | --- | --- |
 | **Checkout: "Nessun vettore disponibile"** | Vettori PrestaShop collegati a una zona di spedizione con prezzi per l'indirizzo di consegna? Vai a *Spedizione → Vettori*. Solo dopo appaiono le opzioni di consegna MyParcel. |
 | **Nessuna opzione di consegna visibile** | (1) [§8](#8-impostazioni-checkout): *Mostrare opzioni di consegna* on? (2) [§9](#9-impostazioni-vettori): almeno un vettore con *Attiva opzioni di consegna* on? |
-| **Installazione fallita — *"Pdk instance must be set to use facades"*** | Rimuovi completamente i moduli MyParcel più vecchi (incl. tabelle database `ps_myparcelnl_*`) e installa di nuovo 5.7.x. |
+| **Installazione fallita: *"Pdk instance must be set to use facades"*** | Rimuovi completamente i moduli MyParcel più vecchi (incl. tabelle database `ps_myparcelnl_*`) e installa di nuovo 5.7.x. |
 | **Errore provincia: *"state must be at most 2 characters"*** | Il pacchetto lingua NL crea province come `NL-LI` (4 caratteri). Modifica in *Internazionale → Località → Province* i codici iso a 2 caratteri. Vedi [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **"Invalid API key" mentre il collegamento funziona** | Chiudi completamente la config plugin e riapri. Se persiste: ricopia la key da *backoffice.myparcel.nl → Impostazioni shop → Integrazione*. |
 | **Le impostazioni PostNL non vengono salvate** | Clicca **Salva** in fondo a ogni tab prima di cambiare. Altrimenti controlla *Opzioni di debug* per messaggi di errore. |
 | **Le etichette non vengono create** | (1) [§5](#5-impostazioni-ordini): *Spedizioni concept* off per creazione diretta. (2) [§6](#6-impostazioni-etichette): gruppo stampante corretto? (3) [§9](#9-impostazioni-vettori): vettore selezionato e *Attiva opzioni di consegna* on? |
-| **Track & Trace non nell'email** | (1) *Track & Trace nell'email* on ([§5](#5-impostazioni-ordini)). (2) *Invia notifica dopo* sullo stato giusto (spesso *Spedito*). (3) *Condividi informazioni cliente* on — altrimenti MyParcel non riceve l'indirizzo email. |
+| **Track & Trace non nell'email** | (1) *Track & Trace nell'email* on ([§5](#5-impostazioni-ordini)). (2) *Invia notifica dopo* sullo stato giusto (spesso *Spedito*). (3) *Condividi informazioni cliente* on, altrimenti MyParcel non riceve l'indirizzo email. |
 | **Tutto diventa Pacco, mai Cassetta postale** | (1) [§10](#10-impostazioni-prodotto): *Tipo di pacco* su *Pacco da cassetta postale* + *in cassetta* su numero realistico. (2) [§5](#5-impostazioni-ordini): *Peso predefinito pacco da cassetta postale* non troppo alto (altrimenti MyParcel torna al pacco). |
 
 ## 15 · FAQ
@@ -417,8 +417,8 @@ L'indirizzo mittente proviene dal tuo backoffice MyParcel (*Impostazioni shop �
 ### Quali stati per "Elaborazione automatica"?
 *In elaborazione* o *In attesa di pagamento* funzionano per la maggior parte degli shop. Inizia su *Nessuno* durante il setup; attivalo quando il workflow gira stabile.
 
-### Il cliente sceglie un pickup point — come lo vedo sull'etichetta?
-Il pickup point appare automaticamente come indirizzo di consegna sull'etichetta MyParcel e nel blocco MyParcel sulla pagina dettaglio ordine ([§11](#11-la-pagina-dettaglio-ordine)). In alcuni temi PrestaShop il pickup point non torna sulla fattura PDF — issue del tema, non bug del plugin ([issue #390](https://github.com/myparcelnl/prestashop/issues/390)).
+### Il cliente sceglie un pickup point: come lo vedo sull'etichetta?
+Il pickup point appare automaticamente come indirizzo di consegna sull'etichetta MyParcel e nel blocco MyParcel sulla pagina dettaglio ordine ([§11](#11-la-pagina-dettaglio-ordine)). In alcuni temi PrestaShop il pickup point non torna sulla fattura PDF: issue del tema, non bug del plugin ([issue #390](https://github.com/myparcelnl/prestashop/issues/390)).
 
 ### Update plugin fatto e ora qualcosa non funziona più
 Riapri il plugin, controlla il badge di stato e segui [§14](#14-qualcosa-non-funziona-diagnostica). Gli issue di update si risolvono spesso facendo logout/login o svuotando la cache browser.
@@ -427,9 +427,9 @@ Riapri il plugin, controlla il badge di stato e segui [§14](#14-qualcosa-non-fu
 No. Il plugin è gratuito. Paghi solo per le spedizioni alla tua tariffa MyParcel.
 
 ## Risorse e supporto
-- [github.com/myparcelnl/prestashop ↗](https://github.com/myparcelnl/prestashop) — codice sorgente, release, issue.
-- [github.com/myparcelnl/prestashop/releases ↗](https://github.com/myparcelnl/prestashop/releases) — changelog e download ZIP.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, fatturazione.
-- [Contatta il supporto MyParcel](../../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [github.com/myparcelnl/prestashop ↗](https://github.com/myparcelnl/prestashop): codice sorgente, release, issue.
+- [github.com/myparcelnl/prestashop/releases ↗](https://github.com/myparcelnl/prestashop/releases): changelog e download ZIP.
+- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl): account, API key, fatturazione.
+- [Contatta il supporto MyParcel](../../contact.md): **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
 Questo manuale è scritto per la versione plugin **5.7.x**. In versioni più recenti i nomi o l'ordine dei campi possono variare leggermente; la struttura principale del plugin resta uguale.

@@ -1,13 +1,13 @@
 ---
 title: Lightspeed
-description: "Da zero a un pacco spedito su Lightspeed — aggiungi l'app, collega il tuo account MyParcel con una API key, attiva i tuoi corrieri e collega i tuoi metodi di spedizione così le opzioni di consegna compaiono al checkout. Con avvio rapido, riferimento impostazioni, checkout, flusso quotidiano e una tabella diagnostica."
+description: "Da zero a un pacco spedito su Lightspeed: aggiungi l'app, collega il tuo account MyParcel con una API key, attiva i tuoi corrieri e collega i tuoi metodi di spedizione così le opzioni di consegna compaiono al checkout. Con avvio rapido, riferimento impostazioni, checkout, flusso quotidiano e una tabella diagnostica."
 ---
 
 ::: tip In breve
-L'app MyParcel collega il tuo negozio Lightspeed a MyParcel. Attivi i tuoi corrieri, imposti le opzioni di consegna che vuoi offrire e le colleghi ai tuoi metodi di spedizione Lightspeed. Le opzioni di consegna compaiono poi al checkout e i tuoi ordini sono pronti per essere spediti tramite MyParcel. Nessun codice — tutto dalla pagina delle impostazioni dell'app.
+L'app MyParcel collega il tuo negozio Lightspeed a MyParcel. Attivi i tuoi corrieri, imposti le opzioni di consegna che vuoi offrire e le colleghi ai tuoi metodi di spedizione Lightspeed. Le opzioni di consegna compaiono poi al checkout e i tuoi ordini sono pronti per essere spediti tramite MyParcel. Nessun codice: tutto dalla pagina delle impostazioni dell'app.
 :::
 
-## Avvio rapido — il tuo primo pacco in 15 minuti
+## Avvio rapido: il tuo primo pacco in 15 minuti
 Quanto basta per spedire oggi il tuo primo ordine reale. Per una configurazione più approfondita, vedi [Stai cercando…](#stai-cercando) qui sotto.
 
 1. **Account.** Non hai ancora un account MyParcel? Creane uno su [myparcel.com/register](https://www.myparcel.com/register).
@@ -35,15 +35,15 @@ Quanto basta per spedire oggi il tuo primo ordine reale. Per una configurazione 
 | Un'impostazione diversa per prodotto | [8 · Impostazioni prodotto](#8-impostazioni-prodotto) |
 | Cosa vede il cliente al checkout | [9 · L'esperienza di checkout](#9-lesperienza-di-checkout) |
 | Gestire gli ordini ogni giorno | [10 · Uso quotidiano](#10-uso-quotidiano) |
-| Qualcosa non funziona | [11 · Qualcosa non funziona — diagnostica](#11-qualcosa-non-funziona-diagnostica) |
+| Qualcosa non funziona | [11 · Qualcosa non funziona: diagnostica](#11-qualcosa-non-funziona-diagnostica) |
 | Risposta a una domanda frequente | [12 · FAQ](#12-faq) |
 
 ## 1 · Preparare il tuo account MyParcel
 Prima di iniziare in Lightspeed, sistema tre cose nel tuo backoffice MyParcel:
 
-1. **Indirizzo di fatturazione e di reso** — *Impostazioni negozio → Generale*. Compare su ogni etichetta.
-2. **Attivare i corrieri** — *Impostazioni negozio → Corrieri*. Solo i corrieri abilitati compaiono poi nell'app.
-3. **Generare una API key** — *Impostazioni negozio → Integrazioni*.
+1. **Indirizzo di fatturazione e di reso**: *Impostazioni negozio → Generale*. Compare su ogni etichetta.
+2. **Attivare i corrieri**: *Impostazioni negozio → Corrieri*. Solo i corrieri abilitati compaiono poi nell'app.
+3. **Generare una API key**: *Impostazioni negozio → Integrazioni*.
 
 Ti servono anche i tuoi **metodi di spedizione** impostati in Lightspeed. L'app si collega a questi metodi tramite il nome (vedi [§7](#7-impostazioni-corrieri)).
 
@@ -69,9 +69,9 @@ Oltre all'app dell'App Store, puoi collegare Lightspeed direttamente dal tuo bac
 3. Inserisci un **Name** (Nome) che ti aiuti a riconoscere il canale (es. *Il mio negozio Lightspeed*).
 4. In **Type of sales channel** (Tipo di canale di vendita) scegli **Lightspeed**. (Shopify, WooCommerce e PrestaShop sono le altre opzioni.)
 5. In **Webshop URL** scegli la regione che corrisponde al tuo negozio Lightspeed:
-   - **https://api.webshopapp.com/en/ (EU)** — per i negozi Lightspeed (eCom) europei.
-   - **https://api.shoplightspeed.com/en/ (US)** — per i negozi Lightspeed statunitensi.
-6. Clicca **Save** (Salva). Il canale viene creato e compare con l'etichetta **Missing data** (Dati mancanti) — significa solo che manca ancora il passaggio di autenticazione.
+   - **https://api.webshopapp.com/en/ (EU)**: per i negozi Lightspeed (eCom) europei.
+   - **https://api.shoplightspeed.com/en/ (US)**: per i negozi Lightspeed statunitensi.
+6. Clicca **Save** (Salva). Il canale viene creato e compare con l'etichetta **Missing data** (Dati mancanti). Significa solo che manca ancora il passaggio di autenticazione.
 
 ![Aggiungere un canale di vendita Lightspeed: scegli il tipo e la regione Webshop URL corrispondente, poi clicca Save.](../../platforms/images/lightspeed/backoffice-add-channel.png)
 
@@ -87,7 +87,7 @@ Un canale di vendita ha bisogno del permesso di leggere i tuoi ordini Lightspeed
 Una volta connesso, l'etichetta **Missing data** scompare, il canale mostra **Connected** (Connesso) e MyParcel inizia a sincronizzare i tuoi ordini Lightspeed.
 
 ::: tip Dove trovo la key e la secret?
-Generi la Consumer key e la secret nel tuo **back office Lightspeed**, nelle impostazioni API/sviluppatore. Se non le trovi, chiedi al supporto Lightspeed di attivare l'accesso API per il tuo account. Trattale come una password — non condividerle.
+Generi la Consumer key e la secret nel tuo **back office Lightspeed**, nelle impostazioni API/sviluppatore. Se non le trovi, chiedi al supporto Lightspeed di attivare l'accesso API per il tuo account. Trattale come una password: non condividerle.
 :::
 
 ::: warning La connessione non riesce?
@@ -97,7 +97,7 @@ Cause più comuni: uno spazio extra incollato con la key o la secret · la regio
 ## 3 · Collegare l'app (API key)
 Le impostazioni si trovano su un'unica pagina. In alto trovi l'ID del tuo negozio e il blocco **Chiave API MyParcel**.
 
-![MyParcel per Lightspeed — Chiave API e Impostazioni generali. Il campo della chiave API collega il tuo negozio a MyParcel.](../../platforms/images/lightspeed/api-general.png) La chiave API è nascosta in questa schermata.
+![MyParcel per Lightspeed: Chiave API e Impostazioni generali. Il campo della chiave API collega il tuo negozio a MyParcel.](../../platforms/images/lightspeed/api-general.png) La chiave API è nascosta in questa schermata.
 
 1. Incolla la chiave dal tuo backoffice MyParcel nel campo **Chiave API MyParcel**.
 2. Clicca **Convalida**.
@@ -112,50 +112,50 @@ Il blocco **Impostazioni generali** imposta la lingua dell'app e il momento in c
 
 ![Impostazioni generali: lingua e il momento in cui un ordine viene inoltrato a MyParcel.](../../platforms/images/lightspeed/api-general.png)
 
-- **Lingua** — La lingua dell'app. Scegli tra *English*, *Italiano*, *Nederlands* o *Français*. Impostala sulla lingua in cui vuoi lavorare.
-- **Momento di inoltro** — Quando un ordine viene inviato a MyParcel. Scegli *Quando la spedizione viene creata con stato "Spedito"* o *...con stato "Non spedito"*. Scegli il punto del tuo processo in cui deve essere creata l'etichetta.
-- **Salva impostazioni** — Clicca per memorizzare le tue scelte.
+- **Lingua**: La lingua dell'app. Scegli tra *English*, *Italiano*, *Nederlands* o *Français*. Impostala sulla lingua in cui vuoi lavorare.
+- **Momento di inoltro**: Quando un ordine viene inviato a MyParcel. Scegli *Quando la spedizione viene creata con stato "Spedito"* o *...con stato "Non spedito"*. Scegli il punto del tuo processo in cui deve essere creata l'etichetta.
+- **Salva impostazioni**: Clicca per memorizzare le tue scelte.
 
 ## 5 · Impostazioni · Modalità di sincronizzazione
 In **Modalità di sincronizzazione** scegli come si muovono gli ordini tra Lightspeed e MyParcel.
 
 ![Modalità di sincronizzazione (Push / Pull) e il pulsante Aggiorna capacità.](../../platforms/images/lightspeed/sync-capacity.png)
 
-- **Push** — L'app elabora i tuoi ordini e invia le spedizioni a MyParcel automaticamente. Scegli questa se vuoi che l'app faccia il lavoro per te.
-- **Pull** — MyParcel recupera gli ordini direttamente da Lightspeed. L'app fornisce allora solo l'integrazione del checkout. Scegli questa se gestisci l'importazione degli ordini da MyParcel.
+- **Push**: L'app elabora i tuoi ordini e invia le spedizioni a MyParcel automaticamente. Scegli questa se vuoi che l'app faccia il lavoro per te.
+- **Pull**: MyParcel recupera gli ordini direttamente da Lightspeed. L'app fornisce allora solo l'integrazione del checkout. Scegli questa se gestisci l'importazione degli ordini da MyParcel.
 
 Clicca **Salva impostazioni** dopo la tua scelta.
 
 ## 6 · Impostazioni · Aggiornare la capacità
-- **Aggiorna capacità** — Recupera gli ultimi corrieri e opzioni di consegna da MyParcel. Clicca qui ogni volta che hai appena modificato qualcosa nel tuo account MyParcel e non lo vedi ancora nell'app. La riga **Ultimo aggiornamento** mostra quando è avvenuto l'ultima volta.
+- **Aggiorna capacità**: Recupera gli ultimi corrieri e opzioni di consegna da MyParcel. Clicca qui ogni volta che hai appena modificato qualcosa nel tuo account MyParcel e non lo vedi ancora nell'app. La riga **Ultimo aggiornamento** mostra quando è avvenuto l'ultima volta.
 
 ## 7 · Impostazioni · Corrieri
-Sotto le impostazioni generali, ogni corriere ha il proprio blocco. Usa l'interruttore in alto in un blocco per attivare o disattivare il corriere. Quali corrieri compaiono dipende da ciò che è abilitato nel tuo account MyParcel — nel negozio di esempio sono **InPost** e **Poste Italiane**.
+Sotto le impostazioni generali, ogni corriere ha il proprio blocco. Usa l'interruttore in alto in un blocco per attivare o disattivare il corriere. Quali corrieri compaiono dipende da ciò che è abilitato nel tuo account MyParcel: nel negozio di esempio sono **InPost** e **Poste Italiane**.
 
 Per ogni corriere imposti le stesse cose: quali tipi di consegna offri, il nome e il prezzo che vede il cliente, l'orario limite, i giorni di consegna e il collegamento ai tuoi metodi di spedizione Lightspeed.
 
 ### InPost
 ![Impostazioni InPost: tipi di consegna, orario limite, giorni di consegna e mappatura titoli.](../../platforms/images/lightspeed/inpost.png)
 
-- **Tipi di consegna** — I modi in cui questo corriere consegna. Per ogni tipo lo attivi o disattivi, inserisci il nome che vede il cliente e imposti il prezzo.
-  - **Consegna standard** — Consegna a domicilio in un normale giorno lavorativo (nell'esempio € 8).
-  - **Punto di ritiro** — Il cliente ritira il pacco in un punto di ritiro vicino (nell'esempio € 5).
-- **Orario limite** — L'orario entro cui un ordine viene ancora elaborato in giornata (nell'esempio 18:00). Gli ordini successivi passano al giorno di consegna seguente.
-- **Giorni di consegna** — Seleziona i giorni in cui questo corriere consegna (nell'esempio lun, mar, mer, ven).
-- **Mappatura titoli metodo di spedizione** — Collega i tuoi metodi di spedizione Lightspeed a questo corriere. Aggiungi un pattern che compare nel nome del tuo metodo di spedizione Lightspeed, così l'app sa quale metodo appartiene a quale corriere. Digita un pattern e clicca **Aggiungi**.
-- **Salva impostazioni** — Memorizza le modifiche per questo corriere.
+- **Tipi di consegna**: I modi in cui questo corriere consegna. Per ogni tipo lo attivi o disattivi, inserisci il nome che vede il cliente e imposti il prezzo.
+  - **Consegna standard**: Consegna a domicilio in un normale giorno lavorativo (nell'esempio € 8).
+  - **Punto di ritiro**: Il cliente ritira il pacco in un punto di ritiro vicino (nell'esempio € 5).
+- **Orario limite**: L'orario entro cui un ordine viene ancora elaborato in giornata (nell'esempio 18:00). Gli ordini successivi passano al giorno di consegna seguente.
+- **Giorni di consegna**: Seleziona i giorni in cui questo corriere consegna (nell'esempio lun, mar, mer, ven).
+- **Mappatura titoli metodo di spedizione**: Collega i tuoi metodi di spedizione Lightspeed a questo corriere. Aggiungi un pattern che compare nel nome del tuo metodo di spedizione Lightspeed, così l'app sa quale metodo appartiene a quale corriere. Digita un pattern e clicca **Aggiungi**.
+- **Salva impostazioni**: Memorizza le modifiche per questo corriere.
 
 ### Poste Italiane
 ![Impostazioni Poste Italiane: tipi di consegna, opzioni extra, orario limite, giorni di consegna e mappatura titoli.](../../platforms/images/lightspeed/poste-italiane.png)
 
 Poste Italiane ha lo stesso layout di InPost, con un blocco in più: **Opzioni**.
 
-- **Tipi di consegna** — *Consegna standard* (nell'esempio € 4,00) e *Punto di ritiro* (nell'esempio € 4).
-- **Opzioni** — Possibilità extra offerte da questo corriere.
-  - **Raccolta programmata** — Il corriere ritira i tuoi pacchi a un orario concordato. Attivala se fai ritirare i pacchi invece di consegnarli tu stesso.
-  - **Consegna prioritaria** — Una consegna più rapida. Attivala per offrire ai tuoi clienti un'opzione prioritaria.
-- **Orario limite** e **Giorni di consegna** — Come per InPost.
-- **Mappatura titoli metodo di spedizione** — Aggiungi uno o più pattern (es. `poste`, `poste italiane`) che corrispondono ai nomi dei tuoi metodi di spedizione Lightspeed per questo corriere.
+- **Tipi di consegna**: *Consegna standard* (nell'esempio € 4,00) e *Punto di ritiro* (nell'esempio € 4).
+- **Opzioni**: Possibilità extra offerte da questo corriere.
+  - **Raccolta programmata**: Il corriere ritira i tuoi pacchi a un orario concordato. Attivala se fai ritirare i pacchi invece di consegnarli tu stesso.
+  - **Consegna prioritaria**: Una consegna più rapida. Attivala per offrire ai tuoi clienti un'opzione prioritaria.
+- **Orario limite** e **Giorni di consegna**: Come per InPost.
+- **Mappatura titoli metodo di spedizione**: Aggiungi uno o più pattern (es. `poste`, `poste italiane`) che corrispondono ai nomi dei tuoi metodi di spedizione Lightspeed per questo corriere.
 
 ::: warning Non dimenticare di salvare
 Ogni blocco corriere ha il proprio pulsante **Salva impostazioni**. Salva il blocco che hai appena modificato.
@@ -167,27 +167,27 @@ L'app MyParcel **non** aggiunge campi alla pagina prodotto di Lightspeed. Tutto 
 ## 9 · L'esperienza di checkout
 Cosa vede il tuo cliente una volta inserito l'indirizzo di consegna. Le opzioni dipendono dai corrieri e dai tipi di consegna che hai attivato in [§7](#7-impostazioni-corrieri). Il nome e il prezzo che vede il cliente sono quelli che hai impostato per ogni tipo di consegna.
 
-<!-- screenshot: ../../platforms/images/lightspeed/checkout-delivery.png — aggiungi una schermata del checkout dopo aver effettuato un ordine di prova nello storefront -->
+<!-- screenshot: ../../platforms/images/lightspeed/checkout-delivery.png: aggiungi una schermata del checkout dopo aver effettuato un ordine di prova nello storefront -->
 
 In base alle impostazioni di esempio, un cliente può incontrare:
 
-- **Consegna standard** (*Consegna standard*) — La scelta predefinita. Il pacco viene consegnato all'indirizzo del cliente in un normale giorno di consegna.
-- **Punto di ritiro** (*Punto di ritiro*) — Il cliente ritira il pacco in un punto di ritiro vicino invece di riceverlo a casa.
+- **Consegna standard** (*Consegna standard*): La scelta predefinita. Il pacco viene consegnato all'indirizzo del cliente in un normale giorno di consegna.
+- **Punto di ritiro** (*Punto di ritiro*): Il cliente ritira il pacco in un punto di ritiro vicino invece di riceverlo a casa.
 
-*I prezzi (come € 8 o € 4) sono esempi — dipendono dalle tue impostazioni e dal tuo contratto con il corriere.*
+*I prezzi (come € 8 o € 4) sono esempi: dipendono dalle tue impostazioni e dal tuo contratto con il corriere.*
 
 ## 10 · Uso quotidiano
 Come gestisci gli ordini dipende dalla modalità di sincronizzazione scelta in [§5](#5-impostazioni-modalit-di-sincronizzazione):
 
-- **Push** — Gli ordini vengono inviati a MyParcel automaticamente al momento impostato in **Momento di inoltro** ([§4](#4-impostazioni-generale)). Crei poi le etichette e spedisci dal tuo backoffice MyParcel.
-- **Pull** — MyParcel recupera gli ordini da Lightspeed da solo. Lavori interamente dal tuo backoffice MyParcel per creare etichette e spedire.
+- **Push**: Gli ordini vengono inviati a MyParcel automaticamente al momento impostato in **Momento di inoltro** ([§4](#4-impostazioni-generale)). Crei poi le etichette e spedisci dal tuo backoffice MyParcel.
+- **Pull**: MyParcel recupera gli ordini da Lightspeed da solo. Lavori interamente dal tuo backoffice MyParcel per creare etichette e spedire.
 
 ::: tip Quando ti viene addebitato
 Ti viene addebitato solo quando una spedizione viene effettivamente consegnata al corriere.
 :::
 
-## 11 · Qualcosa non funziona — diagnostica
-Scorri questa tabella dall'alto in basso — la maggior parte dei problemi si risolve in 5 minuti.
+## 11 · Qualcosa non funziona: diagnostica
+Scorri questa tabella dall'alto in basso: la maggior parte dei problemi si risolve in 5 minuti.
 
 | Sintomo | Cosa controllare |
 | --- | --- |
@@ -206,7 +206,7 @@ No. Paghi solo le spedizioni tramite MyParcel.
 Nel tuo backoffice MyParcel sotto *Impostazioni negozio → Integrazioni*.
 
 ### Quali corrieri posso usare?
-I corrieri abilitati nel tuo account MyParcel — per esempio InPost e Poste Italiane in Italia.
+I corrieri abilitati nel tuo account MyParcel, per esempio InPost e Poste Italiane in Italia.
 
 ### Qual è la differenza tra Push e Pull?
 In **Push** l'app invia i tuoi ordini a MyParcel automaticamente. In **Pull** MyParcel recupera gli ordini da solo e l'app fornisce solo le opzioni di consegna al checkout. Vedi [§5](#5-impostazioni-modalit-di-sincronizzazione).
@@ -218,4 +218,4 @@ Assicurati che il corriere sia attivo con un tipo di consegna abilitato e che la
 Si imposta nel tuo backoffice MyParcel (*Impostazioni negozio → Generale*), non nell'app. Le modifiche si applicano subito.
 
 ## Risorse e supporto
-- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, fatturazione.
+- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com): account, API key, fatturazione.

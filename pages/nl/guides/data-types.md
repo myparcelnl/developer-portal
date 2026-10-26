@@ -1,6 +1,6 @@
 ---
 title: Datatypes
-description: "Veelgebruikte types, enums en conventies in de Shipment API — strings, bedragen, datums, landen, vervoerders."
+description: "Veelgebruikte types, enums en conventies in de Shipment API: strings, bedragen, datums, landen, vervoerders."
 ---
 
 ## Identifiers
@@ -25,13 +25,13 @@ Alle timestamps zijn RFC 3339 in UTC met een sluitende `Z`.
 - Talen: ISO 639-1 (`nl`, `en`, `de`, `fr`, …).
 
 ## Carrier-codes
-- `postnl` — PostNL
-- `dhl` — DHL Parcel
-- `dhlforyou` — DHL For You
-- `dpd` — DPD
-- `ups` — UPS
-- `bpost` — bpost
-- `instabox` — Instabox
+- `postnl`: PostNL
+- `dhl`: DHL Parcel
+- `dhlforyou`: DHL For You
+- `dpd`: DPD
+- `ups`: UPS
+- `bpost`: bpost
+- `instabox`: Instabox
 
 ## Errorformaat
 Elke 4xx/5xx-response heeft dezelfde vorm, zodat je errors uniform kunt afhandelen.

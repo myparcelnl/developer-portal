@@ -20,7 +20,7 @@ There are four steps to get the delivery options running in your checkout: insta
 
 ### Step 1: Install the package
 
-Choose either the CDN (recommended for most setups — minor and patch updates with bugfixes are included automatically) or your package manager.
+Choose either the CDN (recommended for most setups: minor and patch updates with bugfixes are included automatically) or your package manager.
 
 **CDN, with Vue 3 from the CDN:**
 
@@ -174,7 +174,7 @@ If the widget hits an API exception (for example an unparseable street), it disp
 
 ## Configuration
 
-Almost all settings can be set globally or per carrier. If you set a setting globally, it will be used for all carriers unless you override it for a specific carrier. How you should pass the configuration to the delivery options depends on whether you're using the Vue component or plain JavaScript — see [step 3 of the Quickstart](#step-3-mount-the-widget) for both shapes.
+Almost all settings can be set globally or per carrier. If you set a setting globally, it will be used for all carriers unless you override it for a specific carrier. How you should pass the configuration to the delivery options depends on whether you're using the Vue component or plain JavaScript. See [step 3 of the Quickstart](#step-3-mount-the-widget) for both shapes.
 
 ::: tip
 For the most comprehensive information, you can check out our [Sandbox]. Here you can see (and try) all the possible configuration options and see the result in real-time.
@@ -474,7 +474,7 @@ The widget communicates with your page through three custom events dispatched on
 
 ### `myparcel_update_delivery_options` (incoming)
 
-Dispatch this to (re)render the widget with a new configuration. The plain-JavaScript snippet in [step 3](#step-3-mount-the-widget) uses it for the initial mount. Vue 3 users don't need to dispatch it — the component picks up changes to its `configuration` prop automatically.
+Dispatch this to (re)render the widget with a new configuration. The plain-JavaScript snippet in [step 3](#step-3-mount-the-widget) uses it for the initial mount. Vue 3 users don't need to dispatch it. The component picks up changes to its `configuration` prop automatically.
 
 ### `myparcel_updated_delivery_options` (outgoing)
 
@@ -525,13 +525,13 @@ v7 removes the statically embedded platform configurations (MyParcel NL / SendMy
 - New `compactView` config option (since v7.1) to render carriers as a collapsible compact list.
 - New `popUpMap` config option (since v7.3) to show pickup locations in a modal instead of inline.
 - New `excludeParcelLockers` config option to hide locker-type pickup locations.
-- New `apiKey` config option for local development (development only — logs a warning).
+- New `apiKey` config option for local development (development only, logs a warning).
 
 #### Breaking changes
 
 - `proxyCapabilities` is required. Without it the widget cannot determine which carriers or options to show.
 - The `allowDeliveryOptions` carrier setting was removed. To disable home delivery for a carrier, set every `allow*Delivery` key on that carrier to `false`. To disable a carrier entirely, also set `allowPickupLocations` to `false` (or omit the carrier from `carrierSettings`).
-- `showDeliveryDate` was removed as a config key. The date selector is now derived automatically: it shows when the package type supports delivery moments and `deliveryDaysWindow` is greater than `1`. To hide the date selector, set `deliveryDaysWindow: 1` — each carrier will then expose a single "standard delivery" option without a date picker.
+- `showDeliveryDate` was removed as a config key. The date selector is now derived automatically: it shows when the package type supports delivery moments and `deliveryDaysWindow` is greater than `1`. To hide the date selector, set `deliveryDaysWindow: 1`: each carrier will then expose a single "standard delivery" option without a date picker.
 - `dropOffDays` no longer accepts a plain string (`"1,2,3"` / `"1;2;3"`); it must be an array of weekday numbers and/or `DropOffEntry` objects.
 - API errors no longer prevent carriers from appearing. In v6, an unparseable street or missing postcode could hide all carriers; in v7 anything offered by capabilities is shown.
 - The `DeprecatedConfigOptions` group is no longer accepted: `allowShowDeliveryDate`, `fridayCutoffTime` and `saturdayCutoffTime` are silently ignored. Remove them from your config.
@@ -540,9 +540,9 @@ v7 removes the statically embedded platform configurations (MyParcel NL / SendMy
 
 The following were removed from `@myparcel/delivery-options`:
 
-- `PlatformConfiguration` type — no direct replacement; the capabilities response drives platform behaviour.
-- `PlatformName` enum — not replaced. `platform` is still a required config field; pass the platform string that matches your API key.
-- `usePlatform()`, `useCurrentPlatform()`, `getDefaultConfigForPlatform()` — no direct replacement.
+- `PlatformConfiguration` type: no direct replacement; the capabilities response drives platform behaviour.
+- `PlatformName` enum: not replaced. `platform` is still a required config field; pass the platform string that matches your API key.
+- `usePlatform()`, `useCurrentPlatform()`, `getDefaultConfigForPlatform()`: no direct replacement.
 
 #### Notable internal changes
 

@@ -22,7 +22,7 @@ Add an order note. Only possible if the order has `status=OPEN` and the maximum 
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /add-note**
+**Request: POST /add-note**
 
 ::: code-group
 ```bash [cURL]
@@ -169,7 +169,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -190,7 +190,7 @@ Assign orders to an user. Only possible if the order has `status=OPEN`.
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /assign-to-user**
+**Request: POST /assign-to-user**
 
 ::: code-group
 ```bash [cURL]
@@ -337,7 +337,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -358,7 +358,7 @@ Cancel orders. Only possible if the order has `status=OPEN`.
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /cancel**
+**Request: POST /cancel**
 
 ::: code-group
 ```bash [cURL]
@@ -502,7 +502,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -523,7 +523,7 @@ Create an order with packages that contain shipment properties.
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /create-from-shippable-packages**
+**Request: POST /create-from-shippable-packages**
 
 ::: code-group
 ```bash [cURL]
@@ -655,7 +655,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -676,7 +676,7 @@ Add packages to orders
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /add-packages**
+**Request: POST /add-packages**
 
 ::: code-group
 ```bash [cURL]
@@ -853,7 +853,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -874,7 +874,7 @@ Prepares packages for shipment
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /prepare-packages-for-shipment**
+**Request: POST /prepare-packages-for-shipment**
 
 ::: code-group
 ```bash [cURL]
@@ -1006,7 +1006,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -1027,7 +1027,7 @@ Unprepares packages for shipment. Only possible if the order has `status=OPEN`.
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /unprepare-packages-for-shipment**
+**Request: POST /unprepare-packages-for-shipment**
 
 ::: code-group
 ```bash [cURL]
@@ -1180,7 +1180,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -1201,7 +1201,7 @@ Edit order note. Only possible if the order has `status=OPEN`.
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /edit-note**
+**Request: POST /edit-note**
 
 ::: code-group
 ```bash [cURL]
@@ -1351,7 +1351,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -1372,7 +1372,7 @@ Import a discovered order. Only possible if the order has `status=DISCOVERED`.
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /import**
+**Request: POST /import**
 
 ::: code-group
 ```bash [cURL]
@@ -1516,7 +1516,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -1548,7 +1548,7 @@ Get orders.
 | 200 | The found orders. |
 | 400 | Invalid request syntax |
 
-**Request — GET /orders**
+**Request: GET /orders**
 
 ::: code-group
 ```bash [cURL]
@@ -1668,7 +1668,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -1716,7 +1716,7 @@ Get packing slips for one or more orders. When packageId is provided, exactly on
 | 200 | Packing slips PDF. |
 | 400 | Invalid request syntax |
 
-**Request — GET /packing-slips**
+**Request: GET /packing-slips**
 
 ::: code-group
 ```bash [cURL]
@@ -1836,7 +1836,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 "string"
@@ -1864,7 +1864,7 @@ Get picklist.
 | 200 | Picklist PDF. |
 | 400 | Invalid request syntax |
 
-**Request — GET /picklist**
+**Request: GET /picklist**
 
 ::: code-group
 ```bash [cURL]
@@ -1984,7 +1984,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 "string"
@@ -2005,7 +2005,7 @@ Remove order notes. Only possible if the order has `status=OPEN`.
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /remove-notes**
+**Request: POST /remove-notes**
 
 ::: code-group
 ```bash [cURL]
@@ -2158,7 +2158,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []
@@ -2179,7 +2179,7 @@ Unassign orders from an user. Only possible if the order has `status=OPEN`
 | 200 | The request is successfully accepted. |
 | 400 | Invalid request syntax |
 
-**Request — POST /unassign-from-user**
+**Request: POST /unassign-from-user**
 
 ::: code-group
 ```bash [cURL]
@@ -2323,7 +2323,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 []

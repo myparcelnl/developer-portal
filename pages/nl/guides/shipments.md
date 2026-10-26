@@ -6,11 +6,11 @@ description: "Een zending vertegenwoordigt één pakket onderweg van je afzendad
 ## Levenscyclus
 Een zending doorloopt deze statussen:
 
-- `pending` — aangemaakt, label nog niet geprint.
-- `printed` — label gegenereerd en klaar voor overdracht.
-- `handed_over` — gescand in het netwerk van de vervoerder.
-- `delivered` — ontvangen door de ontvanger of een afhaalpunt.
-- `returned` — retour gegaan naar de afzender.
+- `pending`: aangemaakt, label nog niet geprint.
+- `printed`: label gegenereerd en klaar voor overdracht.
+- `handed_over`: gescand in het netwerk van de vervoerder.
+- `delivered`: ontvangen door de ontvanger of een afhaalpunt.
+- `returned`: retour gegaan naar de afzender.
 
 ## Een zending aanmaken
 Doe een POST naar `/shipments` met een carrier, recipient en options.
@@ -38,6 +38,6 @@ POST /shipments
 Elke aangemaakte zending bevat een `label_url` die naar een PDF wijst. Labels zijn standaard A6 en kunnen via `/labels/print` worden gebatcht naar A4-vellen.
 
 ## Annuleren
-Zendingen kun je annuleren zolang ze `pending` of `printed` zijn. Zodra ze `handed_over` zijn, kan annuleren niet meer — maak in dat geval een retour aan.
+Zendingen kun je annuleren zolang ze `pending` of `printed` zijn. Zodra ze `handed_over` zijn, kan annuleren niet meer: maak in dat geval een retour aan.
 
 [Zie `DELETE /shipments/{id}` →](../../api/myparcel.md#cancel-shipment)

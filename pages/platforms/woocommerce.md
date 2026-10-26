@@ -1,13 +1,13 @@
 ---
 title: WooCommerce
-description: "From zero to a shipped parcel on WooCommerce — install the plugin, connect your MyParcel account, pick a shop profile and send your first label today. Includes quickstart, shop profiles, settings reference, daily workflow and a diagnostics table."
+description: "From zero to a shipped parcel on WooCommerce: install the plugin, connect your MyParcel account, pick a shop profile and send your first label today. Includes quickstart, shop profiles, settings reference, daily workflow and a diagnostics table."
 ---
 
 ::: tip In short
-The MyParcel plugin connects your WooCommerce shop to MyParcel. Customers pick a delivery moment or pickup point in the checkout, you print labels from WordPress, and Track & Trace is sent to the customer automatically. No code needed — everything runs from the WordPress admin.
+The MyParcel plugin connects your WooCommerce shop to MyParcel. Customers pick a delivery moment or pickup point in the checkout, you print labels from WordPress, and Track & Trace is sent to the customer automatically. No code needed: everything runs from the WordPress admin.
 :::
 
-## Quickstart — your first parcel in 15 minutes
+## Quickstart: your first parcel in 15 minutes
 Enough to ship your first real order today. For deeper configuration, see [Looking for…](#looking-for) below.
 
 1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.nl/register](https://www.myparcel.nl/register).
@@ -32,16 +32,16 @@ Enough to ship your first real order today. For deeper configuration, see [Looki
 | A different setting per product | [10 · Product settings](#10-product-settings) |
 | What the customer sees in the checkout | [13 · The checkout experience](#13-the-checkout-experience) |
 | Bulk processing for 50+ orders/day | [14 · Daily use](#14-daily-use) |
-| Something's not working | [15 · Something's not working — diagnostics](#15-somethings-not-working-diagnostics) |
+| Something's not working | [15 · Something's not working: diagnostics](#15-somethings-not-working-diagnostics) |
 | Answer to a frequently asked question | [16 · FAQ](#16-faq) |
 
 ## 1 · Preparing your MyParcel account
 Before you start in WooCommerce, take care of four things in your MyParcel backoffice:
 
-1. **Billing and return address** — *Shop settings → General*. This appears on every label.
-2. **Activate carriers** — *Shop settings → Carriers*. Only enabled carriers appear in the plugin later.
-3. **Generate an API key** — *Shop settings → Integration*.
-4. **Import order information** (optional) — turn on if you want to use [order mode](#5-settings-orders).
+1. **Billing and return address**: *Shop settings → General*. This appears on every label.
+2. **Activate carriers**: *Shop settings → Carriers*. Only enabled carriers appear in the plugin later.
+3. **Generate an API key**: *Shop settings → Integration*.
+4. **Import order information** (optional): turn on if you want to use [order mode](#5-settings-orders).
 
 ## 2 · Installing the plugin
 1. In the WordPress admin: **Plugins → Add new plugin**.
@@ -55,7 +55,7 @@ Download the release ZIP from [github.com/myparcelnl/woocommerce/releases](https
 
 ## Sales channel via the MyParcel Backoffice
 ::: warning Before you set this up
-A sales channel is optional and is not available on every account yet. The plugin works without one. A sales channel adds direct order sync on top, and in some situations it can create duplicate orders — see [14 · Daily use](#14-daily-use) for how to prevent that.
+A sales channel is optional and is not available on every account yet. The plugin works without one. A sales channel adds direct order sync on top, and in some situations it can create duplicate orders. See [14 · Daily use](#14-daily-use) for how to prevent that.
 :::
 
 As well as connecting the plugin with your API key (see [Connecting the plugin](#3-connecting-the-plugin-api-key)), you can also register WooCommerce as a **Sales channel** in your MyParcel backoffice. The plugin handles the WooCommerce checkout and settings, while the sales channel lets MyParcel talk to your shop directly over its REST API and import your orders.
@@ -73,7 +73,7 @@ As well as connecting the plugin with your API key (see [Connecting the plugin](
 
 3. Fill in a **Name** that helps you recognise the channel (e.g. *My WooCommerce shop*).
 4. Under **Type of sales channel**, choose **WooCommerce**.
-5. Fill in your **Webshop URL** — the address of your WooCommerce shop (for example `https://your-shop.com`).
+5. Fill in your **Webshop URL**: the address of your WooCommerce shop (for example `https://your-shop.com`).
 6. Click **Save**. The channel is created and shows a **Missing data** badge until you add the credentials.
 
 ![Adding a WooCommerce sales channel: choose the type and fill in your webshop URL, then Save.](./images/woocommerce/backoffice-add-channel.png)
@@ -81,7 +81,7 @@ As well as connecting the plugin with your API key (see [Connecting the plugin](
 ### Authenticate the channel (consumer key & secret)
 WooCommerce lets MyParcel read your orders with a **Consumer key** and **Consumer secret** from its REST API.
 
-1. In your **WooCommerce** admin, go to **WooCommerce → Settings → Advanced → REST API** and click **Add key**. Give it a description, set **Permissions** to *Read/Write* and generate the key — WooCommerce shows the Consumer key and Consumer secret only once, so copy them now.
+1. In your **WooCommerce** admin, go to **WooCommerce → Settings → Advanced → REST API** and click **Add key**. Give it a description, set **Permissions** to *Read/Write* and generate the key. WooCommerce shows the Consumer key and Consumer secret only once, so copy them now.
 2. Back in the backoffice, open the channel and click **Set credentials**.
 3. In the **Replace key and secret** dialog, paste the **Consumer key** and **Consumer secret**.
 4. Click **Connect**.
@@ -95,11 +95,11 @@ Most common causes: an extra space pasted with the key or secret · the REST API
 :::
 
 ### What happens when you export a shipment
-You can export and print a shipment from the order list or from the order detail page ([§12](#12-the-order-detail-page)). What you get in your MyParcel backoffice depends on what was there first — the shipment or the order.
+You can export and print a shipment from the order list or from the order detail page ([§12](#12-the-order-detail-page)). What you get in your MyParcel backoffice depends on what was there first: the shipment or the order.
 
 | What you do | What happens in the backoffice |
 | --- | --- |
-| You export the shipment **before** the sales channel imported the order | One order, linked to your shipment, under **Actief** (Active) — without the optional metadata such as products (depending on account features), because the shipment already existed before the sales channel synced the order. |
+| You export the shipment **before** the sales channel imported the order | One order, linked to your shipment, under **Actief** (Active), without the optional metadata such as products (depending on account features), because the shipment already existed before the sales channel synced the order. |
 | You export the shipment **after** the sales channel imported the order | Two orders: the imported order with its metadata, plus a second order from your export, under **Actief** (Active) and without metadata. |
 | You export no shipment from the plugin | One order from the sales channel, under **Te importeren** (To import) or **Actief** (Active), depending on your settings in the backoffice. |
 
@@ -108,13 +108,13 @@ Using a sales channel? Create the shipment and print the label from the MyParcel
 :::
 
 ## 3 · Connecting the plugin (API key)
-Open **WooCommerce → MyParcel**. At the top you'll see three buttons — *Change API key*, *Change webhooks*, *Debug options* — plus the status badge.
+Open **WooCommerce → MyParcel**. At the top you'll see three buttons (*Change API key*, *Change webhooks*, *Debug options*) plus the status badge.
 
 ![MyParcel connection bar: Connected to MyParcel + three action buttons.](./images/woocommerce/connection-bar.svg) The connection bar appears on every plugin page.
 
 1. Click **Change API key**.
 2. Paste the key from your MyParcel backoffice.
-3. Click **Save** — within seconds the status switches to *Connected to MyParcel*.
+3. Click **Save**. Within seconds the status switches to *Connected to MyParcel*.
 
 ::: warning Not working?
 Most common causes: didn't click *Save* · a space copied before/after the key · key from a different shop · plugin runs on a different environment (live vs sandbox) than your MyParcel account.
@@ -131,7 +131,7 @@ Most common causes: didn't click *Save* · a space copied before/after the key �
 ## 4 · Which shop profile are you?
 Four typical profiles with recommended settings. Pick one, copy the settings, then fine-tune via [5 · Settings](#5-settings-orders).
 
-### Small — a few orders per day, NL only
+### Small: a few orders per day, NL only
 | Setting | Recommended | Why |
 | --- | --- | --- |
 | Order mode | On | Full order to MyParcel |
@@ -139,12 +139,12 @@ Four typical profiles with recommended settings. Pick one, copy the settings, th
 | Auto-process | None | Click *Export* yourself per order |
 | Label format | A4 (4 per page) | No label printer needed |
 | PostNL only | On | Standard NL carrier |
-| Insurance — *Insure from €* | 250 | Parcels above €250 are insured automatically |
+| Insurance: *Insure from €* | 250 | Parcels above €250 are insured automatically |
 
-### Busy shop — 50+ orders/day
+### Busy shop: 50+ orders/day
 | Setting | Recommended | Why |
 | --- | --- | --- |
-| Concept shipments | Off | Faster — labels are final immediately |
+| Concept shipments | Off | Faster: labels are final immediately |
 | Auto-process | *Processing* | No more clicking per order |
 | Label format | A6 (Zebra/Brother label printer) | Faster printing |
 | Print immediately | On | Print flow without clicks |
@@ -152,7 +152,7 @@ Four typical profiles with recommended settings. Pick one, copy the settings, th
 | Processing time | 2 days during peaks | Realistic window for the customer |
 | PostNL + DHL For You | Both on | Broad coverage |
 
-### Mailbox-only — coffee, cards, cosmetics
+### Mailbox-only: coffee, cards, cosmetics
 | Setting | Recommended | Why |
 | --- | --- | --- |
 | Shipping class `Mailbox` | Create in *WooCommerce → Shipping → Shipping classes* | Link products to it |
@@ -178,29 +178,29 @@ Four typical profiles with recommended settings. Pick one, copy the settings, th
 | UPS / DHL Express | On | For worldwide |
 
 ## 5 · Settings · Orders
-The first and most important tab — this is where you set how orders flow through your shop.
+The first and most important tab: this is where you set how orders flow through your shop.
 
 ![Orders tab: General, Order status automation, Track & Trace, Default weights, Order notes.](./images/woocommerce/bestellingen.jpg)
 
 ### General
-- **Order mode** — On: full order (customer data, line items, notes) to MyParcel. Off: only a label. *Recommended on*, provided *Import order information* is also on in MyParcel.
-- **Concept shipments** — On: shipment stays as concept in MyParcel. Off: registered with the carrier directly. *On during setup, off once everything runs.*
-- **Auto-process** — Which WooCommerce status triggers an automatic export? *None* / *Pending payment* / *Processing* / *Completed*. Start with *None*.
-- **Send return email** — The customer automatically receives a return link. *Recommended for fashion/shoes.*
-- **Save customer address to address book** — Addresses end up in your MyParcel address book.
-- **Share customer information** — Email + phone to MyParcel. Required for Track & Trace email and mandatory for international. *Recommended on.*
+- **Order mode**. On: full order (customer data, line items, notes) to MyParcel. Off: only a label. *Recommended on*, provided *Import order information* is also on in MyParcel.
+- **Concept shipments**. On: shipment stays as concept in MyParcel. Off: registered with the carrier directly. *On during setup, off once everything runs.*
+- **Auto-process**: Which WooCommerce status triggers an automatic export? *None* / *Pending payment* / *Processing* / *Completed*. Start with *None*.
+- **Send return email**: The customer automatically receives a return link. *Recommended for fashion/shoes.*
+- **Save customer address to address book**: Addresses end up in your MyParcel address book.
+- **Share customer information**: Email + phone to MyParcel. Required for Track & Trace email and mandatory for international. *Recommended on.*
 
 ### Order status automation
 Let the WooCommerce order status follow the shipping process automatically.
 
-- **Order status when label is created** — typically *Processing*.
-- **Order status when label is scanned** — typically *Completed*.
-- **Order status on delivery** — *Completed* (if not earlier).
-- **Send notification after** — which status transition triggers a WooCommerce email.
+- **Order status when label is created**: typically *Processing*.
+- **Order status when label is scanned**: typically *Completed*.
+- **Order status on delivery**: *Completed* (if not earlier).
+- **Send notification after**: which status transition triggers a WooCommerce email.
 
 ### Track & Trace
-- **Track & Trace in email** — link in the WooCommerce order confirmation. *Recommended on.*
-- **Track & Trace in account** — link on the customer's *My account* page.
+- **Track & Trace in email**: link in the WooCommerce order confirmation. *Recommended on.*
+- **Track & Trace in account**: link on the customer's *My account* page.
 
 ### Default weights
 Each package type has an empty weight. MyParcel adds it on top of the product weight.
@@ -213,11 +213,11 @@ Each package type has an empty weight. MyParcel adds it on top of the product we
 | Digital stamp | 10 – 30 g |
 
 ### Order notes
-- **Barcode in note** — Track & Trace code as an order note.
-- **Barcode in note title** — prefix before the code. Default: `Track & Trace code:`.
+- **Barcode in note**: Track & Trace code as an order note.
+- **Barcode in note title**: prefix before the code. Default: `Track & Trace code:`.
 
 ## 6 · Settings · Labels
-Everything about the label itself — text, format and print behaviour.
+Everything about the label itself: text, format and print behaviour.
 
 ![Labels tab: Description (with variables), Print immediately, Ask label position, Label output and Label format.](./images/woocommerce/labels-tab.svg)
 
@@ -237,21 +237,21 @@ Variables are filled in automatically when the label is created:
 **Examples:** `Order [ORDER_ID]` · `[ORDER_ID] · [PRODUCT_QTY]× [PRODUCT_NAME]`
 
 ### Print behaviour
-- **Print immediately** — show the PDF directly after export.
-- **Ask label position** — ask each time which positions on an A4 sheet to use.
+- **Print immediately**: show the PDF directly after export.
+- **Ask label position**: ask each time which positions on an A4 sheet to use.
 
 ### Defaults
-- **Label output** — *Open in new tab* (print manually via the browser) or *Download label*.
-- **Label format** — *A4 (4 per page)* for a standard printer, *A6 (label printer)* for Zebra/Brother.
+- **Label output**: *Open in new tab* (print manually via the browser) or *Download label*.
+- **Label format**: *A4 (4 per page)* for a standard printer, *A6 (label printer)* for Zebra/Brother.
 
 ## 7 · Settings · Customs
 Required for shipments outside the EU (UK, Switzerland, US, Norway, Canada…). These values appear on the CN22/CN23 form attached to the label.
 
 ![Customs tab with three fields: Package contents, HS code, Country of origin.](./images/woocommerce/douane-tab.svg)
 
-- **Package contents** — *Goods* (default for webshops), *Documents*, *Gift*, *Commercial sample*, *Return shipment*.
-- **HS code** — harmonised customs code. Look up at [tarief.douane.nl](https://tarief.douane.nl). Examples: `6109.10` (T-shirts), `9503.00` (toys), `3304.99` (make-up).
-- **Country of origin** — where the product comes from (not where you store it).
+- **Package contents**: *Goods* (default for webshops), *Documents*, *Gift*, *Commercial sample*, *Return shipment*.
+- **HS code**: harmonised customs code. Look up at [tarief.douane.nl](https://tarief.douane.nl). Examples: `6109.10` (T-shirts), `9503.00` (toys), `3304.99` (make-up).
+- **Country of origin**: where the product comes from (not where you store it).
 
 ## 8 · Settings · Checkout
 What your customer sees and can choose at checkout.
@@ -259,27 +259,27 @@ What your customer sees and can choose at checkout.
 ![Checkout tab: address fields, delivery options widget, mapping of shipping methods, price display, pickup points.](./images/woocommerce/checkout-tab.svg)
 
 ### Address fields
-- **Use separate address fields** — splits Street into Street + Number + Suffix. *Recommended on* — prevents undeliverable parcels.
-- **MyParcel Address widget (BETA)** — autocomplete for NL postal code + house number.
+- **Use separate address fields**: splits Street into Street + Number + Suffix. *Recommended on*, prevents undeliverable parcels.
+- **MyParcel Address widget (BETA)**: autocomplete for NL postal code + house number.
 
 ### Delivery options
-- **Show delivery options** — master switch for the checkout widget. *Recommended on.*
-- **Show delivery options for backorders** — also show for out-of-stock products.
-- **Position in checkout** — *After billing address*, *After shipping address*, or *After order note*.
-- **Allowed shipping methods** — link each WooCommerce shipping method to a package type (*Default*, *Parcel*, *Small package*, *Mailbox parcel*, *Digital stamp*, *Unfranked*). *One method = one package type.*
-- **Price type** — *Included* (total price) or *Surcharge* (only the difference).
-- **Delivery options title** — heading above the widget.
-- **Custom CSS** — your own styling.
+- **Show delivery options**: master switch for the checkout widget. *Recommended on.*
+- **Show delivery options for backorders**: also show for out-of-stock products.
+- **Position in checkout**: *After billing address*, *After shipping address*, or *After order note*.
+- **Allowed shipping methods**: link each WooCommerce shipping method to a package type (*Default*, *Parcel*, *Small package*, *Mailbox parcel*, *Digital stamp*, *Unfranked*). *One method = one package type.*
+- **Price type**: *Included* (total price) or *Surcharge* (only the difference).
+- **Delivery options title**: heading above the widget.
+- **Custom CSS**: your own styling.
 
 ::: tip Business and consumer see different options
 Since plugin version 6.8.0 the checkout offers business customers the delivery options their carrier actually has for businesses, which are not always the ones consumers get. The plugin decides this from the company name in the checkout address: fill one in and the order counts as business. There is nothing to configure, it follows the carrier. The technical side lives in the [Delivery Options widget](/platforms/delivery-options.html#business-and-consumer-delivery-options).
 :::
 
 ### Pickup points
-- **Default view** — *Map* or *List*.
-- **Users can switch between list and map** — *Recommended on.*
-- **Exclude parcel lockers** — hide unmanned lockers.
-- **Closed days** — days you don't ship.
+- **Default view**: *Map* or *List*.
+- **Users can switch between list and map**: *Recommended on.*
+- **Exclude parcel lockers**: hide unmanned lockers.
+- **Closed days**: days you don't ship.
 
 ## 9 · Settings · Carriers
 Each carrier has its own sub-tab. Which ones appear depends on what you've activated on your MyParcel account.
@@ -287,35 +287,35 @@ Each carrier has its own sub-tab. Which ones appear depends on what you've activ
 ![Carrier sub-tabs: CheapCargo, DPD, UPS, DHL Europlus, DHL Parcel Connect, PostNL (active), GLS, DHL For You.](./images/woocommerce/carrier-subtabs.svg)
 
 ::: tip All carriers are structured the same
-Below I walk through **PostNL** as an example — DHL For You, DHL Parcel Connect, DPD, UPS, GLS and Trunkrs work identically (each with their own specific options).
+Below I walk through **PostNL** as an example: DHL For You, DHL Parcel Connect, DPD, UPS, GLS and Trunkrs work identically (each with their own specific options).
 :::
 
 ### Default export settings
-- **Enable age check (18+)** — required for alcohol/tobacco.
-- **Enable signature** — courier asks for a signature.
-- **Enable only recipient** — no neighbours.
-- **Enable direct return** — undelivered straight back to you.
-- **Enable larger than 100 × 70 × 58 cm** — large parcels (surcharge).
-- **Enable tracked** / **Enable receipt code** — extra tracking options.
+- **Enable age check (18+)**: required for alcohol/tobacco.
+- **Enable signature**: courier asks for a signature.
+- **Enable only recipient**: no neighbours.
+- **Enable direct return**: undelivered straight back to you.
+- **Enable larger than 100 × 70 × 58 cm**: large parcels (surcharge).
+- **Enable tracked** / **Enable receipt code**: extra tracking options.
 
 ### Insurance
-- **Enable insurance** — master toggle.
-- **Insure from (€)** — threshold amount.
-- **Insure up to** — max coverage NL.
-- **Insure up to (EU)** / **(EU + Rest of World)** — maximums per region.
-- **Insure for percentage** — e.g. 100% of the order value.
+- **Enable insurance**: master toggle.
+- **Insure from (€)**: threshold amount.
+- **Insure up to**: max coverage NL.
+- **Insure up to (EU)** / **(EU + Rest of World)**: maximums per region.
+- **Insure for percentage**: e.g. 100% of the order value.
 
 ::: note Insured amounts can differ
 The plugin refreshes its carrier data periodically, and amounts a carrier no longer offers drop out of the list. What you see can therefore differ from the amounts used as examples in this manual.
 :::
 
-::: details Delivery options — all fields
+::: details Delivery options: all fields
 **Home delivery options**
-- **Enable home delivery** — master toggle.
-- **Delivery days window** — 1 to 14 days ahead.
-- **Processing time** — working days between order and drop-off.
-- **Cut-off time** — configurable per day.
-- **Shipping options** — tick the days you ship.
+- **Enable home delivery**: master toggle.
+- **Delivery days window**: 1 to 14 days ahead.
+- **Processing time**: working days between order and drop-off.
+- **Cut-off time**: configurable per day.
+- **Shipping options**: tick the days you ship.
 
 **Delivery moments**
 - **Standard delivery** + standard delivery price.
@@ -327,11 +327,11 @@ The plugin refreshes its carrier data periodically, and amounts a carrier no lon
 **Shipping options**
 - **Only recipient** + surcharge.
 - **Signature** + surcharge.
-- **Allow Prio (24 hour)** + surcharge — express delivery.
+- **Allow Prio (24 hour)** + surcharge: express delivery.
 
 **Pickup location options**
 - **Enable pickup locations**.
-- **Pickup price** — positive = surcharge, negative = discount.
+- **Pickup price**: positive = surcharge, negative = discount.
 :::
 
 ::: warning Don't forget to save
@@ -339,31 +339,31 @@ Always click **Save** at the bottom of each carrier tab before switching to anot
 :::
 
 ## 10 · Product settings
-Every product has an extra **MyParcel** tab under *Product data*. Here you override the global settings from [Carriers](#9-settings-carriers) and [Customs](#7-settings-customs) per product. Each field has a 🔒 lock icon — click it open to detach from the global value.
+Every product has an extra **MyParcel** tab under *Product data*. Here you override the global settings from [Carriers](#9-settings-carriers) and [Customs](#7-settings-customs) per product. Each field has a 🔒 lock icon. Click it open to detach from the global value.
 
 ![Product data → MyParcel tab with package type, In mailbox, delivery options, customs and export options.](./images/woocommerce/product-tab.svg)
 
 ### MyParcel options
-- **Package type** — overrides the default package type for this product.
-- **In mailbox** — how many of this product fit together in one mailbox parcel. `-1` = not mailbox. Example: stickers where 50 fit in a mailbox parcel → set `50`. If a customer orders 51, the order automatically becomes a Parcel.
+- **Package type**: overrides the default package type for this product.
+- **In mailbox**: how many of this product fit together in one mailbox parcel. `-1` = not mailbox. Example: stickers where 50 fit in a mailbox parcel → set `50`. If a customer orders 51, the order automatically becomes a Parcel.
 
 ### Product delivery options
-- **Delay shipping** — extra working days before this product can leave. For made-to-order, external warehouses, etc.
-- **Disable shipping options** — hides the entire MyParcel delivery widget at checkout when this product is in the cart. For virtual products or gift cards.
-- **Exclude parcel lockers** — hides DHL/PostNL parcel lockers as a pickup point for this product.
+- **Delay shipping**: extra working days before this product can leave. For made-to-order, external warehouses, etc.
+- **Disable shipping options**: hides the entire MyParcel delivery widget at checkout when this product is in the cart. For virtual products or gift cards.
+- **Exclude parcel lockers**: hides DHL/PostNL parcel lockers as a pickup point for this product.
 
 ### Product customs options
-- **Country of origin** — more specific than the global value. E.g. globally *Netherlands*, dropship product *China*.
-- **Customs code (HS code)** — product-specific HS code.
+- **Country of origin**: more specific than the global value. E.g. globally *Netherlands*, dropship product *China*.
+- **Customs code (HS code)**: product-specific HS code.
 
 ### Product export options (all with lock-override)
-- **Enable age check (18+)** — e.g. for alcohol.
-- **Enable direct return** — undelivered straight back.
-- **Enable insurance** — always insure this product.
-- **Enable larger than 100 × 70 × 58 cm or heavier than 23 kg** — for oversized.
+- **Enable age check (18+)**: e.g. for alcohol.
+- **Enable direct return**: undelivered straight back.
+- **Enable insurance**: always insure this product.
+- **Enable larger than 100 × 70 × 58 cm or heavier than 23 kg**: for oversized.
 - **Enable only recipient** / **Enable signature** / **Enable Prio (24 hour)**.
 - **Enable tracked** / **Enable receipt code**.
-- **Fresh delivery** / **Frozen delivery** — for food shops.
+- **Fresh delivery** / **Frozen delivery**: for food shops.
 
 ::: tip The lock icon 🔒
 Lock closed = product uses the global setting. Lock open = product-specific value is active.
@@ -372,13 +372,13 @@ Lock closed = product uses the global setting. Lock open = product-specific valu
 ## 11 · The orders list
 On **WooCommerce → Orders** the plugin adds a *MyParcel* column and bulk actions. At a glance, you see whether each order has been created and what status it has.
 
-![Order list with extra MyParcel column — barcode + Print button on exported orders, Export button on new ones.](./images/woocommerce/orderlist-column.svg)
+![Order list with extra MyParcel column: barcode + Print button on exported orders, Export button on new ones.](./images/woocommerce/orderlist-column.svg)
 
 ### Bulk actions
 Tick orders and pick from the *Bulk actions* dropdown:
 
-- **MyParcel: Export** — creates shipments at MyParcel (concept or direct).
-- **MyParcel: Export & Print** — same as above, plus a combined PDF.
+- **MyParcel: Export**: creates shipments at MyParcel (concept or direct).
+- **MyParcel: Export & Print**: same as above, plus a combined PDF.
 
 ::: tip Bulk flow for 50+ orders/day
 Process all your daily orders in one click. Combine with *Auto-process* on *Processing* and the plugin runs almost entirely on its own.
@@ -390,18 +390,18 @@ On the detail page of an individual order a **MyParcel** box appears in which yo
 ![MyParcel box on order detail page with radio buttons for carrier, package type, delivery method, number of labels, insurance and four action buttons.](./images/woocommerce/order-metabox.svg)
 
 ### What's in the box?
-- **Carrier** — radio with all available carriers. MyParcel auto-picks the most suitable one; you can override per order.
-- **Package type** — override for this order (e.g. mailbox parcel for a small order).
-- **Delivery method** — *Standard delivery* or *Pickup* at a pickup point.
-- **Number of labels** — split a large order across multiple parcels? Set `2` or `3`.
-- **Insurance** — override the global rules for this order.
-- **Saturday delivery** / **Signature required** — toggles with lock.
+- **Carrier**: radio with all available carriers. MyParcel auto-picks the most suitable one; you can override per order.
+- **Package type**: override for this order (e.g. mailbox parcel for a small order).
+- **Delivery method**: *Standard delivery* or *Pickup* at a pickup point.
+- **Number of labels**: split a large order across multiple parcels? Set `2` or `3`.
+- **Insurance**: override the global rules for this order.
+- **Saturday delivery** / **Signature required**: toggles with lock.
 
 ### The four action buttons
-- **Save** — stores settings without registering the shipment.
-- **Export** — registers the shipment with MyParcel. Generates a barcode.
-- **Print** — prints the label of an already exported shipment.
-- **Export and print** — everything in one click.
+- **Save**: stores settings without registering the shipment.
+- **Export**: registers the shipment with MyParcel. Generates a barcode.
+- **Print**: prints the label of an already exported shipment.
+- **Export and print**: everything in one click.
 
 ### The Labels table at the bottom of the box
 Once an order has been exported, a table with all labels appears below the buttons.
@@ -413,7 +413,7 @@ Once an order has been exported, a table with all labels appears below the butto
 :::
 
 ## 13 · The checkout experience
-What your customer sees once the delivery address is filled in — appears as soon as at least one carrier is enabled and the WooCommerce shipping method is linked to a MyParcel package type ([§8](#8-settings-checkout)).
+What your customer sees once the delivery address is filled in: appears as soon as at least one carrier is enabled and the WooCommerce shipping method is linked to a MyParcel package type ([§8](#8-settings-checkout)).
 
 The customer picks a carrier and delivery moment from a **date carousel**, a **time slot** and optional **extra options** (signature, only recipient). Below home delivery, a **Pickup at a pickup location** block appears with an interactive map, opening hours and a list/map toggle.
 
@@ -425,30 +425,30 @@ Business and consumer customers do not necessarily see the same delivery moments
 If a [sales channel](#sales-channel-via-the-myparcel-backoffice) is also connected, create the shipment and print the label from the MyParcel backoffice instead of from here, to avoid duplicate orders in MyParcel. Everything else on this page still works as described.
 :::
 
-### Workflow 1 — per order
+### Workflow 1: per order
 1. Open *WooCommerce → Orders* and click an order.
 2. At the bottom: the **MyParcel** box → choose carrier, package type, etc.
 3. Click **Export and print**.
-4. The PDF opens or downloads — stick the label on the box.
+4. The PDF opens or downloads. Stick the label on the box.
 
-### Workflow 2 — bulk (10+ orders/day)
+### Workflow 2: bulk (10+ orders/day)
 1. From the order list, tick orders.
 2. *Bulk actions* → **MyParcel: Export & Print**.
 3. Click *Apply*. One combined PDF with all labels.
 
 ::: tip When you're billed
-You're only billed once a shipment is actually handed over to the carrier. Digital stamps are the exception — they are charged immediately on export.
+You're only billed once a shipment is actually handed over to the carrier. Digital stamps are the exception: they are charged immediately on export.
 :::
 
 ### Returns
 Three ways, from most to least automated:
 
-1. **Automatic return email** — *Orders → General → Send return email* on. With every export the customer receives a return link.
-2. **Manual return label** — in the MyParcel box on the order, choose *Generate return*. Send the label to the customer yourself.
-3. **Return portal** — enable in your MyParcel backoffice. The customer goes to a URL, enters the order number, and gets a label instantly.
+1. **Automatic return email**: *Orders → General → Send return email* on. With every export the customer receives a return link.
+2. **Manual return label**: in the MyParcel box on the order, choose *Generate return*. Send the label to the customer yourself.
+3. **Return portal**: enable in your MyParcel backoffice. The customer goes to a URL, enters the order number, and gets a label instantly.
 
-## 15 · Something's not working — diagnostics
-Something not behaving as expected? Run through this table top to bottom — three out of four issues are fixed within 5 minutes.
+## 15 · Something's not working: diagnostics
+Something not behaving as expected? Run through this table top to bottom: three out of four issues are fixed within 5 minutes.
 
 | Symptom | What to check |
 | --- | --- |
@@ -466,7 +466,7 @@ Something not behaving as expected? Run through this table top to bottom — thr
 No. You only pay for the shipments via MyParcel.
 
 ### Can I link two MyParcel accounts to a single WooCommerce shop?
-Not out of the box — one API key per shop. For two brands: run two separate WooCommerce shops.
+Not out of the box: one API key per shop. For two brands: run two separate WooCommerce shops.
 
 ### How do I change the sender address on the label?
 That's set in your MyParcel backoffice (*Shop settings → General → Address details*), not in the plugin. Changes apply immediately.
@@ -475,30 +475,30 @@ That's set in your MyParcel backoffice (*Shop settings → General → Address d
 Mollie/iDEAL? Orders go straight to *Processing*. Bank transfer and manual processing? *Completed*.
 
 ### Can I print more than 4 labels per A4?
-No — A4 is always 4 per page. Consider an A6 label printer at 20+ orders/day.
+No, A4 is always 4 per page. Consider an A6 label printer at 20+ orders/day.
 
 ### Does it work with Afterpay/Klarna?
-Yes — MyParcel is independent from your payment provider.
+Yes, MyParcel is independent from your payment provider.
 
-### Customer picks a pickup point — how do I see it on the label?
+### Customer picks a pickup point: how do I see it on the label?
 The pickup point is sent as the recipient address to MyParcel automatically.
 
 ### Evening delivery isn't visible for some addresses
-Address-dependent — determined by the carrier, not the plugin.
+Address-dependent, determined by the carrier, not the plugin.
 
 ### I see duplicate DPD tabs
-Not a bug — MyParcel distinguishes two DPD contracts. Only enable your active contract.
+Not a bug: MyParcel distinguishes two DPD contracts. Only enable your active contract.
 
 ### Can I have parcels picked up by the carrier?
-Yes — under *Carriers → \[carrier\] → Enable carrier pickup*.
+Yes, under *Carriers → \[carrier\] → Enable carrier pickup*.
 
 ### I updated the plugin and now something isn't working
 Roll back via [WP Rollback](https://wordpress.org/plugins/wp-rollback/) or the GitHub release. Report the bug at [github.com/myparcelnl/woocommerce/issues](https://github.com/myparcelnl/woocommerce/issues).
 
 ## Resources & support
-- [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce) — source code, releases, issues.
-- [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/) — plugin listing.
-- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl) — account, API key, billing.
-- [Contact MyParcel support](../contact.md) — **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
+- [github.com/myparcelnl/woocommerce ↗](https://github.com/myparcelnl/woocommerce): source code, releases, issues.
+- [wordpress.org/plugins/woocommerce-myparcel ↗](https://wordpress.org/plugins/woocommerce-myparcel/): plugin listing.
+- [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl): account, API key, billing.
+- [Contact MyParcel support](../contact.md): **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
 This manual is written for plugin version **6.9.x**. In newer versions field names or order may shift slightly; the overall plugin layout stays the same.

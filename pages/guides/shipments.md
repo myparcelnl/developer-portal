@@ -6,11 +6,11 @@ description: "A shipment represents one parcel travelling from your sender addre
 ## Lifecycle
 A shipment moves through these statuses:
 
-- `pending` — created, label not yet printed.
-- `printed` — label generated and ready to be handed over.
-- `handed_over` — scanned into the carrier network.
-- `delivered` — received by the recipient or a pickup point.
-- `returned` — returned to sender.
+- `pending`: created, label not yet printed.
+- `printed`: label generated and ready to be handed over.
+- `handed_over`: scanned into the carrier network.
+- `delivered`: received by the recipient or a pickup point.
+- `returned`: returned to sender.
 
 ## Create a shipment
 Send a POST to `/shipments` with a carrier, recipient and options.
@@ -38,6 +38,6 @@ POST /shipments
 Every created shipment exposes a `label_url` pointing to a PDF. Labels are A6 by default and can be batched into A4 sheets via `/labels/print`.
 
 ## Cancelling
-Shipments can be cancelled while they are `pending` or `printed`. Once `handed_over`, cancellation is no longer possible — issue a return instead.
+Shipments can be cancelled while they are `pending` or `printed`. Once `handed_over`, cancellation is no longer possible: issue a return instead.
 
 [See `DELETE /shipments/{id}` →](../api/myparcel.md#cancel-shipment)

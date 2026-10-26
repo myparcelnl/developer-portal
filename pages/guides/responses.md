@@ -24,14 +24,14 @@ Successful JSON responses wrap the result in a top-level `data` object, keyed by
 }
 ```
 
-The exact fields per resource are documented in the [API reference](../api/myparcel.md) — treat that as the source of truth rather than copying shapes by hand.
+The exact fields per resource are documented in the [API reference](../api/myparcel.md). Treat that as the source of truth rather than copying shapes by hand.
 
 ## HTTP status codes
 | Code | Meaning |
 | --- | --- |
 | `200 OK` | Successful request with a response body. |
 | `202 Accepted` | Accepted for asynchronous processing (e.g. shipments, CSV). |
-| `204 No Content` | Success with no body — typically after a `DELETE`. |
+| `204 No Content` | Success with no body, typically after a `DELETE`. |
 | `304 Not Modified` | The resource hasn't changed since your cached copy. |
 | `400 Bad Request` | The request is malformed. |
 | `401 Unauthorized` | Missing or incorrect API key. See [Authentication](./authentication.md). |
@@ -43,7 +43,7 @@ The exact fields per resource are documented in the [API reference](../api/mypar
 | `409 Conflict` | The request conflicts with the current state of the resource. |
 | `415 Unsupported Media Type` | The `Content-Type` isn't supported. |
 | `422 Unprocessable Entity` | The data is valid JSON but fails validation. |
-| `5xx` | A problem on the MyParcel side — retry later. |
+| `5xx` | A problem on the MyParcel side. Retry later. |
 
 ## Errors
 A `4xx` response carries an error body with a human-readable message and one or more error codes. Use those codes to handle failures programmatically rather than parsing the message text.

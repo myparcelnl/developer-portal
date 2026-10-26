@@ -1,6 +1,6 @@
 ---
 title: Tipi di dato
-description: "Tipi comuni, enum e convenzioni utilizzati in tutta l'API MyParcel — stringhe, valori monetari, date, paesi, vettori."
+description: "Tipi comuni, enum e convenzioni utilizzati in tutta l'API MyParcel: stringhe, valori monetari, date, paesi, vettori."
 ---
 
 ## Identificatori
@@ -25,13 +25,13 @@ Tutti i timestamp sono RFC 3339 in UTC con suffisso `Z`.
 - Lingue: ISO 639-1 (`nl`, `en`, `de`, `fr`, …).
 
 ## Codici dei carrier
-- `postnl` — PostNL
-- `dhl` — DHL Parcel
-- `dhlforyou` — DHL For You
-- `dpd` — DPD
-- `ups` — UPS
-- `bpost` — bpost
-- `instabox` — Instabox
+- `postnl`: PostNL
+- `dhl`: DHL Parcel
+- `dhlforyou`: DHL For You
+- `dpd`: DPD
+- `ups`: UPS
+- `bpost`: bpost
+- `instabox`: Instabox
 
 ## Formato degli errori
 Ogni risposta 4xx/5xx ha la stessa struttura, così puoi gestire gli errori in modo uniforme.

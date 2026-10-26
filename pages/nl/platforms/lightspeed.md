@@ -1,13 +1,13 @@
 ---
 title: Lightspeed
-description: "Van nul naar verzonden pakket op Lightspeed — voeg de app toe, koppel je MyParcel-account met een API key, zet je vervoerders aan en koppel je verzendmethoden zodat bezorgopties in de checkout verschijnen. Met snelstart, settings-naslag, checkout, dagelijkse workflow en een diagnose-tabel."
+description: "Van nul naar verzonden pakket op Lightspeed: voeg de app toe, koppel je MyParcel-account met een API key, zet je vervoerders aan en koppel je verzendmethoden zodat bezorgopties in de checkout verschijnen. Met snelstart, settings-naslag, checkout, dagelijkse workflow en een diagnose-tabel."
 ---
 
 ::: tip In het kort
-De MyParcel-app verbindt je Lightspeed-shop met MyParcel. Je zet je vervoerders aan, stelt de bezorgopties in die je wilt aanbieden en koppelt ze aan je Lightspeed-verzendmethoden. De bezorgopties verschijnen dan in de checkout en je bestellingen staan klaar om via MyParcel te verzenden. Geen code nodig — alles via de instellingenpagina van de app.
+De MyParcel-app verbindt je Lightspeed-shop met MyParcel. Je zet je vervoerders aan, stelt de bezorgopties in die je wilt aanbieden en koppelt ze aan je Lightspeed-verzendmethoden. De bezorgopties verschijnen dan in de checkout en je bestellingen staan klaar om via MyParcel te verzenden. Geen code nodig: alles via de instellingenpagina van de app.
 :::
 
-## Snelstart — je eerste pakket in 15 minuten
+## Snelstart: je eerste pakket in 15 minuten
 Genoeg om vandaag je eerste echte bestelling te versturen. Voor diepere configuratie, zie [Op zoek naar…](#op-zoek-naar) hieronder.
 
 1. **Account.** Nog geen MyParcel-account? Maak er een aan op [myparcel.com/register](https://www.myparcel.com/register).
@@ -35,15 +35,15 @@ Genoeg om vandaag je eerste echte bestelling te versturen. Voor diepere configur
 | Een andere instelling per product | [8 · Productinstellingen](#8-productinstellingen) |
 | Wat de klant ziet in de checkout | [9 · De checkout-ervaring](#9-de-checkout-ervaring) |
 | Bestellingen dagelijks verwerken | [10 · Dagelijks gebruik](#10-dagelijks-gebruik) |
-| Er werkt iets niet | [11 · Er werkt iets niet — diagnose](#11-er-werkt-iets-niet-diagnose) |
+| Er werkt iets niet | [11 · Er werkt iets niet: diagnose](#11-er-werkt-iets-niet-diagnose) |
 | Antwoord op een veelgestelde vraag | [12 · FAQ](#12-faq) |
 
 ## 1 · Je MyParcel-account voorbereiden
 Voordat je in Lightspeed begint, regel je drie dingen in je MyParcel-backoffice:
 
-1. **Factuur- en retouradres** — *Shopinstellingen → Algemeen*. Dit staat op elk label.
-2. **Vervoerders activeren** — *Shopinstellingen → Vervoerders*. Alleen ingeschakelde vervoerders verschijnen later in de app.
-3. **API key genereren** — *Shopinstellingen → Integraties*.
+1. **Factuur- en retouradres**: *Shopinstellingen → Algemeen*. Dit staat op elk label.
+2. **Vervoerders activeren**: *Shopinstellingen → Vervoerders*. Alleen ingeschakelde vervoerders verschijnen later in de app.
+3. **API key genereren**: *Shopinstellingen → Integraties*.
 
 Je hebt ook je **verzendmethoden** nodig in Lightspeed. De app koppelt zich op naam aan deze methoden (zie [§7](#7-instellingen-vervoerders)).
 
@@ -69,9 +69,9 @@ Naast de App Store-app kun je Lightspeed ook rechtstreeks vanuit je MyParcel-bac
 3. Vul een **Name** (Naam) in waaraan je het kanaal herkent (bijv. *Mijn Lightspeed-shop*).
 4. Kies bij **Type of sales channel** (Type verkoopkanaal) voor **Lightspeed**. (Shopify, WooCommerce en PrestaShop zijn de andere opties.)
 5. Kies bij **Webshop URL** de regio die bij je Lightspeed-shop hoort:
-   - **https://api.webshopapp.com/en/ (EU)** — voor Europese Lightspeed (eCom)-shops.
-   - **https://api.shoplightspeed.com/en/ (US)** — voor Amerikaanse Lightspeed-shops.
-6. Klik op **Save** (Opslaan). Het kanaal wordt aangemaakt en verschijnt met een label **Missing data** (Gegevens ontbreken) — dat betekent alleen dat de authenticatiestap nog moet gebeuren.
+   - **https://api.webshopapp.com/en/ (EU)**: voor Europese Lightspeed (eCom)-shops.
+   - **https://api.shoplightspeed.com/en/ (US)**: voor Amerikaanse Lightspeed-shops.
+6. Klik op **Save** (Opslaan). Het kanaal wordt aangemaakt en verschijnt met een label **Missing data** (Gegevens ontbreken). Dat betekent alleen dat de authenticatiestap nog moet gebeuren.
 
 ![Een Lightspeed sales channel toevoegen: kies het type en de bijbehorende Webshop URL-regio en klik op Save.](../../platforms/images/lightspeed/backoffice-add-channel.png)
 
@@ -87,7 +87,7 @@ Een sales channel heeft toestemming nodig om je Lightspeed-bestellingen te lezen
 Zodra de verbinding er is, verdwijnt het label **Missing data**, toont het kanaal **Connected** (Verbonden) en begint MyParcel je Lightspeed-bestellingen te synchroniseren.
 
 ::: tip Waar vind ik de key en secret?
-Je genereert de Consumer key en secret in je **Lightspeed-beheer**, onder de API-/developerinstellingen. Vind je ze niet, vraag dan Lightspeed-support om API-toegang voor je account aan te zetten. Behandel ze als een wachtwoord — deel ze niet.
+Je genereert de Consumer key en secret in je **Lightspeed-beheer**, onder de API-/developerinstellingen. Vind je ze niet, vraag dan Lightspeed-support om API-toegang voor je account aan te zetten. Behandel ze als een wachtwoord: deel ze niet.
 :::
 
 ::: warning Lukt verbinden niet?
@@ -97,7 +97,7 @@ Meest voorkomende oorzaken: een extra spatie meegeplakt bij de key of secret · 
 ## 3 · De app koppelen (API key)
 Alle instellingen staan op één pagina. Bovenaan vind je je winkel-ID en het blok **Chiave API MyParcel** (MyParcel API key).
 
-![MyParcel voor Lightspeed — API key en Algemene instellingen. Het API key-veld koppelt je shop aan MyParcel.](../../platforms/images/lightspeed/api-general.png) De API key is in deze schermafbeelding afgeschermd.
+![MyParcel voor Lightspeed: API key en Algemene instellingen. Het API key-veld koppelt je shop aan MyParcel.](../../platforms/images/lightspeed/api-general.png) De API key is in deze schermafbeelding afgeschermd.
 
 1. Plak de key uit je MyParcel-backoffice in **Chiave API MyParcel**.
 2. Klik op **Convalida** (Valideren).
@@ -112,50 +112,50 @@ Het blok **Impostazioni generali** (Algemene instellingen) bepaalt de taal van d
 
 ![Algemene instellingen: taal en het moment waarop een bestelling naar MyParcel wordt doorgestuurd.](../../platforms/images/lightspeed/api-general.png)
 
-- **Lingua** (Taal) — De taal van de app. Kies uit *English*, *Italiano*, *Nederlands* of *Français*. Zet dit op de taal waarin je wilt werken.
-- **Momento di inoltro** (Moment van doorsturen) — Wanneer een bestelling naar MyParcel gaat. Kies *Quando la spedizione viene creata con stato "Spedito"* (zodra de verzending de status *Verzonden* krijgt) of *...con stato "Non spedito"* (status *Niet verzonden*). Kies het moment in je proces waarop het label moet worden aangemaakt.
-- **Salva impostazioni** (Instellingen opslaan) — Klik om je keuzes vast te leggen.
+- **Lingua** (Taal): De taal van de app. Kies uit *English*, *Italiano*, *Nederlands* of *Français*. Zet dit op de taal waarin je wilt werken.
+- **Momento di inoltro** (Moment van doorsturen): Wanneer een bestelling naar MyParcel gaat. Kies *Quando la spedizione viene creata con stato "Spedito"* (zodra de verzending de status *Verzonden* krijgt) of *...con stato "Non spedito"* (status *Niet verzonden*). Kies het moment in je proces waarop het label moet worden aangemaakt.
+- **Salva impostazioni** (Instellingen opslaan): Klik om je keuzes vast te leggen.
 
 ## 5 · Instellingen · Synchronisatiemodus
 In **Modalità di sincronizzazione** (Synchronisatiemodus) kies je hoe bestellingen tussen Lightspeed en MyParcel lopen.
 
 ![Synchronisatiemodus (Push / Pull) en de knop Capaciteit bijwerken.](../../platforms/images/lightspeed/sync-capacity.png)
 
-- **Push** — De app verwerkt je bestellingen en stuurt de verzendingen automatisch naar MyParcel. Kies dit als je wilt dat de app het werk doet.
-- **Pull** — MyParcel haalt de bestellingen rechtstreeks uit Lightspeed op. De app verzorgt dan alleen de checkout-integratie. Kies dit als je het ophalen vanuit MyParcel aanstuurt.
+- **Push**: De app verwerkt je bestellingen en stuurt de verzendingen automatisch naar MyParcel. Kies dit als je wilt dat de app het werk doet.
+- **Pull**: MyParcel haalt de bestellingen rechtstreeks uit Lightspeed op. De app verzorgt dan alleen de checkout-integratie. Kies dit als je het ophalen vanuit MyParcel aanstuurt.
 
 Klik na je keuze op **Salva impostazioni** (Instellingen opslaan).
 
 ## 6 · Instellingen · Capaciteit bijwerken
-- **Aggiorna capacità** (Capaciteit bijwerken) — Haalt de nieuwste vervoerders en bezorgopties op uit MyParcel. Klik hierop als je net iets hebt aangepast in je MyParcel-account en het nog niet terugziet in de app. De regel **Ultimo aggiornamento** (Laatst bijgewerkt) toont wanneer dit voor het laatst gebeurde.
+- **Aggiorna capacità** (Capaciteit bijwerken): Haalt de nieuwste vervoerders en bezorgopties op uit MyParcel. Klik hierop als je net iets hebt aangepast in je MyParcel-account en het nog niet terugziet in de app. De regel **Ultimo aggiornamento** (Laatst bijgewerkt) toont wanneer dit voor het laatst gebeurde.
 
 ## 7 · Instellingen · Vervoerders
-Onder de algemene instellingen staat per vervoerder een eigen blok. Met de schakelaar bovenaan een blok zet je de vervoerder aan of uit. Welke vervoerders verschijnen, hangt af van wat in je MyParcel-account is ingeschakeld — in de voorbeeldshop zijn dat **InPost** en **Poste Italiane**.
+Onder de algemene instellingen staat per vervoerder een eigen blok. Met de schakelaar bovenaan een blok zet je de vervoerder aan of uit. Welke vervoerders verschijnen, hangt af van wat in je MyParcel-account is ingeschakeld: in de voorbeeldshop zijn dat **InPost** en **Poste Italiane**.
 
 Per vervoerder regel je dezelfde dingen: welke bezorgtypes je aanbiedt, de naam en prijs die de klant ziet, de sluitingstijd, de bezorgdagen en de koppeling met je Lightspeed-verzendmethoden.
 
 ### InPost
 ![InPost-instellingen: bezorgtypes, sluitingstijd, bezorgdagen en koppeling verzendmethoden.](../../platforms/images/lightspeed/inpost.png)
 
-- **Tipi di consegna** (Bezorgtypes) — De manieren waarop deze vervoerder bezorgt. Per type zet je het aan of uit, vul je de naam in die de klant ziet en stel je de prijs in.
-  - **Consegna standard** (Standaardbezorging) — Thuisbezorging op een normale werkdag (in het voorbeeld € 8).
-  - **Punto di ritiro** (Afhaalpunt) — De klant haalt het pakket op bij een afhaalpunt in de buurt (in het voorbeeld € 5).
-- **Orario limite** (Sluitingstijd) — De tijd waarvoor een bestelling nog op dezelfde dag wordt verwerkt (in het voorbeeld 18:00). Bestellingen daarna schuiven naar de volgende bezorgdag.
-- **Giorni di consegna** (Bezorgdagen) — Vink de dagen aan waarop deze vervoerder bezorgt (in het voorbeeld ma, di, wo, vr).
-- **Mappatura titoli metodo di spedizione** (Koppeling verzendmethoden) — Koppelt je Lightspeed-verzendmethoden aan deze vervoerder. Voeg een patroon toe dat in de naam van je Lightspeed-verzendmethode voorkomt, zodat de app weet welke methode bij welke vervoerder hoort. Typ een patroon en klik op **Aggiungi** (Toevoegen).
-- **Salva impostazioni** (Instellingen opslaan) — Legt de wijzigingen voor deze vervoerder vast.
+- **Tipi di consegna** (Bezorgtypes): De manieren waarop deze vervoerder bezorgt. Per type zet je het aan of uit, vul je de naam in die de klant ziet en stel je de prijs in.
+  - **Consegna standard** (Standaardbezorging): Thuisbezorging op een normale werkdag (in het voorbeeld € 8).
+  - **Punto di ritiro** (Afhaalpunt): De klant haalt het pakket op bij een afhaalpunt in de buurt (in het voorbeeld € 5).
+- **Orario limite** (Sluitingstijd): De tijd waarvoor een bestelling nog op dezelfde dag wordt verwerkt (in het voorbeeld 18:00). Bestellingen daarna schuiven naar de volgende bezorgdag.
+- **Giorni di consegna** (Bezorgdagen): Vink de dagen aan waarop deze vervoerder bezorgt (in het voorbeeld ma, di, wo, vr).
+- **Mappatura titoli metodo di spedizione** (Koppeling verzendmethoden): Koppelt je Lightspeed-verzendmethoden aan deze vervoerder. Voeg een patroon toe dat in de naam van je Lightspeed-verzendmethode voorkomt, zodat de app weet welke methode bij welke vervoerder hoort. Typ een patroon en klik op **Aggiungi** (Toevoegen).
+- **Salva impostazioni** (Instellingen opslaan): Legt de wijzigingen voor deze vervoerder vast.
 
 ### Poste Italiane
 ![Poste Italiane-instellingen: bezorgtypes, extra opties, sluitingstijd, bezorgdagen en koppeling verzendmethoden.](../../platforms/images/lightspeed/poste-italiane.png)
 
 Poste Italiane heeft dezelfde opbouw als InPost, met één extra blok: **Opzioni** (Opties).
 
-- **Tipi di consegna** (Bezorgtypes) — *Consegna standard* (Standaardbezorging, in het voorbeeld € 4,00) en *Punto di ritiro* (Afhaalpunt, in het voorbeeld € 4).
-- **Opzioni** (Opties) — Extra mogelijkheden die deze vervoerder biedt.
-  - **Raccolta programmata** (Geplande ophaling) — De vervoerder haalt je pakketten op een afgesproken moment op. Zet dit aan als je je pakketten laat ophalen in plaats van zelf weg te brengen.
-  - **Consegna prioritaria** (Prioriteitsbezorging) — Een snellere bezorging. Zet dit aan om je klanten een spoedoptie te bieden.
-- **Orario limite** (Sluitingstijd) en **Giorni di consegna** (Bezorgdagen) — Net als bij InPost.
-- **Mappatura titoli metodo di spedizione** (Koppeling verzendmethoden) — Voeg een of meer patronen toe (bijv. `poste`, `poste italiane`) die overeenkomen met de namen van je Lightspeed-verzendmethoden voor deze vervoerder.
+- **Tipi di consegna** (Bezorgtypes): *Consegna standard* (Standaardbezorging, in het voorbeeld € 4,00) en *Punto di ritiro* (Afhaalpunt, in het voorbeeld € 4).
+- **Opzioni** (Opties): Extra mogelijkheden die deze vervoerder biedt.
+  - **Raccolta programmata** (Geplande ophaling): De vervoerder haalt je pakketten op een afgesproken moment op. Zet dit aan als je je pakketten laat ophalen in plaats van zelf weg te brengen.
+  - **Consegna prioritaria** (Prioriteitsbezorging): Een snellere bezorging. Zet dit aan om je klanten een spoedoptie te bieden.
+- **Orario limite** (Sluitingstijd) en **Giorni di consegna** (Bezorgdagen): Net als bij InPost.
+- **Mappatura titoli metodo di spedizione** (Koppeling verzendmethoden): Voeg een of meer patronen toe (bijv. `poste`, `poste italiane`) die overeenkomen met de namen van je Lightspeed-verzendmethoden voor deze vervoerder.
 
 ::: warning Niet vergeten op te slaan
 Elk vervoerder-blok heeft een eigen knop **Salva impostazioni** (Instellingen opslaan). Sla het blok op dat je net hebt aangepast.
@@ -167,27 +167,27 @@ De MyParcel-app voegt **geen** velden toe aan het Lightspeed-productscherm. Al h
 ## 9 · De checkout-ervaring
 Wat je klant ziet zodra het bezorgadres is ingevuld. De opties hangen af van de vervoerders en bezorgtypes die je in [§7](#7-instellingen-vervoerders) hebt aangezet. De naam en prijs die de klant ziet, zijn die welke je per bezorgtype hebt ingesteld.
 
-<!-- screenshot: ../../platforms/images/lightspeed/checkout-delivery.png — voeg een checkout-schermafbeelding toe zodra een testbestelling in de storefront is geplaatst -->
+<!-- screenshot: ../../platforms/images/lightspeed/checkout-delivery.png: voeg een checkout-schermafbeelding toe zodra een testbestelling in de storefront is geplaatst -->
 
 Op basis van de voorbeeldinstellingen kan een klant tegenkomen:
 
-- **Standaardbezorging** (*Consegna standard*) — De standaardkeuze. Het pakket wordt op een normale bezorgdag thuisbezorgd.
-- **Afhaalpunt** (*Punto di ritiro*) — De klant haalt het pakket op bij een afhaalpunt in de buurt in plaats van thuis te ontvangen.
+- **Standaardbezorging** (*Consegna standard*): De standaardkeuze. Het pakket wordt op een normale bezorgdag thuisbezorgd.
+- **Afhaalpunt** (*Punto di ritiro*): De klant haalt het pakket op bij een afhaalpunt in de buurt in plaats van thuis te ontvangen.
 
-*Prijzen (zoals € 8 of € 4) zijn voorbeelden — ze hangen af van je eigen instellingen en je contract met de vervoerder.*
+*Prijzen (zoals € 8 of € 4) zijn voorbeelden: ze hangen af van je eigen instellingen en je contract met de vervoerder.*
 
 ## 10 · Dagelijks gebruik
 Hoe je bestellingen verwerkt, hangt af van de synchronisatiemodus die je in [§5](#5-instellingen-synchronisatiemodus) koos:
 
-- **Push** — Bestellingen gaan automatisch naar MyParcel op het moment dat je instelde bij **Momento di inoltro** ([§4](#4-instellingen-algemeen)). Je maakt daarna labels aan en verzendt vanuit je MyParcel-backoffice.
-- **Pull** — MyParcel haalt de bestellingen zelf uit Lightspeed op. Je werkt volledig vanuit je MyParcel-backoffice om labels aan te maken en te verzenden.
+- **Push**: Bestellingen gaan automatisch naar MyParcel op het moment dat je instelde bij **Momento di inoltro** ([§4](#4-instellingen-algemeen)). Je maakt daarna labels aan en verzendt vanuit je MyParcel-backoffice.
+- **Pull**: MyParcel haalt de bestellingen zelf uit Lightspeed op. Je werkt volledig vanuit je MyParcel-backoffice om labels aan te maken en te verzenden.
 
 ::: tip Wanneer je betaalt
 Je betaalt pas zodra een verzending daadwerkelijk aan de vervoerder is overgedragen.
 :::
 
-## 11 · Er werkt iets niet — diagnose
-Loop deze tabel van boven naar beneden door — de meeste problemen zijn binnen 5 minuten opgelost.
+## 11 · Er werkt iets niet: diagnose
+Loop deze tabel van boven naar beneden door: de meeste problemen zijn binnen 5 minuten opgelost.
 
 | Symptoom | Wat te controleren |
 | --- | --- |
@@ -206,7 +206,7 @@ Nee. Je betaalt alleen voor de verzendingen via MyParcel.
 In je MyParcel-backoffice onder *Shopinstellingen → Integraties*.
 
 ### Welke vervoerders kan ik gebruiken?
-De vervoerders die op je MyParcel-account zijn ingeschakeld — bijvoorbeeld InPost en Poste Italiane in Italië.
+De vervoerders die op je MyParcel-account zijn ingeschakeld, bijvoorbeeld InPost en Poste Italiane in Italië.
 
 ### Wat is het verschil tussen Push en Pull?
 Bij **Push** stuurt de app je bestellingen automatisch naar MyParcel. Bij **Pull** haalt MyParcel de bestellingen zelf op en verzorgt de app alleen de bezorgopties in de checkout. Zie [§5](#5-instellingen-synchronisatiemodus).
@@ -218,4 +218,4 @@ Zorg dat de vervoerder aan staat met een ingeschakeld bezorgtype, en dat de **Ma
 Dat stel je in je MyParcel-backoffice in (*Shopinstellingen → Algemeen*), niet in de app. Wijzigingen gelden direct.
 
 ## Bronnen & support
-- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com) — account, API key, facturatie.
+- [backoffice.myparcel.com ↗](https://backoffice.myparcel.com): account, API key, facturatie.

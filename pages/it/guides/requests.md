@@ -4,7 +4,7 @@ description: "Come chiamare la API MyParcel: base URL, metodi HTTP, header, la c
 ---
 
 ## Panoramica
-Le API MyParcel sono basate su REST e parlano JSON su HTTPS. Crei e leggi oggetti con i metodi HTTP standard, e ogni endpoint è documentato nel [riferimento API](../../api/myparcel.md) generato automaticamente — quel riferimento è sempre la fonte di verità per percorsi, parametri e schemi.
+Le API MyParcel sono basate su REST e parlano JSON su HTTPS. Crei e leggi oggetti con i metodi HTTP standard, e ogni endpoint è documentato nel [riferimento API](../../api/myparcel.md) generato automaticamente. Quel riferimento è sempre la fonte di verità per percorsi, parametri e schemi.
 
 ## Base URL
 La Shipment API è su `https://api.myparcel.nl`. Le altre API MyParcel hanno ciascuna il proprio host:
@@ -36,10 +36,10 @@ La API segue la semantica REST standard.
 Non tutti i metodi sono disponibili su tutti gli endpoint. Controlla nel [riferimento API](../../api/myparcel.md) quali metodi supporta ogni percorso.
 
 ## Header
-- **`Content-Type`** — usa `application/json;charset=utf-8` per i body JSON. Vedi [Character encoding](./character-encoding.md).
-- **`Accept`** — imposta il formato che ti aspetti (es. `application/json`). Alcuni endpoint usano un media type vendor come `application/vnd.shipment+json`; il [riferimento API](../../api/myparcel.md) indica il tipo esatto per endpoint.
-- **`Authorization`** — la tua API key (vedi [Autenticazione](./authentication.md)).
-- **`User-Agent`** — identifica la tua integrazione (vedi sotto).
+- **`Content-Type`**: usa `application/json;charset=utf-8` per i body JSON. Vedi [Character encoding](./character-encoding.md).
+- **`Accept`**: imposta il formato che ti aspetti (es. `application/json`). Alcuni endpoint usano un media type vendor come `application/vnd.shipment+json`; il [riferimento API](../../api/myparcel.md) indica il tipo esatto per endpoint.
+- **`Authorization`**: la tua API key (vedi [Autenticazione](./authentication.md)).
+- **`User-Agent`**: identifica la tua integrazione (vedi sotto).
 
 ## La convenzione User-Agent
 Invia un header `User-Agent` che identifichi la tua integrazione. Aiuta il supporto MyParcel a ricondurre i problemi al plugin o al backend giusto.
@@ -59,7 +59,7 @@ Contatta MyParcel affinché la tua integrazione venga riconosciuta nell'User-Age
 :::
 
 ## Formati di risposta
-La maggior parte degli endpoint restituisce JSON. Alcuni restituiscono binario o testo — etichette e fatture arrivano come **PDF**, e alcune esportazioni come **CSV**. Vedi [Responses](./responses.md) per i codici di stato e l'envelope di risposta.
+La maggior parte degli endpoint restituisce JSON. Alcuni restituiscono binario o testo: etichette e fatture arrivano come **PDF**, e alcune esportazioni come **CSV**. Vedi [Responses](./responses.md) per i codici di stato e l'envelope di risposta.
 
 ## Rate limiting
 La API applica un rate limit per endpoint tramite una sliding window. Se superi un limite ricevi `429 Too Many Requests`. Attendi qualche minuto prima di riprovare, invece di martellare l'endpoint. Se raggiungi spesso i limiti, contatta MyParcel per opzioni come i webhook.

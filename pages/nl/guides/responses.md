@@ -24,14 +24,14 @@ Geslaagde JSON-responses verpakken het resultaat in een top-level `data`-object,
 }
 ```
 
-De exacte velden per resource staan in de [API-referentie](../../api/myparcel.md) — gebruik die als bron van waarheid in plaats van structuren met de hand over te nemen.
+De exacte velden per resource staan in de [API-referentie](../../api/myparcel.md). Gebruik die als bron van waarheid in plaats van structuren met de hand over te nemen.
 
 ## HTTP-statuscodes
 | Code | Betekenis |
 | --- | --- |
 | `200 OK` | Geslaagd verzoek met een response-body. |
 | `202 Accepted` | Aangenomen voor asynchrone verwerking (bijv. zendingen, CSV). |
-| `204 No Content` | Geslaagd zonder body — meestal na een `DELETE`. |
+| `204 No Content` | Geslaagd zonder body, meestal na een `DELETE`. |
 | `304 Not Modified` | De resource is niet gewijzigd sinds je gecachte versie. |
 | `400 Bad Request` | Het verzoek is misvormd. |
 | `401 Unauthorized` | Ontbrekende of onjuiste API key. Zie [Authenticatie](./authentication.md). |
@@ -43,7 +43,7 @@ De exacte velden per resource staan in de [API-referentie](../../api/myparcel.md
 | `409 Conflict` | Het verzoek botst met de huidige staat van de resource. |
 | `415 Unsupported Media Type` | Het `Content-Type` wordt niet ondersteund. |
 | `422 Unprocessable Entity` | Geldige JSON, maar de validatie faalt. |
-| `5xx` | Een probleem aan de kant van MyParcel — probeer het later opnieuw. |
+| `5xx` | Een probleem aan de kant van MyParcel. Probeer het later opnieuw. |
 
 ## Fouten
 Een `4xx`-response bevat een foutbody met een leesbare boodschap en een of meer foutcodes. Gebruik die codes om fouten programmatisch af te handelen, in plaats van de boodschaptekst te parsen.

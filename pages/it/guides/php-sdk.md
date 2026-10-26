@@ -30,7 +30,7 @@ La vecchia versione su [developer.myparcel.nl/documentation/50.php-sdk.html ↗]
 composer require myparcelnl/sdk:^10.0
 ```
 
-Autoload PSR-4 — nessun `require` manuale necessario. Sorgente: [Packagist ↗](https://packagist.org/packages/myparcelnl/sdk).
+Autoload PSR-4, nessun `require` manuale necessario. Sorgente: [Packagist ↗](https://packagist.org/packages/myparcelnl/sdk).
 
 ### Requisiti
 | | Versione |
@@ -50,9 +50,9 @@ Carrier  ──►  Consignment  ──►  MyParcelCollection
 ( ID/nome)    (un pacchetto)    (batch + label-IO)
 ```
 
-- **Carrier** — un modello statico per ogni vettore con `ID`, `NAME` e la classe `Consignment` associata. Vedi [`src/Model/Carrier`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Carrier).
-- **Consignment** — tutti i dati di un singolo collo (mittente, destinatario, opzioni, proprietà fisiche). Le sottoclassi specifiche per carrier (es. `PostNLConsignment`) determinano quali combinazioni di `delivery_type`, `package_type` e `shipment_option` sono ammesse. Vedi [`src/Model/Consignment`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Consignment).
-- **MyParcelCollection** — raccoglie i consignment, parla con l'API (`POST /shipments`, `/shipment_labels`, `/track_traces`), genera PDF di etichette e gestisce il multi-collo. Vedi [`src/Helper/MyParcelCollection.php`](https://github.com/myparcelnl/sdk/blob/10.x/src/Helper/MyParcelCollection.php).
+- **Carrier**: un modello statico per ogni vettore con `ID`, `NAME` e la classe `Consignment` associata. Vedi [`src/Model/Carrier`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Carrier).
+- **Consignment**: tutti i dati di un singolo collo (mittente, destinatario, opzioni, proprietà fisiche). Le sottoclassi specifiche per carrier (es. `PostNLConsignment`) determinano quali combinazioni di `delivery_type`, `package_type` e `shipment_option` sono ammesse. Vedi [`src/Model/Consignment`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Consignment).
+- **MyParcelCollection**: raccoglie i consignment, parla con l'API (`POST /shipments`, `/shipment_labels`, `/track_traces`), genera PDF di etichette e gestisce il multi-collo. Vedi [`src/Helper/MyParcelCollection.php`](https://github.com/myparcelnl/sdk/blob/10.x/src/Helper/MyParcelCollection.php).
 
 Namespace di alto livello:
 
@@ -67,7 +67,7 @@ Namespace di alto livello:
 | `MyParcelNL\Sdk\Exception` | Tutte le eccezioni dell'SDK |
 
 ## 3 · Autenticazione
-L'SDK si autentica per ogni richiesta con una **shop API key** (Basic auth). Nessun flusso OAuth a livello di SDK — lo scambio di token è gestito internamente dall'SDK quando l'API lo richiede.
+L'SDK si autentica per ogni richiesta con una **shop API key** (Basic auth). Nessun flusso OAuth a livello di SDK. Lo scambio di token è gestito internamente dall'SDK quando l'API lo richiede.
 
 ```php
 $apiKey = getenv('MYPARCEL_API_KEY'); // shop key codificata in base64 dal backoffice
@@ -83,14 +83,14 @@ $consignment = ConsignmentFactory::createByCarrierId(CarrierPostNL::ID)
     ->setApiKey($apiKey);
 ```
 
-`setApiKey()` è disponibile su ogni consignment, quindi è possibile mescolare più key all'interno di una stessa collection — utile per integrazioni multi-shop.
+`setApiKey()` è disponibile su ogni consignment, quindi è possibile mescolare più key all'interno di una stessa collection, utile per integrazioni multi-shop.
 
 ::: warning Igiene delle key
-Conserva le key lato server in env var, secret manager o `.env` (fuori dal VCS). Non inviarle mai al browser. Il rate-limit dell'API è legato alla key — una key trapelata è immediatamente sfruttabile.
+Conserva le key lato server in env var, secret manager o `.env` (fuori dal VCS). Non inviarle mai al browser. Il rate-limit dell'API è legato alla key. Una key trapelata è immediatamente sfruttabile.
 :::
 
 ### User-agent (obbligatorio per le integrazioni)
-Plugin e integrazioni proprietarie devono identificarsi — altrimenti il debug è impossibile e MyParcel non può capire cosa causa un problema.
+Plugin e integrazioni proprietarie devono identificarsi. Altrimenti il debug è impossibile e MyParcel non può capire cosa causa un problema.
 
 ```php
 $consignment->setUserAgentForProposition('CustomShop', '2.4.1');
@@ -98,7 +98,7 @@ $consignment->setUserAgentForProposition('CustomShop', '2.4.1');
 
 `setUserAgentForProposition(string $proposition, ?string $version)` è la nuova API; `setUserAgent()` è deprecato e verrà rimosso nella prossima major. L'SDK aggiunge da solo `MyParcelNL-SDK/<sdkVersion>` e `php/<phpVersion>` all'header.
 
-## 4 · Avvio rapido — prima spedizione
+## 4 · Avvio rapido: prima spedizione
 Un consignment, un'etichetta, un PDF A6 su disco.
 
 ```php
@@ -134,7 +134,7 @@ $consignment = (ConsignmentFactory::createByCarrierId(CarrierPostNL::ID))
 Cosa succede sotto il cofano: la collection chiama `POST /shipments`, riceve gli ID dei consignment, poi richiede le etichette tramite `GET /shipment_labels/{ids}` e le unisce in un unico PDF.
 
 ## 5 · Convenzioni del builder
-- **Setter fluent.** Ogni setter restituisce `$this` — concatenali liberamente.
+- **Setter fluent.** Ogni setter restituisce `$this`: concatenali liberamente.
 - **Costanti invece di stringhe.** `PACKAGE_TYPE_PACKAGE` (= 1) e `DELIVERY_TYPE_STANDARD` (= 2) sono più leggibili dei magic number e non si rompono se l'API estende i range.
 - **I validator girano automaticamente.** Per ogni carrier esiste un `*ConsignmentValidator` che impone le combinazioni ammesse. Un `setSignature(true)` su un carrier che non lo supporta lancia una `InvalidConsignmentException`.
 - **Metodi `getAllowed*()`.** Chiedi a un consignment quali opzioni sono valide prima di usarle:
@@ -168,7 +168,7 @@ ConsignmentFactory::createByCarrierName('dhlforyou'); // DHL For You
 ```
 
 ::: tip Quali carrier sono disponibili per il mio account?
-La disponibilità è contrattuale — non tutti i carrier sono presenti in ogni contratto shop. L'API restituisce un errore `403`/validation se utilizzi un carrier non attivato.
+La disponibilità è contrattuale: non tutti i carrier sono presenti in ogni contratto shop. L'API restituisce un errore `403`/validation se utilizzi un carrier non attivato.
 :::
 
 ## 7 · Opzioni del consignment
@@ -181,7 +181,7 @@ Il tipo determina le regole dimensionali e quali shipment option sono disponibil
 | `PACKAGE_TYPE_PACKAGE` | `1` | `package` | Pacchetto standard. Default. |
 | `PACKAGE_TYPE_MAILBOX` | `2` | `mailbox` | Pacco da buca delle lettere (≤ 2 cm di spessore, solo NL). |
 | `PACKAGE_TYPE_LETTER` | `3` | `letter` | Lettera non assicurata, senza track & trace. |
-| `PACKAGE_TYPE_DIGITAL_STAMP` | `4` | `digital_stamp` | Francobollo digitale — è comunque necessario indicare il peso. |
+| `PACKAGE_TYPE_DIGITAL_STAMP` | `4` | `digital_stamp` | Francobollo digitale. È comunque necessario indicare il peso. |
 | `PACKAGE_TYPE_PACKAGE_SMALL` | `6` | `package_small` | Pacchetto piccolo (PostNL). |
 
 ### Delivery type
@@ -193,7 +193,7 @@ Il tipo determina le regole dimensionali e quali shipment option sono disponibil
 | `DELIVERY_TYPE_PICKUP` | `4` | `pickup` |
 | `DELIVERY_TYPE_EXPRESS` | `7` | `express` |
 
-Le spedizioni pickup richiedono una `PickupLocation` — impostala con `setPickupLocation(new PickupLocation([...]))`.
+Le spedizioni pickup richiedono una `PickupLocation`. Impostala con `setPickupLocation(new PickupLocation([...]))`.
 
 ### Shipment options
 Extra booleani aggiunti al trasporto base.
@@ -216,7 +216,7 @@ Extra booleani aggiunti al trasporto base.
 | `SHIPMENT_OPTION_FROZEN` | `frozen` | `setFrozen(bool)` |
 
 ::: warning Combinazioni valide
-Non tutte le opzioni sono combinabili tra loro — es. `receipt_code` + `signature` è bloccata. Il validator per carrier lancia `InvalidConsignmentException` indicando esattamente la regola violata.
+Non tutte le opzioni sono combinabili tra loro: es. `receipt_code` + `signature` è bloccata. Il validator per carrier lancia `InvalidConsignmentException` indicando esattamente la regola violata.
 :::
 
 ### Assicurazione
@@ -239,7 +239,7 @@ Per spedizioni che fisicamente sono più colli ma logicamente appartengono allo 
 
 Funziona solo sui carrier che offrono multi-collo (`getAllowedExtraOptions()` contiene `'multi_collo'`).
 
-## 8 · MyParcelCollection — API batch
+## 8 · MyParcelCollection: API batch
 `MyParcelCollection` è una collection in stile Laravel con metodi specifici dell'SDK. API pubblica principale:
 
 | Metodo | Scopo |
@@ -267,7 +267,7 @@ addConsignment*() → setLinkOfLabels() oppure setPdfOfLabels()
                  → (opzionale) fetchTrackTraceData()
 ```
 
-`setPdfOfLabels()` e `setLinkOfLabels()` triggerano internamente `createConcepts()` se non è ancora stato chiamato — raramente devi invocarlo esplicitamente.
+`setPdfOfLabels()` e `setLinkOfLabels()` triggerano internamente `createConcepts()` se non è ancora stato chiamato. Raramente devi invocarlo esplicitamente.
 
 ## 9 · Etichette e stampa
 
@@ -296,7 +296,7 @@ $collection
     ->printDirect('printer-group-uuid-here');
 ```
 
-Il `printerGroupId` lo trovi nel backoffice — *Impostazioni → Stampanti*. La stampa diretta non richiede di avere il PDF su disco; il print server riceve direttamente la spedizione.
+Il `printerGroupId` lo trovi nel backoffice: *Impostazioni → Stampanti*. La stampa diretta non richiede di avere il PDF su disco; il print server riceve direttamente la spedizione.
 
 ### Condividere il link dell'etichetta senza scaricare il PDF
 ```php
@@ -373,7 +373,7 @@ L'etichetta del reso si trova a pagina 2 del PDF. Il cliente la incolla sulla sc
 $consignment->setPrinterlessReturn(true);
 ```
 
-Nessuna etichetta stampata — il cliente riceve un QR-code nel portale o via e-mail. Funziona solo sui carrier che lo supportano.
+Nessuna etichetta stampata: il cliente riceve un QR-code nel portale o via e-mail. Funziona solo sui carrier che lo supportano.
 
 ### Generare un reso indipendente
 Per resi scollegati da una spedizione esistente (es. RMA dopo 30 giorni):
@@ -468,7 +468,7 @@ Tutto in `MyParcelNL\Sdk\Exception\`:
 | `AccountNotActiveException` | `403` | Shop in pausa / contratto non attivo. |
 | `NoConsignmentFoundException` | `404` | `addConsignmentByConsignmentIds` con un ID sconosciuto. |
 
-Oltre a queste eccezioni specifiche dell'SDK puoi anche ricevere generiche eccezioni PHP — `InvalidArgumentException` (tipo errato passato) e `BadMethodCallException` (nessun setter per quella key).
+Oltre a queste eccezioni specifiche dell'SDK puoi anche ricevere generiche eccezioni PHP: `InvalidArgumentException` (tipo errato passato) e `BadMethodCallException` (nessun setter per quella key).
 
 ```php
 use MyParcelNL\Sdk\Exception\ApiException;
@@ -486,9 +486,9 @@ try {
 ## 16 · Test contro l'SDK
 L'SDK utilizza PHPUnit + Mockery nei propri test. Per i tuoi test di integrazione:
 
-- **Livello unit** — fai mock dell'helper `MyParcelCurl` o dell'intera `MyParcelCollection` (`addConsignment` è fluent → facile da mockare).
-- **Livello integration** — usa un account sandbox e l'API reale. Non esiste un URL sandbox pubblico; richiedi un test-shop tramite [support@myparcel.nl](mailto:support@myparcel.nl).
-- **Snapshot test sui byte delle etichette** non sono stabili — lo stitching del PDF usa timestamp. Testa la business logic, non i byte.
+- **Livello unit**: fai mock dell'helper `MyParcelCurl` o dell'intera `MyParcelCollection` (`addConsignment` è fluent → facile da mockare).
+- **Livello integration**: usa un account sandbox e l'API reale. Non esiste un URL sandbox pubblico; richiedi un test-shop tramite [support@myparcel.nl](mailto:support@myparcel.nl).
+- **Snapshot test sui byte delle etichette** non sono stabili: lo stitching del PDF usa timestamp. Testa la business logic, non i byte.
 
 ```bash
 composer require --dev mockery/mockery phpunit/phpunit
@@ -503,7 +503,7 @@ L'SDK pre-v8 usava `MyParcel\Sdk\` senza `NL`. Find-and-replace:
 MyParcel\Sdk\   →   MyParcelNL\Sdk\
 ```
 
-PSR-4 fa il resto — nessuna ulteriore configurazione di autoload.
+PSR-4 fa il resto, nessuna ulteriore configurazione di autoload.
 
 ### Verso v10.x
 Principali break per minor:
@@ -515,14 +515,14 @@ Principali break per minor:
 | **v10.5.0** | Account general settings esposti tramite i model `Account`. |
 | **v10.4.0** | Trunkrs come carrier (`ID 16`). |
 | **v10.3.x** | Fix dei deprecation di PHP 8.4; gli importi delle assicurazioni vengono convertiti correttamente in centesimi. |
-| **v10.x → v9** | `setUserAgent()` è deprecato — usa `setUserAgentForProposition()`. |
+| **v10.x → v9** | `setUserAgent()` è deprecato. Usa `setUserAgentForProposition()`. |
 
 Changelog completo: [github.com/myparcelnl/sdk/blob/10.x/CHANGELOG.md ↗](https://github.com/myparcelnl/sdk/blob/10.x/CHANGELOG.md).
 
 ## 18 · Contributi e supporto
-- **Sorgente** — [github.com/myparcelnl/sdk ↗](https://github.com/myparcelnl/sdk) (MIT)
-- **Issue** — apri una issue indicando versione di PHP, versione dell'SDK e un esempio minimale di riproduzione.
-- **Slack** — `#sdk` su [myparcel-dev.slack.com ↗](https://join.slack.com/t/myparcel-dev/shared_invite/enQtNDkyNTg3NzA1MjM4LTM0Y2IzNmZlY2NkOWFlNTIyODY5YjFmNGQyYzZjYmQzMzliNDBjYzBkOGMwYzA0ZDYzNmM1NzAzNDY1ZjEzOTM)
-- **E-mail** — [support@myparcel.nl](mailto:support@myparcel.nl)
+- **Sorgente**: [github.com/myparcelnl/sdk ↗](https://github.com/myparcelnl/sdk) (MIT)
+- **Issue**: apri una issue indicando versione di PHP, versione dell'SDK e un esempio minimale di riproduzione.
+- **Slack**: `#sdk` su [myparcel-dev.slack.com ↗](https://join.slack.com/t/myparcel-dev/shared_invite/enQtNDkyNTg3NzA1MjM4LTM0Y2IzNmZlY2NkOWFlNTIyODY5YjFmNGQyYzZjYmQzMzliNDBjYzBkOGMwYzA0ZDYzNmM1NzAzNDY1ZjEzOTM)
+- **E-mail**: [support@myparcel.nl](mailto:support@myparcel.nl)
 
 Linee guida per le PR: branch da `10.x`, scrivi i test con Mockery (niente HTTP live), commit secondo [Conventional Commits](https://www.conventionalcommits.org/).

@@ -27,7 +27,7 @@ Retrieves a list of all order rule groups associated with a specific shop.
 | --- | --- |
 | 200 | A list of order rule groups for the shop. |
 
-**Request — GET /shops/{shopId}/order-rules**
+**Request: GET /shops/{shopId}/order-rules**
 
 ::: code-group
 ```bash [cURL]
@@ -143,7 +143,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -169,7 +169,7 @@ Creates a new order rule group for a specific shop.
 | --- | --- |
 | 201 | The newly created order rule group. |
 
-**Request — POST /shops/{shopId}/order-rules**
+**Request: POST /shops/{shopId}/order-rules**
 
 ::: code-group
 ```bash [cURL]
@@ -359,7 +359,7 @@ Updates an existing order rule group by its ID.
 | --- | --- |
 | 200 | The updated order rule group. |
 
-**Request — PUT /shops/{shopId}/order-rules/{ruleGroupId}**
+**Request: PUT /shops/{shopId}/order-rules/{ruleGroupId}**
 
 ::: code-group
 ```bash [cURL]
@@ -550,7 +550,7 @@ Deletes a specific order rule group by its ID.
 | 204 | The order rule group is successfully deleted. |
 | 404 | The resource (shop or order rule group) is not found. |
 
-**Request — DELETE /shops/{shopId}/order-rules/{ruleGroupId}**
+**Request: DELETE /shops/{shopId}/order-rules/{ruleGroupId}**
 
 ::: code-group
 ```bash [cURL]

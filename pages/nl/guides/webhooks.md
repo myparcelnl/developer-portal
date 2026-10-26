@@ -1,6 +1,6 @@
 ---
 title: Webhooks
-description: "Abonneer een HTTPS-endpoint en MyParcel POST't events naar je toe zodra een zending van status verandert — geen polling nodig."
+description: "Abonneer een HTTPS-endpoint en MyParcel POST't events naar je toe zodra een zending van status verandert, geen polling nodig."
 ---
 
 ## Abonneren
@@ -25,7 +25,7 @@ POST /webhooks
 - `shipment.delayed`
 
 ## Request signing
-Elke webhook-POST bevat een `X-MyParcel-Signature`-header — een HMAC-SHA256 van de raw body met je webhook-secret. Verifieer deze header altijd voordat je de payload vertrouwt.
+Elke webhook-POST bevat een `X-MyParcel-Signature`-header, een HMAC-SHA256 van de raw body met je webhook-secret. Verifieer deze header altijd voordat je de payload vertrouwt.
 
 ```
 // Node.js example

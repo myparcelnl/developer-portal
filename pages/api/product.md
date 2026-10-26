@@ -22,7 +22,7 @@ Create a product.
 | 200 | product is created. |
 | 400 | Invalid request syntax |
 
-**Request — POST /create-product**
+**Request: POST /create-product**
 
 ::: code-group
 ```bash [cURL]
@@ -484,7 +484,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -522,7 +522,7 @@ Get products.
 | 200 | The listed products. |
 | 400 | Invalid request syntax |
 
-**Request — GET /products**
+**Request: GET /products**
 
 ::: code-group
 ```bash [cURL]
@@ -642,7 +642,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -677,7 +677,7 @@ Manage and unmanage the inventory of a product. This endpoint requires the new v
 | 204 | inventory is (un)managed by provided fulfilment platform. |
 | 400 | Invalid request syntax |
 
-**Request — POST /manage-inventory**
+**Request: POST /manage-inventory**
 
 ::: code-group
 ```bash [cURL]
@@ -848,7 +848,7 @@ Update a product.
 | 200 | product is updated. |
 | 400 | Invalid request syntax |
 
-**Request — POST /update-product**
+**Request: POST /update-product**
 
 ::: code-group
 ```bash [cURL]
@@ -1310,7 +1310,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {

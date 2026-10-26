@@ -4,7 +4,7 @@ description: "Hoe je de MyParcel API aanroept: base-URL, HTTP-methodes, headers,
 ---
 
 ## Overzicht
-De MyParcel-API's zijn REST-gebaseerd en spreken JSON over HTTPS. Je maakt en leest objecten met standaard HTTP-methodes, en elk endpoint staat in de automatisch gegenereerde [API-referentie](../../api/myparcel.md) — die referentie is altijd de bron van waarheid voor paden, parameters en schema's.
+De MyParcel-API's zijn REST-gebaseerd en spreken JSON over HTTPS. Je maakt en leest objecten met standaard HTTP-methodes, en elk endpoint staat in de automatisch gegenereerde [API-referentie](../../api/myparcel.md). Die referentie is altijd de bron van waarheid voor paden, parameters en schema's.
 
 ## Base-URL
 De Shipment API draait op `https://api.myparcel.nl`. De andere MyParcel-API's hebben elk hun eigen host:
@@ -36,10 +36,10 @@ De API volgt standaard REST-semantiek.
 Niet elke methode is op elk endpoint beschikbaar. Controleer in de [API-referentie](../../api/myparcel.md) welke methodes een pad ondersteunt.
 
 ## Headers
-- **`Content-Type`** — gebruik `application/json;charset=utf-8` voor JSON-bodies. Zie [Character encoding](./character-encoding.md).
-- **`Accept`** — zet het formaat dat je terug verwacht (bijv. `application/json`). Sommige endpoints gebruiken een vendor-mediatype zoals `application/vnd.shipment+json`; de [API-referentie](../../api/myparcel.md) noemt het exacte type per endpoint.
-- **`Authorization`** — je API key (zie [Authenticatie](./authentication.md)).
-- **`User-Agent`** — identificeert je integratie (zie hieronder).
+- **`Content-Type`**: gebruik `application/json;charset=utf-8` voor JSON-bodies. Zie [Character encoding](./character-encoding.md).
+- **`Accept`**: zet het formaat dat je terug verwacht (bijv. `application/json`). Sommige endpoints gebruiken een vendor-mediatype zoals `application/vnd.shipment+json`; de [API-referentie](../../api/myparcel.md) noemt het exacte type per endpoint.
+- **`Authorization`**: je API key (zie [Authenticatie](./authentication.md)).
+- **`User-Agent`**: identificeert je integratie (zie hieronder).
 
 ## De User-Agent-conventie
 Stuur een `User-Agent`-header die je integratie identificeert. Zo kan MyParcel-support problemen herleiden tot de juiste plugin of backend.
@@ -59,7 +59,7 @@ Neem contact op met MyParcel zodat je integratie herkend wordt in de User-Agent.
 :::
 
 ## Responseformaten
-De meeste endpoints geven JSON terug. Sommige geven binair of tekst terug — labels en facturen komen als **PDF**, en sommige exports als **CSV**. Zie [Responses](./responses.md) voor statuscodes en de response-envelope.
+De meeste endpoints geven JSON terug. Sommige geven binair of tekst terug: labels en facturen komen als **PDF**, en sommige exports als **CSV**. Zie [Responses](./responses.md) voor statuscodes en de response-envelope.
 
 ## Rate limiting
 De API hanteert per endpoint een rate limit via een sliding window. Overschrijd je een limiet, dan krijg je `429 Too Many Requests`. Wacht enkele minuten voor je opnieuw probeert, in plaats van het endpoint te blijven aanroepen. Loop je regelmatig tegen de limieten aan, neem dan contact op met MyParcel voor opties zoals webhooks.
