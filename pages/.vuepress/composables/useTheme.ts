@@ -13,6 +13,19 @@ if (typeof window !== 'undefined') {
   try {
     if (localStorage.getItem(STORAGE_KEY) === 'dark') theme.value = 'dark';
   } catch {}
+
+  // The default theme can still set data-theme after hydration (a stored
+  // "auto" with a dark OS preference), so follow the attribute rather than
+  // only the stored value. Otherwise the toggle's label describes the wrong
+  // theme.
+  const readDom = () => {
+    theme.value = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  };
+  readDom();
+  new MutationObserver(readDom).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
 }
 
 function apply(next: Theme) {

@@ -6,7 +6,7 @@ import MpFooter from '../components/MpFooter.vue';
 <template>
   <MpHeader />
 
-  <main class="mp-standalone">
+  <main id="mp-main" tabindex="-1" class="mp-standalone">
 <nav class="mp-breadcrumb">
       <a href="/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
       <span class="mp-breadcrumb__sep">/</span>

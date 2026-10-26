@@ -11,7 +11,7 @@ import MpDownloadSpecs from '../components/MpDownloadSpecs.vue';
   <div class="mp-ref-layout">
     <MpApiOverviewSidebar />
 
-    <main class="mp-ref-content">
+    <main id="mp-main" tabindex="-1" class="mp-ref-content">
 <nav class="mp-breadcrumb" aria-label="Breadcrumb">
         <a href="/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
         <span class="mp-breadcrumb__sep">/</span>

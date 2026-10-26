@@ -23,6 +23,10 @@ const query = ref('');
 const open = ref(false);
 const focusedIdx = ref(0);
 const inputEl = ref<HTMLInputElement | null>(null);
+const dialogEl = ref<HTMLElement | null>(null);
+const triggerEl = ref<HTMLButtonElement | null>(null);
+// Element that had focus before the dialog opened, so closing hands it back.
+let returnFocusTo: HTMLElement | null = null;
 
 function categorize(path: string): { category: string; order: number } {
   if (path === '/') return { category: 'Home', order: 0 };
@@ -100,17 +104,44 @@ function flatIndex(group: number, item: number): number {
 }
 
 function openModal() {
+  if (open.value) return;
+  returnFocusTo = (document.activeElement as HTMLElement | null) ?? triggerEl.value;
   open.value = true;
   nextTick(() => inputEl.value?.focus());
 }
 
-function closeModal() {
+function closeModal(restoreFocus = true) {
   open.value = false;
   query.value = '';
+  if (restoreFocus) nextTick(() => (returnFocusTo ?? triggerEl.value)?.focus());
+  returnFocusTo = null;
+}
+
+// Escape from anywhere in the dialog, and keep Tab inside it while it is open.
+function onDialogKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && !e.defaultPrevented) {
+    e.preventDefault();
+    closeModal();
+    return;
+  }
+  if (e.key !== 'Tab' || !dialogEl.value) return;
+  const focusable = Array.from(
+    dialogEl.value.querySelectorAll<HTMLElement>('input, button, [href], [tabindex]:not([tabindex="-1"])'),
+  );
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
 }
 
 function go(path: string) {
-  closeModal();
+  closeModal(false);
   router.push(path);
 }
 
@@ -152,28 +183,30 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="mp-nav__search" @click="openModal">
-    <span class="mp-nav__search-icon">
+  <div class="mp-nav__search">
+    <span class="mp-nav__search-icon" aria-hidden="true">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="7"/>
         <path d="m21 21-4.3-4.3"/>
       </svg>
     </span>
-    <input
-      type="search"
-      placeholder="Search API reference…"
-      data-i18n-placeholder="Search API reference…"
-      readonly
-      @focus="openModal"
-      aria-label="Open search"
-    />
+    <button
+      ref="triggerEl"
+      type="button"
+      class="mp-nav__search-btn"
+      aria-haspopup="dialog"
+      aria-keyshortcuts="Meta+K Control+K /"
+      @click="openModal"
+    >
+      <span class="mp-nav__search-placeholder" data-i18n="Search API reference…">Search API reference…</span>
+    </button>
     <kbd class="mp-nav__search-kbd" aria-hidden="true">⌘K</kbd>
   </div>
 
   <ClientOnly>
   <Teleport to="body">
-    <div v-if="open" class="mp-cmdk__overlay" @click.self="closeModal" @keydown="onKeydown">
-      <div class="mp-cmdk" role="dialog" aria-label="Search">
+    <div v-if="open" class="mp-cmdk__overlay" @click.self="closeModal()" @keydown="onDialogKeydown">
+      <div ref="dialogEl" class="mp-cmdk" role="dialog" aria-modal="true" aria-label="Search">
         <div class="mp-cmdk__head">
           <span class="mp-cmdk__icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -190,7 +223,7 @@ onBeforeUnmount(() => {
             data-i18n-placeholder="Search docs and APIs…"
             @keydown="onKeydown"
           />
-          <button type="button" class="mp-cmdk__close" @click="closeModal" aria-label="Close">Esc</button>
+          <button type="button" class="mp-cmdk__close" @click="closeModal()" aria-label="Close search">Esc</button>
         </div>
 
         <div v-if="matches.length" class="mp-cmdk__results">
@@ -251,10 +284,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-/* Trigger uses the original .mp-nav__search styles from developer-portal.css.
-   We just make the readonly input non-text-cursor and the whole row clickable. */
-.mp-nav__search { cursor: pointer; }
-.mp-nav__search input { cursor: pointer; }
+/* Trigger uses the .mp-nav__search styles from developer-portal.css. */
 
 .mp-cmdk__overlay {
   position: fixed;
@@ -297,7 +327,7 @@ onBeforeUnmount(() => {
   background: var(--mp-bg, #fff);
 }
 .mp-cmdk__icon {
-  color: var(--mp-fresh, #0F7859);
+  color: var(--mp-text-accent, #0F7859);
   display: inline-flex;
   flex-shrink: 0;
 }
@@ -338,7 +368,7 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
 }
 .mp-cmdk__hint strong {
-  color: var(--mp-fresh, #0F7859);
+  color: var(--mp-text-accent, #0F7859);
   font-weight: 700;
   text-transform: none;
   letter-spacing: 0;
@@ -385,10 +415,10 @@ onBeforeUnmount(() => {
   background: var(--mp-bg-subtle, #f7faf9);
   border: 1px solid var(--mp-border-soft, #ecefed);
   border-radius: 8px;
-  color: var(--mp-fresh, #0F7859);
+  color: var(--mp-text-accent, #0F7859);
 }
 .mp-cmdk__group li.is-active .mp-cmdk__icon-wrap {
-  background: #fff;
+  background: var(--mp-bg, #fff);
   border-color: var(--mp-fresh, #0F7859);
 }
 .mp-cmdk__main {
@@ -399,7 +429,7 @@ onBeforeUnmount(() => {
   min-width: 0;
 }
 .mp-cmdk__title {
-  color: var(--mp-deep, #002621);
+  color: var(--mp-text, #002621);
   font-weight: 600;
   font-size: 14px;
   line-height: 1.3;
@@ -416,7 +446,7 @@ onBeforeUnmount(() => {
   text-overflow: ellipsis;
 }
 .mp-cmdk__arrow {
-  color: var(--mp-fresh, #0F7859);
+  color: var(--mp-text-accent, #0F7859);
   flex-shrink: 0;
   opacity: 0;
   transform: translateX(-4px);
@@ -437,11 +467,11 @@ onBeforeUnmount(() => {
 }
 .mp-cmdk__empty p {
   margin: 0;
-  color: var(--mp-deep, #002621);
+  color: var(--mp-text, #002621);
   font-size: 15px;
 }
 .mp-cmdk__empty strong {
-  color: var(--mp-fresh, #0F7859);
+  color: var(--mp-text-accent, #0F7859);
 }
 .mp-cmdk__empty span {
   font-size: 13px;
@@ -459,7 +489,7 @@ onBeforeUnmount(() => {
   display: inline-block;
   margin-right: 4px;
   padding: 2px 6px;
-  background: #fff;
+  background: var(--mp-bg, #fff);
   border: 1px solid var(--mp-border, #e1e6e4);
   border-radius: 4px;
   font-family: var(--mp-mono, ui-monospace, monospace);

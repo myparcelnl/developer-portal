@@ -198,7 +198,7 @@ onBeforeUnmount(() => {
 .mp-download-specs__icon {
   grid-column: 2;
   grid-row: 1 / span 2;
-  color: var(--mp-fresh, #0F7859);
+  color: var(--mp-text-accent, #0F7859);
   align-self: center;
 }
 </style>

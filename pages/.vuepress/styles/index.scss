@@ -50,10 +50,18 @@
     align-self: start !important;
   }
 }
-@media (max-width: 899px) {
+@media (min-width: 769px) and (max-width: 899px) {
   .mp-ref-layout:has(.mp-code-rail) {
     grid-template-columns: var(--mp-sidebar-width) minmax(0, 1fr) !important;
   }
+}
+// Phones: one column, sidebar stacked above the content.
+@media (max-width: 768px) {
+  .mp-ref-layout:has(.mp-code-rail) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+@media (max-width: 899px) {
   .mp-code-rail { display: none !important; }
   .mp-endpoint__body--split .mp-endpoint__code { display: block !important; }
 }
@@ -471,7 +479,7 @@ body.mp-rail-dragging iframe {
 }
 .mp-sidebar-filter__clear:hover {
   background: var(--mp-mint);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 
 // 7. Parameters / Responses tables — modern, borderless, color-coded
@@ -544,7 +552,7 @@ body.mp-rail-dragging iframe {
   width: auto !important;
   height: auto !important;
   background: rgba(255, 140, 0, 0.12) !important;
-  color: var(--mp-goldfish) !important;
+  color: var(--mp-text-orange) !important;
   border: 1px solid rgba(255, 140, 0, 0.32) !important;
   border-radius: var(--mp-radius-pill) !important;
   font-family: var(--mp-font) !important;
@@ -589,7 +597,7 @@ body.mp-rail-dragging iframe {
 }
 .mp-status--ok {
   background: var(--mp-mint);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   border-color: rgba(15, 120, 89, 0.18);
 }
 .mp-status--info {
@@ -599,7 +607,7 @@ body.mp-rail-dragging iframe {
 }
 .mp-status--warn {
   background: rgba(255, 140, 0, 0.10);
-  color: var(--mp-goldfish);
+  color: var(--mp-text-orange);
   border-color: rgba(255, 140, 0, 0.20);
 }
 .mp-status--err {
@@ -790,7 +798,7 @@ pre.mp-code-block::after {
 }
 .mp-endpoint__anchor:hover {
   background: var(--mp-mint);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   border-color: rgba(15, 120, 89, 0.18);
 }
 .mp-endpoint__anchor.is-copied {
@@ -818,7 +826,7 @@ pre.mp-code-block::after {
   color: var(--mp-text-muted);
 }
 .mp-sidebar-filter__count.is-empty {
-  color: var(--mp-goldfish);
+  color: var(--mp-text-orange);
 }
 
 // ---------------------------------------------------------------------------
@@ -877,7 +885,7 @@ pre.mp-code-block::after {
 }
 .mp-shortcuts-hint:hover {
   border-color: var(--mp-fresh);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 .mp-shortcuts-hint kbd {
   padding: 1px 6px;
@@ -946,7 +954,7 @@ pre.mp-code-block::after {
   font-family: var(--mp-mono);
   font-size: 11px;
   font-weight: 600;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 
 .mp-flash {
@@ -1036,7 +1044,7 @@ pre.mp-code-block::after {
 .mp-api-toc__chip:hover {
   background: var(--mp-mint);
   border-color: var(--mp-fresh);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 
 // Filter-match highlight in the API sidebar
@@ -1084,7 +1092,7 @@ pre.mp-code-block::after {
 .mp-docs-pager__title {
   font-size: 15px;
   font-weight: 600;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 
 // Figure / caption look for screenshots in plugin manuals.
@@ -1118,7 +1126,7 @@ pre.mp-code-block::after {
 // ---------------------------------------------------------------------------
 .mp-nav__link.is-active,
 .mp-nav__item.is-active > .mp-nav__link {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 .mp-nav__link.is-active::after,
 .mp-nav__item.is-active > .mp-nav__link::after {
@@ -1139,9 +1147,35 @@ pre.mp-code-block::after {
 // ---------------------------------------------------------------------------
 //  Polish: visible focus rings for keyboard navigation
 // ---------------------------------------------------------------------------
+// Site-wide default, so no control falls back to the browser's own ring.
+:focus-visible {
+  outline: 2px solid var(--mp-fresh);
+  outline-offset: 2px;
+}
+[data-theme="dark"] :focus-visible { outline-color: #6ee7b7; }
+
+// The skip link's target takes focus programmatically; a ring around the
+// whole page would be noise.
+#mp-main:focus { outline: none; }
+
+.mp-skip-link {
+  position: absolute;
+  top: var(--mp-space-2);
+  left: var(--mp-space-2);
+  z-index: 1100;
+  padding: var(--mp-space-2) var(--mp-space-4);
+  background: var(--mp-deep);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: var(--mp-radius-md);
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--mp-space-4)));
+}
+.mp-skip-link:focus-visible { transform: none; }
+
 .mp-btn:focus-visible,
 .mp-nav__link:focus-visible,
-.mp-nav__search:focus-within,
 .mp-lang-dropdown__toggle:focus-visible,
 .mp-download-specs__toggle:focus-visible,
 .mp-sidebar__item:focus-visible,
@@ -1165,7 +1199,7 @@ pre.mp-code-block::after {
   h2 {
     font-size: 26px !important;
     font-weight: 700 !important;
-    color: var(--mp-fresh) !important;
+    color: var(--mp-text-accent) !important;
     letter-spacing: -0.015em;
     line-height: 1.25;
     margin: var(--mp-space-10) 0 var(--mp-space-3) !important;
@@ -1207,7 +1241,7 @@ pre.mp-code-block::after {
   }
 
   a:not(.header-anchor) {
-    color: var(--mp-fresh);
+    color: var(--mp-text-accent);
     text-decoration: none;
     border-bottom: 1px dotted rgba(15, 120, 89, 0.4);
     transition: border-color 0.12s, color 0.12s;
@@ -1269,7 +1303,7 @@ pre.mp-code-block::after {
   }
   .mp-heading-anchor:hover {
     background: var(--mp-mint);
-    color: var(--mp-fresh);
+    color: var(--mp-text-accent);
     border-color: rgba(15, 120, 89, 0.18);
   }
   .mp-heading-anchor.is-copied {
@@ -1375,7 +1409,7 @@ pre.mp-code-block::after {
   // Middle column(s) get brand-green emphasis — the "recommended value"
   // / "what to do" cell pops out vs the row label and the explanation.
   tbody td:nth-child(2):not(:last-child) {
-    color: var(--mp-fresh);
+    color: var(--mp-text-accent);
     font-weight: 600;
   }
 
@@ -1556,7 +1590,7 @@ pre.mp-code-block::after {
 
   // Platform-grid: 2 cols instead of 4
   .mp-platform-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
 
@@ -1573,26 +1607,40 @@ pre.mp-code-block::after {
     border: 1px solid var(--mp-border);
     background: var(--mp-bg-subtle);
   }
-  .mp-nav__search input {
+  .mp-nav__search-btn {
     width: 100%;
     height: 100%;
     padding: 0;
     background: transparent;
     border: none;
-    color: transparent;            /* hide value/placeholder */
-    caret-color: transparent;
-    cursor: pointer;
   }
-  .mp-nav__search input::placeholder { color: transparent; }
+  // Icon-only on mobile: keep the label for screen readers, hide it visually.
+  .mp-nav__search-placeholder {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
   .mp-nav__search-icon {
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     color: var(--mp-text);
   }
   .mp-nav__search-kbd { display: none !important; }
+
+  // Touch targets: match the 40px search and hamburger buttons.
+  .mp-theme-toggle { width: 40px; height: 40px; flex-shrink: 0; }
+  .mp-nav__link { min-height: 40px; display: inline-flex; align-items: center; }
 }
 
 @media (max-width: 540px) {
+  // The beta banner already says it; the logo pill would push the header
+  // controls off a 375px screen.
+  .mp-nav__logo-beta { display: none; }
+  // A slightly smaller wordmark keeps the three 40px header buttons on screen.
+  .mp-nav__logo-img { width: 112px; height: auto; }
   .mp-download-specs__menu { width: calc(100vw - 24px); }
   .mp-hero__title { font-size: 28px !important; }
   .mp-hero__sub   { font-size: 14px !important; }

@@ -161,6 +161,7 @@ onMounted(async () => {
 <template>
   <MpHeader />
 
+  <main id="mp-main" tabindex="-1">
   <section class="mp-hero">
     <!-- Decorative mint-on-mint curves, kept subtle -->
     <svg class="mp-hero__bg" viewBox="0 0 1200 600" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
@@ -298,7 +299,7 @@ onMounted(async () => {
        START PATHS (Docs + API Reference)
   ============================================================ -->
   <section class="mp-api-section">
-    <div class="mp-section-label" data-i18n="START HERE">START HERE</div>
+    <h2 class="mp-section-label" data-i18n="START HERE">START HERE</h2>
     <div class="mp-api-grid">
 
       <a href="/guides/getting-started.html" class="mp-api-card">
@@ -368,7 +369,7 @@ onMounted(async () => {
        API CARDS (deeper entry points per spec)
   ============================================================ -->
   <section class="mp-api-section">
-    <div class="mp-section-label" data-i18n="AVAILABLE APIS">AVAILABLE APIS</div>
+    <h2 class="mp-section-label" data-i18n="AVAILABLE APIS">AVAILABLE APIS</h2>
     <div class="mp-api-grid">
 
       <a href="/api/myparcel.html" class="mp-api-card">
@@ -494,7 +495,7 @@ onMounted(async () => {
        CARRIERS — ship with every major carrier
   ============================================================ -->
   <section class="mp-api-section mp-section-band--mint">
-    <div class="mp-section-label" data-i18n="SHIP WITH">SHIP WITH</div>
+    <h2 class="mp-section-label" data-i18n="SHIP WITH">SHIP WITH</h2>
     <div class="mp-logo-grid">
       <a class="mp-brand-logo mp-brand-logo--img" href="https://www.postnl.nl" target="_blank" rel="noopener" aria-label="PostNL">
         <img class="mp-brand-logo__mark" src="https://assets.myparcel.nl/skin/general-images/carrier-logos/svg/postnl.svg" alt="PostNL" loading="lazy" />
@@ -546,7 +547,7 @@ onMounted(async () => {
        INTEGRATIONS — e-commerce platforms
   ============================================================ -->
   <section class="mp-api-section">
-    <div class="mp-section-label" data-i18n="PLATFORM INTEGRATIONS">PLATFORM INTEGRATIONS</div>
+    <h2 class="mp-section-label" data-i18n="PLATFORM INTEGRATIONS">PLATFORM INTEGRATIONS</h2>
     <div class="mp-platform-grid">
       <a class="mp-platform" href="/platforms/woocommerce.html">
         <img class="mp-platform__img" src="/images/integrations/woocommerce.svg" alt="" width="48" height="48" loading="lazy">
@@ -582,6 +583,7 @@ onMounted(async () => {
       <span aria-hidden="true">→</span>
     </a>
   </section>
+  </main>
 
   <MpFooter />
 </template>

@@ -85,7 +85,7 @@ const meta = computed(() => ({
     <component :is="Sidebar" v-if="Sidebar" />
     <MpApiOverviewSidebar v-else />
 
-    <main class="mp-ref-content">
+    <main id="mp-main" tabindex="-1" class="mp-ref-content">
       <nav class="mp-breadcrumb" aria-label="Breadcrumb">
         <a href="/" class="mp-breadcrumb__link">Home</a>
         <span class="mp-breadcrumb__sep">/</span>

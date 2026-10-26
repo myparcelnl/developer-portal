@@ -3,6 +3,7 @@
   "Beta": "Bêta",
   "This developer portal is in beta — content and APIs may change while we polish things up.": "Ce portail développeur est en bêta, le contenu et les API peuvent évoluer pendant que nous peaufinons les détails.",
   "Share feedback →": "Donner un avis →",
+  "Skip to content": "Aller au contenu",
   "Pick an endpoint to see request & response samples.": "Choisissez un endpoint pour voir des exemples de requête et de réponse.",
   "Authenticate every request with a bearer token:": "Authentifiez chaque requête avec un bearer token :",
   "Tip:": "Astuce :",

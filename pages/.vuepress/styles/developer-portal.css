@@ -42,8 +42,13 @@
   /* Text — Deep Green instead of neutral-black, per brand rule */
   --mp-text:        var(--mp-deep);
   --mp-text-body:   #1f4238;
-  --mp-text-muted:  #5e7973;
-  --mp-text-faint:  #8fa6a0;
+  --mp-text-muted:  #4b615c;   /* 5.8:1 on Mint, 6.6:1 on white */
+  --mp-text-faint:  #59706a;   /* 4.6:1 on Mint, the lightest text colour that stays legible */
+
+  /* Text-only accents. Fresh and Goldfish stay the fill colours; these are the
+     shades that reach 4.5:1 as text on the page background. */
+  --mp-text-accent: var(--mp-fresh);
+  --mp-text-orange: #a14a00;   /* 6.0:1 on white; Goldfish itself is 2.3:1 */
 
   /* Typography — Proxima Nova per brand, with safe fallbacks */
   --mp-font: "Proxima Nova", "Inter", -apple-system, BlinkMacSystemFont,
@@ -121,7 +126,7 @@ body {
 }
 
 a {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   text-decoration: none;
   transition: color 0.12s;
 }
@@ -210,9 +215,9 @@ mp-header, mp-footer { display: contents; }
 }
 
 .mp-nav__logo-sub {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--mp-goldfish);
+  color: var(--mp-text-orange);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1.2;
@@ -227,9 +232,9 @@ mp-header, mp-footer { display: contents; }
 }
 
 .mp-nav__logo-beta {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: var(--mp-mint);
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -259,8 +264,14 @@ mp-header, mp-footer { display: contents; }
   color: var(--mp-text-faint);
 }
 
-.mp-nav__search input {
+.mp-nav__search-btn {
+  display: block;
   width: 100%;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   background: var(--mp-bg-muted);
   border: 1px solid transparent;
   border-radius: var(--mp-radius-md);
@@ -271,10 +282,13 @@ mp-header, mp-footer { display: contents; }
   transition: border-color 0.12s, background 0.12s, box-shadow 0.12s;
 }
 
-.mp-nav__search input::placeholder { color: var(--mp-text-faint); }
+.mp-nav__search-placeholder { color: var(--mp-text-muted); }
 
-.mp-nav__search input:focus {
-  outline: none;
+.mp-nav__search-btn:hover { border-color: var(--mp-border); }
+
+.mp-nav__search-btn:focus-visible {
+  outline: 2px solid var(--mp-fresh);
+  outline-offset: 2px;
   background: #ffffff;
   border-color: var(--mp-fresh);
   box-shadow: 0 0 0 3px rgba(15, 120, 89, 0.12);
@@ -298,7 +312,7 @@ mp-header, mp-footer { display: contents; }
   letter-spacing: 0.02em;
 }
 
-.mp-nav__search input:focus ~ .mp-nav__search-kbd { opacity: 0; }
+.mp-nav__search-btn:focus-visible ~ .mp-nav__search-kbd { opacity: 0; }
 
 .mp-nav__spacer { flex: 1; }
 
@@ -496,7 +510,7 @@ mp-header, mp-footer { display: contents; }
 
 .mp-lang-dropdown__menu .mp-lang-btn.mp-lang-btn--active {
   background: rgba(15, 120, 89, 0.08);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   box-shadow: none;
 }
 
@@ -765,7 +779,7 @@ mp-header, mp-footer { display: contents; }
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: #ffffff;
   padding: 6px 12px;
   border-radius: var(--mp-radius-pill);
@@ -811,7 +825,7 @@ mp-header, mp-footer { display: contents; }
   white-space: nowrap;
 }
 .mp-hero__announce-arrow {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   transition: transform 0.15s ease;
 }
 .mp-hero__announce:hover .mp-hero__announce-arrow { transform: translateX(2px); }
@@ -966,7 +980,7 @@ a.mp-stat--uptime:hover {
 .mp-stat__value {
   font-size: 36px;
   font-weight: 700;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   line-height: 1;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
@@ -1104,6 +1118,8 @@ a.mp-stat--uptime:hover {
 }
 
 .mp-section-label {
+  margin-top: 0;
+  line-height: 1.4;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -1130,7 +1146,7 @@ a.mp-stat--uptime:hover {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   margin-bottom: var(--mp-space-3);
 }
 
@@ -1230,7 +1246,7 @@ a.mp-stat--uptime:hover {
   height: 44px;
   background: var(--mp-bg-muted);
   border-radius: var(--mp-radius-md);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 
 .mp-api-row__body {
@@ -1267,7 +1283,7 @@ a.mp-stat--uptime:hover {
 }
 
 .mp-api-row:hover .mp-api-row__arrow {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   transform: translateX(3px);
 }
 
@@ -1298,7 +1314,7 @@ a.mp-stat--uptime:hover {
   width: 28px;
   height: 28px;
   background: var(--mp-bg-muted);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   border-radius: 50%;
   font-size: 13px;
   font-weight: 700;
@@ -1495,7 +1511,7 @@ a.mp-stat--uptime:hover {
 .mp-api-card__cta {
   font-size: 13px;
   font-weight: 500;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   display: inline-flex;
   align-items: center;
   gap: var(--mp-space-1);
@@ -1624,7 +1640,7 @@ a.mp-stat--uptime:hover {
   gap: var(--mp-space-1);
   font-size: 13px;
   font-weight: 500;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   transition: gap 0.15s;
 }
 
@@ -1968,7 +1984,7 @@ a.mp-stat--uptime:hover {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.55);   /* about 5.5:1 on Deep */
 }
 
 @media (max-width: 720px) {
@@ -2205,7 +2221,7 @@ a.mp-stat--uptime:hover {
 }
 
 .mp-view-mode__icon {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 
 .mp-view-panel { display: none; }
@@ -2302,7 +2318,7 @@ a.mp-stat--uptime:hover {
   font-family: var(--mp-mono);
   font-size: 11px;
   font-weight: 500;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: rgba(15, 120, 89, 0.09);
   padding: 2px 8px;
   border-radius: var(--mp-radius-sm);
@@ -2403,10 +2419,14 @@ a.mp-stat--uptime:hover {
 }
 
 @media (max-width: 1279px) {
+  .mp-code-rail { display: none; }
+}
+/* Two columns only while the sidebar still fits beside the content; below
+   769px the single-column rule in section 7 must win. */
+@media (min-width: 769px) and (max-width: 1279px) {
   .mp-ref-layout:has(.mp-code-rail) {
     grid-template-columns: var(--mp-sidebar-width) minmax(0, 1fr);
   }
-  .mp-code-rail { display: none; }
 }
 
 /* Breadcrumb */
@@ -2970,7 +2990,7 @@ pre.mp-code-block code.hljs {
 
 .mp-code-tab--active {
   background: rgba(15, 120, 89, 0.08);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   font-weight: 600;
 }
 
@@ -3014,9 +3034,9 @@ pre.mp-code-block code.hljs {
 /* Primary — Goldfish Orange, the single most important action */
 .mp-btn--primary {
   background: var(--mp-goldfish);
-  color: #ffffff;
+  color: var(--mp-deep);   /* 6.9:1; white on Goldfish is 2.3:1 */
 }
-.mp-btn--primary:hover { background: var(--mp-goldfish); color: #ffffff; }
+.mp-btn--primary:hover { background: var(--mp-goldfish); color: var(--mp-deep); }
 
 /* Secondary — Fresh Green */
 .mp-btn--secondary {
@@ -3216,7 +3236,7 @@ pre.mp-code-block code.hljs {
 }
 
 .mp-docs-content a {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   text-decoration: none;
   border-bottom: 1px solid rgba(15, 120, 89, 0.25);
   transition: border-color 0.15s, color 0.15s;
@@ -3353,7 +3373,7 @@ pre.mp-code-block code.hljs {
 .mp-docs-toc a:hover { color: var(--mp-text); }
 
 .mp-docs-toc a.is-active {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   border-left-color: var(--mp-fresh);
   font-weight: 500;
 }
@@ -3454,7 +3474,7 @@ pre.mp-code-block code.hljs {
   flex-shrink: 0;
   border-radius: var(--mp-radius-md);
   background: var(--mp-mint);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3991,7 +4011,10 @@ pre.mp-code-block code.hljs {
   --mp-text:        #edf5f2;
   --mp-text-body:   #c8d8d3;
   --mp-text-muted:  #92aba3;
-  --mp-text-faint:  #6a8178;
+  --mp-text-faint:  #86a097;   /* 5.1:1 on bg-muted */
+
+  --mp-text-accent: #4cc497;   /* Fresh is 3.2:1 on the dark background */
+  --mp-text-orange: var(--mp-goldfish);
 
   /* Mint tokens become deeper panels on dark */
   --mp-mint:        #003128;
@@ -4010,12 +4033,11 @@ pre.mp-code-block code.hljs {
 
 [data-theme="dark"] .mp-nav__logo-name { color: #ffffff; }
 
-[data-theme="dark"] .mp-nav__search input {
+[data-theme="dark"] .mp-nav__search-btn {
   background: rgba(255, 255, 255, 0.05);
   color: var(--mp-text);
 }
-[data-theme="dark"] .mp-nav__search input::placeholder { color: var(--mp-text-faint); }
-[data-theme="dark"] .mp-nav__search input:focus {
+[data-theme="dark"] .mp-nav__search-btn:focus-visible {
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.18);
 }
@@ -4070,6 +4092,11 @@ pre.mp-code-block code.hljs {
 
 /* Hero — deeper background with faint mint glow instead of solid mint */
 [data-theme="dark"] .mp-hero { background: #021f1a; }
+/* The hero gradients are drawn for a light surface; on dark a white glow
+   turns into a grey wash, so swap in a faint Fresh glow and a deeper panel. */
+[data-theme="dark"] #mp-hero-blob-a stop { stop-color: var(--mp-fresh); }
+[data-theme="dark"] #mp-hero-blob-a stop:first-child { stop-opacity: 0.18; }
+[data-theme="dark"] #mp-hero-blob-b stop { stop-color: var(--mp-bg-muted); }
 [data-theme="dark"] .mp-hero__tag { background: rgba(255, 255, 255, 0.06); color: #6ee7b7; box-shadow: none; }
 [data-theme="dark"] .mp-hero__announce { background: rgba(255, 255, 255, 0.06); color: #ffffff; box-shadow: none; }
 [data-theme="dark"] .mp-hero__announce:hover { background: rgba(255, 255, 255, 0.10); }
@@ -4387,7 +4414,7 @@ pre.mp-code-block code.hljs {
 }
 .mp-int-chip:hover {
   border-color: var(--mp-fresh);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 .mp-int-chip.is-active {
   background: var(--mp-fresh);
@@ -4424,7 +4451,7 @@ pre.mp-code-block code.hljs {
 }
 .mp-int-search:focus-within {
   border-color: var(--mp-fresh);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   box-shadow: 0 0 0 3px rgba(15, 120, 89, 0.12);
 }
 .mp-int-search input {
@@ -4578,7 +4605,7 @@ pre.mp-code-block code.hljs {
   gap: 3px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   text-decoration: none;
   border-radius: var(--mp-radius-sm);
 }
@@ -4648,7 +4675,7 @@ pre.mp-code-block code.hljs {
   margin-top: var(--mp-space-5);
   font-size: 14px;
   font-weight: 600;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   text-decoration: none;
 }
 .mp-platform-all:hover { color: var(--mp-monstera); text-decoration: underline; }

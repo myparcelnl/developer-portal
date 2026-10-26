@@ -126,7 +126,7 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
 <template>
   <MpHeader />
 
-  <main class="mp-standalone mp-integrations">
+  <main id="mp-main" tabindex="-1" class="mp-standalone mp-integrations">
     <MpBreadcrumb :trail="breadcrumbTrail" />
 
     <h1 class="mp-docs-content__title" data-i18n="Integrations">Integrations</h1>

@@ -76,7 +76,7 @@ async function onSubmit(e: Event) {
 <template>
   <MpHeader />
 
-  <main class="mp-standalone">
+  <main id="mp-main" tabindex="-1" class="mp-standalone">
 <nav class="mp-breadcrumb">
       <a href="/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
       <span class="mp-breadcrumb__sep">/</span>
@@ -90,7 +90,7 @@ async function onSubmit(e: Event) {
       live system status.
     </p>
 
-    <div class="mp-section-label" data-i18n="OR REACH US VIA">OR REACH US VIA</div>
+    <h2 class="mp-section-label" data-i18n="OR REACH US VIA">OR REACH US VIA</h2>
     <!-- ============================================================
          Other channels
     ============================================================ -->

@@ -97,6 +97,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <a href="#mp-main" class="mp-skip-link" data-i18n="Skip to content">Skip to content</a>
+
   <ClientOnly>
     <Transition name="mp-beta-banner">
       <div v-if="bannerVisible" class="mp-beta-banner" role="status">
@@ -168,11 +170,11 @@ onBeforeUnmount(() => {
         :title="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
         @click="toggleTheme"
       >
-        <svg v-if="theme === 'dark'" class="mp-theme-toggle__sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="mp-theme-toggle__sun" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
         </svg>
-        <svg v-else class="mp-theme-toggle__moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="mp-theme-toggle__moon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
@@ -385,7 +387,7 @@ onBeforeUnmount(() => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: var(--mp-mint);
   padding: 2px 8px;
   border-radius: 999px;
@@ -410,7 +412,7 @@ onBeforeUnmount(() => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: var(--mp-mint);
   padding: 2px 8px;
   border-radius: 999px;
@@ -420,7 +422,7 @@ onBeforeUnmount(() => {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: var(--mp-mint);
   border: 1px solid rgb(15 120 89 / 18%);
   padding: 0 5px;
@@ -433,7 +435,7 @@ onBeforeUnmount(() => {
   position: relative;
   background: var(--mp-mint);
   border-bottom: 1px solid var(--mp-border-soft);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   font-size: 13px;
   line-height: 1.4;
 }
@@ -462,7 +464,7 @@ onBeforeUnmount(() => {
   min-width: 0;
 }
 .mp-beta-banner__link {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -483,7 +485,7 @@ onBeforeUnmount(() => {
   background: transparent;
   border: none;
   border-radius: var(--mp-radius-sm, 6px);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   cursor: pointer;
   opacity: 0.7;
 }
@@ -507,9 +509,9 @@ onBeforeUnmount(() => {
 
 @media (max-width: 640px) {
   .mp-beta-banner { font-size: 12px; }
-  .mp-beta-banner__inner { padding: 7px 40px 7px 12px; gap: 8px; }
-  .mp-beta-banner__pill { font-size: 9px; padding: 1px 6px; letter-spacing: 0.12em; }
-  .mp-beta-banner__close { right: 4px; }
+  .mp-beta-banner__inner { padding: 7px 48px 7px 12px; gap: 8px; }
+  .mp-beta-banner__pill { font-size: 11px; padding: 1px 6px; letter-spacing: 0.08em; }
+  .mp-beta-banner__close { right: 4px; width: 40px; height: 40px; }
 }
 
 .mp-beta-banner-enter-from,
@@ -568,7 +570,7 @@ onBeforeUnmount(() => {
 }
 .mp-mobile-drawer__link.is-active {
   background: var(--mp-mint);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 .mp-mobile-drawer__link--toggle svg {
   transition: transform 0.18s;
