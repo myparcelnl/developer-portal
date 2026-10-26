@@ -133,6 +133,9 @@
   "On this page": "In questa pagina",
   "Next": "Successivo",
   "Previous": "Precedente",
+  "Resize table of contents": "Ridimensiona l'indice",
+  "Resize code panel": "Ridimensiona il pannello del codice",
+  "Drag to resize": "Trascina per ridimensionare",
 
   "API reference generated from the published OpenAPI specs.": "Riferimento API generato dalle specifiche OpenAPI pubblicate.",
   "APIs": "API",

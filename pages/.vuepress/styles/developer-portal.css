@@ -116,6 +116,7 @@
   /* Chrome */
   --mp-sidebar-width: 260px;
   --mp-code-column: 420px;
+  --mp-docs-toc-width: 240px;
   --mp-nav-height: 60px;
 
   /* Content widths */
@@ -3125,7 +3126,7 @@ pre.mp-code-block code.hljs {
 
 .mp-docs-layout {
   display: grid;
-  grid-template-columns: var(--mp-sidebar-width) minmax(0, 1fr) 240px;
+  grid-template-columns: var(--mp-sidebar-width) minmax(0, 1fr) var(--mp-docs-toc-width);
   min-height: calc(100vh - var(--mp-nav-height));
 }
 

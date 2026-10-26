@@ -132,6 +132,9 @@
   "On this page": "Op deze pagina",
   "Next": "Volgende",
   "Previous": "Vorige",
+  "Resize table of contents": "Inhoudsopgave van formaat wijzigen",
+  "Resize code panel": "Codepaneel van formaat wijzigen",
+  "Drag to resize": "Sleep om breedte aan te passen",
 
   "API reference generated from the published OpenAPI specs.": "API-referentie gegenereerd uit de gepubliceerde OpenAPI-specs.",
   "APIs": "API's",
