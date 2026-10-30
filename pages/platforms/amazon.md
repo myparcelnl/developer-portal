@@ -4,14 +4,14 @@ description: "Connect your Amazon seller account to MyParcel with the MyParcel a
 ---
 
 ::: tip In short
-Amazon connects to MyParcel through the **MyParcel app** in Amazon Seller Central. You authorise the app in Seller Central, log in to MyParcel and choose the MyParcel shop that receives your orders. MyParcel then creates an **Amazon sales channel** for that shop. From that moment your new Amazon orders appear in MyParcel by themselves, you ship them from your MyParcel backoffice, and MyParcel sends the barcode and the carrier back to Amazon.
+Amazon connects to MyParcel through the **MyParcel app** in Amazon Seller Central. You authorise the app in Seller Central, log in to MyParcel and choose the MyParcel shop that receives your orders. MyParcel then creates an **Amazon sales channel** for that shop. From that moment your new Amazon orders appear in MyParcel by themselves. You ship them from your MyParcel backoffice. MyParcel sends the barcode and the carrier back to Amazon.
 :::
 
 ## Quickstart, your first Amazon orders in 10 minutes
 Enough to link Amazon to MyParcel today. For the details, see [Looking for…](#looking-for) below.
 
 1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.nl/register](https://www.myparcel.nl/register). Turn on **two-factor authentication** in your MyParcel account before you start ([§2](#2-before-you-start)).
-2. **Find the app.** Log in to Amazon Seller Central, open the **Selling Partner Appstore** and search for **MyParcel**.
+2. **Find the app.** Log in to Amazon Seller Central and open the [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore). Search for **MyParcel**.
 3. **Authorise the app.** Click **Manage Your Apps** and authorise MyParcel. Tick the box to give MyParcel access and click **Sign up / Login to MyParcel**.
 4. **Log in to MyParcel.** Amazon sends you to MyParcel. Log in with your MyParcel account.
 5. **Choose your shop.** Select the MyParcel shop that receives your Amazon orders, tick the confirmation and click **Approve and connect**.
@@ -67,25 +67,25 @@ To turn on two-factor authentication:
 4. Under **Security**, turn on **Two-factor authentication**.
 
 ## 3 · Connecting Amazon step by step
-Follow these steps in one go. The connection must be complete within 5 minutes after you log in to MyParcel. If it takes longer, start again from Seller Central.
+Follow these steps in one go. On the MyParcel side you have 5 minutes for each step: to log in, and then to choose the shop. If it takes longer, start again from Seller Central.
 
 ### Install the app in Seller Central
 1. Log in to **Amazon Seller Central** with the account of your Amazon shop.
-2. Open the **Selling Partner Appstore** and search for **MyParcel**. The app is by MyParcel and is free.
+2. Open the [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore) and search for **MyParcel**. The app is by MyParcel and is free.
 
 ![The MyParcel app in the Selling Partner Appstore, with the Manage Your Apps button at the top right.](./images/amazon/01-appstore-listing.png)
 
 3. Click **Manage Your Apps** and authorise MyParcel. Have you connected before? Then click **Re-Authorise** next to MyParcel.
 
-![Manage Your Apps in Seller Central, with MyParcel, its status and the Re-Authorise and Disable Authorisation buttons.](./images/amazon/03-manage-your-apps.png)
+![Manage Your Apps in Seller Central, with MyParcel, its status and the Re-Authorise and Disable Authorisation buttons.](./images/amazon/02-manage-your-apps.png)
 
 4. Amazon shows the page **Authorise MyParcel** with the data MyParcel needs, see [§4](#4-what-you-allow). Tick **I direct Amazon to provide MyParcel access to my account and related data.**
 5. Click **Sign up / Login to MyParcel**.
 
-![The Amazon page Authorise MyParcel, with the permissions, the check box and the Sign up / Login to MyParcel button.](./images/amazon/02-amazon-authorise.png)
+![The Amazon page Authorise MyParcel, with the permissions, the check box and the Sign up / Login to MyParcel button.](./images/amazon/03-amazon-authorise.png)
 
 ### Log in to MyParcel
-6. Amazon sends you to MyParcel. Log in with your MyParcel account. MyParcel asks for your two-factor code.
+6. Amazon sends you to MyParcel. Log in with your MyParcel account.
 
 ### Choose the shop
 7. MyParcel shows the page **Connect your Amazon account to MyParcel**.
@@ -112,10 +112,10 @@ Do you want to stop? Click **Cancel** on the Amazon page, or **Deny** on the MyP
 ## 4 · What you allow
 On the Amazon page **Authorise MyParcel**, MyParcel asks for access to this data in your seller account:
 
-| Data | Why MyParcel needs it |
-| --- | --- |
-| **Inventory and Order Tracking** | To read your orders and to send the barcode back. |
-| **Direct-to-Consumer Delivery** | To read the delivery address of your buyer. |
+- **Inventory and Order Tracking**
+- **Direct-to-Consumer Delivery**
+
+Click the information icon next to a role to see what Amazon includes in it.
 
 On the MyParcel page you give MyParcel permission to:
 
@@ -127,19 +127,17 @@ On the MyParcel page you give MyParcel permission to:
 To send the barcode back, MyParcel also confirms the shipment of the order at Amazon, see [§5](#5-daily-use).
 
 ## 5 · Daily use
-1. A buyer orders on Amazon. When the order has the status **Unshipped**, it arrives in your MyParcel backoffice by itself, usually within a few minutes.
+1. A buyer orders on Amazon. When the order has the status **Unshipped**, it arrives in your MyParcel backoffice by itself.
 2. Open the order in your MyParcel backoffice and create the shipment and the label.
 3. Hand the parcel to the carrier.
 
 When the order lines are shipped, MyParcel confirms the shipment at Amazon with the barcode and the carrier. Amazon then shows the order as shipped, with the tracking number.
 
-::: warning Don't confirm the shipment in Amazon yourself
-Ship your Amazon orders from MyParcel. If you confirm the shipment in Seller Central by hand, Amazon already has its own tracking details and MyParcel cannot add the barcode.
+::: tip Ship from MyParcel
+Ship your Amazon orders from MyParcel. Then MyParcel can send the barcode and the carrier to Amazon.
 :::
 
-Orders that were already shipped before you connected are not imported. Only orders that become **Unshipped** after the connection arrive in MyParcel.
-
-You are only billed once a shipment is actually handed over to the carrier.
+MyParcel receives your orders from the moment you connect. Amazon tells MyParcel when an order changes to **Unshipped**. An order that was already unshipped before you connected does not arrive.
 
 ## 6 · Reconnecting and disconnecting
 ### Connecting again
@@ -150,24 +148,24 @@ One Amazon account connects to one MyParcel shop. If the Amazon account is alrea
 ### Disconnecting
 You can end the connection in two places:
 
-- **In MyParcel.** Go to *Shop settings → Sales Channels* in your MyParcel backoffice and remove the Amazon sales channel.
+- **In MyParcel.** Remove the Amazon sales channel in your MyParcel backoffice.
 - **In Amazon.** Go to *Manage Your Apps* in Seller Central and click **Disable Authorisation** next to MyParcel.
 
-After you disconnect, new Amazon orders no longer arrive in MyParcel. Orders already in MyParcel stay there.
+After you disconnect, new Amazon orders no longer arrive in MyParcel.
 
 ## 7 · Something's not working, diagnostics
-Run through this table top to bottom, most issues are fixed within a few minutes. MyParcel shows the message in **bold** on the page **Connection failed**.
+Run through this table from top to bottom. MyParcel shows most messages on the page **Connection failed**. The two-factor message has its own page, **Two-factor authentication required**.
 
 | Symptom | What to check |
 | --- | --- |
 | **Two-factor authentication required** | Turn on two-factor authentication in your MyParcel account ([§2](#2-before-you-start)). Then close the window and start again from Seller Central. |
 | **Your MyParcel account does not support order management.** | Your account does not have order management. Contact MyParcel support. |
-| **Your session has expired.** | You took more than 5 minutes after logging in to MyParcel. Close the window and start again from Seller Central. |
+| **Your session has expired.** | You took more than 5 minutes to log in to MyParcel or to choose the shop. Close the window and start again from Seller Central. |
 | **This Amazon account is already connected to a MyParcel shop that you do not have access to.** | Log in to MyParcel with a user that has access to that shop, or ask the account owner to remove the existing Amazon sales channel first. |
 | **Amazon could not authorize this connection.** | Amazon refused the authorisation. Close the window and start again from Seller Central. Check that you are logged in to Amazon with the right seller account. |
 | **We could not finish setting up order notifications.** | Amazon did not accept the order notifications. Close the window and start again. Nothing was saved, so you can safely try again. |
 | **No Amazon orders arrive in MyParcel** | Only orders with the status *Unshipped* arrive. Check the status in Seller Central. Check that MyParcel has the status *Active* under *Manage Your Apps* and that the sales channel is still on your shop ([§6](#6-reconnecting-and-disconnecting)). |
-| **The barcode does not show up in Amazon** | Did you confirm the shipment in Seller Central yourself before you shipped it from MyParcel ([§5](#5-daily-use))? |
+| **The barcode does not show up in Amazon** | The barcode goes to Amazon when you ship the order from MyParcel. Check that you shipped the order in MyParcel ([§5](#5-daily-use)). |
 
 ## 8 · FAQ
 
@@ -184,7 +182,7 @@ Yes. Every order that gets the status *Unshipped* arrives in MyParcel by itself.
 Yes. When you ship the order from MyParcel, MyParcel confirms the shipment at Amazon with the barcode and the carrier.
 
 ### Can I connect more than one Amazon account?
-Yes, but each Amazon account connects to one MyParcel shop. Connect the second account to another shop.
+Yes. Run the connection again from Seller Central with the other Amazon account. Each Amazon account gets its own sales channel.
 
 ### Do I still need the order report from Seller Central?
 No. The old way of connecting, where you downloaded the *Unshipped orders* report and uploaded it to MyParcel, is replaced by this app.
@@ -194,6 +192,7 @@ Remove the Amazon sales channel in your MyParcel backoffice, or click **Disable 
 
 ## Resources & support
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), sales channels, orders, account and billing.
+- [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore), where you find the MyParcel app.
 - [Ship your Amazon orders with MyParcel ↗](https://www.myparcel.nl/en/integrations/amazon/).
 - [Contact MyParcel support](../contact.md), **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
