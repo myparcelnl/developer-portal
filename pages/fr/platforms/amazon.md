@@ -11,8 +11,8 @@ Amazon se connecte à MyParcel via l'**application MyParcel** dans Amazon Seller
 De quoi relier Amazon à MyParcel dès aujourd'hui. Pour les détails, voir [Que cherchez-vous ?](#que-cherchez-vous) ci-dessous.
 
 1. **Compte.** Vous n'avez pas encore de compte MyParcel ? Créez-en un sur [myparcel.nl/register](https://www.myparcel.nl/register). Activez l'**authentification à deux facteurs** dans votre compte MyParcel avant de commencer ([§2](#2-avant-de-commencer)).
-2. **Trouvez l'application.** Connectez-vous à Amazon Seller Central et cherchez l'application **MyParcel** dans l'app store d'Amazon.
-3. **Autorisez l'application.** Cliquez sur **Authorize** (Autoriser) et confirmez que vous donnez à MyParcel l'accès à votre compte Amazon.
+2. **Trouvez l'application.** Connectez-vous à Amazon Seller Central, ouvrez le **Selling Partner Appstore** et cherchez **MyParcel**.
+3. **Autorisez l'application.** Cliquez sur **Manage Your Apps** (Gérer vos applications) et autorisez MyParcel. Cochez la case pour donner l'accès à MyParcel et cliquez sur **Sign up / Login to MyParcel** (S'inscrire / se connecter à MyParcel).
 4. **Connectez-vous à MyParcel.** Amazon vous envoie vers MyParcel. Connectez-vous avec votre compte MyParcel.
 5. **Choisissez votre boutique.** Sélectionnez la boutique MyParcel qui reçoit vos commandes Amazon, cochez la confirmation et cliquez sur **Approve and connect** (Approuver et connecter).
 6. **Confirmez chez Amazon.** Amazon vous demande encore une fois de confirmer l'accès. Confirmez-le.
@@ -20,6 +20,7 @@ De quoi relier Amazon à MyParcel dès aujourd'hui. Pour les détails, voir [Que
 ::: tip C'est terminé lorsque vous voyez ceci
 - La page **Connection successful** (Connexion réussie) avec le message *Your Amazon store is now connected to MyParcel.*
 - Un canal de vente Amazon sur votre boutique MyParcel
+- **MyParcel** avec le statut *Active* (Actif) sous *Manage Your Apps* dans Seller Central
 - Les nouvelles commandes Amazon non expédiées dans votre back-office MyParcel
 :::
 
@@ -70,36 +71,52 @@ Suivez ces étapes d'une traite. La connexion doit être terminée dans les 5 mi
 
 ### Installer l'application dans Seller Central
 1. Connectez-vous à **Amazon Seller Central** avec le compte de votre boutique Amazon.
-2. Cherchez l'application **MyParcel** dans l'app store d'Amazon.
-3. Cliquez sur **Authorize** (Autoriser).
-4. Amazon indique que MyParcel demande l'accès à votre compte Amazon. Confirmez-le.
+2. Ouvrez le **Selling Partner Appstore** et cherchez **MyParcel**. L'application est éditée par MyParcel et elle est gratuite.
+
+![L'application MyParcel dans le Selling Partner Appstore, avec le bouton Manage Your Apps en haut à droite.](../../platforms/images/amazon/01-appstore-listing.png)
+
+3. Cliquez sur **Manage Your Apps** (Gérer vos applications) et autorisez MyParcel. Vous vous êtes déjà connecté auparavant ? Cliquez alors sur **Re-Authorise** (Autoriser à nouveau) à côté de MyParcel.
+
+![Manage Your Apps dans Seller Central, avec MyParcel, son statut et les boutons Re-Authorise et Disable Authorisation.](../../platforms/images/amazon/03-manage-your-apps.png)
+
+4. Amazon affiche la page **Authorise MyParcel** (Autoriser MyParcel) avec les données dont MyParcel a besoin, voir [§4](#4-ce-que-vous-autorisez). Cochez **I direct Amazon to provide MyParcel access to my account and related data.** (Je demande à Amazon de donner à MyParcel l'accès à mon compte et aux données associées).
+5. Cliquez sur **Sign up / Login to MyParcel** (S'inscrire / se connecter à MyParcel).
+
+![La page Amazon Authorise MyParcel, avec les droits, la case à cocher et le bouton Sign up / Login to MyParcel.](../../platforms/images/amazon/02-amazon-authorise.png)
 
 ### Se connecter à MyParcel
-5. Amazon vous envoie vers MyParcel. Connectez-vous avec votre compte MyParcel. MyParcel vous demande votre code d'authentification à deux facteurs.
+6. Amazon vous envoie vers MyParcel. Connectez-vous avec votre compte MyParcel. MyParcel vous demande votre code d'authentification à deux facteurs.
 
 ### Choisir la boutique
-6. MyParcel affiche la page **Connect your Amazon account to MyParcel** (Connectez votre compte Amazon à MyParcel).
-7. Sous **Shop to connect** (Boutique à connecter), sélectionnez la boutique MyParcel qui reçoit vos commandes Amazon.
-8. Sous **New sales channel name** (Nom du nouveau canal de vente), saisissez un nom qui vous aide à reconnaître le canal, par exemple *Amazon FR*. Utilisez de 3 à 50 caractères, sans espace au début ni à la fin.
-9. Lisez les droits sous **What you allow** (Ce que vous autorisez), voir [§4](#4-ce-que-vous-autorisez).
-10. Cochez **I want to connect this Amazon account to the shop I selected.** (Je veux connecter ce compte Amazon à la boutique sélectionnée).
-11. Cliquez sur **Approve and connect** (Approuver et connecter).
+7. MyParcel affiche la page **Connect your Amazon account to MyParcel** (Connectez votre compte Amazon à MyParcel).
+8. Sous **Shop to connect** (Boutique à connecter), sélectionnez la boutique MyParcel qui reçoit vos commandes Amazon.
+9. Sous **New sales channel name** (Nom du nouveau canal de vente), saisissez un nom qui vous aide à reconnaître le canal, par exemple *Amazon FR*. Utilisez de 3 à 50 caractères, sans espace au début ni à la fin.
+10. Lisez les droits sous **What you allow** (Ce que vous autorisez), voir [§4](#4-ce-que-vous-autorisez).
+11. Cochez **I want to connect this Amazon account to the shop I selected.** (Je veux connecter ce compte Amazon à la boutique sélectionnée).
+12. Cliquez sur **Approve and connect** (Approuver et connecter).
 
 ::: tip Une seule boutique ?
 Si votre utilisateur MyParcel n'a accès qu'à une seule boutique, MyParcel saute cette page. Le canal de vente est alors créé sur cette boutique avec le nom *Amazon*.
 :::
 
 ### Confirmer chez Amazon
-12. MyParcel vous renvoie vers Amazon. Amazon vous demande encore une fois de confirmer l'accès. Confirmez-le.
-13. Vous voyez la page **Connection successful** (Connexion réussie). Vous pouvez fermer la fenêtre.
+13. MyParcel vous renvoie vers Amazon. Amazon vous demande encore une fois de confirmer l'accès. Confirmez-le.
+14. Vous voyez la page **Connection successful** (Connexion réussie). Vous pouvez fermer la fenêtre.
 
 Amazon demande votre consentement deux fois : une fois avant de vous envoyer vers MyParcel, et une fois après que vous avez choisi la boutique. Les deux étapes sont nécessaires.
 
-::: warning Cliquez sur Deny pour arrêter
-Vous voulez arrêter ? Cliquez sur **Deny** (Refuser) sur la page de MyParcel. Vous voyez alors **Connection cancelled** (Connexion annulée) et rien n'est connecté.
+::: warning Cancel ou Deny pour arrêter
+Vous voulez arrêter ? Cliquez sur **Cancel** (Annuler) sur la page d'Amazon, ou sur **Deny** (Refuser) sur la page de MyParcel. Sur la page de MyParcel, vous voyez alors **Connection cancelled** (Connexion annulée). Rien n'est connecté.
 :::
 
 ## 4 · Ce que vous autorisez
+Sur la page Amazon **Authorise MyParcel**, MyParcel demande l'accès à ces données de votre compte vendeur :
+
+| Données | Pourquoi MyParcel en a besoin |
+| --- | --- |
+| **Inventory and Order Tracking** (Stock et suivi des commandes) | Pour lire vos commandes et renvoyer le code-barres. |
+| **Direct-to-Consumer Delivery** (Livraison directe au consommateur) | Pour lire l'adresse de livraison de votre acheteur. |
+
 Sur la page de MyParcel, vous autorisez MyParcel à :
 
 | Droit | Ce que MyParcel en fait |
@@ -134,7 +151,7 @@ Un compte Amazon se connecte à une seule boutique MyParcel. Si le compte Amazon
 Vous pouvez mettre fin à la connexion à deux endroits :
 
 - **Dans MyParcel.** Dans votre back-office MyParcel, allez dans *Shop settings → Sales Channels* (Paramètres de la boutique → Canaux de vente) et supprimez le canal de vente Amazon.
-- **Dans Amazon.** Dans Seller Central, allez dans *Manage Your Apps* (Gérer vos applications) et retirez l'autorisation de MyParcel.
+- **Dans Amazon.** Dans Seller Central, allez dans *Manage Your Apps* (Gérer vos applications) et cliquez sur **Disable Authorisation** (Désactiver l'autorisation) à côté de MyParcel.
 
 Après la déconnexion, les nouvelles commandes Amazon n'arrivent plus dans MyParcel. Les commandes déjà présentes dans MyParcel y restent.
 
@@ -149,7 +166,7 @@ Parcourez ce tableau de haut en bas, la plupart des problèmes se règlent en qu
 | **This Amazon account is already connected to a MyParcel shop that you do not have access to.** | Connectez-vous à MyParcel avec un utilisateur qui a accès à cette boutique, ou demandez au titulaire du compte de supprimer d'abord le canal de vente Amazon existant. |
 | **Amazon could not authorize this connection.** | Amazon a refusé l'autorisation. Fermez la fenêtre et recommencez depuis Seller Central. Vérifiez que vous êtes connecté à Amazon avec le bon compte vendeur. |
 | **We could not finish setting up order notifications.** | Amazon n'a pas accepté les notifications de commandes. Fermez la fenêtre et recommencez. Rien n'a été enregistré, vous pouvez donc réessayer sans risque. |
-| **Aucune commande Amazon n'arrive dans MyParcel** | Seules les commandes au statut *Unshipped* arrivent. Vérifiez le statut dans Seller Central. Vérifiez que l'application MyParcel est toujours autorisée sous *Manage Your Apps* et que le canal de vente est toujours sur votre boutique ([§6](#6-reconnexion-et-dconnexion)). |
+| **Aucune commande Amazon n'arrive dans MyParcel** | Seules les commandes au statut *Unshipped* arrivent. Vérifiez le statut dans Seller Central. Vérifiez que MyParcel a le statut *Active* sous *Manage Your Apps* et que le canal de vente est toujours sur votre boutique ([§6](#6-reconnexion-et-dconnexion)). |
 | **Le code-barres n'apparaît pas dans Amazon** | Avez-vous confirmé vous-même l'expédition dans Seller Central avant de l'expédier depuis MyParcel ([§5](#5-utilisation-au-quotidien)) ? |
 
 ## 8 · FAQ
@@ -173,7 +190,7 @@ Oui, mais chaque compte Amazon se connecte à une seule boutique MyParcel. Conne
 Non. L'ancienne méthode, où vous téléchargiez le rapport des commandes non expédiées et l'importiez dans MyParcel, est remplacée par cette application.
 
 ### Comment mettre fin à la connexion ?
-Supprimez le canal de vente Amazon dans votre back-office MyParcel, ou retirez l'application MyParcel sous *Manage Your Apps* dans Seller Central ([§6](#6-reconnexion-et-dconnexion)).
+Supprimez le canal de vente Amazon dans votre back-office MyParcel, ou cliquez sur **Disable Authorisation** à côté de MyParcel sous *Manage Your Apps* dans Seller Central ([§6](#6-reconnexion-et-dconnexion)).
 
 ## Ressources & support
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), canaux de vente, commandes, compte et facturation.

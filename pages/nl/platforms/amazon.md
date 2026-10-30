@@ -11,8 +11,8 @@ Amazon koppel je aan MyParcel met de **MyParcel-app** in Amazon Seller Central. 
 Genoeg om Amazon vandaag aan MyParcel te koppelen. Voor de details, zie [Wat zoek je?](#wat-zoek-je) hieronder.
 
 1. **Account.** Heb je nog geen MyParcel-account? Maak er een aan via [myparcel.nl/register](https://www.myparcel.nl/register). Zet **tweestapsverificatie** aan in je MyParcel-account voordat je begint ([§2](#2-voordat-je-begint)).
-2. **App zoeken.** Log in op Amazon Seller Central en zoek de **MyParcel**-app in de app store van Amazon.
-3. **App autoriseren.** Klik op **Authorize** (Autoriseren) en bevestig dat je MyParcel toegang geeft tot je Amazon-account.
+2. **App zoeken.** Log in op Amazon Seller Central, open de **Selling Partner Appstore** en zoek op **MyParcel**.
+3. **App autoriseren.** Klik op **Manage Your Apps** (Je apps beheren) en autoriseer MyParcel. Vink het vakje aan om MyParcel toegang te geven en klik op **Sign up / Login to MyParcel** (Aanmelden / inloggen bij MyParcel).
 4. **Inloggen bij MyParcel.** Amazon stuurt je door naar MyParcel. Log in met je MyParcel-account.
 5. **Shop kiezen.** Selecteer de MyParcel-shop die je Amazon-orders ontvangt, vink de bevestiging aan en klik op **Approve and connect** (Goedkeuren en koppelen).
 6. **Bevestigen bij Amazon.** Amazon vraagt je nog één keer om de toegang te bevestigen. Bevestig die.
@@ -20,6 +20,7 @@ Genoeg om Amazon vandaag aan MyParcel te koppelen. Voor de details, zie [Wat zoe
 ::: tip Klaar als je dit ziet
 - De pagina **Connection successful** (Koppeling gelukt) met de melding *Your Amazon store is now connected to MyParcel.*
 - Een Amazon-verkoopkanaal bij je MyParcel-shop
+- **MyParcel** met de status *Active* (Actief) onder *Manage Your Apps* in Seller Central
 - Nieuwe, nog niet verzonden Amazon-orders in je MyParcel-backoffice
 :::
 
@@ -70,36 +71,52 @@ Doorloop deze stappen in één keer. Het koppelen moet klaar zijn binnen 5 minut
 
 ### De app installeren in Seller Central
 1. Log in op **Amazon Seller Central** met het account van je Amazon-shop.
-2. Zoek de **MyParcel**-app in de app store van Amazon.
-3. Klik op **Authorize** (Autoriseren).
-4. Amazon toont dat MyParcel toegang vraagt tot je Amazon-account. Bevestig dat.
+2. Open de **Selling Partner Appstore** en zoek op **MyParcel**. De app is van MyParcel en is gratis.
+
+![De MyParcel-app in de Selling Partner Appstore, met rechtsboven de knop Manage Your Apps.](../../platforms/images/amazon/01-appstore-listing.png)
+
+3. Klik op **Manage Your Apps** (Je apps beheren) en autoriseer MyParcel. Heb je al eens gekoppeld? Klik dan op **Re-Authorise** (Opnieuw autoriseren) naast MyParcel.
+
+![Manage Your Apps in Seller Central, met MyParcel, de status en de knoppen Re-Authorise en Disable Authorisation.](../../platforms/images/amazon/03-manage-your-apps.png)
+
+4. Amazon toont de pagina **Authorise MyParcel** (MyParcel autoriseren) met de gegevens die MyParcel nodig heeft, zie [§4](#4-waar-je-toestemming-voor-geeft). Vink **I direct Amazon to provide MyParcel access to my account and related data.** aan (Ik geef Amazon opdracht MyParcel toegang te geven tot mijn account en de bijbehorende gegevens).
+5. Klik op **Sign up / Login to MyParcel** (Aanmelden / inloggen bij MyParcel).
+
+![De Amazon-pagina Authorise MyParcel, met de rechten, het vinkje en de knop Sign up / Login to MyParcel.](../../platforms/images/amazon/02-amazon-authorise.png)
 
 ### Inloggen bij MyParcel
-5. Amazon stuurt je door naar MyParcel. Log in met je MyParcel-account. MyParcel vraagt om je code voor tweestapsverificatie.
+6. Amazon stuurt je door naar MyParcel. Log in met je MyParcel-account. MyParcel vraagt om je code voor tweestapsverificatie.
 
 ### De shop kiezen
-6. MyParcel toont de pagina **Connect your Amazon account to MyParcel** (Koppel je Amazon-account aan MyParcel).
-7. Selecteer onder **Shop to connect** (Te koppelen shop) de MyParcel-shop die je Amazon-orders ontvangt.
-8. Vul onder **New sales channel name** (Naam nieuw verkoopkanaal) een naam in waaraan je het kanaal herkent, bijvoorbeeld *Amazon NL*. Gebruik 3 tot 50 tekens, zonder spatie aan het begin of eind.
-9. Lees de rechten onder **What you allow** (Waar je toestemming voor geeft), zie [§4](#4-waar-je-toestemming-voor-geeft).
-10. Vink **I want to connect this Amazon account to the shop I selected.** aan (Ik wil dit Amazon-account koppelen aan de shop die ik heb gekozen).
-11. Klik op **Approve and connect** (Goedkeuren en koppelen).
+7. MyParcel toont de pagina **Connect your Amazon account to MyParcel** (Koppel je Amazon-account aan MyParcel).
+8. Selecteer onder **Shop to connect** (Te koppelen shop) de MyParcel-shop die je Amazon-orders ontvangt.
+9. Vul onder **New sales channel name** (Naam nieuw verkoopkanaal) een naam in waaraan je het kanaal herkent, bijvoorbeeld *Amazon NL*. Gebruik 3 tot 50 tekens, zonder spatie aan het begin of eind.
+10. Lees de rechten onder **What you allow** (Waar je toestemming voor geeft), zie [§4](#4-waar-je-toestemming-voor-geeft).
+11. Vink **I want to connect this Amazon account to the shop I selected.** aan (Ik wil dit Amazon-account koppelen aan de shop die ik heb gekozen).
+12. Klik op **Approve and connect** (Goedkeuren en koppelen).
 
 ::: tip Maar één shop?
 Heeft je MyParcel-gebruiker toegang tot maar één shop, dan slaat MyParcel deze pagina over. Het verkoopkanaal komt dan bij die shop, met de naam *Amazon*.
 :::
 
 ### Bevestigen bij Amazon
-12. MyParcel stuurt je terug naar Amazon. Amazon vraagt je nog één keer om de toegang te bevestigen. Bevestig die.
-13. Je ziet de pagina **Connection successful** (Koppeling gelukt). Je kunt het venster sluiten.
+13. MyParcel stuurt je terug naar Amazon. Amazon vraagt je nog één keer om de toegang te bevestigen. Bevestig die.
+14. Je ziet de pagina **Connection successful** (Koppeling gelukt). Je kunt het venster sluiten.
 
 Amazon vraagt twee keer om je toestemming: één keer voordat je naar MyParcel gaat, en één keer nadat je de shop hebt gekozen. Beide stappen zijn nodig.
 
-::: warning Klik op Deny om te stoppen
-Wil je stoppen? Klik op **Deny** (Weigeren) op de pagina van MyParcel. Je ziet dan **Connection cancelled** (Koppeling geannuleerd) en er is niets gekoppeld.
+::: warning Cancel of Deny om te stoppen
+Wil je stoppen? Klik op **Cancel** (Annuleren) op de pagina van Amazon, of op **Deny** (Weigeren) op de pagina van MyParcel. Op de pagina van MyParcel zie je dan **Connection cancelled** (Koppeling geannuleerd). Er is niets gekoppeld.
 :::
 
 ## 4 · Waar je toestemming voor geeft
+Op de Amazon-pagina **Authorise MyParcel** vraagt MyParcel toegang tot deze gegevens in je verkopersaccount:
+
+| Gegevens | Waarom MyParcel ze nodig heeft |
+| --- | --- |
+| **Inventory and Order Tracking** (Voorraad en ordertracking) | Om je orders te lezen en de barcode terug te sturen. |
+| **Direct-to-Consumer Delivery** (Levering rechtstreeks aan de klant) | Om het afleveradres van je koper te lezen. |
+
 Op de pagina van MyParcel geef je MyParcel toestemming om:
 
 | Recht | Wat MyParcel ermee doet |
@@ -134,7 +151,7 @@ Eén Amazon-account koppel je aan één MyParcel-shop. Is het Amazon-account al 
 Je kunt de koppeling op twee plekken beëindigen:
 
 - **In MyParcel.** Ga in je MyParcel-backoffice naar *Shop settings → Sales Channels* (Shopinstellingen → Verkoopkanalen) en verwijder het Amazon-verkoopkanaal.
-- **In Amazon.** Ga in Seller Central naar *Manage Your Apps* (Je apps beheren) en trek de autorisatie voor MyParcel in.
+- **In Amazon.** Ga in Seller Central naar *Manage Your Apps* (Je apps beheren) en klik op **Disable Authorisation** (Autorisatie uitschakelen) naast MyParcel.
 
 Na het verbreken komen nieuwe Amazon-orders niet meer in MyParcel binnen. Orders die al in MyParcel staan, blijven daar staan.
 
@@ -149,7 +166,7 @@ Loop deze tabel van boven naar beneden door, de meeste problemen zijn binnen een
 | **This Amazon account is already connected to a MyParcel shop that you do not have access to.** | Log in bij MyParcel met een gebruiker die toegang heeft tot die shop, of vraag de eigenaar van het account om eerst het bestaande Amazon-verkoopkanaal te verwijderen. |
 | **Amazon could not authorize this connection.** | Amazon heeft de autorisatie geweigerd. Sluit het venster en begin opnieuw vanuit Seller Central. Controleer dat je bij Amazon bent ingelogd met het juiste verkopersaccount. |
 | **We could not finish setting up order notifications.** | Amazon heeft de ordermeldingen niet geaccepteerd. Sluit het venster en begin opnieuw. Er is niets opgeslagen, dus je kunt het veilig nog eens proberen. |
-| **Er komen geen Amazon-orders binnen in MyParcel** | Alleen orders met de status *Unshipped* komen binnen. Controleer de status in Seller Central. Controleer dat de MyParcel-app nog geautoriseerd is onder *Manage Your Apps* en dat het verkoopkanaal nog bij je shop staat ([§6](#6-opnieuw-koppelen-en-verbreken)). |
+| **Er komen geen Amazon-orders binnen in MyParcel** | Alleen orders met de status *Unshipped* komen binnen. Controleer de status in Seller Central. Controleer dat MyParcel de status *Active* heeft onder *Manage Your Apps* en dat het verkoopkanaal nog bij je shop staat ([§6](#6-opnieuw-koppelen-en-verbreken)). |
 | **De barcode verschijnt niet in Amazon** | Heb je de verzending zelf in Seller Central bevestigd voordat je hem vanuit MyParcel verstuurde ([§5](#5-dagelijks-gebruik))? |
 
 ## 8 · FAQ
@@ -173,7 +190,7 @@ Ja, maar elk Amazon-account koppel je aan één MyParcel-shop. Koppel het tweede
 Nee. De oude manier van koppelen, waarbij je het overzicht *Niet-verzonden bestellingen* downloadde en in MyParcel uploadde, is vervangen door deze app.
 
 ### Hoe stop ik de koppeling?
-Verwijder het Amazon-verkoopkanaal in je MyParcel-backoffice, of verwijder de MyParcel-app onder *Manage Your Apps* in Seller Central ([§6](#6-opnieuw-koppelen-en-verbreken)).
+Verwijder het Amazon-verkoopkanaal in je MyParcel-backoffice, of klik op **Disable Authorisation** naast MyParcel onder *Manage Your Apps* in Seller Central ([§6](#6-opnieuw-koppelen-en-verbreken)).
 
 ## Bronnen & support
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), verkoopkanalen, orders, account en facturatie.
