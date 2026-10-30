@@ -56,6 +56,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'CCV Shop', link: '/platforms/ccvshop.html' },
       { text: 'Ecwid', link: '/platforms/ecwid.html' },
       { text: 'bol', link: '/platforms/bol.html' },
+      { text: 'Amazon', link: '/platforms/amazon.html' },
       { text: 'Chrome extension', link: '/platforms/chrome-extension.html' },
       { text: 'Etsy', link: '/platforms/etsy.html' },
     ],
@@ -117,6 +118,7 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/ccvshop.html',
   '/platforms/ecwid.html',
   '/platforms/bol.html',
+  '/platforms/amazon.html',
   '/platforms/chrome-extension.html',
   '/platforms/etsy.html',
 ];

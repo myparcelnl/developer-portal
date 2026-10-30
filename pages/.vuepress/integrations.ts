@@ -398,7 +398,7 @@ export const integrationGroups: IntegrationGroup[] = [
         markets: NLBE,
         byMyParcel: true,
         links: [
-          oldPortal('documentation/25.amazon.html'),
+          docs('/platforms/amazon.html'),
           site('https://www.myparcel.nl/en/integrations/amazon/'),
         ],
       },
