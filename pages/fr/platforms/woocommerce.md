@@ -381,6 +381,10 @@ Cochez des commandes et choisissez dans le menu déroulant *Actions groupées* :
 - **MyParcel : Exporter**, crée les envois chez MyParcel (concept ou direct).
 - **MyParcel : Exporter et imprimer**, comme ci-dessus, plus un PDF combiné.
 
+::: tip Imprimer 25 étiquettes ou plus
+À partir de 25 envois, MyParcel prépare le PDF en arrière-plan. Tant que le PDF n'est pas prêt, une notification avec un indicateur de chargement s'affiche. Avec *Ouvrir dans un nouvel onglet*, une notification avec un bouton apparaît ensuite : cliquez dessus pour ouvrir les étiquettes. Après l'attente, votre navigateur n'ouvre pas de nouvel onglet tout seul. Avec *Télécharger l'étiquette*, le PDF se télécharge tout seul. Disponible depuis la 6.11.0.
+:::
+
 ::: tip Flux en masse pour 50+ commandes/jour
 Traitez toutes vos commandes du jour en un clic. Combinez avec *Traitement automatique* sur *En cours* et le plugin fonctionne presque entièrement tout seul.
 :::
@@ -586,4 +590,4 @@ Utilisez ces actions pour ajouter votre propre HTML autour des delivery options.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), compte, clé API, facturation.
 - [Contacter le support MyParcel](../../contact.md), **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Ce manuel est écrit pour la version **6.9.x** du plugin. Dans les versions plus récentes, les noms ou l'ordre des champs peuvent légèrement varier ; la disposition générale du plugin reste identique.
+Ce manuel décrit la [dernière release](https://github.com/myparcelnl/woocommerce/releases/latest) du plugin. Les noms ou l'ordre des champs peuvent légèrement varier d'une version à l'autre ; la disposition générale du plugin reste identique.

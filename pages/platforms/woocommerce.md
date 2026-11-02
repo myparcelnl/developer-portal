@@ -381,6 +381,10 @@ Tick orders and pick from the *Bulk actions* dropdown:
 - **MyParcel: Export**: creates shipments at MyParcel (concept or direct).
 - **MyParcel: Export & Print**: same as above, plus a combined PDF.
 
+::: tip Printing 25 or more labels
+For 25 or more shipments, MyParcel prepares the PDF in the background. A notification with a loading indicator shows until the PDF is ready. With *Open in new tab*, a notification with a button then appears: click it to open the labels. Your browser does not open a new tab by itself after a wait. With *Download label*, the PDF downloads by itself. Available since 6.11.0.
+:::
+
 ::: tip Bulk flow for 50+ orders/day
 Process all your daily orders in one click. Combine with *Auto-process* on *Processing* and the plugin runs almost entirely on its own.
 :::
@@ -586,4 +590,4 @@ Use these actions to add your own HTML around the delivery options.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl): account, API key, billing.
 - [Contact MyParcel support](../contact.md): **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-This manual is written for plugin version **6.9.x**. In newer versions field names or order may shift slightly; the overall plugin layout stays the same.
+This manual describes the [latest release](https://github.com/myparcelnl/woocommerce/releases/latest) of the plugin. Field names or their order can differ slightly between versions; the overall plugin layout stays the same.

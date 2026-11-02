@@ -381,6 +381,10 @@ Vink orders aan en kies in de *Bulkacties*-dropdown:
 - **MyParcel: Exporteren**: maakt zendingen aan bij MyParcel (concept of direct).
 - **MyParcel: Exporteren & Printen**: als hierboven, plus meteen een gecombineerd PDF.
 
+::: tip 25 of meer labels printen
+Bij 25 of meer zendingen maakt MyParcel de PDF op de achtergrond aan. Tot de PDF klaar is, zie je een melding met een laadindicator. Bij *Open in nieuw tabblad* verschijnt daarna een melding met een knop: klik erop om de labels te openen. Je browser opent na het wachten niet zelf een nieuw tabblad. Bij *Download label* downloadt de PDF vanzelf. Beschikbaar vanaf 6.11.0.
+:::
+
 ::: tip Bulk-flow voor 50+ orders/dag
 Verwerk al je dag-orders in één klik. Combineer met *Automatisch verwerken* op *In behandeling* en de plugin werkt vrijwel volledig zelfstandig.
 :::
@@ -586,4 +590,4 @@ Gebruik deze actions om je eigen HTML rond de delivery options te zetten.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl): account, API key, facturatie.
 - [Contact MyParcel-support](../../contact.md): **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Deze handleiding is geschreven voor plugin-versie **6.9.x**. Bij nieuwere versies kunnen veld-namen of -volgorde licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.
+Deze handleiding beschrijft de [laatste release](https://github.com/myparcelnl/woocommerce/releases/latest) van de plugin. Veldnamen of hun volgorde kunnen per versie licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.
