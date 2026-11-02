@@ -58,7 +58,7 @@ v7 fetches the available carriers, package types, delivery types, and shipment o
 
 The widget POSTs a JSON `CapabilitiesRequest` to your backend URL. Your backend needs to forward it unchanged to `POST https://api.myparcel.nl/shipments/capabilities` (injecting your API key into the request) and return the response to the widget as-is. The widget caches the response per address and filters client-side, so it only refetches when relevant inputs change.
 
-In practice the widget only populates `recipient` (from the current address) and, when supplied, `packageType`. Your proxy should forward whatever it receives without modification.
+In practice the widget populates `recipient` (from the current address) and, when supplied, `packageType`, `isBusiness` and `physicalProperties`. Your proxy should forward whatever it receives without modification.
 
 **Minimal Node.js / Express proxy:**
 
@@ -217,6 +217,24 @@ The integrating platform decides what to pass. In the MyParcel plugins the PDK d
 
 This is the mechanism behind the different checkout options that business customers see in the WooCommerce and PrestaShop plugins. Available since v7.5.0.
 
+### Shipment weight
+
+Carriers do not accept every weight for every delivery type. Set `physicalProperties` on the config and the widget includes the weight in the capabilities request, so the API decides which delivery types stay available.
+
+```json
+{
+  "physicalProperties": {
+    "weight": 30000
+  }
+}
+```
+
+The weight is a positive integer in grams. Give the total weight of the shipment, including product quantities and packaging, and only when you know it completely. The widget adds the unit when it builds the request. An invalid value is logged and dropped, and the request is then the same as a request without a weight.
+
+Leave `physicalProperties` out, or set it to `null`, when the weight is unknown. Do not send 1 gram instead. A configuration update does not keep an earlier weight, so send the weight again with each cart update. A changed weight starts a new capabilities request, the same weight again does not.
+
+The merchant settings still apply. The widget does not change them and holds no carrier weight limits of its own. Available since v7.5.6. For the full behaviour, see [shipment-weight.md ↗](https://github.com/myparcelnl/delivery-options/blob/main/docs/shipment-weight.md).
+
 ### Cutoff times and drop off days
 
 Drop off days are the days on which you can drop off your parcels at the carrier. This is used to calculate the next available delivery dates.
@@ -311,6 +329,14 @@ These are all the possible configuration options. The `strings` object is used f
     // own delivery options. Omit it and the widget leaves it out of the
     // request, which is what older platforms do. Since v7.5.0.
     "isBusiness": false,
+
+    // object | null, the total shipment weight. "weight" is a positive integer
+    // in grams. Forwarded onto the capabilities request, so the API can drop
+    // delivery types that the weight does not allow. Omit it or set it to null
+    // when the weight is unknown. Since v7.5.6.
+    "physicalProperties": {
+      "weight": 30000
+    },
 
     // string, ISO 639-1 language code. Defaults to the browser language.
     "locale": "",
