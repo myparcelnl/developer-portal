@@ -7,23 +7,6 @@ import { apiList } from '../api-meta';
 import { docsSidebar } from '../sidebar';
 import { integrationGroups, integrationCount } from '../integrations';
 
-// --- The label machine ------------------------------------------------------
-// The hero sends a real Shipment API request (the body from the getting
-// started guide) and prints the label it returns. Carrier IDs, the status
-// codes and the barcode come from the guides; the recipients are samples.
-
-interface Sample {
-  id: number;
-  name: string;
-  logo: string;
-  cc: string;
-  person: string;
-  street: string;
-  number: string;
-  postal: string;
-  city: string;
-}
-
 const CARRIER_LOGOS = 'https://assets.myparcel.nl/skin/general-images/carrier-logos/svg';
 
 // Dynamic logo paths need the glob, see AGENTS.md "Assets".
@@ -34,140 +17,162 @@ const localCarrierLogos = import.meta.glob('../../images/carriers/*.svg', {
 }) as Record<string, string>;
 const localLogo = (file: string) => localCarrierLogos[`../../images/carriers/${file}`];
 
-const samples: Sample[] = [
-  { id: 1, name: 'PostNL', logo: `${CARRIER_LOGOS}/postnl.svg`, cc: 'NL', person: 'J. de Vries', street: 'Antareslaan', number: '31', postal: '2132JE', city: 'Hoofddorp' },
-  { id: 9, name: 'DHL For You', logo: `${CARRIER_LOGOS}/dhl.svg`, cc: 'NL', person: 'S. Jansen', street: 'Antareslaan', number: '31', postal: '2132JE', city: 'Hoofddorp' },
-  { id: 2, name: 'bpost', logo: `${CARRIER_LOGOS}/bpost.svg`, cc: 'BE', person: 'L. Peeters', street: 'Grote Markt', number: '1', postal: '2000', city: 'Antwerpen' },
-  { id: 4, name: 'DPD', logo: `${CARRIER_LOGOS}/dpd.svg`, cc: 'NL', person: 'M. Bakker', street: 'Antareslaan', number: '31', postal: '2132JE', city: 'Hoofddorp' },
-  { id: 15, name: 'BRT', logo: localLogo('brt.svg'), cc: 'IT', person: 'G. Rossi', street: 'Piazza del Duomo', number: '1', postal: '20122', city: 'Milano' },
-];
+const integrationLogos = import.meta.glob('../../images/integrations/*', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
 
-// The webhooks guide uses this barcode; the shipment ID and reference come
-// from the shipments guide.
+// --- The parcel route ---------------------------------------------------------
+// A parcel travels from the webshop, through the Shipment API and the carrier,
+// to the front door. The request body follows the getting started guide, the
+// status codes and barcode come from the shipments and webhooks guides.
+
+const routeCarriers = [
+  { id: 1, name: 'PostNL', logo: `${CARRIER_LOGOS}/postnl.svg` },
+  { id: 9, name: 'DHL For You', logo: `${CARRIER_LOGOS}/dhl.svg` },
+  { id: 4, name: 'DPD', logo: `${CARRIER_LOGOS}/dpd.svg` },
+  { id: 2, name: 'bpost', logo: `${CARRIER_LOGOS}/bpost.svg` },
+  { id: 15, name: 'BRT', logo: localLogo('brt.svg') },
+];
+const routePaths = [
+  'M96 432 C 150 360, 196 300, 262 268',
+  'M262 268 C 330 236, 370 380, 444 352',
+  'M444 352 C 520 324, 530 210, 566 150',
+];
 const BARCODE = '3SMYPA749883621';
 const SHIPMENT_ID = 123456;
-const REFERENCE = 'ORDER-2026-01042';
 
 const current = ref(0);
-const sample = computed(() => samples[current.value]);
+const carrier = computed(() => routeCarriers[current.value]);
 
-// Bars for the label. Purely visual: a fixed pattern seeded by the text, so
-// every carrier prints a different but stable barcode.
-function bars(seed: string) {
-  const out: { x: number; w: number }[] = [];
-  let x = 0;
-  for (let i = 0; i < 44; i++) {
-    const c = seed.charCodeAt(i % seed.length) + i * 7;
-    const w = 1 + (c % 3);
-    if (i % 2 === 0) out.push({ x, w });
-    x += w + 1 + ((c >> 2) % 2);
-  }
-  return { bars: out, width: x };
-}
-const barcode = computed(() => bars(`${sample.value.name}${BARCODE}`));
+// 0 idle, 1 request, 2 label, 3 carrier, 4 delivered, 5 fading out
+const step = ref(0);
+const responded = ref(false);
 
-const stage = ref<HTMLElement | null>(null);
-let timers: number[] = [];
+const scene = ref<HTMLElement | null>(null);
+const parcel = ref<SVGGElement | null>(null);
+const segments = ref<SVGPathElement[]>([]);
+const trails = ref<SVGPathElement[]>([]);
+
+let token = 0;
 let autoplay = true;
 let inView = true;
 let reduce = false;
 let observer: IntersectionObserver | null = null;
+let revealObserver: IntersectionObserver | null = null;
 
-function clearTimers() {
-  timers.forEach((t) => window.clearTimeout(t));
-  timers = [];
+const sleep = (ms: number) => new Promise<void>((r) => window.setTimeout(r, ms));
+
+async function waitVisible(run: number) {
+  while (run === token && (!inView || document.hidden)) await sleep(400);
 }
 
-function at(ms: number, fn: () => void) {
-  timers.push(window.setTimeout(fn, ms));
+function placeParcel(x: number, y: number) {
+  parcel.value?.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
 }
 
-// Every step of the run is a data attribute on the stage; the stylesheet does
-// the moving. Vue never binds these, so it never resets them mid-run.
-function setPhase(name: string, on = true) {
-  const el = stage.value;
+function setTrail(i: number, t: number) {
+  const el = trails.value[i];
   if (!el) return;
-  if (on) el.setAttribute(`data-${name}`, '');
-  else el.removeAttribute(`data-${name}`);
+  const len = el.getTotalLength();
+  el.style.strokeDasharray = `${len}`;
+  el.style.strokeDashoffset = `${len * (1 - t)}`;
 }
 
-const PHASES = ['typed', 'sent', 'printed', 'torn', 'track'];
-
-function reset() {
-  const el = stage.value;
-  if (!el) return;
-  el.setAttribute('data-reset', '');
-  PHASES.forEach((p) => setPhase(p, false));
-  el.dataset.step = '0';
-  void el.offsetWidth; // flush, so the next run starts from the top
-  el.removeAttribute('data-reset');
-}
-
-function finish() {
-  const el = stage.value;
-  if (!el) return;
-  el.setAttribute('data-reset', '');
-  PHASES.forEach((p) => setPhase(p));
-  el.dataset.step = '4';
-}
-
-function run() {
-  clearTimers();
-  if (reduce) {
-    finish();
-    return;
-  }
-  reset();
-  at(60, () => setPhase('typed'));
-  at(1100, () => setPhase('sent'));
-  at(1700, () => setPhase('printed'));
-  at(3300, () => setPhase('torn'));
-  [3500, 4100, 4700, 5300].forEach((ms, i) =>
-    at(ms, () => {
-      setPhase('track');
-      if (stage.value) stage.value.dataset.step = String(i + 1);
-    }),
-  );
-  at(9000, () => {
-    if (!autoplay) return;
-    if (!inView || document.hidden) {
-      // Wait until someone can see it before printing the next one.
-      at(1000, () => next());
-      return;
-    }
-    next();
+function travel(i: number, run: number, duration = 1500) {
+  const seg = segments.value[i];
+  if (!seg) return Promise.resolve();
+  const len = seg.getTotalLength();
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  return new Promise<void>((resolve) => {
+    const start = performance.now();
+    const frame = (now: number) => {
+      if (run !== token) return resolve();
+      const t = Math.min(1, (now - start) / duration);
+      const p = seg.getPointAtLength(len * ease(t));
+      placeParcel(p.x, p.y);
+      setTrail(i, ease(t));
+      if (t < 1) requestAnimationFrame(frame);
+      else resolve();
+    };
+    requestAnimationFrame(frame);
   });
 }
 
-function next() {
-  if (!inView || document.hidden) {
-    at(1000, next);
+function resetRoute() {
+  const first = segments.value[0]?.getPointAtLength(0);
+  if (first) placeParcel(first.x, first.y);
+  trails.value.forEach((_, i) => setTrail(i, 0));
+}
+
+function showFinished() {
+  const last = segments.value[segments.value.length - 1];
+  if (last) {
+    const p = last.getPointAtLength(last.getTotalLength());
+    placeParcel(p.x, p.y);
+  }
+  trails.value.forEach((_, i) => setTrail(i, 1));
+  responded.value = true;
+  step.value = 4;
+}
+
+async function play() {
+  const run = ++token;
+  if (reduce) {
+    showFinished();
     return;
   }
-  current.value = (current.value + 1) % samples.length;
-  run();
+  while (run === token) {
+    step.value = 0;
+    responded.value = false;
+    resetRoute();
+    await sleep(350);
+    await waitVisible(run);
+    if (run !== token) return;
+    step.value = 1;
+    await sleep(1300);
+    if (run !== token) return;
+    responded.value = true;
+    await sleep(600);
+    await travel(0, run);
+    if (run !== token) return;
+    step.value = 2;
+    await sleep(1400);
+    await travel(1, run);
+    if (run !== token) return;
+    step.value = 3;
+    await sleep(1100);
+    await travel(2, run);
+    if (run !== token) return;
+    step.value = 4;
+    await sleep(3200);
+    if (run !== token) return;
+    if (!autoplay) return;
+    step.value = 5;
+    await sleep(500);
+    await waitVisible(run);
+    if (run !== token) return;
+    current.value = (current.value + 1) % routeCarriers.length;
+  }
 }
 
 function choose(i: number) {
   autoplay = false;
   current.value = i;
-  run();
+  play();
 }
 
 function onCarrierKey(e: KeyboardEvent, i: number) {
-  const step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
-  if (!step) return;
+  const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+  if (!dir) return;
   e.preventDefault();
-  const n = (i + step + samples.length) % samples.length;
+  const n = (i + dir + routeCarriers.length) % routeCarriers.length;
   choose(n);
-  const buttons = stage.value?.querySelectorAll<HTMLButtonElement>('.mp-ship__carrier');
-  buttons?.[n]?.focus();
+  scene.value?.parentElement?.querySelectorAll<HTMLButtonElement>('.mp-route__chip')[n]?.focus();
 }
 
-// --- Section entrances -------------------------------------------------------
-let revealObserver: IntersectionObserver | null = null;
-
-// --- Live status -------------------------------------------------------------
+// --- Live status ---------------------------------------------------------------
 const status = ref<StatusSummary | null>(null);
 const statusTone = computed<'operational' | 'degraded' | 'down' | 'loading'>(() => {
   const ind = status.value?.indicator;
@@ -181,11 +186,11 @@ onMounted(async () => {
   reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.documentElement.classList.add('mp-home-js');
 
-  if (stage.value) {
+  if (scene.value) {
     observer = new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.2 });
-    observer.observe(stage.value);
+    observer.observe(scene.value);
   }
-  run();
+  play();
 
   revealObserver = new IntersectionObserver((entries) => {
     for (const e of entries) {
@@ -204,58 +209,50 @@ onMounted(async () => {
 });
 
 onBeforeUnmount(() => {
-  clearTimers();
+  token++;
   observer?.disconnect();
   revealObserver?.disconnect();
   document.documentElement.classList.remove('mp-home-js');
 });
 
-// --- Capabilities --------------------------------------------------------------
+// --- Feature fragments ----------------------------------------------------------
 const labelFormat = ref<'A4' | 'A6'>('A4');
 const labelPosition = ref(1);
 const delivery = ref('standard');
 const sdk = ref<'php' | 'js'>('php');
-
-// --- API index -------------------------------------------------------------------
-const apiDescriptions: Record<string, string> = {
-  myparcel: 'The core shipping API: shipments, delivery options, drop-off and pickup locations, track & trace, notifications and webhooks.',
-  order: 'Orders, packages, picklists, packing slips and assignment flows.',
-  rule: 'Configure order rule groups to automate fulfilment decisions per shop.',
-  address: 'Look up and validate addresses against postal data.',
-  printing: 'Direct printing: manage printers, printer groups and sync status.',
-  product: 'Product catalogue: create, update and query products and manage inventory.',
-  'purchase-order': 'Manage purchase orders: creation, receipts and inventory intake.',
-};
-const apis = [...apiList].sort((a, b) => (a.slug === 'myparcel' ? -1 : b.slug === 'myparcel' ? 1 : 0));
-const apiIndex = ref(0);
-const api = computed(() => apis[apiIndex.value]);
-const apiGroups = computed(() =>
-  (api.value.groupOverrides ?? []).filter((g) => g.key !== 'overview').map((g) => g.label),
-);
-
-// --- Carriers and platforms -----------------------------------------------------
-const carriers = [
-  { id: 1, name: 'PostNL', logo: `${CARRIER_LOGOS}/postnl.svg` },
-  { id: 2, name: 'bpost', logo: `${CARRIER_LOGOS}/bpost.svg` },
-  { id: 3, name: 'Cheap Cargo', logo: `${CARRIER_LOGOS}/cheapcargo.svg` },
-  { id: 4, name: 'DPD', logo: `${CARRIER_LOGOS}/dpd.svg` },
-  { id: 9, name: 'DHL For You', logo: `${CARRIER_LOGOS}/dhl.svg` },
-  { id: 10, name: 'DHL Parcel Connect', logo: `${CARRIER_LOGOS}/dhl.svg` },
-  { id: 11, name: 'DHL Europlus', logo: `${CARRIER_LOGOS}/dhl.svg` },
-  { id: 12, name: 'UPS Standard', logo: `${CARRIER_LOGOS}/ups.svg` },
-  { id: 13, name: 'UPS Express Saver', logo: `${CARRIER_LOGOS}/ups.svg` },
-  { id: 14, name: 'GLS', logo: `${CARRIER_LOGOS}/gls.svg` },
-  { id: 15, name: 'BRT', logo: localLogo('brt.svg') },
-  { id: 16, name: 'Trunkrs', logo: `${CARRIER_LOGOS}/trunkrs.svg` },
-  { id: 17, name: 'InPost', logo: localLogo('inpost.svg') },
-  { id: 18, name: 'Poste Italiane', logo: localLogo('poste-italiane.svg') },
+const deliveryTypes = [
+  ['standard', 'Standard delivery'],
+  ['morning', 'Morning delivery'],
+  ['evening', 'Evening delivery'],
+  ['pickup', 'Pickup point'],
 ];
 
-const integrationLogos = import.meta.glob('../../images/integrations/*', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-}) as Record<string, string>;
+// --- APIs -------------------------------------------------------------------------
+const apiDescriptions: Record<string, string> = {
+  myparcel: 'Shipments, labels, delivery options, pickup locations, track & trace and webhooks.',
+  order: 'Orders, packages, picklists, packing slips and assignment flows.',
+  rule: 'Order rule groups that automate fulfilment decisions per shop.',
+  address: 'Look up and validate addresses against postal data.',
+  printing: 'Printers, printer groups and their sync status.',
+  product: 'Create, update and query products and manage inventory.',
+  'purchase-order': 'Purchase orders: creation, receipts and inventory intake.',
+};
+const apis = [...apiList].sort((a, b) => (a.slug === 'myparcel' ? -1 : b.slug === 'myparcel' ? 1 : 0));
+
+// --- Carriers and platforms -----------------------------------------------------
+const carrierTiles = [
+  { name: 'PostNL', logo: `${CARRIER_LOGOS}/postnl.svg` },
+  { name: 'DHL', logo: `${CARRIER_LOGOS}/dhl.svg` },
+  { name: 'DPD', logo: `${CARRIER_LOGOS}/dpd.svg` },
+  { name: 'UPS', logo: `${CARRIER_LOGOS}/ups.svg` },
+  { name: 'bpost', logo: `${CARRIER_LOGOS}/bpost.svg` },
+  { name: 'GLS', logo: `${CARRIER_LOGOS}/gls.svg` },
+  { name: 'Trunkrs', logo: `${CARRIER_LOGOS}/trunkrs.svg` },
+  { name: 'Cheap Cargo', logo: `${CARRIER_LOGOS}/cheapcargo.svg` },
+  { name: 'BRT', logo: localLogo('brt.svg') },
+  { name: 'InPost', logo: localLogo('inpost.svg') },
+  { name: 'Poste Italiane', logo: localLogo('poste-italiane.svg') },
+];
 
 const platforms = (docsSidebar.find((g) => g.label === 'Platform integrations')?.items ?? [])
   .filter((item) => item.link !== '/integrations.html')
@@ -270,14 +267,14 @@ const platforms = (docsSidebar.find((g) => g.label === 'Platform integrations')?
           link: item.link,
           logo: integrationLogos[`../../images/integrations/${hit.logo}`],
           logoBg: hit.logoBg,
-          kind: hit.connection ?? group.label,
         };
       }
     }
-    return { name: item.text, link: item.link, logo: undefined, logoBg: undefined, kind: '' };
+    return { name: item.text, link: item.link, logo: undefined, logoBg: undefined };
   });
 
 const guideCount = docsSidebar.find((g) => g.label === 'Documentation')?.items.length ?? 0;
+const sdkCount = docsSidebar.find((g) => g.label === 'SDKs')?.items.length ?? 0;
 </script>
 
 <template>
@@ -285,7 +282,7 @@ const guideCount = docsSidebar.find((g) => g.label === 'Documentation')?.items.l
 
   <main id="mp-main" class="mp-home" tabindex="-1">
     <!-- ============================================================
-         HERO: a request goes out, a label comes back
+         HERO: a parcel travels from your webshop to the door
     ============================================================ -->
     <section class="mp-hx" aria-labelledby="mp-hx-title">
       <div class="mp-hx__inner">
@@ -300,116 +297,158 @@ const guideCount = docsSidebar.find((g) => g.label === 'Documentation')?.items.l
           <div class="mp-hx__actions">
             <a href="/guides/getting-started.html" class="mp-btn mp-btn--primary mp-hx__go">
               <span data-i18n="Send your first shipment">Send your first shipment</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
-            <a href="/api/" class="mp-hx__link" data-i18n="Browse the API reference">Browse the API reference</a>
+            <a href="/api/" class="mp-btn mp-hx__ghost" data-i18n="Browse the API reference">Browse the API reference</a>
           </div>
-          <div class="mp-hx__meta">
-            <a class="mp-hx__status" :class="`mp-hx__status--${statusTone}`" href="https://status.myparcel.nl/" target="_blank" rel="noopener">
-              <span class="mp-hx__status-dot" aria-hidden="true"></span>
-              <span v-show="statusTone === 'loading'" data-i18n="API status">API status</span>
-              <span v-show="statusTone !== 'loading'">{{ status?.description }}</span>
-            </a>
-            <a class="mp-hx__mcp" href="https://mcp.myparcel.ai/beta" data-i18n="Connect your AI assistant with the MCP beta">Connect your AI assistant with the MCP beta</a>
-          </div>
+          <a class="mp-hx__status" :class="`mp-hx__status--${statusTone}`" href="https://status.myparcel.nl/" target="_blank" rel="noopener">
+            <span class="mp-hx__status-dot" aria-hidden="true"></span>
+            <span v-show="statusTone === 'loading'" data-i18n="API status">API status</span>
+            <span v-show="statusTone !== 'loading'">{{ status?.description }}</span>
+          </a>
+          <a class="mp-hx__mcp mp-arrow-link" href="https://mcp.myparcel.ai/beta"><span data-i18n="Connect your AI assistant with the MCP beta">Connect your AI assistant with the MCP beta</span></a>
         </div>
 
-        <div ref="stage" class="mp-ship" data-ui data-step="0">
-          <div class="mp-ship__carriers" role="radiogroup" aria-label="Carrier">
-            <button
-              v-for="(s, i) in samples"
-              :key="s.id"
-              type="button"
-              role="radio"
-              class="mp-ship__carrier"
-              :aria-checked="i === current"
-              :tabindex="i === current ? 0 : -1"
-              @click="choose(i)"
-              @keydown="onCarrierKey($event, i)"
-            >{{ s.name }}</button>
-          </div>
+        <div class="mp-route">
+          <div ref="scene" class="mp-route__scene" :class="`is-step-${step}`" data-ui>
+            <svg class="mp-route__map" viewBox="0 0 640 520" aria-hidden="true">
+              <!-- Dashed track, then the trail the parcel leaves behind it -->
+              <g class="mp-route__track">
+                <path v-for="d in routePaths" :key="d" ref="segments" :d="d" />
+              </g>
+              <g class="mp-route__trail">
+                <path v-for="d in routePaths" :key="d" ref="trails" :d="d" />
+              </g>
+            </svg>
 
-          <div class="mp-ship__req">
-            <div class="mp-ship__req-head">
-              <code class="mp-ship__verb">POST</code>
-              <code class="mp-ship__path">api.myparcel.nl/shipments</code>
+            <!-- Stops -->
+            <span class="mp-route__stop mp-route__stop--shop" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg>
+            </span>
+            <span class="mp-route__stop mp-route__stop--api" aria-hidden="true">
+              <img src="/images/myparcel-mark.svg" alt="" width="28" height="28" />
+            </span>
+            <span class="mp-route__stop mp-route__stop--carrier" aria-hidden="true">
+              <img :src="carrier.logo" alt="" width="40" height="40" />
+            </span>
+            <span class="mp-route__stop mp-route__stop--home" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+            </span>
+
+            <svg class="mp-route__layer" viewBox="0 0 640 520" aria-hidden="true">
+              <!-- The parcel: a cardboard box with tape and a label -->
+              <g ref="parcel" class="mp-route__parcel" transform="translate(96 432)">
+                <ellipse class="mp-route__shadow" cx="0" cy="26" rx="34" ry="8" />
+                <g class="mp-route__box">
+                  <polygon points="0,-50 36,-33 0,-16 -36,-33" fill="#e3b77d" />
+                  <polygon points="-36,-33 0,-16 0,22 -36,5" fill="#c9925a" />
+                  <polygon points="0,-16 36,-33 36,5 0,22" fill="#b47d45" />
+                  <polygon points="-22,-40 -14,-44 22,-27 14,-23" fill="#f2d5a2" />
+                  <polygon points="6,-12 30,-23 30,-7 6,4" fill="#ffffff" />
+                  <polygon points="9,-9 16,-12 16,-9 9,-6" fill="#ff8c00" />
+                  <path d="M10 -2 L10 -6 M12 -3 L12 -7 M15 -4 L15 -8 M17 -5 L17 -9 M20 -6 L20 -10 M23 -8 L23 -12 M26 -9 L26 -13" stroke="#002621" stroke-width="1" />
+                </g>
+              </g>
+            </svg>
+
+            <!-- Cards that open at each stop -->
+            <div class="mp-route__card mp-route__card--req" :class="{ 'is-on': step >= 1 && step < 5 }">
+              <div class="mp-route__req-head"><code class="mp-route__verb">POST</code><code>/shipments</code></div>
+<pre class="mp-route__code"><code><span class="l" style="--i:0"><b>"carrier"</b>: <i>{{ carrier.id }}</i>,</span>
+<span class="l" style="--i:1"><b>"recipient"</b>: { <b>"cc"</b>: <em>"NL"</em>, … },</span>
+<span class="l" style="--i:2"><b>"options"</b>: { <b>"package_type"</b>: <i>1</i> }</span></code></pre>
+              <div class="mp-route__resp" :class="{ 'is-on': responded }"><code>201 Created</code> <code class="mp-route__soft">"id": {{ SHIPMENT_ID }}</code></div>
             </div>
-<pre class="mp-ship__code" aria-label="Request body"><code><span class="l" style="--i:0">{ "data": { "shipments": [{</span>
-<span class="l" style="--i:1">  <b>"carrier"</b>: <i class="mp-ship__hot">{{ sample.id }}</i>,</span>
-<span class="l" style="--i:2">  <b>"recipient"</b>: {</span>
-<span class="l" style="--i:3">    <b>"cc"</b>: <em>"{{ sample.cc }}"</em>,</span>
-<span class="l" style="--i:4">    <b>"person"</b>: <em>"{{ sample.person }}"</em>,</span>
-<span class="l" style="--i:5">    <b>"street"</b>: <em>"{{ sample.street }}"</em>,</span>
-<span class="l" style="--i:6">    <b>"number"</b>: <em>"{{ sample.number }}"</em>,</span>
-<span class="l" style="--i:7">    <b>"postal_code"</b>: <em>"{{ sample.postal }}"</em>,</span>
-<span class="l" style="--i:8">    <b>"city"</b>: <em>"{{ sample.city }}"</em></span>
-<span class="l" style="--i:9">  },</span>
-<span class="l" style="--i:10">  <b>"options"</b>: {</span>
-<span class="l" style="--i:11">    <b>"package_type"</b>: <i>1</i>, <b>"signature"</b>: <i>1</i></span>
-<span class="l" style="--i:12">  }</span>
-<span class="l" style="--i:13">}] } }</span></code></pre>
-            <div class="mp-ship__req-foot">
-              <button type="button" class="mp-ship__send" @click="choose(current)">
-                <span data-i18n="Send request">Send request</span>
-              </button>
-              <span class="mp-ship__resp" aria-live="polite">
-                <code class="mp-ship__resp-code">201 Created</code>
-                <code class="mp-ship__resp-body">"id": {{ SHIPMENT_ID }}</code>
+
+            <div class="mp-route__card mp-route__card--label" :class="{ 'is-on': step >= 2 && step < 5 }">
+              <div class="mp-route__label">
+                <div class="mp-route__label-top">
+                  <img :src="carrier.logo" :alt="carrier.name" width="64" height="24" />
+                  <strong>NL</strong>
+                </div>
+                <span class="mp-route__label-to">J. de Vries</span>
+                <span class="mp-route__label-addr">Antareslaan 31, 2132JE Hoofddorp</span>
+                <span class="mp-route__bars" aria-hidden="true"></span>
+                <code class="mp-route__label-code">{{ BARCODE }}</code>
+              </div>
+            </div>
+
+            <div class="mp-route__card mp-route__card--status" :class="{ 'is-on': step >= 3 && step < 5 }">
+              <span class="mp-route__badge">3</span>
+              <span>
+                <strong data-i18n="Handed to carrier">Handed to carrier</strong>
+                <small>{{ carrier.name }}</small>
+              </span>
+            </div>
+
+            <div class="mp-route__card mp-route__card--done" :class="{ 'is-on': step === 4 }">
+              <span class="mp-route__check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+              </span>
+              <span>
+                <strong data-i18n="Delivered">Delivered</strong>
+                <small><span data-i18n="Status">Status</span> 7</small>
               </span>
             </div>
           </div>
 
-          <div class="mp-ship__printer">
-            <div class="mp-ship__slot" aria-hidden="true"><span class="mp-ship__led"></span></div>
-            <div class="mp-ship__feed">
-              <article class="mp-ship__label" :aria-label="`${sample.name} label`">
-                <header class="mp-ship__label-top">
-                  <img class="mp-ship__label-logo" :src="sample.logo" :alt="sample.name" width="96" height="32" />
-                  <span class="mp-ship__label-cc">{{ sample.cc }}</span>
-                </header>
-                <div class="mp-ship__label-to">
-                  <span class="mp-ship__label-key" data-i18n="To">To</span>
-                  <strong>{{ sample.person }}</strong>
-                  <span>{{ sample.street }} {{ sample.number }}</span>
-                  <span>{{ sample.postal }} {{ sample.city }}</span>
-                </div>
-                <div class="mp-ship__label-opts">
-                  <span data-i18n="Package">Package</span>
-                  <span data-i18n="Signature">Signature</span>
-                </div>
-                <svg class="mp-ship__barcode" :viewBox="`0 0 ${barcode.width} 40`" preserveAspectRatio="none" aria-hidden="true">
-                  <rect v-for="(b, i) in barcode.bars" :key="i" :x="b.x" y="0" :width="b.w" height="40" />
-                </svg>
-                <footer class="mp-ship__label-foot">
-                  <code>{{ sample.id === 1 ? BARCODE : REFERENCE }}</code>
-                  <code>{{ SHIPMENT_ID }}</code>
-                </footer>
-              </article>
-            </div>
+          <div class="mp-route__chips" role="radiogroup" aria-label="Carrier">
+            <button
+              v-for="(c, i) in routeCarriers"
+              :key="c.id"
+              type="button"
+              role="radio"
+              class="mp-route__chip"
+              :aria-checked="i === current"
+              :tabindex="i === current ? 0 : -1"
+              @click="choose(i)"
+              @keydown="onCarrierKey($event, i)"
+            >{{ c.name }}</button>
           </div>
-
-          <ol class="mp-ship__track" aria-label="Shipment status">
-            <li class="mp-ship__status" style="--s:1"><span class="mp-ship__status-code">1</span><span data-i18n="Concept">Concept</span></li>
-            <li class="mp-ship__status" style="--s:2"><span class="mp-ship__status-code">2</span><span data-i18n="Registered">Registered</span></li>
-            <li class="mp-ship__status" style="--s:3"><span class="mp-ship__status-code">3</span><span data-i18n="Handed to carrier">Handed to carrier</span></li>
-            <li class="mp-ship__status" style="--s:4"><span class="mp-ship__status-code">7</span><span data-i18n="Delivered">Delivered</span></li>
-          </ol>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         CAPABILITIES: each one a working piece of the product
+         TWO WAYS IN
     ============================================================ -->
-    <section class="mp-cap" aria-labelledby="mp-cap-title">
-      <h2 id="mp-cap-title" class="mp-home__h2 mp-reveal" data-i18n="Everything after the order">Everything after the order</h2>
-      <div class="mp-cap__grid">
-        <div class="mp-cell mp-reveal">
-          <div class="mp-cell__text">
-            <h3 class="mp-cell__title"><a href="/guides/shipments.html#labels" data-i18n="Labels in A4 or A6">Labels in A4 or A6</a></h3>
-            <p data-i18n="Fetch one label or a hundred as one PDF. On A4 you choose where the first label goes.">Fetch one label or a hundred as one PDF. On A4 you choose where the first label goes.</p>
-          </div>
-          <div class="mp-cell__ui mp-frag mp-frag--labels" data-ui>
+    <section class="mp-ways" aria-label="Start here">
+      <article class="mp-way mp-reveal">
+        <span class="mp-tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        </span>
+        <h2 class="mp-way__title" data-i18n="Documentation">Documentation</h2>
+        <p data-i18n="Guides for every step, from your API key to your first label and the webhooks after it.">Guides for every step, from your API key to your first label and the webhooks after it.</p>
+        <ul class="mp-checks">
+          <li><span>{{ guideCount }}</span>&nbsp;<span data-i18n="guides, from authentication to webhooks">guides, from authentication to webhooks</span></li>
+          <li><span data-i18n="SDKs for PHP and JavaScript">SDKs for PHP and JavaScript</span></li>
+          <li><span>{{ platforms.length }}</span>&nbsp;<span data-i18n="platform manuals">platform manuals</span></li>
+        </ul>
+        <a class="mp-arrow-link" href="/guides/getting-started.html"><span data-i18n="Open the documentation">Open the documentation</span></a>
+      </article>
+      <article class="mp-way mp-reveal">
+        <span class="mp-tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <h2 class="mp-way__title" data-i18n="API reference">API reference</h2>
+        <p data-i18n="Every endpoint, parameter and schema, generated from the published OpenAPI spec of each API.">Every endpoint, parameter and schema, generated from the published OpenAPI spec of each API.</p>
+        <ul class="mp-checks">
+          <li><span>{{ apis.length }}</span>&nbsp;<span data-i18n="APIs on one account">APIs on one account</span></li>
+          <li><span data-i18n="Code samples for every request">Code samples for every request</span></li>
+          <li><span data-i18n="OpenAPI specs to download">OpenAPI specs to download</span></li>
+        </ul>
+        <a class="mp-arrow-link" href="/api/"><span data-i18n="Open the API reference">Open the API reference</span></a>
+      </article>
+    </section>
+
+    <!-- ============================================================
+         FEATURES: alternating rows, a working piece of the product each
+    ============================================================ -->
+    <section class="mp-feats" aria-labelledby="mp-feats-title">
+      <h2 id="mp-feats-title" class="mp-home__h2 mp-home__h2--center mp-reveal" data-i18n="Everything after the order">Everything after the order</h2>
+
+      <div class="mp-feat mp-reveal">
+        <div class="mp-feat__art">
+          <div class="mp-float mp-frag" data-ui>
             <div class="mp-frag__seg" role="radiogroup" aria-label="Format">
               <button v-for="f in ['A4', 'A6']" :key="f" type="button" role="radio" :aria-checked="labelFormat === f" @click="labelFormat = f as 'A4' | 'A6'">{{ f }}</button>
             </div>
@@ -428,29 +467,43 @@ const guideCount = docsSidebar.find((g) => g.label === 'Documentation')?.items.l
             <code class="mp-frag__query">?format={{ labelFormat }}<template v-if="labelFormat === 'A4'">&amp;positions={{ labelPosition }}</template></code>
           </div>
         </div>
+        <div class="mp-feat__text">
+          <span class="mp-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          </span>
+          <h3 class="mp-feat__title" data-i18n="Labels in A4 or A6">Labels in A4 or A6</h3>
+          <p data-i18n="Fetch one label or a hundred as one PDF. On A4 you choose where the first label goes.">Fetch one label or a hundred as one PDF. On A4 you choose where the first label goes.</p>
+          <a class="mp-arrow-link" href="/guides/shipments.html#labels"><span data-i18n="Read about labels">Read about labels</span></a>
+        </div>
+      </div>
 
-        <div class="mp-cell mp-cell--ui-top mp-reveal">
-          <div class="mp-cell__ui mp-frag mp-frag--checkout" data-ui>
+      <div class="mp-feat mp-feat--flip mp-reveal">
+        <div class="mp-feat__art">
+          <div class="mp-float mp-frag" data-ui>
             <fieldset class="mp-frag__choices">
               <legend data-i18n="Delivery">Delivery</legend>
-              <label v-for="d in [['standard', 'Standard delivery'], ['morning', 'Morning delivery'], ['evening', 'Evening delivery'], ['pickup', 'Pickup point']]" :key="d[0]" class="mp-frag__choice">
+              <label v-for="d in deliveryTypes" :key="d[0]" class="mp-frag__choice">
                 <input v-model="delivery" type="radio" name="mp-delivery" :value="d[0]" />
                 <span :data-i18n="d[1]">{{ d[1] }}</span>
               </label>
             </fieldset>
           </div>
-          <div class="mp-cell__text">
-            <h3 class="mp-cell__title"><a href="/platforms/delivery-options.html" data-i18n="Delivery options at checkout">Delivery options at checkout</a></h3>
-            <p data-i18n="A widget that shows your customer the carriers, delivery moments and pickup points you allow.">A widget that shows your customer the carriers, delivery moments and pickup points you allow.</p>
-          </div>
+          <span class="mp-float mp-float--logo mp-float--a" aria-hidden="true"><img :src="`${CARRIER_LOGOS}/postnl.svg`" alt="" width="40" height="40" /></span>
+          <span class="mp-float mp-float--logo mp-float--b" aria-hidden="true"><img :src="`${CARRIER_LOGOS}/dhl.svg`" alt="" width="40" height="40" /></span>
         </div>
+        <div class="mp-feat__text">
+          <span class="mp-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3 class="mp-feat__title" data-i18n="Delivery options at checkout">Delivery options at checkout</h3>
+          <p data-i18n="A widget that shows your customer the carriers, delivery moments and pickup points you allow.">A widget that shows your customer the carriers, delivery moments and pickup points you allow.</p>
+          <a class="mp-arrow-link" href="/platforms/delivery-options.html"><span data-i18n="Add delivery options">Add delivery options</span></a>
+        </div>
+      </div>
 
-        <div class="mp-cell mp-reveal">
-          <div class="mp-cell__text">
-            <h3 class="mp-cell__title"><a href="/guides/webhooks.html" data-i18n="Webhooks, not polling">Webhooks, not polling</a></h3>
-            <p data-i18n="Subscribe once. MyParcel posts every status change of a shipment to your URL.">Subscribe once. MyParcel posts every status change of a shipment to your URL.</p>
-          </div>
-          <div class="mp-cell__ui mp-frag mp-frag--code" data-ui>
+      <div class="mp-feat mp-reveal">
+        <div class="mp-feat__art">
+          <div class="mp-float mp-frag mp-frag--code" data-ui>
 <pre><code><span class="c">X-MyParcel-Hook: shipment_status_change</span>
 { "data": { "hooks": [{
   <b>"shipment_id"</b>: <i>123456</i>,
@@ -458,143 +511,131 @@ const guideCount = docsSidebar.find((g) => g.label === 'Documentation')?.items.l
   <b>"barcode"</b>: <em>"3SMYPA749883621"</em>
 }] } }</code></pre>
           </div>
+          <div class="mp-float mp-float--note mp-float--c" aria-hidden="true">
+            <span class="mp-route__badge">2</span>
+            <strong data-i18n="Registered">Registered</strong>
+          </div>
         </div>
+        <div class="mp-feat__text">
+          <span class="mp-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </span>
+          <h3 class="mp-feat__title" data-i18n="Webhooks, not polling">Webhooks, not polling</h3>
+          <p data-i18n="Subscribe once. MyParcel posts every status change of a shipment to your URL.">Subscribe once. MyParcel posts every status change of a shipment to your URL.</p>
+          <a class="mp-arrow-link" href="/guides/webhooks.html"><span data-i18n="Set up webhooks">Set up webhooks</span></a>
+        </div>
+      </div>
 
-        <div class="mp-cell mp-cell--ui-top mp-reveal">
-          <div class="mp-cell__ui mp-frag mp-frag--term" data-ui>
+      <div class="mp-feat mp-feat--flip mp-reveal">
+        <div class="mp-feat__art">
+          <div class="mp-float mp-frag mp-frag--term" data-ui>
             <div class="mp-frag__tabs" role="tablist" aria-label="SDK">
               <button type="button" role="tab" :aria-selected="sdk === 'php'" @click="sdk = 'php'">PHP</button>
               <button type="button" role="tab" :aria-selected="sdk === 'js'" @click="sdk = 'js'">JavaScript</button>
             </div>
             <pre><code><span class="p">$</span> {{ sdk === 'php' ? 'composer require myparcelnl/sdk:^11.0' : 'npm install @myparcel-dev/sdk' }}</code></pre>
           </div>
-          <div class="mp-cell__text">
-            <h3 class="mp-cell__title"><a :href="sdk === 'php' ? '/guides/php-sdk-v11.html' : '/guides/javascript-sdk.html'" data-i18n="SDKs for PHP and JavaScript">SDKs for PHP and JavaScript</a></h3>
-            <p data-i18n="Skip the raw HTTP. Install the SDK and create shipments with typed objects.">Skip the raw HTTP. Install the SDK and create shipments with typed objects.</p>
-          </div>
         </div>
-
-        <div class="mp-cell mp-reveal">
-          <div class="mp-cell__text">
-            <h3 class="mp-cell__title"><a href="/guides/authentication.html" data-i18n="One key, one header">One key, one header</a></h3>
-            <p data-i18n="Copy the API key from the Backoffice, Base64-encode it and send it with every request.">Copy the API key from the Backoffice, Base64-encode it and send it with every request.</p>
-          </div>
-          <div class="mp-cell__ui mp-frag mp-frag--header" data-ui>
-            <span class="mp-frag__hk">Authorization</span>
-            <code>bearer &lt;base64-encoded API key&gt;</code>
-          </div>
-        </div>
-
-        <div class="mp-cell mp-cell--ui-top mp-reveal">
-          <div class="mp-cell__ui mp-frag mp-frag--apps" data-ui>
-            <span v-for="p in platforms.slice(0, 6)" :key="p.name" class="mp-frag__app" :style="p.logoBg ? { background: p.logoBg } : undefined">
-              <img v-if="p.logo" :src="p.logo" :alt="p.name" width="40" height="40" loading="lazy" />
-            </span>
-          </div>
-          <div class="mp-cell__text">
-            <h3 class="mp-cell__title"><a href="/integrations.html" data-i18n="A plug-in for your shop">A plug-in for your shop</a></h3>
-            <p data-i18n="WooCommerce, Shopify, Magento 2 and more. Install it and set it up from your own admin.">WooCommerce, Shopify, Magento 2 and more. Install it and set it up from your own admin.</p>
-          </div>
+        <div class="mp-feat__text">
+          <span class="mp-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg>
+          </span>
+          <h3 class="mp-feat__title" data-i18n="SDKs for PHP and JavaScript">SDKs for PHP and JavaScript</h3>
+          <p data-i18n="Skip the raw HTTP. Install the SDK and create shipments with typed objects.">Skip the raw HTTP. Install the SDK and create shipments with typed objects.</p>
+          <a class="mp-arrow-link" :href="sdk === 'php' ? '/guides/php-sdk-v11.html' : '/guides/javascript-sdk.html'"><span data-i18n="Install an SDK">Install an SDK</span></a>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         API INDEX: pick an API, read its sheet
+         APIS on a mint band
     ============================================================ -->
-    <section class="mp-apis" aria-labelledby="mp-apis-title">
-      <div class="mp-apis__index mp-reveal">
-        <h2 id="mp-apis-title" class="mp-home__h2" data-i18n="Seven APIs, one account">Seven APIs, one account</h2>
-        <div class="mp-apis__names" role="tablist" aria-label="APIs">
-          <button
-            v-for="(a, i) in apis"
-            :key="a.slug"
-            type="button"
-            role="tab"
-            class="mp-apis__name"
-            :aria-selected="i === apiIndex"
-            :aria-controls="'mp-api-sheet'"
-            @click="apiIndex = i"
-            @mouseenter="apiIndex = i"
-          >{{ a.name }}</button>
+    <section class="mp-band" aria-labelledby="mp-apis-title">
+      <div class="mp-band__inner">
+        <h2 id="mp-apis-title" class="mp-home__h2 mp-reveal" data-i18n="Seven APIs, one account">Seven APIs, one account</h2>
+        <div class="mp-apis">
+          <a v-for="a in apis" :key="a.slug" class="mp-api mp-reveal" :href="`/api/${a.slug}.html`">
+            <span class="mp-api__name">{{ a.name }}</span>
+            <code class="mp-api__host">{{ a.host }}</code>
+            <span class="mp-api__desc">{{ apiDescriptions[a.slug] }}</span>
+            <span class="mp-api__meta">{{ a.endpoints }} <span data-i18n="endpoints">endpoints</span></span>
+          </a>
+          <a class="mp-api mp-api--all mp-reveal" href="/api/">
+            <span class="mp-api__name" data-i18n="All APIs">All APIs</span>
+            <span class="mp-api__desc" data-i18n="Download the OpenAPI specs or browse every endpoint in one place.">Download the OpenAPI specs or browse every endpoint in one place.</span>
+            <span class="mp-arrow-link" data-i18n="API overview">API overview</span>
+          </a>
         </div>
-      </div>
-      <div class="mp-apis__stage mp-reveal">
-        <article id="mp-api-sheet" class="mp-apis__sheet" role="tabpanel" data-ui>
-          <div :key="api.slug" class="mp-apis__sheet-in">
-            <header class="mp-apis__sheet-head">
-              <h3>{{ api.name }}</h3>
-              <span class="mp-apis__ver">{{ api.version }}</span>
-            </header>
-            <p class="mp-apis__host"><code>https://{{ api.host }}</code></p>
-            <p class="mp-apis__desc">{{ apiDescriptions[api.slug] }}</p>
-            <dl class="mp-apis__facts">
-              <div><dt data-i18n="Endpoints">Endpoints</dt><dd>{{ api.endpoints }}</dd></div>
-              <div><dt data-i18n="Spec">Spec</dt><dd><a :href="api.specUrl" target="_blank" rel="noopener">openapi.yaml</a></dd></div>
-            </dl>
-            <ul v-if="apiGroups.length" class="mp-apis__groups">
-              <li v-for="g in apiGroups" :key="g">{{ g }}</li>
-            </ul>
-            <a class="mp-btn mp-btn--secondary mp-apis__open" :href="`/api/${api.slug}.html`">
-              <span data-i18n="Open the reference">Open the reference</span>
-            </a>
-          </div>
-        </article>
       </div>
     </section>
 
     <!-- ============================================================
          CARRIERS AND PLATFORMS
     ============================================================ -->
-    <section class="mp-roster" aria-labelledby="mp-roster-title">
-      <h2 id="mp-roster-title" class="mp-home__h2 mp-reveal" data-i18n="Carriers and platforms">Carriers and platforms</h2>
-      <div class="mp-roster__cols">
-        <div class="mp-roster__col mp-reveal">
-          <h3 class="mp-roster__group" data-i18n="Carrier IDs">Carrier IDs</h3>
-          <ul class="mp-roster__list">
-            <li v-for="c in carriers" :key="c.id" class="mp-roster__row">
-              <span class="mp-roster__logo"><img :src="c.logo" alt="" width="24" height="24" loading="lazy" /></span>
-              <span class="mp-roster__name">{{ c.name }}</span>
-              <span class="mp-roster__val">{{ c.id }}</span>
-            </li>
-          </ul>
-          <a class="mp-roster__more" href="/guides/data-types.html" data-i18n="All data types">All data types</a>
+    <section class="mp-net" aria-labelledby="mp-net-title">
+      <div class="mp-net__text mp-reveal">
+        <h2 id="mp-net-title" class="mp-home__h2" data-i18n="One integration, every carrier">One integration, every carrier</h2>
+        <p data-i18n="Build against MyParcel once and ship with the carriers your contract covers. Or install a plug-in for your platform and skip the code.">Build against MyParcel once and ship with the carriers your contract covers. Or install a plug-in for your platform and skip the code.</p>
+        <ul class="mp-checks">
+          <li><span data-i18n="Carrier IDs in the data types guide">Carrier IDs in the data types guide</span></li>
+          <li><span>{{ sdkCount }}</span>&nbsp;<span data-i18n="SDK guides">SDK guides</span></li>
+          <li><span>{{ integrationCount }}</span>&nbsp;<span data-i18n="integrations in the catalogue">integrations in the catalogue</span></li>
+        </ul>
+        <div class="mp-net__links">
+          <a class="mp-arrow-link" href="/guides/data-types.html"><span data-i18n="See carrier IDs">See carrier IDs</span></a>
+          <a class="mp-arrow-link" href="/integrations.html"><span data-i18n="See all integrations">See all integrations</span></a>
         </div>
-        <div class="mp-roster__col mp-reveal">
-          <h3 class="mp-roster__group" data-i18n="Platform manuals">Platform manuals</h3>
-          <ul class="mp-roster__list">
-            <li v-for="p in platforms" :key="p.link">
-              <a class="mp-roster__row" :href="p.link">
-                <span class="mp-roster__logo" :style="p.logoBg ? { background: p.logoBg } : undefined"><img v-if="p.logo" :src="p.logo" alt="" width="24" height="24" loading="lazy" /></span>
-                <span class="mp-roster__name">{{ p.name }}</span>
-                <span class="mp-roster__val" :data-i18n="p.kind">{{ p.kind }}</span>
-              </a>
-            </li>
-          </ul>
-          <a class="mp-roster__more" href="/integrations.html">
-            <span data-i18n="All integrations">All integrations</span> ({{ integrationCount }})
-          </a>
+      </div>
+      <div class="mp-net__art mp-reveal">
+        <div class="mp-net__group">
+          <span class="mp-net__label" data-i18n="Carriers">Carriers</span>
+          <div class="mp-net__tiles">
+            <span v-for="c in carrierTiles" :key="c.name" class="mp-logo-tile" :title="c.name">
+              <img :src="c.logo" :alt="c.name" width="44" height="44" loading="lazy" />
+            </span>
+          </div>
+        </div>
+        <div class="mp-net__group">
+          <span class="mp-net__label" data-i18n="Platforms">Platforms</span>
+          <div class="mp-net__tiles">
+            <a v-for="p in platforms" :key="p.link" class="mp-logo-tile" :href="p.link" :title="p.name" :style="p.logoBg ? { background: p.logoBg } : undefined">
+              <img v-if="p.logo" :src="p.logo" :alt="p.name" width="44" height="44" loading="lazy" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         CLOSE
+         HELP
     ============================================================ -->
-    <section class="mp-close" aria-labelledby="mp-close-title">
-      <div class="mp-close__side mp-close__side--l" aria-hidden="true"></div>
-      <div class="mp-close__tile mp-reveal">
-        <h2 id="mp-close-title" class="mp-close__title" data-i18n="Print your first label">Print your first label</h2>
-        <p data-i18n="Copy your API key, send one request and download the PDF. The getting started guide walks you through it.">Copy your API key, send one request and download the PDF. The getting started guide walks you through it.</p>
-        <div class="mp-close__actions">
-          <a href="/guides/getting-started.html" class="mp-btn mp-btn--primary">
-            <span data-i18n="Get started">Get started</span>
+    <section class="mp-help" aria-labelledby="mp-help-title">
+      <div class="mp-help__panel mp-reveal">
+        <h2 id="mp-help-title" class="mp-home__h2" data-i18n="Stuck? Ask the developers.">Stuck? Ask the developers.</h2>
+        <div class="mp-help__cards">
+          <a class="mp-help__card" href="/contact.html">
+            <span class="mp-tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <strong data-i18n="Contact">Contact</strong>
+            <span data-i18n="Send us your question about the API or a plug-in.">Send us your question about the API or a plug-in.</span>
           </a>
-          <a href="/contact.html" class="mp-close__link" data-i18n="Ask a developer">Ask a developer</a>
+          <a class="mp-help__card" href="https://github.com/myparcelnl" target="_blank" rel="noopener">
+            <span class="mp-tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+            </span>
+            <strong>GitHub</strong>
+            <span data-i18n="Read the source of our plug-ins and SDKs, and open an issue.">Read the source of our plug-ins and SDKs, and open an issue.</span>
+          </a>
+          <a class="mp-help__card" href="https://status.myparcel.nl" target="_blank" rel="noopener">
+            <span class="mp-tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </span>
+            <strong data-i18n="Status page">Status page</strong>
+            <span data-i18n="See whether the APIs are up, and read about incidents.">See whether the APIs are up, and read about incidents.</span>
+          </a>
         </div>
-        <p class="mp-close__count">{{ guideCount }} <span data-i18n="guides">guides</span>, {{ apis.length }} <span data-i18n="APIs">APIs</span>, {{ integrationCount }} <span data-i18n="integrations">integrations</span></p>
       </div>
-      <div class="mp-close__side mp-close__side--r" aria-hidden="true"></div>
     </section>
   </main>
 
