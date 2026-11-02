@@ -73,7 +73,6 @@
   "hosts developer.myparcel.com and every service behind it.": "héberge developer.myparcel.com et chaque service qui le sous-tend.",
   "runs account-management and billing.": "gère la gestion des comptes et la facturation.",
   "Open source": "Open source",
-  "Most of our SDKs and plugins are open source and accept contributions. The portal itself lives at github.com/myparcelnl/developer.": "La plupart de nos SDK et plugins sont open source et acceptent les contributions. Le portail lui-même se trouve sur github.com/myparcelnl/developer.",
   "Our principles": "Nos principes",
   "Docs match reality.": "La doc reflète la réalité.",
   "The API reference is auto-generated from the published OpenAPI specs.": "La référence API est générée automatiquement à partir des specs OpenAPI publiées.",
@@ -283,5 +282,12 @@
   "Stuck? Ask the developers.": "Bloqué ? Demandez aux développeurs.",
   "Send us your question about the API or a plug-in.": "Envoyez-nous votre question sur l'API ou un plug-in.",
   "Read the source of our plug-ins and SDKs, and open an issue.": "Lisez le code source de nos plug-ins et SDK, et ouvrez une issue.",
-  "See whether the APIs are up, and read about incidents.": "Vérifiez si les API fonctionnent et consultez les incidents."
+  "See whether the APIs are up, and read about incidents.": "Vérifiez si les API fonctionnent et consultez les incidents.",
+
+  "Most of our SDKs and plugins are open source and accept contributions. So is this portal.": "La plupart de nos SDK et plug-ins sont open source et acceptent les contributions. Ce portail aussi.",
+  "Get in touch": "Nous contacter",
+  "Other channels": "Autres canaux",
+  "merchants in the Netherlands and Belgium": "marchands aux Pays-Bas et en Belgique",
+  "carriers behind one account": "transporteurs derrière un seul compte",
+  "API and one set of labels": "API et un seul jeu d'étiquettes"
 }
