@@ -1718,22 +1718,6 @@ pre.mp-code-block::after {
 //  Kept last in this file so it wins over the rules above.
 // ---------------------------------------------------------------------------
 
-:root {
-  --mp-home-max: 1200px;
-  --mp-home-gutter: clamp(16px, 3vw, 40px);
-  --mp-home-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --mp-home-card: #ffffff;
-  --mp-home-band: var(--mp-mint);
-  --mp-home-shadow: 0 12px 32px rgb(0 38 33 / 8%), 0 2px 6px rgb(0 38 33 / 5%);
-  --mp-home-shadow-lift: 0 18px 44px rgb(0 38 33 / 13%), 0 3px 8px rgb(0 38 33 / 6%);
-}
-[data-theme="dark"] {
-  --mp-home-card: #03342b;
-  --mp-home-band: #022a23;
-  --mp-home-shadow: 0 12px 32px rgb(0 0 0 / 35%);
-  --mp-home-shadow-lift: 0 18px 44px rgb(0 0 0 / 45%);
-}
-
 // ---- Sidebars (docs and API reference) ------------------------------------
 .mp-docs-sidebar,
 .mp-sidebar {
@@ -1753,7 +1737,7 @@ pre.mp-code-block::after {
   margin: 1px 0;
   padding-left: 12px;
   padding-right: 12px;
-  font-size: 14px;
+  font-size: var(--mp-type-sm);
   font-weight: 500;
   transition: background 0.15s, color 0.15s, box-shadow 0.15s;
 }
@@ -1763,10 +1747,10 @@ pre.mp-code-block::after {
 }
 .mp-docs-sidebar__item--active,
 .mp-sidebar__item--active {
-  background: var(--mp-home-card);
+  background: var(--mp-card);
   color: var(--mp-fresh);
   font-weight: 700;
-  box-shadow: 0 2px 8px rgb(0 38 33 / 8%);
+  box-shadow: var(--mp-shadow-soft);
 }
 [data-theme="dark"] .mp-docs-sidebar__item:hover,
 [data-theme="dark"] .mp-sidebar__item:hover { background: rgb(255 255 255 / 6%); }
@@ -1780,7 +1764,7 @@ pre.mp-code-block::after {
   border-bottom: 0;
   letter-spacing: 0;
   text-transform: none;
-  font-size: 13px;
+  font-size: var(--mp-type-xs);
   color: var(--mp-text);
   padding: 10px 12px 4px !important;
 }
@@ -1791,18 +1775,18 @@ pre.mp-code-block::after {
   border-radius: 999px;
   border-width: 2px;
   border-color: transparent;
-  background: var(--mp-home-card);
+  background: var(--mp-card);
 }
 .mp-sidebar-filter__input-wrap:focus-within { border-color: var(--mp-fresh); box-shadow: none; }
 
 // ---- Docs content -----------------------------------------------------------
 .mp-docs-content__title {
-  font-size: clamp(36px, 3.6vw, 48px);
+  font-size: var(--mp-type-2xl);
   letter-spacing: -0.025em;
   line-height: 1.08;
 }
 .mp-docs-content__lede {
-  font-size: 19px;
+  font-size: var(--mp-type-lg);
   color: var(--mp-text-body);
 }
 
@@ -1826,7 +1810,7 @@ pre.mp-code-block::after {
   }
   .hint-container.tip,
   .hint-container.note,
-  .hint-container.info { background: var(--mp-home-band); }
+  .hint-container.info { background: var(--mp-panel); }
   .hint-container.warning { background: #fff6d6; }
   .hint-container.caution,
   .hint-container.danger { background: #fde8e8; }
@@ -1835,21 +1819,21 @@ pre.mp-code-block::after {
   blockquote {
     border-left: 0;
     border-radius: 16px;
-    background: var(--mp-home-band);
+    background: var(--mp-panel);
     padding: 16px 20px;
   }
 
   p > img {
     border: 0;
     border-radius: 16px;
-    box-shadow: var(--mp-home-shadow);
+    box-shadow: var(--mp-shadow);
     padding: 0;
   }
 
   th {
     text-transform: none;
     letter-spacing: 0;
-    font-size: 13px;
+    font-size: var(--mp-type-xs);
     font-weight: 700;
   }
 }
@@ -1862,18 +1846,18 @@ pre.mp-code-block::after {
 .mp-docs-pager__link {
   border: 0;
   border-radius: 18px;
-  background: var(--mp-home-card);
-  box-shadow: 0 4px 14px rgb(0 38 33 / 7%);
-  transition: transform 0.25s var(--mp-home-ease), box-shadow 0.25s;
+  background: var(--mp-card);
+  box-shadow: var(--mp-shadow-soft);
+  transition: transform 0.25s var(--mp-ease), box-shadow 0.25s;
 }
 .mp-docs-pager__link:hover {
   transform: translateY(-3px);
-  box-shadow: var(--mp-home-shadow-lift);
+  box-shadow: var(--mp-shadow-lift);
 }
 .mp-docs-pager__label {
   text-transform: none;
   letter-spacing: 0;
-  font-size: 13px;
+  font-size: var(--mp-type-xs);
 }
 
 // On this page
@@ -1889,33 +1873,33 @@ pre.mp-code-block::after {
 
 // ---- API reference ----------------------------------------------------------
 .mp-ref-hub__title {
-  font-size: clamp(36px, 3.6vw, 48px);
+  font-size: var(--mp-type-2xl);
   letter-spacing: -0.025em;
 }
-.mp-ref-hub__lead { font-size: 19px; color: var(--mp-text-body); }
+.mp-ref-hub__lead { font-size: var(--mp-type-lg); color: var(--mp-text-body); }
 
 .mp-api-toc {
   border: 0;
   border-radius: 18px;
-  background: var(--mp-home-band);
+  background: var(--mp-panel);
   padding: 14px 16px;
 }
 .mp-api-toc__label {
   text-transform: none;
   letter-spacing: 0;
-  font-size: 14px;
+  font-size: var(--mp-type-sm);
   color: var(--mp-text);
 }
 .mp-api-toc__chip {
   border: 2px solid transparent;
-  background: var(--mp-home-card);
+  background: var(--mp-card);
   color: var(--mp-monstera);
-  font-size: 13px;
+  font-size: var(--mp-type-xs);
   font-weight: 700;
   text-transform: none;
   padding: 6px 14px;
 }
-.mp-api-toc__chip:hover { border-color: var(--mp-fresh); background: var(--mp-home-card); }
+.mp-api-toc__chip:hover { border-color: var(--mp-fresh); background: var(--mp-card); }
 [data-theme="dark"] .mp-api-toc__chip { color: #ffffff; }
 
 // Group labels above the endpoints: a rounded Mint pill, sentence case.
@@ -1926,24 +1910,24 @@ pre.mp-code-block::after {
   padding: 7px 16px;
   letter-spacing: 0;
   text-transform: none;
-  font-size: 14px;
-  box-shadow: 0 2px 8px rgb(0 38 33 / 6%);
+  font-size: var(--mp-type-sm);
+  box-shadow: var(--mp-shadow-soft);
 }
 
 .mp-endpoint {
   border: 0;
   border-radius: 16px;
-  background: var(--mp-home-card);
-  box-shadow: 0 4px 14px rgb(0 38 33 / 7%);
-  transition: box-shadow 0.25s, transform 0.25s var(--mp-home-ease);
+  background: var(--mp-card);
+  box-shadow: var(--mp-shadow-soft);
+  transition: box-shadow 0.25s, transform 0.25s var(--mp-ease);
 }
 .mp-endpoint:hover {
   border-color: transparent;
-  box-shadow: var(--mp-home-shadow-lift);
+  box-shadow: var(--mp-shadow-lift);
 }
 .mp-endpoint--open {
   border: 0;
-  box-shadow: var(--mp-home-shadow-lift), inset 0 0 0 2px var(--mp-fresh);
+  box-shadow: var(--mp-shadow-lift), inset 0 0 0 2px var(--mp-fresh);
 }
 .mp-endpoint--open .mp-endpoint__header {
   border-bottom: 0;
@@ -1956,10 +1940,10 @@ pre.mp-code-block::after {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 .mp-apis--ref .mp-api {
-  box-shadow: 0 4px 14px rgb(0 38 33 / 7%);
-  background: var(--mp-home-card);
+  box-shadow: var(--mp-shadow-soft);
+  background: var(--mp-card);
 }
-.mp-apis--ref .mp-api:hover { box-shadow: var(--mp-home-shadow-lift); }
+.mp-apis--ref .mp-api:hover { box-shadow: var(--mp-shadow-lift); }
 
 // ---- Search page ------------------------------------------------------------
 .mp-search-page {
@@ -1979,14 +1963,14 @@ pre.mp-code-block::after {
   max-width: 880px;
   margin: -88px auto clamp(72px, 8vw, 112px);
   padding: clamp(24px, 4vw, 48px);
-  background: var(--mp-home-card);
+  background: var(--mp-card);
   border-radius: 24px;
-  box-shadow: var(--mp-home-shadow);
+  box-shadow: var(--mp-shadow);
 }
 .mp-standalone--card .mp-docs-content { padding: 0; max-width: none; }
 .mp-page .mp-phero__inner .mp-breadcrumb { margin-bottom: 28px; }
 @media (max-width: 720px) {
-  .mp-standalone--card { margin: -48px var(--mp-home-gutter) 72px; }
+  .mp-standalone--card { margin: -48px var(--mp-gutter) 72px; }
 }
 
 // Group labels above the endpoints, again with enough weight to beat the
@@ -1997,7 +1981,7 @@ pre.mp-code-block::after {
 }
 .mp-page:has(> .mp-standalone--card) .mp-phero__inner { max-width: 880px; padding-left: 0; padding-right: 0; }
 @media (max-width: 960px) {
-  .mp-page:has(> .mp-standalone--card) .mp-phero__inner { padding-left: var(--mp-home-gutter); padding-right: var(--mp-home-gutter); }
+  .mp-page:has(> .mp-standalone--card) .mp-phero__inner { padding-left: var(--mp-gutter); padding-right: var(--mp-gutter); }
 }
 
 // Labels in the API reference: sentence case, like the rest of the portal.
@@ -2008,11 +1992,11 @@ pre.mp-code-block::after {
   text-transform: none;
   letter-spacing: 0;
 }
-.mp-ref-layout .mp-params-label { font-size: 15px; color: var(--mp-text); }
-.mp-ref-layout .mp-params th { font-size: 13px; font-weight: 700; }
+.mp-ref-layout .mp-params-label { font-size: var(--mp-type-sm); color: var(--mp-text); }
+.mp-ref-layout .mp-params th { font-size: var(--mp-type-xs); font-weight: 700; }
 .mp-beta-banner__pill { letter-spacing: 0.02em; }
 [data-theme="dark"] .mp-ref-layout .mp-ref-content .mp-section-label {
-  background: #04443a;
+  background: var(--mp-raised);
   color: #6ee7b7;
 }
 
