@@ -45,7 +45,7 @@ Avant de commencer dans PrestaShop, réglez quatre choses dans votre back-office
 
 ## 2 · Installer le plugin
 ::: warning Prérequis de version
-Le plugin 5.7.x fonctionne sur **PrestaShop 1.7.8 à 9.x** avec **PHP 7.4+**, jusqu'à PHP 8.5 inclus. PrestaShop 9 est pris en charge à partir de la version 5.2.0 du plugin, y compris sa commande Hummingbird.
+Le plugin fonctionne sur **PrestaShop 1.7.8 à 9.x** avec **PHP 7.4+**, jusqu'à PHP 8.5 inclus. PrestaShop 9 est pris en charge à partir de la version 5.2.0 du plugin, y compris sa commande Hummingbird.
 :::
 
 1. Téléchargez le ZIP de la release depuis [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -53,7 +53,7 @@ Le plugin 5.7.x fonctionne sur **PrestaShop 1.7.8 à 9.x** avec **PHP 7.4+**, ju
 3. Attendez la fin de l'installation, recherchez `myparcel` et cliquez sur **Configurer**.
 
 ::: details L'installation échoue avec « Pdk instance must be set to use facades »
-Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données via *Gestionnaire de modules → Désinstaller*). Faites d'abord une sauvegarde de la base de données, puis videz manuellement les tables commençant par `ps_myparcelnl_` et réinstallez la 5.7.x.
+Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données via *Gestionnaire de modules → Désinstaller*). Faites d'abord une sauvegarde de la base de données, puis videz manuellement les tables commençant par `ps_myparcelnl_` et réinstallez la [dernière release](https://github.com/myparcelnl/prestashop/releases/latest).
 :::
 
 ## Canal de vente via le MyParcel Backoffice
@@ -215,6 +215,10 @@ L'apparence des labels d'expédition et la façon dont ils sont imprimés.
 - **Sortie du label**, *Ouvrir dans un nouvel onglet* (le plus rapide en manuel) ou *Télécharger le label*.
 - **Format de label**, *A4 (4 par page)* ou *A6 (imprimante à labels)*.
 - **Position(s) du label sur A4**, sélection multiple *En haut à gauche*/*En haut à droite*/*En bas à gauche*/*En bas à droite* pour utiliser les feuilles entièrement.
+
+::: tip Imprimer 25 labels ou plus
+À partir de 25 envois, MyParcel prépare le PDF en arrière-plan. Tant que le PDF n'est pas prêt, une notification avec un indicateur de chargement s'affiche. Avec *Ouvrir dans un nouvel onglet*, une notification avec un bouton apparaît ensuite : cliquez dessus pour ouvrir les labels. Après l'attente, votre navigateur n'ouvre pas de nouvel onglet tout seul. Avec *Télécharger le label*, le PDF se télécharge tout seul. Disponible depuis la 5.9.0.
+:::
 
 ## 7 · Réglages · Douane
 Obligatoire pour les envois hors UE. Peut être remplacé par produit, voir [10 · Réglages produit](#10-rglages-produit).
@@ -395,7 +399,7 @@ Quelque chose ne se comporte pas comme prévu ? Parcourez ce tableau de haut en 
 | --- | --- |
 | **Checkout : « Aucun transporteur disponible »** | Les transporteurs PrestaShop sont-ils liés à une zone d'expédition avec des prix pour l'adresse de livraison ? Allez dans *Expédition → Transporteurs*. Ce n'est qu'ensuite que les options de livraison MyParcel apparaissent. |
 | **Aucune option de livraison visible** | (1) [§8](#8-rglages-checkout) : *Afficher les options de livraison* activé ? (2) [§9](#9-rglages-transporteurs) : au moins un transporteur avec *Activer les options de livraison* activé ? |
-| **L'installation échoue, *« Pdk instance must be set to use facades »*** | Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données `ps_myparcelnl_*`) et réinstallez la 5.7.x. |
+| **L'installation échoue, *« Pdk instance must be set to use facades »*** | Supprimez complètement les anciens modules MyParcel (y compris les tables de la base de données `ps_myparcelnl_*`) et réinstallez la [dernière release](https://github.com/myparcelnl/prestashop/releases/latest). |
 | **Erreur de province : *« state must be at most 2 characters »*** | Le pack de langue NL crée les provinces sous la forme `NL-LI` (4 caractères). Dans *International → Localisation → Provinces*, changez les codes iso en 2 caractères. Voir [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **« Invalid API key » alors que la connexion fonctionne** | Fermez complètement la config du plugin et rouvrez-la. Si le problème persiste : copiez à nouveau la clé depuis *backoffice.myparcel.nl → Paramètres de la boutique → Intégration*. |
 | **Les réglages PostNL ne sont pas enregistrés** | Cliquez sur **Enregistrer** en bas de chaque onglet avant de changer. Sinon, vérifiez les *Options de débogage* pour les messages d'erreur. |
@@ -432,4 +436,4 @@ Non. Le plugin est gratuit. Vous ne payez que pour les envois via votre tarif My
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), compte, clé API, facturation.
 - [Contacter le support MyParcel](../../contact.md), **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Ce manuel est écrit pour la version **5.7.x** du plugin. Dans les versions plus récentes, les noms ou l'ordre des champs peuvent légèrement varier ; la disposition générale du plugin reste identique.
+Ce manuel décrit la [dernière release](https://github.com/myparcelnl/prestashop/releases/latest) du plugin. Les noms ou l'ordre des champs peuvent légèrement varier d'une version à l'autre ; la disposition générale du plugin reste identique.

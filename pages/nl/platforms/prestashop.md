@@ -45,7 +45,7 @@ Voordat je in PrestaShop begint, regel je vier dingen in je MyParcel-backoffice:
 
 ## 2 · Plugin installeren
 ::: warning Versie-eisen
-Plugin 5.7.x werkt op **PrestaShop 1.7.8 t/m 9.x** met **PHP 7.4+**, tot en met PHP 8.5. PrestaShop 9 wordt ondersteund vanaf plugin-versie 5.2.0, inclusief de Hummingbird-checkout.
+De plugin werkt op **PrestaShop 1.7.8 t/m 9.x** met **PHP 7.4+**, tot en met PHP 8.5. PrestaShop 9 wordt ondersteund vanaf plugin-versie 5.2.0, inclusief de Hummingbird-checkout.
 :::
 
 1. Download de release-ZIP via [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -53,7 +53,7 @@ Plugin 5.7.x werkt op **PrestaShop 1.7.8 t/m 9.x** met **PHP 7.4+**, tot en met 
 3. Wacht tot installatie klaar is, zoek op `myparcel` en klik **Configureer**.
 
 ::: details Installatie mislukt met "Pdk instance must be set to use facades"
-Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Module Manager → Verwijderen*). Maak eerst een database-backup, leeg dan handmatig tabellen die met `ps_myparcelnl_` beginnen en installeer 5.7.x opnieuw.
+Verwijder eerdere MyParcel-modules volledig (inclusief database-tabellen via *Module Manager → Verwijderen*). Maak eerst een database-backup, leeg dan handmatig tabellen die met `ps_myparcelnl_` beginnen en installeer de [laatste release](https://github.com/myparcelnl/prestashop/releases/latest) opnieuw.
 :::
 
 ## Sales channel via de MyParcel Backoffice
@@ -215,6 +215,10 @@ Hoe verzendlabels eruitzien én hoe ze afgedrukt worden.
 - **Label uitvoer**: *Open in nieuw tabblad* (snelst voor handmatig) of *Download label*.
 - **Label formaat**: *A4 (4 per pagina)* of *A6 (labelprinter)*.
 - **Label positie(s) op A4**: meervoudige selectie *Linksboven*/*Rechtsboven*/*Linksonder*/*Rechtsonder* om vellen volledig te benutten.
+
+::: tip 25 of meer labels printen
+Bij 25 of meer zendingen maakt MyParcel de PDF op de achtergrond aan. Tot de PDF klaar is, zie je een melding met een laadindicator. Bij *Open in nieuw tabblad* verschijnt daarna een melding met een knop: klik erop om de labels te openen. Je browser opent na het wachten niet zelf een nieuw tabblad. Bij *Download label* downloadt de PDF vanzelf. Beschikbaar vanaf 5.9.0.
+:::
 
 ## 7 · Settings · Douane
 Verplicht bij zendingen buiten de EU. Per product te overrulen. Zie [10 · Productinstellingen](#10-productinstellingen).
@@ -395,7 +399,7 @@ Werkt iets niet zoals verwacht? Loop deze tabel van boven naar onder door: drie 
 | --- | --- |
 | **Checkout: "Geen vervoerders beschikbaar"** | PrestaShop-vervoerders gekoppeld aan een verzendzone met prijzen voor het bezorgadres? Ga naar *Verzending → Vervoerders*. Pas daarna verschijnen MyParcel-bezorgopties. |
 | **Geen bezorgopties zichtbaar** | (1) [§8](#8-settings-checkout): *Bezorgopties tonen* aan? (2) [§9](#9-settings-vervoerders): minstens één vervoerder met *Bezorgopties inschakelen* aan? |
-| **Installatie mislukt: *"Pdk instance must be set to use facades"*** | Verwijder oudere MyParcel-modules volledig (incl. database-tabellen `ps_myparcelnl_*`) en installeer 5.7.x opnieuw. |
+| **Installatie mislukt: *"Pdk instance must be set to use facades"*** | Verwijder oudere MyParcel-modules volledig (incl. database-tabellen `ps_myparcelnl_*`) en installeer de [laatste release](https://github.com/myparcelnl/prestashop/releases/latest) opnieuw. |
 | **Provincie-fout: *"state must be at most 2 characters"*** | NL-taalpakket maakt provincies als `NL-LI` (4 tekens). Pas in *Internationaal → Locaties → Provincies* de iso-codes naar 2 tekens. Zie [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **"Invalid API key" terwijl koppeling werkt** | Sluit plugin-config volledig en open opnieuw. Bij blijvende problemen: kopieer de key opnieuw uit *backoffice.myparcel.nl → Shopinstellingen → Integratie*. |
 | **PostNL-instellingen worden niet opgeslagen** | Klik **Opslaan** onderaan élke tab vóór je wisselt. Check anders *Debugopties* op foutmeldingen. |
@@ -432,4 +436,4 @@ Nee. De plugin is gratis. Je betaalt alleen voor de zendingen via je MyParcel-ta
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl): account, API key, facturatie.
 - [Contact MyParcel-support](../../contact.md): **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Deze handleiding is geschreven voor plugin-versie **5.7.x**. Bij nieuwere versies kunnen veld-namen of -volgorde licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.
+Deze handleiding beschrijft de [laatste release](https://github.com/myparcelnl/prestashop/releases/latest) van de plugin. Veldnamen of hun volgorde kunnen per versie licht afwijken; de hoofdindeling van de plugin blijft hetzelfde.

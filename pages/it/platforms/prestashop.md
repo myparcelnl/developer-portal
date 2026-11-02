@@ -45,7 +45,7 @@ Prima di iniziare in PrestaShop, sistema quattro cose nel tuo backoffice MyParce
 
 ## 2 · Installare il plugin
 ::: warning Requisiti di versione
-Plugin 5.7.x funziona su **PrestaShop 1.7.8 fino a 9.x** con **PHP 7.4+**, fino a PHP 8.5 incluso. PrestaShop 9 è supportato dalla versione plugin 5.2.0, compreso il checkout Hummingbird.
+Il plugin funziona su **PrestaShop 1.7.8 fino a 9.x** con **PHP 7.4+**, fino a PHP 8.5 incluso. PrestaShop 9 è supportato dalla versione plugin 5.2.0, compreso il checkout Hummingbird.
 :::
 
 1. Scarica lo ZIP della release da [github.com/myparcelnl/prestashop/releases](https://github.com/myparcelnl/prestashop/releases).
@@ -53,7 +53,7 @@ Plugin 5.7.x funziona su **PrestaShop 1.7.8 fino a 9.x** con **PHP 7.4+**, fino 
 3. Aspetta che l'installazione sia finita, cerca `myparcel` e clicca **Configura**.
 
 ::: details Installazione fallita con "Pdk instance must be set to use facades"
-Rimuovi completamente i moduli MyParcel precedenti (incluse le tabelle del database tramite *Module Manager → Disinstalla*). Fai prima un backup del database, svuota poi manualmente le tabelle che iniziano con `ps_myparcelnl_` e installa di nuovo 5.7.x.
+Rimuovi completamente i moduli MyParcel precedenti (incluse le tabelle del database tramite *Module Manager → Disinstalla*). Fai prima un backup del database, svuota poi manualmente le tabelle che iniziano con `ps_myparcelnl_` e installa di nuovo l'[ultima release](https://github.com/myparcelnl/prestashop/releases/latest).
 :::
 
 ## Canale di vendita tramite il Backoffice MyParcel
@@ -215,6 +215,10 @@ Come appaiono le etichette di spedizione e come vengono stampate.
 - **Output etichetta**: *Apri in nuova scheda* (più veloce per manuale) o *Scarica etichetta*.
 - **Formato etichetta**: *A4 (4 per pagina)* o *A6 (stampante etichette)*.
 - **Posizione/i etichetta su A4**: selezione multipla *In alto a sinistra*/*In alto a destra*/*In basso a sinistra*/*In basso a destra* per sfruttare al massimo i fogli.
+
+::: tip Stampare 25 o più etichette
+Con 25 o più spedizioni, MyParcel prepara il PDF in background. Finché il PDF non è pronto, vedi una notifica con un indicatore di caricamento. Con *Apri in nuova scheda* compare poi una notifica con un pulsante: cliccalo per aprire le etichette. Dopo l'attesa il browser non apre da solo una nuova scheda. Con *Scarica etichetta* il PDF si scarica da solo. Disponibile dalla 5.9.0.
+:::
 
 ## 7 · Impostazioni · Dogana
 Obbligatorio per spedizioni fuori dall'UE. Sovrascrivibile per prodotto. Vedi [10 · Impostazioni prodotto](#10-impostazioni-prodotto).
@@ -395,7 +399,7 @@ Qualcosa non funziona come previsto? Scorri questa tabella dall'alto in basso: t
 | --- | --- |
 | **Checkout: "Nessun vettore disponibile"** | Vettori PrestaShop collegati a una zona di spedizione con prezzi per l'indirizzo di consegna? Vai a *Spedizione → Vettori*. Solo dopo appaiono le opzioni di consegna MyParcel. |
 | **Nessuna opzione di consegna visibile** | (1) [§8](#8-impostazioni-checkout): *Mostrare opzioni di consegna* on? (2) [§9](#9-impostazioni-vettori): almeno un vettore con *Attiva opzioni di consegna* on? |
-| **Installazione fallita: *"Pdk instance must be set to use facades"*** | Rimuovi completamente i moduli MyParcel più vecchi (incl. tabelle database `ps_myparcelnl_*`) e installa di nuovo 5.7.x. |
+| **Installazione fallita: *"Pdk instance must be set to use facades"*** | Rimuovi completamente i moduli MyParcel più vecchi (incl. tabelle database `ps_myparcelnl_*`) e installa di nuovo l'[ultima release](https://github.com/myparcelnl/prestashop/releases/latest). |
 | **Errore provincia: *"state must be at most 2 characters"*** | Il pacchetto lingua NL crea province come `NL-LI` (4 caratteri). Modifica in *Internazionale → Località → Province* i codici iso a 2 caratteri. Vedi [issue #509](https://github.com/myparcelnl/prestashop/issues/509). |
 | **"Invalid API key" mentre il collegamento funziona** | Chiudi completamente la config plugin e riapri. Se persiste: ricopia la key da *backoffice.myparcel.nl → Impostazioni shop → Integrazione*. |
 | **Le impostazioni PostNL non vengono salvate** | Clicca **Salva** in fondo a ogni tab prima di cambiare. Altrimenti controlla *Opzioni di debug* per messaggi di errore. |
@@ -432,4 +436,4 @@ No. Il plugin è gratuito. Paghi solo per le spedizioni alla tua tariffa MyParce
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl): account, API key, fatturazione.
 - [Contatta il supporto MyParcel](../../contact.md): **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Questo manuale è scritto per la versione plugin **5.7.x**. In versioni più recenti i nomi o l'ordine dei campi possono variare leggermente; la struttura principale del plugin resta uguale.
+Questo manuale descrive l'[ultima release](https://github.com/myparcelnl/prestashop/releases/latest) del plugin. I nomi o l'ordine dei campi possono variare leggermente tra le versioni; la struttura principale del plugin resta uguale.
