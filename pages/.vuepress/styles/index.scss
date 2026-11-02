@@ -2015,3 +2015,15 @@ pre.mp-code-block::after {
   background: #04443a;
   color: #6ee7b7;
 }
+
+// Wide tables in the docs scroll inside their own box on tablets, instead
+// of pushing the whole page sideways. Phones keep the stacked rows below.
+@media (min-width: 721px) and (max-width: 1100px) {
+  .mp-docs-content__body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+}
+.mp-docs-content__body td code { overflow-wrap: anywhere; }
