@@ -5713,6 +5713,7 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
 /* About: the Contact hero, the key figures as white cards over it,
    then white cards and Mint panels. No illustrations, unlike home. */
 .mp-about__facts {
+  list-style: none;
   position: relative;
   max-width: var(--mp-home-max);
   margin: -88px auto 0;
@@ -5728,15 +5729,6 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
   box-shadow: var(--mp-home-shadow);
   padding: clamp(24px, 3vw, 36px);
 }
-.mp-about__fact dt {
-  font-size: clamp(36px, 3.6vw, 52px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--mp-fresh);
-}
-[data-theme="dark"] .mp-about__fact dt { color: #6ee7b7; }
-.mp-about__fact dd { margin: 10px 0 0; font-size: 16px; color: var(--mp-text-body); }
 
 .mp-about__sec {
   max-width: var(--mp-home-max);
@@ -5787,6 +5779,52 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
 }
 .mp-about__card strong { font-size: 19px; color: var(--mp-text); }
 .mp-about__cap::first-letter { text-transform: uppercase; }
+.mp-about__fact { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; list-style: none; }
+.mp-about__fact strong { margin-top: 6px; font-size: 20px; color: var(--mp-text); }
+.mp-about__fact > span:last-child { font-size: 16px; line-height: 1.5; color: var(--mp-text-body); }
+.mp-about__text--top { margin-top: 16px; }
+.mp-about__people { color: var(--mp-text-body); }
+
+.mp-about__sec--stack { align-items: start; }
+.mp-about__stack {
+  background: var(--mp-home-band);
+  border-radius: 32px;
+  padding: clamp(24px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.mp-about__stack-label { font-size: 15px; font-weight: 700; color: var(--mp-text-muted); }
+.mp-about__stack-tiles {
+  list-style: none;
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(150px, 40%), 1fr));
+  gap: 10px;
+}
+.mp-about__tech {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 14px;
+  background: var(--mp-home-card);
+  box-shadow: 0 2px 8px rgb(0 38 33 / 6%);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mp-text);
+  line-height: 1.25;
+}
+.mp-about__tech-logo {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+}
+.mp-about__tech-logo img { width: 28px; height: 28px; object-fit: contain; }
 
 .mp-about__panel {
   background: var(--mp-home-band);

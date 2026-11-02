@@ -284,10 +284,25 @@
   "Read the source of our plug-ins and SDKs, and open an issue.": "Lisez le code source de nos plug-ins et SDK, et ouvrez une issue.",
   "See whether the APIs are up, and read about incidents.": "Vérifiez si les API fonctionnent et consultez les incidents.",
 
-  "Most of our SDKs and plugins are open source and accept contributions. So is this portal.": "La plupart de nos SDK et plug-ins sont open source et acceptent les contributions. Ce portail aussi.",
-  "Get in touch": "Nous contacter",
   "Other channels": "Autres canaux",
-  "merchants in the Netherlands and Belgium": "marchands aux Pays-Bas et en Belgique",
-  "carriers behind one account": "transporteurs derrière un seul compte",
-  "API and one set of labels": "API et un seul jeu d'étiquettes"
+
+  "Meet our development team": "Découvrez notre équipe de développement",
+  "Our ambition is simple: deliver a world-class shipping platform to our customers. We believe technology makes shipping for e-commerce easier and more fun. Our development team works on that every day.": "Notre ambition est simple : offrir à nos clients une plateforme d'expédition de classe mondiale. Nous croyons que la technologie rend l'expédition pour l'e-commerce plus simple et plus agréable. C'est ce sur quoi notre équipe de développement travaille chaque jour.",
+  "Agile": "Agile",
+  "Agile methods are in our DNA. We build, test and release new features continuously.": "L'agilité est dans notre ADN. Nous développons, testons et publions de nouvelles fonctionnalités en continu.",
+  "Infrastructure as code": "Infrastructure as code",
+  "We program our AWS stack with the AWS Cloud Development Kit.": "Nous programmons notre stack AWS avec le AWS Cloud Development Kit.",
+  "Trunk-based development": "Trunk-based development",
+  "We experiment with new methods. Trunk-based development is one of them.": "Nous expérimentons de nouvelles méthodes. Le trunk-based development en fait partie.",
+  "Tech stack": "Stack technique",
+  "A good SaaS platform needs good technology. Our stack lets us build, test and release continuously. Our integration team works on the best possible delivery checkout.": "Une bonne plateforme SaaS demande une bonne technologie. Notre stack nous permet de développer, tester et publier en continu. Notre équipe d'intégration travaille sur le meilleur checkout de livraison possible.",
+  "Team": "Équipe",
+  "Join us": "Rejoignez-nous",
+  "We are a fast-growing company, so we are almost always looking for new talent. Come and meet us.": "Nous sommes une entreprise en forte croissance, donc nous recherchons presque toujours de nouveaux talents. Venez nous rencontrer.",
+  "Do you use our API or an SDK, and do you have a question or a tip? Talk to us on Slack.": "Vous utilisez notre API ou un SDK et vous avez une question ou une astuce ? Parlez-nous sur Slack.",
+  "See our vacancies": "Voir nos offres d'emploi",
+  "Join us on Slack": "Rejoignez-nous sur Slack",
+  "Languages and frameworks": "Langages et frameworks",
+  "Cloud and data": "Cloud et données",
+  "Tooling and platforms": "Outils et plateformes"
 }
