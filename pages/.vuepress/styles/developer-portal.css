@@ -779,7 +779,7 @@ mp-header, mp-footer { display: contents; }
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.4fr repeat(3, 1fr);
+  grid-template-columns: 1.4fr repeat(3, 1fr) auto;
   gap: var(--mp-space-8);
 }
 
@@ -814,19 +814,28 @@ mp-header, mp-footer { display: contents; }
   max-width: 300px;
 }
 
-/* The DNV ISO/IEC 27001 mark, as in the myparcel.nl footer. Navy artwork,
-   so it sits on a white tile in dark mode. */
+/* The DNV ISO/IEC 27001 mark. DNV's guideline asks for it next to the
+   company logo, with the Sky blue line of the mark level with the logo,
+   the original colours on white, and at least 15 mm (about 57px) wide.
+   The negative margin lifts the Sky blue line (at about 36% of the mark's
+   height) to the height of the logo in the first column. */
+.mp-footer__cert-col {
+  justify-self: end;
+}
 .mp-footer__cert {
   display: block;
-  width: 80px;
+  width: 72px;
   height: auto;
-  margin-top: var(--mp-space-5);
-  border-radius: 12px;
+  margin-top: -22px;
 }
+/* White behind the mark in dark mode: the guideline prefers the
+   full-colour mark on white, and the navy artwork vanishes on dark green. */
 [data-theme="dark"] .mp-footer__cert {
+  box-sizing: content-box;
   background: #ffffff;
-  padding: 6px;
-  width: 92px;
+  padding: 8px;
+  border-radius: 50%;
+  margin-top: -30px;
 }
 
 .mp-footer__col {
@@ -864,6 +873,17 @@ mp-header, mp-footer { display: contents; }
 @media (max-width: 720px) {
   .mp-footer__inner { grid-template-columns: 1fr 1fr; }
   .mp-footer__inner > .mp-footer__col:first-child { grid-column: 1 / -1; }
+  /* On phones the mark sits right of the brand line, in the same row. */
+  .mp-footer__inner { position: relative; }
+  .mp-footer__cert-col { position: absolute; top: 0; right: 0; }
+  .mp-footer__cert { width: 60px; margin-top: -18px; }
+  [data-theme="dark"] .mp-footer__cert { padding: 4px; margin-top: -22px; }
+}
+/* Too narrow to keep the mark its own width away from the logo:
+   it moves below the link columns instead. */
+@media (max-width: 389px) {
+  .mp-footer__cert-col { position: static; grid-column: 1 / -1; justify-self: start; }
+  .mp-footer__cert { margin-top: 0; }
 }
 
 

@@ -7,17 +7,6 @@
           <span class="mp-footer__brand-sub">Developers</span>
         </div>
         <p class="mp-footer__tagline" data-i18n="API reference generated from the published OpenAPI specs.">API reference generated from the published OpenAPI specs.</p>
-        <!-- Same certification mark as the footer on myparcel.nl. -->
-        <img
-          class="mp-footer__cert"
-          src="/images/dnv-iso-27001.png"
-          alt="DNV certified management system, ISO/IEC 27001"
-          data-i18n-title="ISO/IEC 27001 certified by DNV"
-          title="ISO/IEC 27001 certified by DNV"
-          width="80"
-          height="76"
-          loading="lazy"
-        />
       </div>
       <div class="mp-footer__col">
         <div class="mp-footer__label" data-i18n="Product">Product</div>
@@ -34,6 +23,22 @@
       <div class="mp-footer__col">
         <div class="mp-footer__label" data-i18n="Support">Support</div>
         <a href="/contact.html" data-i18n="Contact">Contact</a>
+      </div>
+      <!-- DNV certification mark, placed per the DNV MSC guideline (June 2025):
+           in the same row as the company logo, the Sky blue line level with
+           the logo, at least the mark's own width away from it, and wider
+           than the 15 mm minimum. As in the myparcel.nl footer. -->
+      <div class="mp-footer__cert-col">
+        <img
+          class="mp-footer__cert"
+          src="/images/dnv-iso-27001.png"
+          alt="DNV certified management system, ISO/IEC 27001"
+          data-i18n-title="ISO/IEC 27001 certified by DNV"
+          title="ISO/IEC 27001 certified by DNV"
+          width="72"
+          height="69"
+          loading="lazy"
+        />
       </div>
     </div>
     <div class="mp-footer__legal">
