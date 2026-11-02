@@ -277,9 +277,6 @@ function groupKeyForPath(path: string): string {
   const seg = path.replace(/^\/+/, '').split('/')[0] || 'root';
   return seg.replace(/[{}]/g, '').toLowerCase();
 }
-function shoutingLabel(key: string): string {
-  return key.replace(/[-_]/g, ' ').toUpperCase();
-}
 function titleLabel(key: string): string {
   const words = key.replace(/[-_]/g, ' ').toLowerCase();
   return words.charAt(0).toUpperCase() + words.slice(1);
@@ -290,8 +287,8 @@ function titleLabel(key: string): string {
 // untagged paths that humans want grouped under one heading).
 export interface GroupOverride {
   key: string;
-  label: string;           // Title Case — used both as sidebar heading and uppercased for body label
-  labelBody?: string;      // Optional override; defaults to label.toUpperCase()
+  label: string;           // Sentence case, used as sidebar heading and as body label
+  labelBody?: string;      // Optional override for the body label; defaults to label
   pathPrefixes?: string[]; // Operation path starts with any prefix
   pathExact?: string[];    // Operation path equals exactly
   tags?: string[];         // Operation has any of these tags
@@ -332,7 +329,7 @@ export function parseOperations(spec: OpenApiDoc, overrides: GroupOverride[] = [
       const ov = overrides.find(o => matchesOverride({ path, tags: tagList }, o));
       const groupKey = ov?.key ?? tagList[0] ?? groupKeyForPath(path);
       const groupLabelSidebar = ov?.label ?? titleLabel(groupKey);
-      const groupLabel = ov?.labelBody ?? ov?.label?.toUpperCase() ?? shoutingLabel(groupKey);
+      const groupLabel = ov?.labelBody ?? groupLabelSidebar;
 
       // Parameters (query/path/header) — flatten with resolved types
       const parameters = (resolved.parameters ?? []).map((p: any) => ({
