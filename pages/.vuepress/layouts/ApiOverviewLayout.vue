@@ -20,7 +20,6 @@ import { apiList, apiMeta } from '../api-meta';
       </nav>
 
       <header class="mp-ref-hub">
-        <div class="mp-ref-hub__eyebrow" data-i18n="API REFERENCE">API REFERENCE</div>
         <h1 class="mp-ref-hub__title" data-i18n="API Overview">API Overview</h1>
         <p class="mp-ref-hub__lead" data-i18n="Every MyParcel API, in one place. Pick a service to browse its endpoints, schemas and code samples, all auto-generated from the live OpenAPI specs.">
           Every MyParcel API, in one place. Pick a service to browse its endpoints, schemas and code samples, all auto-generated from the live OpenAPI specs.
