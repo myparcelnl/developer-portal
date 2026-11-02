@@ -1710,3 +1710,308 @@ pre.mp-code-block::after {
     overscroll-behavior: contain;
   }
 }
+
+// ---------------------------------------------------------------------------
+//  Portal refresh: docs, API reference and the remaining pages.
+//  Same language as the home page (see developer-portal.css section 22):
+//  rounded white cards on soft shadows, Mint panels, pill-shaped controls.
+//  Kept last in this file so it wins over the rules above.
+// ---------------------------------------------------------------------------
+
+:root {
+  --mp-home-max: 1200px;
+  --mp-home-gutter: clamp(16px, 3vw, 40px);
+  --mp-home-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --mp-home-card: #ffffff;
+  --mp-home-band: var(--mp-mint);
+  --mp-home-shadow: 0 12px 32px rgb(0 38 33 / 8%), 0 2px 6px rgb(0 38 33 / 5%);
+  --mp-home-shadow-lift: 0 18px 44px rgb(0 38 33 / 13%), 0 3px 8px rgb(0 38 33 / 6%);
+}
+[data-theme="dark"] {
+  --mp-home-card: #03342b;
+  --mp-home-band: #022a23;
+  --mp-home-shadow: 0 12px 32px rgb(0 0 0 / 35%);
+  --mp-home-shadow-lift: 0 18px 44px rgb(0 0 0 / 45%);
+}
+
+// ---- Sidebars (docs and API reference) ------------------------------------
+.mp-docs-sidebar,
+.mp-sidebar {
+  border-right: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.mp-docs-sidebar__label {
+  padding: 18px 12px 6px;
+}
+
+.mp-docs-sidebar__item,
+.mp-sidebar__item {
+  border-left: 0;
+  border-radius: 10px;
+  margin: 1px 0;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.mp-docs-sidebar__item:hover,
+.mp-sidebar__item:hover {
+  background: rgb(255 255 255 / 60%);
+}
+.mp-docs-sidebar__item--active,
+.mp-sidebar__item--active {
+  background: var(--mp-home-card);
+  color: var(--mp-fresh);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgb(0 38 33 / 8%);
+}
+[data-theme="dark"] .mp-docs-sidebar__item:hover,
+[data-theme="dark"] .mp-sidebar__item:hover { background: rgb(255 255 255 / 6%); }
+[data-theme="dark"] .mp-docs-sidebar__item--active,
+[data-theme="dark"] .mp-sidebar__item--active { color: #6ee7b7; }
+
+.mp-sidebar__back { padding-left: 12px; border-radius: 10px; }
+
+// The sticky group labels inside the API sidebar: sentence case, no rule.
+.mp-sidebar__group-label {
+  border-bottom: 0;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 13px;
+  color: var(--mp-text);
+  padding: 10px 12px 4px !important;
+}
+.mp-sidebar__api { border-bottom: 0; }
+.mp-sidebar__api-summary { border-radius: 10px; }
+
+.mp-sidebar-filter__input-wrap {
+  border-radius: 999px;
+  border-width: 2px;
+  border-color: transparent;
+  background: var(--mp-home-card);
+}
+.mp-sidebar-filter__input-wrap:focus-within { border-color: var(--mp-fresh); box-shadow: none; }
+
+// ---- Docs content -----------------------------------------------------------
+.mp-docs-content__title {
+  font-size: clamp(36px, 3.6vw, 48px);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+.mp-docs-content__lede {
+  font-size: 19px;
+  color: var(--mp-text-body);
+}
+
+.mp-docs-content__body,
+.mp-standalone .mp-docs-content {
+  code:not(pre code) {
+    border-radius: 6px;
+  }
+
+  div[class*='language-'] {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  // Callouts: soft rounded panels instead of a coloured left rule.
+  .hint-container {
+    border: 0;
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin: var(--mp-space-6) 0;
+  }
+  .hint-container.tip,
+  .hint-container.note,
+  .hint-container.info { background: var(--mp-home-band); }
+  .hint-container.warning { background: #fff6d6; }
+  .hint-container.caution,
+  .hint-container.danger { background: #fde8e8; }
+  .hint-container-title { font-weight: 700; color: var(--mp-text); }
+
+  blockquote {
+    border-left: 0;
+    border-radius: 16px;
+    background: var(--mp-home-band);
+    padding: 16px 20px;
+  }
+
+  p > img {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: var(--mp-home-shadow);
+    padding: 0;
+  }
+
+  th {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+[data-theme="dark"] .mp-docs-content__body .hint-container.warning,
+[data-theme="dark"] .mp-standalone .mp-docs-content .hint-container.warning { background: rgb(250 216 37 / 12%); }
+[data-theme="dark"] .mp-docs-content__body .hint-container.caution,
+[data-theme="dark"] .mp-docs-content__body .hint-container.danger { background: rgb(184 27 35 / 18%); }
+
+// Previous and next page as cards
+.mp-docs-pager__link {
+  border: 0;
+  border-radius: 18px;
+  background: var(--mp-home-card);
+  box-shadow: 0 4px 14px rgb(0 38 33 / 7%);
+  transition: transform 0.25s var(--mp-home-ease), box-shadow 0.25s;
+}
+.mp-docs-pager__link:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--mp-home-shadow-lift);
+}
+.mp-docs-pager__label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+}
+
+// On this page
+.mp-docs-toc a {
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+.mp-docs-toc a.is-active {
+  color: var(--mp-fresh);
+  font-weight: 700;
+}
+[data-theme="dark"] .mp-docs-toc a.is-active { color: #6ee7b7; }
+
+// ---- API reference ----------------------------------------------------------
+.mp-ref-hub__title {
+  font-size: clamp(36px, 3.6vw, 48px);
+  letter-spacing: -0.025em;
+}
+.mp-ref-hub__lead { font-size: 19px; color: var(--mp-text-body); }
+
+.mp-api-toc {
+  border: 0;
+  border-radius: 18px;
+  background: var(--mp-home-band);
+  padding: 14px 16px;
+}
+.mp-api-toc__label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+  color: var(--mp-text);
+}
+.mp-api-toc__chip {
+  border: 2px solid transparent;
+  background: var(--mp-home-card);
+  color: var(--mp-monstera);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: none;
+  padding: 6px 14px;
+}
+.mp-api-toc__chip:hover { border-color: var(--mp-fresh); background: var(--mp-home-card); }
+[data-theme="dark"] .mp-api-toc__chip { color: #ffffff; }
+
+// Group labels above the endpoints: a rounded Mint pill, sentence case.
+.mp-ref-content .mp-section-label {
+  border-left: 0;
+  border-radius: 999px;
+  width: fit-content;
+  padding: 7px 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgb(0 38 33 / 6%);
+}
+
+.mp-endpoint {
+  border: 0;
+  border-radius: 16px;
+  background: var(--mp-home-card);
+  box-shadow: 0 4px 14px rgb(0 38 33 / 7%);
+  transition: box-shadow 0.25s, transform 0.25s var(--mp-home-ease);
+}
+.mp-endpoint:hover {
+  border-color: transparent;
+  box-shadow: var(--mp-home-shadow-lift);
+}
+.mp-endpoint--open {
+  border: 0;
+  box-shadow: var(--mp-home-shadow-lift), inset 0 0 0 2px var(--mp-fresh);
+}
+.mp-endpoint--open .mp-endpoint__header {
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+}
+
+// API overview cards reuse the home page cards
+.mp-apis--ref {
+  margin-top: var(--mp-space-6);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.mp-apis--ref .mp-api {
+  box-shadow: 0 4px 14px rgb(0 38 33 / 7%);
+  background: var(--mp-home-card);
+}
+.mp-apis--ref .mp-api:hover { box-shadow: var(--mp-home-shadow-lift); }
+
+// ---- Search page ------------------------------------------------------------
+.mp-search-page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-docs-pager__link,
+  .mp-endpoint { transition: none; }
+}
+
+// Standalone pages (search, 404): the page hero, then the content on a
+// white card that overlaps it, like the Contact form.
+.mp-standalone--card {
+  position: relative;
+  max-width: 880px;
+  margin: -88px auto clamp(72px, 8vw, 112px);
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--mp-home-card);
+  border-radius: 24px;
+  box-shadow: var(--mp-home-shadow);
+}
+.mp-standalone--card .mp-docs-content { padding: 0; max-width: none; }
+.mp-page .mp-phero__inner .mp-breadcrumb { margin-bottom: 28px; }
+@media (max-width: 720px) {
+  .mp-standalone--card { margin: -48px var(--mp-home-gutter) 72px; }
+}
+
+// Group labels above the endpoints, again with enough weight to beat the
+// uppercase rule earlier in this file.
+.mp-ref-layout .mp-ref-content .mp-section-label {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.mp-page:has(> .mp-standalone--card) .mp-phero__inner { max-width: 880px; padding-left: 0; padding-right: 0; }
+@media (max-width: 960px) {
+  .mp-page:has(> .mp-standalone--card) .mp-phero__inner { padding-left: var(--mp-home-gutter); padding-right: var(--mp-home-gutter); }
+}
+
+// Labels in the API reference: sentence case, like the rest of the portal.
+// HTTP methods stay in capitals; that is how they are written.
+.mp-ref-layout .mp-params-label,
+.mp-ref-layout .mp-params th,
+.mp-ref-layout .mp-code-header > span {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.mp-ref-layout .mp-params-label { font-size: 15px; color: var(--mp-text); }
+.mp-ref-layout .mp-params th { font-size: 13px; font-weight: 700; }
+.mp-beta-banner__pill { letter-spacing: 0.02em; }
+[data-theme="dark"] .mp-ref-layout .mp-ref-content .mp-section-label {
+  background: #04443a;
+  color: #6ee7b7;
+}
