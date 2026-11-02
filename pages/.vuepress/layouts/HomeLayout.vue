@@ -7,8 +7,6 @@ import { apiList } from '../api-meta';
 import { docsSidebar } from '../sidebar';
 import { integrationGroups, integrationCount } from '../integrations';
 
-const CARRIER_LOGOS = 'https://assets.myparcel.nl/skin/general-images/carrier-logos/svg';
-
 // Dynamic logo paths need the glob, see AGENTS.md "Assets".
 const localCarrierLogos = import.meta.glob('../../images/carriers/*.svg', {
   eager: true,
@@ -29,10 +27,10 @@ const integrationLogos = import.meta.glob('../../images/integrations/*', {
 // status codes and barcode come from the shipments and webhooks guides.
 
 const routeCarriers = [
-  { id: 1, name: 'PostNL', logo: `${CARRIER_LOGOS}/postnl.svg` },
-  { id: 9, name: 'DHL For You', logo: `${CARRIER_LOGOS}/dhl.svg` },
-  { id: 4, name: 'DPD', logo: `${CARRIER_LOGOS}/dpd.svg` },
-  { id: 2, name: 'bpost', logo: `${CARRIER_LOGOS}/bpost.svg` },
+  { id: 1, name: 'PostNL', logo: localLogo('postnl.svg') },
+  { id: 9, name: 'DHL For You', logo: localLogo('dhl.svg') },
+  { id: 4, name: 'DPD', logo: localLogo('dpd.svg') },
+  { id: 2, name: 'bpost', logo: localLogo('bpost.svg') },
   { id: 15, name: 'BRT', logo: localLogo('brt.svg') },
 ];
 const routePaths = [
@@ -241,14 +239,14 @@ const apis = [...apiList].sort((a, b) => (a.slug === 'myparcel' ? -1 : b.slug ==
 
 // --- Carriers and platforms -----------------------------------------------------
 const carrierTiles = [
-  { name: 'PostNL', logo: `${CARRIER_LOGOS}/postnl.svg` },
-  { name: 'DHL', logo: `${CARRIER_LOGOS}/dhl.svg` },
-  { name: 'DPD', logo: `${CARRIER_LOGOS}/dpd.svg` },
-  { name: 'UPS', logo: `${CARRIER_LOGOS}/ups.svg` },
-  { name: 'bpost', logo: `${CARRIER_LOGOS}/bpost.svg` },
-  { name: 'GLS', logo: `${CARRIER_LOGOS}/gls.svg` },
-  { name: 'Trunkrs', logo: `${CARRIER_LOGOS}/trunkrs.svg` },
-  { name: 'Cheap Cargo', logo: `${CARRIER_LOGOS}/cheapcargo.svg` },
+  { name: 'PostNL', logo: localLogo('postnl.svg') },
+  { name: 'DHL', logo: localLogo('dhl.svg') },
+  { name: 'DPD', logo: localLogo('dpd.svg') },
+  { name: 'UPS', logo: localLogo('ups.svg') },
+  { name: 'bpost', logo: localLogo('bpost.svg') },
+  { name: 'GLS', logo: localLogo('gls.svg') },
+  { name: 'Trunkrs', logo: localLogo('trunkrs.svg') },
+  { name: 'Cheap Cargo', logo: localLogo('cheapcargo.svg') },
   { name: 'BRT', logo: localLogo('brt.svg') },
   { name: 'InPost', logo: localLogo('inpost.svg') },
   { name: 'Poste Italiane', logo: localLogo('poste-italiane.svg') },
@@ -488,8 +486,8 @@ const sdkCount = docsSidebar.find((g) => g.label === 'SDKs')?.items.length ?? 0;
               </label>
             </fieldset>
           </div>
-          <span class="mp-float mp-float--logo mp-float--a" aria-hidden="true"><img :src="`${CARRIER_LOGOS}/postnl.svg`" alt="" width="40" height="40" /></span>
-          <span class="mp-float mp-float--logo mp-float--b" aria-hidden="true"><img :src="`${CARRIER_LOGOS}/dhl.svg`" alt="" width="40" height="40" /></span>
+          <span class="mp-float mp-float--logo mp-float--a" aria-hidden="true"><img :src="localLogo('postnl.svg')" alt="" width="40" height="40" /></span>
+          <span class="mp-float mp-float--logo mp-float--b" aria-hidden="true"><img :src="localLogo('dhl.svg')" alt="" width="40" height="40" /></span>
         </div>
         <div class="mp-feat__text">
           <span class="mp-tile" aria-hidden="true">

@@ -3,7 +3,7 @@
     <div class="mp-footer__inner">
       <div class="mp-footer__col">
         <div class="mp-footer__brand">
-          <img class="mp-footer__logo" src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="128" height="20" />
+          <img class="mp-footer__logo" src="/images/myparcel-logo.svg" alt="MyParcel" width="128" height="20" />
           <span class="mp-footer__brand-sub">Developers</span>
         </div>
         <p class="mp-footer__tagline" data-i18n="API reference generated from the published OpenAPI specs.">API reference generated from the published OpenAPI specs.</p>
