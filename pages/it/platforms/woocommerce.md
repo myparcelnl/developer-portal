@@ -381,6 +381,10 @@ Spunta gli ordini e scegli nel dropdown *Azioni bulk*:
 - **MyParcel: Esporta**: crea spedizioni presso MyParcel (concept o dirette).
 - **MyParcel: Esporta e stampa**: come sopra, più subito un PDF combinato.
 
+::: tip Stampare 25 o più etichette
+Con 25 o più spedizioni, MyParcel prepara il PDF in background. Finché il PDF non è pronto, vedi una notifica con un indicatore di caricamento. Con *Apri in nuova scheda* compare poi una notifica con un pulsante: cliccalo per aprire le etichette. Dopo l'attesa il browser non apre da solo una nuova scheda. Con *Scarica etichetta* il PDF si scarica da solo. Disponibile dalla 6.11.0.
+:::
+
 ::: tip Flusso bulk per 50+ ordini/giorno
 Elabora tutti gli ordini del giorno in un click. Combina con *Elaborazione automatica* su *In elaborazione* e il plugin lavora quasi totalmente da solo.
 :::
@@ -586,4 +590,4 @@ Usa queste action per aggiungere il tuo HTML intorno alle delivery options.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl): account, API key, fatturazione.
 - [Contatta il supporto MyParcel](../../contact.md): **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
 
-Questo manuale è scritto per la versione plugin **6.9.x**. In versioni più recenti i nomi o l'ordine dei campi possono variare leggermente; la struttura principale del plugin resta uguale.
+Questo manuale descrive l'[ultima release](https://github.com/myparcelnl/woocommerce/releases/latest) del plugin. I nomi o l'ordine dei campi possono variare leggermente tra le versioni; la struttura principale del plugin resta uguale.
