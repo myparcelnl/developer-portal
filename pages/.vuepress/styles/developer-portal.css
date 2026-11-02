@@ -1719,7 +1719,7 @@ pre.mp-code-block code.hljs {
 }
 
 .mp-docs-content p {
-  font-size: var(--mp-fs-md);
+  font-size: var(--mp-type-md);
   color: var(--mp-text-body);
   line-height: 1.7;
   margin-bottom: var(--mp-space-4);
