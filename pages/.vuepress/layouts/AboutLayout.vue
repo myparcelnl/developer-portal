@@ -144,6 +144,30 @@ const VACANCIES = 'https://www.myparcel.nl/vacature/development/';
     </section>
 
     <!-- ============================================================
+         INFORMATION SECURITY
+         The DNV guideline: the mark goes with the company name, on a
+         white background, and must not suggest that a product or a
+         service is certified. Hence the wording below.
+    ============================================================ -->
+    <section id="information-security" class="mp-about__sec">
+      <div class="mp-about__panel mp-about__panel--cert">
+        <div>
+          <h2 class="mp-about__h2" data-i18n="Information security">Information security</h2>
+          <p class="mp-about__text" data-i18n="The information security management system of MyParcel is certified to ISO/IEC 27001 by DNV, an independent certification body.">The information security management system of MyParcel is certified to ISO/IEC 27001 by DNV, an independent certification body.</p>
+        </div>
+        <div class="mp-about__cert">
+          <img
+            src="/images/dnv-iso-27001.png"
+            alt="DNV certified management system, ISO/IEC 27001"
+            width="120"
+            height="115"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          JOIN US
     ============================================================ -->
     <section id="join-us" class="mp-about__sec mp-about__sec--last">

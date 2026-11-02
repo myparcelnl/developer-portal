@@ -3816,6 +3816,7 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
 .mp-about__text--top { margin-top: 16px; }
 .mp-about__teams {
   list-style: none;
+  padding: 0;
   margin-top: 24px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
@@ -3882,6 +3883,18 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
   align-items: center;
 }
 
+
+.mp-about__panel--cert { grid-template-columns: minmax(0, 1fr) auto; }
+/* White behind the mark: DNV prefers the full-colour mark on white. */
+.mp-about__cert {
+  display: grid;
+  place-items: center;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.mp-about__cert img { width: 120px; height: auto; }
 
 .mp-about__links {
   display: flex;
