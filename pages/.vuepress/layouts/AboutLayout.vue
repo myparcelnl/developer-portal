@@ -2,18 +2,15 @@
 import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
 
-// Same teams and people as developer.myparcel.nl/about.html. When someone
-// joins or leaves, update both portals.
+// Team names only: who is in which team changes too often to keep here.
 const teams = [
-  { name: 'Manager', people: ['Frank'] },
-  { name: 'Product owners', people: ['Richard', 'Mitchell', 'Peter', 'Christiaan', 'Rutger'] },
-  { name: 'External Integrations', people: ['Richard', 'Joeri', 'Cher', 'Freek', 'Jochem'] },
-  { name: 'Shipment & Billing', people: ['Rutger', 'Jan-Willem', 'Bas', 'Fleur', 'Remco', 'Nick', 'Jeroen', 'Piet-hein', 'Luca', 'Danny', 'Marten'] },
-  { name: 'Order & Fulfilment', people: ['Peter', 'Bas', 'Brigitta', 'George', 'Guido', 'Kalle', 'Maarten', 'Marcel', 'Thijmen', 'Vincent'] },
-  { name: 'Customer & New Product', people: ['Mitchell', 'Alex', 'Tim', 'Joost', 'Lester', 'Henri'] },
-  { name: 'Cloud engineering', people: ['Christiaan', 'Alwin', 'Remco', 'Wouter', 'Jens', 'Thom', 'Valentijn'] },
-  { name: 'IT-Support', people: ['Richard', 'Barry', 'Yoran', 'Tim', 'Maikel', 'Wesley'] },
-  { name: 'Salesforce', people: ['Bastiaan', 'Robin'] },
+  'External Integrations',
+  'Shipment & Billing',
+  'Order & Fulfilment',
+  'Customer & New Products',
+  'Cloud Engineering',
+  'IT Support',
+  'Salesforce',
 ];
 
 // The technologies that come up most in our Jira tickets. Logos live in
@@ -140,11 +137,9 @@ const VACANCIES = 'https://www.myparcel.nl/vacature/development/';
     ============================================================ -->
     <section id="team" class="mp-about__sec">
       <h2 class="mp-about__h2" data-i18n="Team">Team</h2>
-      <ul class="mp-about__cards mp-about__cards--3">
-        <li v-for="team in teams" :key="team.name" class="mp-about__card">
-          <strong>{{ team.name }}</strong>
-          <span class="mp-about__people">{{ team.people.join(', ') }}</span>
-        </li>
+      <p class="mp-about__text mp-about__text--top" data-i18n="Seven teams build and run the MyParcel platform, each with its own part of it.">Seven teams build and run the MyParcel platform, each with its own part of it.</p>
+      <ul class="mp-about__teams">
+        <li v-for="team in teams" :key="team" class="mp-about__team">{{ team }}</li>
       </ul>
     </section>
 
