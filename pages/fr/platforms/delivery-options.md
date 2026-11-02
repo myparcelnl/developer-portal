@@ -58,7 +58,7 @@ La v7 récupère les transporteurs, types de colis, types de livraison et option
 
 Le widget envoie via POST un `CapabilitiesRequest` au format JSON à l'URL de votre backend. Votre backend doit le transmettre tel quel à `POST https://api.myparcel.nl/shipments/capabilities` (en injectant votre clé d'API dans la requête) et renvoyer la réponse au widget sans modification. Le widget met en cache la réponse par adresse et filtre côté client, il ne recharge donc les données que lorsque les entrées pertinentes changent.
 
-En pratique, le widget ne renseigne que `recipient` (à partir de l'adresse actuelle) et, lorsqu'il est fourni, `packageType`. Votre proxy doit transmettre ce qu'il reçoit sans modification.
+En pratique, le widget renseigne `recipient` (à partir de l'adresse actuelle) et, lorsqu'ils sont fournis, `packageType`, `isBusiness` et `physicalProperties`. Votre proxy doit transmettre ce qu'il reçoit sans modification.
 
 **Proxy minimal Node.js / Express :**
 
@@ -217,6 +217,24 @@ C'est la plateforme intégratrice qui décide de la valeur transmise. Dans les p
 
 C'est le mécanisme derrière les options de commande différentes que voient les clients professionnels dans les plugins WooCommerce et PrestaShop. Disponible depuis la v7.5.0.
 
+### Poids de l'envoi
+
+Les transporteurs n'acceptent pas tous les poids pour chaque type de livraison. Définissez `physicalProperties` dans la configuration et le widget inclut le poids dans la requête de capacités, de sorte que l'API détermine les types de livraison qui restent disponibles.
+
+```json
+{
+  "physicalProperties": {
+    "weight": 30000
+  }
+}
+```
+
+Le poids est un entier positif en grammes. Indiquez le poids total de l'envoi, quantités de produits et emballage compris, et uniquement lorsque vous le connaissez entièrement. Le widget ajoute l'unité lorsqu'il construit la requête. Une valeur invalide est journalisée et ignorée ; la requête est alors identique à une requête sans poids.
+
+Omettez `physicalProperties`, ou définissez-le sur `null`, lorsque le poids est inconnu. N'envoyez pas 1 gramme à la place. Une mise à jour de la configuration ne conserve pas un poids précédent, envoyez donc le poids à chaque mise à jour du panier. Un poids modifié déclenche une nouvelle requête de capacités, le même poids à nouveau ne la déclenche pas.
+
+Les réglages du marchand restent applicables. Le widget ne les modifie pas et ne contient aucune limite de poids propre aux transporteurs. Disponible depuis la v7.5.6. Pour le comportement complet, voir [shipment-weight.md ↗](https://github.com/myparcelnl/delivery-options/blob/main/docs/shipment-weight.md).
+
 ### Heures limites et jours de dépôt
 
 Les jours de dépôt sont les jours où vous pouvez déposer vos colis chez le transporteur. Ils servent à calculer les prochaines dates de livraison disponibles.
@@ -311,6 +329,14 @@ Voici toutes les options de configuration possibles. L'objet `strings` est utili
     // own delivery options. Omit it and the widget leaves it out of the
     // request, which is what older platforms do. Since v7.5.0.
     "isBusiness": false,
+
+    // object | null, the total shipment weight. "weight" is a positive integer
+    // in grams. Forwarded onto the capabilities request, so the API can drop
+    // delivery types that the weight does not allow. Omit it or set it to null
+    // when the weight is unknown. Since v7.5.6.
+    "physicalProperties": {
+      "weight": 30000
+    },
 
     // string, ISO 639-1 language code. Defaults to the browser language.
     "locale": "",
