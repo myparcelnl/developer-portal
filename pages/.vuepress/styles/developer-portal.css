@@ -4987,6 +4987,7 @@ a:hover > .mp-arrow-link::after { transform: translateX(4px); }
 /* ---- The parcel route ---------------------------------------- */
 
 .mp-route {
+  container-type: inline-size;
   animation: mp-hx-fade 0.8s 0.3s var(--mp-home-ease) both;
 }
 
@@ -5122,7 +5123,7 @@ a:hover > .mp-arrow-link::after { transform: translateX(4px); }
 [data-theme="dark"] .mp-route__resp code { color: #8ee05a; }
 .mp-home-js .mp-route__resp:not(.is-on) { opacity: 0; transform: translateX(-6px); }
 
-.mp-route__card--label { left: 22%; top: 69%; width: 33%; padding: 0.5em; }
+.mp-route__card--label { left: 21%; top: 62%; width: 36%; padding: 0.5em; }
 .mp-route__label {
   background: #ffffff;
   color: #101b18;
@@ -5169,7 +5170,7 @@ a:hover > .mp-arrow-link::after { transform: translateX(4px); }
   gap: 0.8em;
   white-space: nowrap;
 }
-.mp-route__card--status { left: 60%; top: 86%; }
+.mp-route__card--status { left: 60%; top: 84%; }
 .mp-route__card--done { left: 55%; top: 3%; }
 .mp-route__card--status strong,
 .mp-route__card--done strong { display: block; font-size: 1em; color: var(--mp-text); }
@@ -5209,7 +5210,10 @@ a:hover > .mp-arrow-link::after { transform: translateX(4px); }
 
 /* Carrier picker */
 .mp-route__chips {
-  margin-top: 28px;
+  /* The label and status cards hang below the map; keep the chips clear of them. */
+  position: relative;
+  z-index: 5;
+  margin-top: max(40px, 12cqw);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -5265,50 +5269,47 @@ a:hover > .mp-arrow-link::after { transform: translateX(4px); }
 .mp-way > p { font-size: 17px; line-height: 1.55; color: var(--mp-text-body); max-width: 44ch; }
 .mp-way .mp-checks { margin: 8px 0 12px; }
 
-/* ---- Feature rows -------------------------------------------- */
+/* ---- Features: a 2x2 grid of Mint panels ------------------------ */
 
 .mp-feats {
   max-width: var(--mp-home-max);
   margin: 0 auto;
-  padding: clamp(96px, 10vw, 140px) var(--mp-home-gutter) 0;
-}
-.mp-feats > .mp-home__h2 { margin-bottom: clamp(48px, 6vw, 80px); }
-
-.mp-feat {
+  padding: clamp(80px, 9vw, 120px) var(--mp-home-gutter) 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(32px, 6vw, 96px);
-  align-items: center;
+  gap: 24px;
 }
-.mp-feat + .mp-feat { margin-top: clamp(72px, 9vw, 120px); }
-.mp-feat--flip .mp-feat__art { order: 2; }
+.mp-feats > .mp-home__h2 {
+  grid-column: 1 / -1;
+  margin-bottom: clamp(16px, 2vw, 32px);
+}
+
+.mp-feat {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background: var(--mp-home-band);
+  border-radius: 32px;
+  padding: clamp(24px, 3vw, 40px);
+}
 
 .mp-feat__art {
   position: relative;
-  min-height: 320px;
+  min-height: 260px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   place-items: center;
-  padding: 0 4%;
-}
-/* A soft Mint field behind each illustration */
-.mp-feat__art::before {
-  content: "";
-  position: absolute;
-  inset: 8% 6%;
-  border-radius: 32px;
-  background: var(--mp-home-band);
 }
 
 .mp-feat__text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px;
 }
 .mp-feat__title {
-  margin-top: 8px;
-  font-size: clamp(26px, 2.4vw, 32px);
+  margin-top: 6px;
+  font-size: clamp(24px, 2.2vw, 28px);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -5617,6 +5618,7 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
 }
 .mp-home-js .mp-reveal.is-in { opacity: 1; transform: none; }
 .mp-ways .mp-reveal + .mp-reveal,
+.mp-feat.mp-reveal:nth-of-type(even),
 .mp-net__art.mp-reveal { transition-delay: 0.1s; }
 .mp-apis .mp-reveal:nth-child(4n+2) { transition-delay: 0.06s; }
 .mp-apis .mp-reveal:nth-child(4n+3) { transition-delay: 0.12s; }
@@ -5636,14 +5638,12 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
   .mp-hx__sub { font-size: 17px; }
   .mp-route__card--req { width: 62%; }
   .mp-route__code { display: none; }
-  .mp-route__card--label { left: 14%; width: 46%; top: 66%; }
+  .mp-route__card--label { left: 12%; width: 50%; top: 60%; }
   .mp-route__card--done { left: 48%; }
   .mp-route__card--status { left: 48%; }
   .mp-ways { grid-template-columns: minmax(0, 1fr); margin-top: -48px; gap: 16px; }
-  .mp-feat { grid-template-columns: minmax(0, 1fr); }
-  .mp-feat--flip .mp-feat__art { order: 0; }
-  .mp-feat__art { min-height: 260px; }
-  .mp-feat__art::before { inset: 8% 0; }
+  .mp-feats { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .mp-feat__art { min-height: 240px; }
   .mp-float--logo { display: none; }
   .mp-frag--code pre,
   .mp-frag--term pre { font-size: 13px; }
