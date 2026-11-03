@@ -66,7 +66,7 @@ async function onSubmit(e: Event) {
     form.reset();
     recaptchaToken.value = '';
   } catch (err) {
-    errors.value = [(err as Error)?.message ?? 'Network error — please try again.'];
+    errors.value = [(err as Error)?.message ?? 'Network error. Please try again.'];
   } finally {
     submitting.value = false;
   }
@@ -76,7 +76,7 @@ async function onSubmit(e: Event) {
 <template>
   <MpHeader />
 
-  <main class="mp-standalone">
+  <main id="mp-main" tabindex="-1" class="mp-standalone">
 <nav class="mp-breadcrumb">
       <a href="/" class="mp-breadcrumb__link" data-i18n="Home">Home</a>
       <span class="mp-breadcrumb__sep">/</span>
@@ -90,7 +90,7 @@ async function onSubmit(e: Event) {
       live system status.
     </p>
 
-    <div class="mp-section-label" data-i18n="OR REACH US VIA">OR REACH US VIA</div>
+    <h2 class="mp-section-label" data-i18n="OR REACH US VIA">OR REACH US VIA</h2>
     <!-- ============================================================
          Other channels
     ============================================================ -->
@@ -131,7 +131,7 @@ async function onSubmit(e: Event) {
         </div>
         <div>
           <div class="mp-contact-card__title" data-i18n="Sales &amp; accounts">Sales &amp; accounts</div>
-          <p class="mp-contact-card__desc" data-i18n="Pricing, billing or onboarding new partners — through myparcel.com/contact.">Pricing, billing or onboarding new partners — through <code>myparcel.com/contact</code>.</p>
+          <p class="mp-contact-card__desc" data-i18n="Pricing, billing or onboarding new partners, through myparcel.com/contact.">Pricing, billing or onboarding new partners, through <code>myparcel.com/contact</code>.</p>
         </div>
       </a>
     </section>
@@ -207,7 +207,7 @@ async function onSubmit(e: Event) {
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
         <div>
-          <strong data-i18n="Thanks — message sent.">Thanks — message sent.</strong>
+          <strong data-i18n="Thanks, message sent.">Thanks, message sent.</strong>
         </div>
       </div>
     </section>

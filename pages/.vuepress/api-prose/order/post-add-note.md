@@ -11,7 +11,7 @@ flows where this is useful:
 - **Operational audit**: any non-status change (carrier swap, manual hold)
   can be left as a note for the next person who opens the order.
 
-Notes are **append-only and immutable** — there is no `PATCH /notes/{id}`.
+Notes are **append-only and immutable**: there is no `PATCH /notes/{id}`.
 Use `POST /edit-note` to replace a note's text by id.
 
 ## Preconditions
@@ -23,7 +23,7 @@ Use `POST /edit-note` to replace a note's text by id.
 
 ## Batching
 
-You can send up to 50 notes in one request — each item in the array is
+You can send up to 50 notes in one request. Each item in the array is
 processed independently. The response array preserves request order, so a
 mixed success/failure response looks like:
 

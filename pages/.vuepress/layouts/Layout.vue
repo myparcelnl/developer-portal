@@ -94,7 +94,7 @@ const next = computed(() =>
     <div v-if="isDocs" class="mp-docs-layout">
       <MpDocsSidebar :groups="localizedSidebar" />
 
-      <main class="mp-docs-content">
+      <main id="mp-main" tabindex="-1" class="mp-docs-content">
         <MpBreadcrumb :trail="breadcrumbTrail" />
         <h1 class="mp-docs-content__title">{{ page.title }}</h1>
         <p v-if="fm.description" class="mp-docs-content__lede">{{ fm.description }}</p>
@@ -120,7 +120,7 @@ const next = computed(() =>
       <MpDocsToc />
     </div>
 
-    <main v-else class="mp-standalone">
+    <main v-else id="mp-main" tabindex="-1" class="mp-standalone">
       <MpBreadcrumb :trail="breadcrumbTrail" />
       <h1 class="mp-docs-content__title">{{ page.title }}</h1>
       <p v-if="fm.description" class="mp-docs-content__lede">{{ fm.description }}</p>

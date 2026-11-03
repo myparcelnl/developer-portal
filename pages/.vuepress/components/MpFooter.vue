@@ -6,7 +6,7 @@
           <img class="mp-footer__logo" src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="128" height="20" />
           <span class="mp-footer__brand-sub">Developers</span>
         </div>
-        <p class="mp-footer__tagline" data-i18n="Docs generated from OpenAPI. Never out of date.">Docs generated from OpenAPI. Never out of date.</p>
+        <p class="mp-footer__tagline" data-i18n="API reference generated from the published OpenAPI specs.">API reference generated from the published OpenAPI specs.</p>
       </div>
       <div class="mp-footer__col">
         <div class="mp-footer__label" data-i18n="Product">Product</div>

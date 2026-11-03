@@ -30,7 +30,7 @@ The old version at [developer.myparcel.nl/documentation/50.php-sdk.html ↗](htt
 composer require myparcelnl/sdk:^10.0
 ```
 
-PSR-4 autoload — no manual `require` needed. Source: [Packagist ↗](https://packagist.org/packages/myparcelnl/sdk).
+PSR-4 autoload, no manual `require` needed. Source: [Packagist ↗](https://packagist.org/packages/myparcelnl/sdk).
 
 ### Requirements
 | | Version |
@@ -50,9 +50,9 @@ Carrier  ──►  Consignment  ──►  MyParcelCollection
 ( ID/name)    (one parcel)      (batch + label I/O)
 ```
 
-- **Carrier** — a static model per carrier with `ID`, `NAME` and matching `Consignment` class. See [`src/Model/Carrier`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Carrier).
-- **Consignment** — all data for a single parcel (sender, recipient, options, physical properties). Carrier-specific subclasses (e.g. `PostNLConsignment`) determine which `delivery_type`, `package_type` and `shipment_option` combinations are allowed. See [`src/Model/Consignment`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Consignment).
-- **MyParcelCollection** — collects consignments, talks to the API (`POST /shipments`, `/shipment_labels`, `/track_traces`), generates PDF labels and handles multi-collo. See [`src/Helper/MyParcelCollection.php`](https://github.com/myparcelnl/sdk/blob/10.x/src/Helper/MyParcelCollection.php).
+- **Carrier**: a static model per carrier with `ID`, `NAME` and matching `Consignment` class. See [`src/Model/Carrier`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Carrier).
+- **Consignment**: all data for a single parcel (sender, recipient, options, physical properties). Carrier-specific subclasses (e.g. `PostNLConsignment`) determine which `delivery_type`, `package_type` and `shipment_option` combinations are allowed. See [`src/Model/Consignment`](https://github.com/myparcelnl/sdk/tree/10.x/src/Model/Consignment).
+- **MyParcelCollection**: collects consignments, talks to the API (`POST /shipments`, `/shipment_labels`, `/track_traces`), generates PDF labels and handles multi-collo. See [`src/Helper/MyParcelCollection.php`](https://github.com/myparcelnl/sdk/blob/10.x/src/Helper/MyParcelCollection.php).
 
 Top-level namespaces:
 
@@ -67,7 +67,7 @@ Top-level namespaces:
 | `MyParcelNL\Sdk\Exception` | All SDK exceptions |
 
 ## 3 · Authentication
-The SDK authenticates per request with a **shop API key** (Basic auth). There is no OAuth flow at SDK level — the SDK handles any token exchange internally if the API requires it.
+The SDK authenticates per request with a **shop API key** (Basic auth). There is no OAuth flow at SDK level. The SDK handles any token exchange internally if the API requires it.
 
 ```php
 $apiKey = getenv('MYPARCEL_API_KEY'); // base64-encoded shop key from the backoffice
@@ -83,14 +83,14 @@ $consignment = ConsignmentFactory::createByCarrierId(CarrierPostNL::ID)
     ->setApiKey($apiKey);
 ```
 
-`setApiKey()` exists on every consignment, so mixing keys within one collection is possible — useful for multi-shop integrations.
+`setApiKey()` exists on every consignment, so mixing keys within one collection is possible, useful for multi-shop integrations.
 
 ::: warning Key hygiene
-Keep keys server-side in env vars, a secret manager or `.env` (outside VCS). Never ship them to the browser. The API rate limit is tied to the key — a leaked key can be abused immediately.
+Keep keys server-side in env vars, a secret manager or `.env` (outside VCS). Never ship them to the browser. The API rate limit is tied to the key. A leaked key can be abused immediately.
 :::
 
 ### User agent (required for integrations)
-Plugins and custom integrations must identify themselves — without this, debugging is impossible and MyParcel cannot trace the source of an issue.
+Plugins and custom integrations must identify themselves. Without this, debugging is impossible and MyParcel cannot trace the source of an issue.
 
 ```php
 $consignment->setUserAgentForProposition('CustomShop', '2.4.1');
@@ -98,7 +98,7 @@ $consignment->setUserAgentForProposition('CustomShop', '2.4.1');
 
 `setUserAgentForProposition(string $proposition, ?string $version)` is the new API; `setUserAgent()` is deprecated and will be removed in the next major. The SDK appends `MyParcelNL-SDK/<sdkVersion>` and `php/<phpVersion>` to the header itself.
 
-## 4 · Quickstart — first shipment
+## 4 · Quickstart: first shipment
 One consignment, one label, A6 PDF on disk.
 
 ```php
@@ -134,7 +134,7 @@ $consignment = (ConsignmentFactory::createByCarrierId(CarrierPostNL::ID))
 What happens under the hood: the collection calls `POST /shipments`, gets consignment IDs back, then fetches labels via `GET /shipment_labels/{ids}` and stitches them into one PDF.
 
 ## 5 · Builder conventions
-- **Fluent setters.** Every setter returns `$this` — chain them.
+- **Fluent setters.** Every setter returns `$this`: chain them.
 - **Constants over strings.** `PACKAGE_TYPE_PACKAGE` (= 1) and `DELIVERY_TYPE_STANDARD` (= 2) read better than magic numbers and don't break if the API extends its ranges.
 - **Validators run automatically.** Each carrier has a `*ConsignmentValidator` that enforces allowed combinations. Calling `setSignature(true)` on a carrier that doesn't support it throws an `InvalidConsignmentException`.
 - **`getAllowed*()` methods.** Ask a consignment which options are valid before using them:
@@ -168,7 +168,7 @@ ConsignmentFactory::createByCarrierName('dhlforyou'); // DHL For You
 ```
 
 ::: tip Which carriers are available for my account?
-Availability is contractual — not every carrier is in every shop contract. The API returns a `403`/validation error if you use a carrier that isn't activated.
+Availability is contractual: not every carrier is in every shop contract. The API returns a `403`/validation error if you use a carrier that isn't activated.
 :::
 
 ## 7 · Consignment options
@@ -181,7 +181,7 @@ The type determines size rules and which shipment options are available. It vari
 | `PACKAGE_TYPE_PACKAGE` | `1` | `package` | Standard parcel. Default. |
 | `PACKAGE_TYPE_MAILBOX` | `2` | `mailbox` | Mailbox parcel (≤ 2 cm thick, NL-only). |
 | `PACKAGE_TYPE_LETTER` | `3` | `letter` | Uninsured letter, no track & trace. |
-| `PACKAGE_TYPE_DIGITAL_STAMP` | `4` | `digital_stamp` | Digital stamp — weight needs to be set. |
+| `PACKAGE_TYPE_DIGITAL_STAMP` | `4` | `digital_stamp` | Digital stamp. Weight needs to be set. |
 | `PACKAGE_TYPE_PACKAGE_SMALL` | `6` | `package_small` | Small parcel (PostNL). |
 
 ### Delivery types
@@ -193,7 +193,7 @@ The type determines size rules and which shipment options are available. It vari
 | `DELIVERY_TYPE_PICKUP` | `4` | `pickup` |
 | `DELIVERY_TYPE_EXPRESS` | `7` | `express` |
 
-Pickup shipments need a `PickupLocation` — set it via `setPickupLocation(new PickupLocation([...]))`.
+Pickup shipments need a `PickupLocation`. Set it via `setPickupLocation(new PickupLocation([...]))`.
 
 ### Shipment options
 Boolean extras on top of the base service.
@@ -216,7 +216,7 @@ Boolean extras on top of the base service.
 | `SHIPMENT_OPTION_FROZEN` | `frozen` | `setFrozen(bool)` |
 
 ::: warning Valid combinations
-Not all options can be combined — for example, `receipt_code` + `signature` is blocked. The per-carrier validator throws `InvalidConsignmentException` with the exact rule that was violated.
+Not all options can be combined: for example, `receipt_code` + `signature` is blocked. The per-carrier validator throws `InvalidConsignmentException` with the exact rule that was violated.
 :::
 
 ### Insurance
@@ -239,7 +239,7 @@ For shipments that physically consist of multiple parcels but logistically belon
 
 Only works on carriers that offer multi-collo (`getAllowedExtraOptions()` contains `'multi_collo'`).
 
-## 8 · MyParcelCollection — batch API
+## 8 · MyParcelCollection: batch API
 `MyParcelCollection` is a Laravel-style collection with SDK-specific methods. The main public API:
 
 | Method | Purpose |
@@ -267,7 +267,7 @@ addConsignment*() → setLinkOfLabels() or setPdfOfLabels()
                  → (optional) fetchTrackTraceData()
 ```
 
-`setPdfOfLabels()` and `setLinkOfLabels()` internally trigger `createConcepts()` if it hasn't run yet — you rarely need to call it explicitly.
+`setPdfOfLabels()` and `setLinkOfLabels()` internally trigger `createConcepts()` if it hasn't run yet. You rarely need to call it explicitly.
 
 ## 9 · Labels and printing
 
@@ -296,7 +296,7 @@ $collection
     ->printDirect('printer-group-uuid-here');
 ```
 
-Get the `printerGroupId` from the backoffice — *Settings → Printers*. Direct printing doesn't request a PDF on disk; the print server is assigned the shipment directly.
+Get the `printerGroupId` from the backoffice: *Settings → Printers*. Direct printing doesn't request a PDF on disk; the print server is assigned the shipment directly.
 
 ### Share a label link without downloading the PDF
 ```php
@@ -373,7 +373,7 @@ The return label sits on page 2 of the PDF. The customer sticks it on the box an
 $consignment->setPrinterlessReturn(true);
 ```
 
-No printed label — the customer gets a QR code in the portal/email. Only works on carriers that support it.
+No printed label: the customer gets a QR code in the portal/email. Only works on carriers that support it.
 
 ### Stand-alone return shipment
 For returns unrelated to an existing shipment (e.g. an RMA after 30 days):
@@ -468,7 +468,7 @@ Everything sits under `MyParcelNL\Sdk\Exception\`:
 | `AccountNotActiveException` | `403` | Shop is paused / contract not active. |
 | `NoConsignmentFoundException` | `404` | `addConsignmentByConsignmentIds` with an unknown ID. |
 
-On top of these SDK-specific exceptions you may also see generic PHP exceptions — `InvalidArgumentException` (wrong type passed) and `BadMethodCallException` (no setter for that key).
+On top of these SDK-specific exceptions you may also see generic PHP exceptions: `InvalidArgumentException` (wrong type passed) and `BadMethodCallException` (no setter for that key).
 
 ```php
 use MyParcelNL\Sdk\Exception\ApiException;
@@ -486,9 +486,9 @@ try {
 ## 16 · Testing against the SDK
 The SDK uses PHPUnit + Mockery in its own tests. For your integration tests:
 
-- **Unit level** — mock the `MyParcelCurl` helper or the entire `MyParcelCollection` (`addConsignment` is fluent → easy to mock).
-- **Integration level** — use a sandbox account and the real API. There is no public sandbox URL; request a test shop via [support@myparcel.nl](mailto:support@myparcel.nl).
-- **Snapshot tests on label bytes** are not stable — PDF stitching uses timestamps. Test the business logic, not the bytes.
+- **Unit level**: mock the `MyParcelCurl` helper or the entire `MyParcelCollection` (`addConsignment` is fluent → easy to mock).
+- **Integration level**: use a sandbox account and the real API. There is no public sandbox URL; request a test shop via [support@myparcel.nl](mailto:support@myparcel.nl).
+- **Snapshot tests on label bytes** are not stable: PDF stitching uses timestamps. Test the business logic, not the bytes.
 
 ```bash
 composer require --dev mockery/mockery phpunit/phpunit
@@ -503,7 +503,7 @@ The pre-v8 SDK used `MyParcel\Sdk\` without `NL`. Find-and-replace:
 MyParcel\Sdk\   →   MyParcelNL\Sdk\
 ```
 
-PSR-4 takes care of the rest — no further autoload config needed.
+PSR-4 takes care of the rest, no further autoload config needed.
 
 ### To v10.x
 Main breaks per minor:
@@ -515,14 +515,14 @@ Main breaks per minor:
 | **v10.5.0** | Account general settings exposed via `Account` models. |
 | **v10.4.0** | Trunkrs as a carrier (`ID 16`). |
 | **v10.3.x** | PHP 8.4 deprecation fixes; insurance amounts convert correctly to cents. |
-| **v10.x → v9** | `setUserAgent()` is deprecated — use `setUserAgentForProposition()`. |
+| **v10.x → v9** | `setUserAgent()` is deprecated. Use `setUserAgentForProposition()`. |
 
 Full changelog: [github.com/myparcelnl/sdk/blob/10.x/CHANGELOG.md ↗](https://github.com/myparcelnl/sdk/blob/10.x/CHANGELOG.md).
 
 ## 18 · Contributing and support
-- **Source** — [github.com/myparcelnl/sdk ↗](https://github.com/myparcelnl/sdk) (MIT)
-- **Issues** — open an issue with PHP version, SDK version and a minimal reproduction.
-- **Slack** — `#sdk` in [myparcel-dev.slack.com ↗](https://join.slack.com/t/myparcel-dev/shared_invite/enQtNDkyNTg3NzA1MjM4LTM0Y2IzNmZlY2NkOWFlNTIyODY5YjFmNGQyYzZjYmQzMzliNDBjYzBkOGMwYzA0ZDYzNmM1NzAzNDY1ZjEzOTM)
-- **Email** — [support@myparcel.nl](mailto:support@myparcel.nl)
+- **Source**: [github.com/myparcelnl/sdk ↗](https://github.com/myparcelnl/sdk) (MIT)
+- **Issues**: open an issue with PHP version, SDK version and a minimal reproduction.
+- **Slack**: `#sdk` in [myparcel-dev.slack.com ↗](https://join.slack.com/t/myparcel-dev/shared_invite/enQtNDkyNTg3NzA1MjM4LTM0Y2IzNmZlY2NkOWFlNTIyODY5YjFmNGQyYzZjYmQzMzliNDBjYzBkOGMwYzA0ZDYzNmM1NzAzNDY1ZjEzOTM)
+- **Email**: [support@myparcel.nl](mailto:support@myparcel.nl)
 
 PR guidelines: branch from `10.x`, write tests with Mockery (no live HTTP), commits follow [Conventional Commits](https://www.conventionalcommits.org/).

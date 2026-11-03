@@ -1,50 +1,44 @@
 ---
 title: Autenticazione
-description: "MyParcel utilizza OAuth 2.0 con client credentials. Le integrazioni server-side scambiano un client_id e un client_secret per ottenere un bearer token di breve durata."
+description: "Ogni richiesta all'API MyParcel si autentica con l'API key del tuo shop, codificata in base64, nell'header Authorization."
 ---
 
-## Ottenere un bearer token
-Invia in POST le tue credenziali a `/oauth/token`. La risposta contiene un `access_token` (TTL di 1 ora) e un `refresh_token`.
+## Ottieni la tua API key
+Accedi a [backoffice.myparcel.nl](https://backoffice.myparcel.nl) e apri **Impostazioni shop → Integrazione**. Copia l'API key, oppure generane una se non esiste ancora.
 
-```
-curl -X POST https://api.myparcel.nl/oauth/token \
-  -H "Content-Type: application/json" \
-  -d @body.json
+Conserva la key sul tuo server. Chi la possiede può creare spedizioni e leggere dati per conto del tuo shop, quindi non inviarla mai a un browser e non includerla mai in un repository.
 
-// body.json
-{
-  "grant_type": "client_credentials",
-  "client_id": "mp_client_AB12CD34",
-  "client_secret": "•••",
-  "scope": "shipments.read shipments.write"
-}
-```
-
-## Usare il token
-Invia il bearer token nell'header `Authorization` ad ogni richiesta verso `api.myparcel.nl`.
+## Inviala con ogni richiesta
+Codifica la key in base64 e inviala nell'header `Authorization` con lo schema `bearer`:
 
 ```
 GET https://api.myparcel.nl/shipments
-Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9…
+Accept: application/json;charset=utf-8
+Authorization: bearer <API key codificata in base64>
 ```
 
-## Scope
-Gli scope limitano cosa può fare un token. Richiedi solo ciò che ti serve — token più ristretti riducono il blast radius in caso di leak.
-
-- `shipments.read` — elenca e recupera spedizioni.
-- `shipments.write` — crea, aggiorna, annulla spedizioni.
-- `orders.read` / `orders.write` — gestisci ordini.
-- `webhooks.write` — sottoscrivi e gestisci endpoint webhook.
-
-## Refresh dei token
-Prima che l'`access_token` scada, scambia il `refresh_token` per ottenere una nuova coppia senza ri-presentare le credenziali.
+In una shell usa `printf` invece di `echo`, così nessun a capo finisce nella key codificata:
 
 ```
-POST https://api.myparcel.nl/oauth/token/refresh
-{ "refresh_token": "rft_51d5fd…" }
+curl https://api.myparcel.nl/shipments \
+  -H "Accept: application/json;charset=utf-8" \
+  -H "Authorization: bearer $(printf '%s' "$MYPARCEL_API_KEY" | base64)"
 ```
 
-## Revoca dei token
-Revoca immediatamente un token leakato o non utilizzato. I token revocati vengono rifiutati con `401` nelle richieste successive.
+In PHP:
 
-Esegui `DELETE /oauth/token` con il token nell'header `Authorization`.
+```php
+$headers = [
+    'Authorization' => 'bearer ' . base64_encode($apiKey),
+];
+```
+
+Il [PHP SDK v10](php-sdk.md) invia la stessa key codificata con lo schema `basic`. Gli esempi di questa documentazione usano `bearer`, come fanno gli attuali plugin MyParcel.
+
+## Quando una richiesta viene rifiutata
+Una risposta `401 Unauthorized` significa che la key manca, non è codificata in base64 o non è più valida. Verifica di codificare la key stessa, senza spazi né a capo finale. Se la key è stata sostituita nel backoffice, copia quella nuova.
+
+## Con un SDK
+Il [PHP SDK v12](../../guides/php-sdk-v12.md) accetta l'API key come argomento del costruttore, oppure la legge dalla variabile d'ambiente `API_KEY`, e crea l'header per te.
+
+Pubblichi un'integrazione che altri merchant installano? Usa invece [MyParcel Connect](../../guides/php-sdk-v12.md#myparcel-connect), così il merchant autorizza il proprio shop e tu non gestisci mai la sua API key.

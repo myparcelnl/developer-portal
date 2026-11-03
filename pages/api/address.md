@@ -33,7 +33,7 @@ List addresses.
 | 200 | Found addresses. |
 | 400 | Invalid request syntax |
 
-**Request — GET /addresses**
+**Request: GET /addresses**
 
 ::: code-group
 ```bash [cURL]
@@ -153,7 +153,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -190,7 +190,7 @@ Validate an address.
 | 200 | Valid address whether or not. |
 | 400 | Invalid request syntax |
 
-**Request — GET /validate**
+**Request: GET /validate**
 
 ::: code-group
 ```bash [cURL]
@@ -310,7 +310,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {

@@ -20,7 +20,7 @@ There are four steps to get the delivery options running in your checkout: insta
 
 ### Step 1: Install the package
 
-Choose either the CDN (recommended for most setups — minor and patch updates with bugfixes are included automatically) or your package manager.
+Choose either the CDN (recommended for most setups: minor and patch updates with bugfixes are included automatically) or your package manager.
 
 **CDN, with Vue 3 from the CDN:**
 
@@ -58,7 +58,7 @@ v7 fetches the available carriers, package types, delivery types, and shipment o
 
 The widget POSTs a JSON `CapabilitiesRequest` to your backend URL. Your backend needs to forward it unchanged to `POST https://api.myparcel.nl/shipments/capabilities` (injecting your API key into the request) and return the response to the widget as-is. The widget caches the response per address and filters client-side, so it only refetches when relevant inputs change.
 
-In practice the widget only populates `recipient` (from the current address) and, when supplied, `packageType`. Your proxy should forward whatever it receives without modification.
+In practice the widget populates `recipient` (from the current address) and, when supplied, `packageType`, `isBusiness` and `physicalProperties`. Your proxy should forward whatever it receives without modification.
 
 **Minimal Node.js / Express proxy:**
 
@@ -174,7 +174,7 @@ If the widget hits an API exception (for example an unparseable street), it disp
 
 ## Configuration
 
-Almost all settings can be set globally or per carrier. If you set a setting globally, it will be used for all carriers unless you override it for a specific carrier. How you should pass the configuration to the delivery options depends on whether you're using the Vue component or plain JavaScript — see [step 3 of the Quickstart](#step-3-mount-the-widget) for both shapes.
+Almost all settings can be set globally or per carrier. If you set a setting globally, it will be used for all carriers unless you override it for a specific carrier. How you should pass the configuration to the delivery options depends on whether you're using the Vue component or plain JavaScript. See [step 3 of the Quickstart](#step-3-mount-the-widget) for both shapes.
 
 ::: tip
 For the most comprehensive information, you can check out our [Sandbox]. Here you can see (and try) all the possible configuration options and see the result in real-time.
@@ -216,6 +216,24 @@ Carriers do not always offer the same delivery options to businesses as to consu
 The integrating platform decides what to pass. In the MyParcel plugins the PDK derives it from whether the checkout address carries a company name. `true` and `false` are two different answers to the API, a business versus a known consumer, and both are forwarded. Leave the key out and the widget omits it from the request, which is what happens on platforms that do not send it yet.
 
 This is the mechanism behind the different checkout options that business customers see in the WooCommerce and PrestaShop plugins. Available since v7.5.0.
+
+### Shipment weight
+
+Carriers do not accept every weight for every delivery type. Set `physicalProperties` on the config and the widget includes the weight in the capabilities request, so the API decides which delivery types stay available.
+
+```json
+{
+  "physicalProperties": {
+    "weight": 30000
+  }
+}
+```
+
+The weight is a positive integer in grams. Give the total weight of the shipment, including product quantities and packaging, and only when you know it completely. The widget adds the unit when it builds the request. An invalid value is logged and dropped, and the request is then the same as a request without a weight.
+
+Leave `physicalProperties` out, or set it to `null`, when the weight is unknown. Do not send 1 gram instead. A configuration update does not keep an earlier weight, so send the weight again with each cart update. A changed weight starts a new capabilities request, the same weight again does not.
+
+The merchant settings still apply. The widget does not change them and holds no carrier weight limits of its own. Available since v7.5.6. For the full behaviour, see [shipment-weight.md ↗](https://github.com/myparcelnl/delivery-options/blob/main/docs/shipment-weight.md).
 
 ### Cutoff times and drop off days
 
@@ -311,6 +329,14 @@ These are all the possible configuration options. The `strings` object is used f
     // own delivery options. Omit it and the widget leaves it out of the
     // request, which is what older platforms do. Since v7.5.0.
     "isBusiness": false,
+
+    // object | null, the total shipment weight. "weight" is a positive integer
+    // in grams. Forwarded onto the capabilities request, so the API can drop
+    // delivery types that the weight does not allow. Omit it or set it to null
+    // when the weight is unknown. Since v7.5.6.
+    "physicalProperties": {
+      "weight": 30000
+    },
 
     // string, ISO 639-1 language code. Defaults to the browser language.
     "locale": "",
@@ -474,7 +500,7 @@ The widget communicates with your page through three custom events dispatched on
 
 ### `myparcel_update_delivery_options` (incoming)
 
-Dispatch this to (re)render the widget with a new configuration. The plain-JavaScript snippet in [step 3](#step-3-mount-the-widget) uses it for the initial mount. Vue 3 users don't need to dispatch it — the component picks up changes to its `configuration` prop automatically.
+Dispatch this to (re)render the widget with a new configuration. The plain-JavaScript snippet in [step 3](#step-3-mount-the-widget) uses it for the initial mount. Vue 3 users don't need to dispatch it. The component picks up changes to its `configuration` prop automatically.
 
 ### `myparcel_updated_delivery_options` (outgoing)
 
@@ -525,13 +551,13 @@ v7 removes the statically embedded platform configurations (MyParcel NL / SendMy
 - New `compactView` config option (since v7.1) to render carriers as a collapsible compact list.
 - New `popUpMap` config option (since v7.3) to show pickup locations in a modal instead of inline.
 - New `excludeParcelLockers` config option to hide locker-type pickup locations.
-- New `apiKey` config option for local development (development only — logs a warning).
+- New `apiKey` config option for local development (development only, logs a warning).
 
 #### Breaking changes
 
 - `proxyCapabilities` is required. Without it the widget cannot determine which carriers or options to show.
 - The `allowDeliveryOptions` carrier setting was removed. To disable home delivery for a carrier, set every `allow*Delivery` key on that carrier to `false`. To disable a carrier entirely, also set `allowPickupLocations` to `false` (or omit the carrier from `carrierSettings`).
-- `showDeliveryDate` was removed as a config key. The date selector is now derived automatically: it shows when the package type supports delivery moments and `deliveryDaysWindow` is greater than `1`. To hide the date selector, set `deliveryDaysWindow: 1` — each carrier will then expose a single "standard delivery" option without a date picker.
+- `showDeliveryDate` was removed as a config key. The date selector is now derived automatically: it shows when the package type supports delivery moments and `deliveryDaysWindow` is greater than `1`. To hide the date selector, set `deliveryDaysWindow: 1`: each carrier will then expose a single "standard delivery" option without a date picker.
 - `dropOffDays` no longer accepts a plain string (`"1,2,3"` / `"1;2;3"`); it must be an array of weekday numbers and/or `DropOffEntry` objects.
 - API errors no longer prevent carriers from appearing. In v6, an unparseable street or missing postcode could hide all carriers; in v7 anything offered by capabilities is shown.
 - The `DeprecatedConfigOptions` group is no longer accepted: `allowShowDeliveryDate`, `fridayCutoffTime` and `saturdayCutoffTime` are silently ignored. Remove them from your config.
@@ -540,9 +566,9 @@ v7 removes the statically embedded platform configurations (MyParcel NL / SendMy
 
 The following were removed from `@myparcel/delivery-options`:
 
-- `PlatformConfiguration` type — no direct replacement; the capabilities response drives platform behaviour.
-- `PlatformName` enum — not replaced. `platform` is still a required config field; pass the platform string that matches your API key.
-- `usePlatform()`, `useCurrentPlatform()`, `getDefaultConfigForPlatform()` — no direct replacement.
+- `PlatformConfiguration` type: no direct replacement; the capabilities response drives platform behaviour.
+- `PlatformName` enum: not replaced. `platform` is still a required config field; pass the platform string that matches your API key.
+- `usePlatform()`, `useCurrentPlatform()`, `getDefaultConfigForPlatform()`: no direct replacement.
 
 #### Notable internal changes
 

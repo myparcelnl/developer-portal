@@ -35,6 +35,11 @@ const mounted = ref(false);
 const market = ref<MarketFilter>('all');
 const query = ref('');
 
+function clearFilters() {
+  market.value = 'all';
+  query.value = '';
+}
+
 const linkLang = computed<Lang>(() => (mounted.value ? (uiLang.value as Lang) : 'en'));
 
 /** Resolve an integration link to a real href, localised where we can. */
@@ -126,7 +131,7 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
 <template>
   <MpHeader />
 
-  <main class="mp-standalone mp-integrations">
+  <main id="mp-main" tabindex="-1" class="mp-standalone mp-integrations">
     <MpBreadcrumb :trail="breadcrumbTrail" />
 
     <h1 class="mp-docs-content__title" data-i18n="Integrations">Integrations</h1>
@@ -261,9 +266,10 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
       </div>
     </section>
 
-    <p v-show="visibleCount === 0" class="mp-int-empty" data-i18n="No integrations match this filter.">
-      No integrations match this filter.
-    </p>
+    <div v-show="visibleCount === 0" class="mp-int-empty">
+      <p data-i18n="No integrations match this filter.">No integrations match this filter.</p>
+      <button type="button" class="mp-btn mp-btn--secondary" data-i18n="Clear filters" @click="clearFilters">Clear filters</button>
+    </div>
 
     <!-- ============================================================
          BUILD YOUR OWN

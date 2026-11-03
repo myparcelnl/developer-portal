@@ -97,13 +97,15 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <a href="#mp-main" class="mp-skip-link" data-i18n="Skip to content">Skip to content</a>
+
   <ClientOnly>
     <Transition name="mp-beta-banner">
       <div v-if="bannerVisible" class="mp-beta-banner" role="status">
         <div class="mp-beta-banner__inner">
           <span class="mp-beta-banner__pill" data-i18n="Beta">Beta</span>
           <span class="mp-beta-banner__msg">
-            <span data-i18n="This developer portal is in beta — content and APIs may change while we polish things up.">This developer portal is in beta — content and APIs may change while we polish things up.</span>
+            <span data-i18n="This developer portal is in beta. Content and APIs may change while we polish things up.">This developer portal is in beta. Content and APIs may change while we polish things up.</span>
             <a href="/contact.html" class="mp-beta-banner__link" data-i18n="Share feedback →">Share feedback →</a>
           </span>
         </div>
@@ -168,11 +170,11 @@ onBeforeUnmount(() => {
         :title="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
         @click="toggleTheme"
       >
-        <svg v-if="theme === 'dark'" class="mp-theme-toggle__sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="mp-theme-toggle__sun" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
         </svg>
-        <svg v-else class="mp-theme-toggle__moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="mp-theme-toggle__moon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
@@ -381,11 +383,11 @@ onBeforeUnmount(() => {
   color: inherit;
 }
 .mp-mobile-drawer__logo > span {
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: var(--mp-mint);
   padding: 2px 8px;
   border-radius: 999px;
@@ -406,21 +408,21 @@ onBeforeUnmount(() => {
   font-weight: inherit !important;
 }
 .mp-mobile-drawer__logo-sub {
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: var(--mp-mint);
   padding: 2px 8px;
   border-radius: 999px;
 }
 .mp-mobile-drawer__logo-beta {
-  font-size: 8px;
+  font-size: var(--mp-fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   background: var(--mp-mint);
   border: 1px solid rgb(15 120 89 / 18%);
   padding: 0 5px;
@@ -433,8 +435,8 @@ onBeforeUnmount(() => {
   position: relative;
   background: var(--mp-mint);
   border-bottom: 1px solid var(--mp-border-soft);
-  color: var(--mp-fresh);
-  font-size: 13px;
+  color: var(--mp-text-accent);
+  font-size: var(--mp-fs-sm);
   line-height: 1.4;
 }
 .mp-beta-banner__inner {
@@ -447,7 +449,7 @@ onBeforeUnmount(() => {
 }
 .mp-beta-banner__pill {
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: var(--mp-fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -462,7 +464,7 @@ onBeforeUnmount(() => {
   min-width: 0;
 }
 .mp-beta-banner__link {
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -483,7 +485,7 @@ onBeforeUnmount(() => {
   background: transparent;
   border: none;
   border-radius: var(--mp-radius-sm, 6px);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
   cursor: pointer;
   opacity: 0.7;
 }
@@ -506,10 +508,10 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 640px) {
-  .mp-beta-banner { font-size: 12px; }
-  .mp-beta-banner__inner { padding: 7px 40px 7px 12px; gap: 8px; }
-  .mp-beta-banner__pill { font-size: 9px; padding: 1px 6px; letter-spacing: 0.12em; }
-  .mp-beta-banner__close { right: 4px; }
+  .mp-beta-banner { font-size: var(--mp-fs-xs); }
+  .mp-beta-banner__inner { padding: 7px 48px 7px 12px; gap: 8px; }
+  .mp-beta-banner__pill { font-size: var(--mp-fs-xs); padding: 1px 6px; letter-spacing: 0.08em; }
+  .mp-beta-banner__close { right: 4px; width: 40px; height: 40px; }
 }
 
 .mp-beta-banner-enter-from,
@@ -557,7 +559,7 @@ onBeforeUnmount(() => {
   background: transparent;
   font: inherit;
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--mp-fs-md);
   color: var(--mp-text);
   text-decoration: none;
   border-radius: var(--mp-radius-md);
@@ -568,7 +570,7 @@ onBeforeUnmount(() => {
 }
 .mp-mobile-drawer__link.is-active {
   background: var(--mp-mint);
-  color: var(--mp-fresh);
+  color: var(--mp-text-accent);
 }
 .mp-mobile-drawer__link--toggle svg {
   transition: transform 0.18s;
@@ -593,7 +595,7 @@ onBeforeUnmount(() => {
   padding: 9px 12px;
   border-radius: var(--mp-radius-md);
   text-decoration: none;
-  font-size: 14px;
+  font-size: var(--mp-fs-base);
   color: var(--mp-text-body);
 }
 .mp-mobile-drawer__sublink:hover {
@@ -601,7 +603,7 @@ onBeforeUnmount(() => {
 }
 .mp-mobile-drawer__sublink small {
   font-family: var(--mp-mono);
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   color: var(--mp-text-muted);
 }
 
@@ -628,7 +630,7 @@ onBeforeUnmount(() => {
   background: var(--mp-bg-subtle);
 }
 .mp-mobile-drawer__foot-label {
-  font-size: 11px;
+  font-size: var(--mp-fs-xs);
   font-weight: 600;
   color: var(--mp-text-muted);
   letter-spacing: 0.06em;

@@ -1,47 +1,70 @@
 ---
 title: Types de données
-description: "Types, enums et conventions courants utilisés dans toute la Shipment API : chaînes, montants, dates, pays, transporteurs."
+description: "Types, enums et conventions courants utilisés dans toute la Shipment API : ID, prix, dates, pays, transporteurs et types de colis."
 ---
 
 ## Identifiants
-Les expéditions, commandes et webhooks utilisent des ID entiers signés sur 64 bits. Les tokens et secrets sont des chaînes opaques avec préfixe (`mp_client_*`, `rft_*`).
+Les expéditions et les abonnements webhook ont des ID entiers. Les commandes utilisent des UUID, comme `db610547-7434-4f6d-9e13-178b686a94d6`.
 
-## Montants
-Toutes les valeurs monétaires sont des entiers exprimés en **centimes (EUR)**, sauf si le nom du champ inclut explicitement une devise (par ex. `amount_usd`).
+## Prix
+Un prix est un objet avec un montant en **centimes** et une devise. Seul `EUR` est pris en charge.
 
 ```
-{ "insurance": 25000 /* = €250.00 */ }
+{ "insurance": { "amount": 25000, "currency": "EUR" } }  // 250,00 €
+```
+
+## Booléens
+Les options d'expédition sont des booléens entiers : `1` pour activé, `0` pour désactivé.
+
+```
+{ "options": { "signature": 1, "only_recipient": 0 } }
 ```
 
 ## Dates et heures
-Tous les timestamps sont au format RFC 3339 en UTC avec un `Z` final.
+- Dates : `YYYY-MM-DD`, par exemple `2026-04-20`.
+- Timestamps : `YYYY-MM-DD HH:MM:SS`, par exemple `2026-04-20 08:12:34`.
 
-```
-{ "created_at": "2026-04-20T08:12:34Z" }
-```
+## Codes pays
+Les pays sont des codes ISO 3166-1 alpha-2 (`NL`, `BE`, `DE`, `FR`, …) dans le champ `cc`.
 
-## Codes de pays et de langue
-- Pays : ISO 3166-1 alpha-2 (`NL`, `BE`, `DE`, `FR`, …).
-- Langues : ISO 639-1 (`nl`, `en`, `de`, `fr`, …).
+## ID des transporteurs
+- `1` : PostNL
+- `2` : bpost
+- `3` : Cheap Cargo
+- `4` : DPD
+- `9` : DHL For You
+- `10` : DHL Parcel Connect
+- `11` : DHL Europlus
+- `12` : UPS Standard
+- `13` : UPS Express Saver
+- `14` : GLS
+- `15` : BRT
+- `16` : Trunkrs
+- `17` : InPost
+- `18` : Poste Italiane
 
-## Codes transporteur
-- `postnl`, PostNL
-- `dhl`, DHL Parcel
-- `dhlforyou`, DHL For You
-- `dpd`, DPD
-- `ups`, UPS
-- `bpost`, bpost
-- `instabox`, Instabox
+Les ID `5` à `8` (Instabox, DHL Cheap Cargo, bol et l'ancien UPS) sont obsolètes. Les transporteurs que vous pouvez utiliser dépendent de votre plateforme et de vos contrats.
+
+## Types de colis
+- `1` : colis
+- `2` : colis boîte aux lettres
+- `3` : lettre
+- `4` : timbre numérique
+- `5` : palette
+- `6` : petit colis
+- `7` : enveloppe
 
 ## Format d'erreur
-Chaque réponse 4xx/5xx a la même structure, ce qui vous permet de traiter les erreurs de manière uniforme.
+Une réponse d'erreur contient un message, un ID de requête et une liste d'erreurs avec des codes numériques :
 
 ```
 {
-  "error": {
-    "code": "shipment_not_cancellable",
-    "message": "Shipment 8472402 is already handed_over.",
-    "request_id": "req_01HW7K…"
-  }
+  "message": "…",
+  "request_id": "…",
+  "errors": [
+    { "code": 3501, "message": "Invalid address" }
+  ]
 }
 ```
+
+Traitez les erreurs selon le `code`, pas selon le texte du message.

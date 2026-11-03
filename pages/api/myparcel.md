@@ -22,7 +22,7 @@ Reports the status of the API.
 | 200 | Status is OK |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /**
+**Request: GET /**
 
 ::: code-group
 ```bash [cURL]
@@ -138,7 +138,7 @@ var data = await response.Content.ReadAsStringAsync();
 ```
 :::
 
-**Response — 200**
+**Response: 200**
 
 ```json
 {
@@ -188,7 +188,7 @@ This operation returns a list of Shipments available to this User.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /shipments**
+**Request: GET /shipments**
 
 ::: code-group
 ```bash [cURL]
@@ -332,7 +332,7 @@ Add shipments allows you to create standard and related return shipments.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /shipments**
+**Request: POST /shipments**
 
 ::: code-group
 ```bash [cURL]
@@ -466,7 +466,7 @@ This operation can be used to update certain fields of a shipment. The fields th
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — PUT /shipments**
+**Request: PUT /shipments**
 
 ::: code-group
 ```bash [cURL]
@@ -605,7 +605,7 @@ Get shipments by id.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /shipments/{ids}**
+**Request: GET /shipments/{ids}**
 
 ::: code-group
 ```bash [cURL]
@@ -745,7 +745,7 @@ This operation can be used to delete shipments for which a label has not yet bee
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — DELETE /shipments/{ids}**
+**Request: DELETE /shipments/{ids}**
 
 ::: code-group
 ```bash [cURL]
@@ -878,7 +878,7 @@ _List shipment capabilities (Beta)_
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /shipments/capabilities**
+**Request: POST /shipments/capabilities**
 
 ::: code-group
 ```bash [cURL]
@@ -1011,7 +1011,7 @@ _List a superset of available capabilities for the carriers and contracts associ
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /shipments/capabilities/contract-definitions**
+**Request: POST /shipments/capabilities/contract-definitions**
 
 ::: code-group
 ```bash [cURL]
@@ -1145,7 +1145,7 @@ This endpoint allows you to determine the rates for a shipment configuration.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /shipments/rates**
+**Request: POST /shipments/rates**
 
 ::: code-group
 ```bash [cURL]
@@ -1294,7 +1294,7 @@ _Get Shipment labels_
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /shipment_labels/{ids}**
+**Request: GET /shipment_labels/{ids}**
 
 ::: code-group
 ```bash [cURL]
@@ -1456,7 +1456,7 @@ If none of the optional parameters are specified then the following default will
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /delivery_options**
+**Request: GET /delivery_options**
 
 ::: code-group
 ```bash [cURL]
@@ -1612,7 +1612,7 @@ Use this endpoint to receive a list of nearby drop off points, where shipments c
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /drop_off_points**
+**Request: GET /drop_off_points**
 
 ::: code-group
 ```bash [cURL]
@@ -1770,7 +1770,7 @@ Get Pickup Locations
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /pickup_locations**
+**Request: GET /pickup_locations**
 
 ::: code-group
 ```bash [cURL]
@@ -1918,7 +1918,7 @@ Get detailed Track & Trace information for one or more shipments.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /tracktraces**
+**Request: GET /tracktraces**
 
 ::: code-group
 ```bash [cURL]
@@ -2060,7 +2060,7 @@ Get detailed Track & Trace information for one or more shipments.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /tracktraces/{ids}**
+**Request: GET /tracktraces/{ids}**
 
 ::: code-group
 ```bash [cURL]
@@ -2197,7 +2197,7 @@ This endpoint is often used by external parties to facilitate return shipments o
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /return_shipments**
+**Request: POST /return_shipments**
 
 ::: code-group
 ```bash [cURL]
@@ -2337,7 +2337,7 @@ Retrieve notification groups to see which groups are set up to receive notificat
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /notification_groups**
+**Request: GET /notification_groups**
 
 ::: code-group
 ```bash [cURL]
@@ -2471,7 +2471,7 @@ Create notification groups to receive notifications about shipment events.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /notification_groups**
+**Request: POST /notification_groups**
 
 ::: code-group
 ```bash [cURL]
@@ -2609,7 +2609,7 @@ Delete notification groups to stop receiving notifications about shipment events
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — DELETE /notification_groups/{ids}**
+**Request: DELETE /notification_groups/{ids}**
 
 ::: code-group
 ```bash [cURL]
@@ -2747,7 +2747,7 @@ Retrieve notification templates associated with a specific notification group.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /notification_groups/{notification_group_id}/notification_templates**
+**Request: GET /notification_groups/{notification_group_id}/notification_templates**
 
 ::: code-group
 ```bash [cURL]
@@ -2884,7 +2884,7 @@ Update a notification template associated with a specific notification group.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — PUT /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}**
+**Request: PUT /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}**
 
 ::: code-group
 ```bash [cURL]
@@ -3022,7 +3022,7 @@ Disable all notification templates associated with a specific notification group
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — PUT /notification_groups/{notification_group_id}/notification_templates/disable**
+**Request: PUT /notification_groups/{notification_group_id}/notification_templates/disable**
 
 ::: code-group
 ```bash [cURL]
@@ -3160,7 +3160,7 @@ Enable all notification templates associated with a specific notification group.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — PUT /notification_groups/{notification_group_id}/notification_templates/enable**
+**Request: PUT /notification_groups/{notification_group_id}/notification_templates/enable**
 
 ::: code-group
 ```bash [cURL]
@@ -3299,7 +3299,7 @@ Disable a specific notification template associated with a specific notification
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — PUT /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}/disable**
+**Request: PUT /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}/disable**
 
 ::: code-group
 ```bash [cURL]
@@ -3438,7 +3438,7 @@ Enable a specific notification template associated with a specific notification 
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — PUT /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}/enable**
+**Request: PUT /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}/enable**
 
 ::: code-group
 ```bash [cURL]
@@ -3577,7 +3577,7 @@ Send a test notification using a specific notification template associated with 
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}/test**
+**Request: POST /notification_groups/{notification_group_id}/notification_templates/{notification_template_id}/test**
 
 ::: code-group
 ```bash [cURL]
@@ -3717,7 +3717,7 @@ Retrieve active webhook subscriptions for this account. Returns an array of Subs
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /webhook_subscriptions**
+**Request: GET /webhook_subscriptions**
 
 ::: code-group
 ```bash [cURL]
@@ -3851,7 +3851,7 @@ Create webhook subscriptions for event notifications.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — POST /webhook_subscriptions**
+**Request: POST /webhook_subscriptions**
 
 ::: code-group
 ```bash [cURL]
@@ -3989,7 +3989,7 @@ Retrieve specific webhook subscriptions by id. You can specify multiple subscrip
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — GET /webhook_subscriptions/{ids}**
+**Request: GET /webhook_subscriptions/{ids}**
 
 ::: code-group
 ```bash [cURL]
@@ -4125,7 +4125,7 @@ Delete webhook subscriptions to stop receiving notifications about events.
 | 4XX | This response is given when the request contains bad syntax or cannot be fulfilled due to a client-side issue. |
 | 5XX | This response is given when the server fails to fulfill a valid request due to a server-side issue. |
 
-**Request — DELETE /webhook_subscriptions/{ids}**
+**Request: DELETE /webhook_subscriptions/{ids}**
 
 ::: code-group
 ```bash [cURL]

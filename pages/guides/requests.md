@@ -4,7 +4,7 @@ description: "How to call the MyParcel API: base URL, HTTP methods, headers, the
 ---
 
 ## Overview
-The MyParcel APIs are REST-based and speak JSON over HTTPS. You create and read objects with standard HTTP methods, and every endpoint is documented in the auto-generated [API reference](../api/myparcel.md) — that reference is always the source of truth for paths, parameters and schemas.
+The MyParcel APIs are REST-based and speak JSON over HTTPS. You create and read objects with standard HTTP methods, and every endpoint is documented in the auto-generated [API reference](../api/myparcel.md). That reference is always the source of truth for paths, parameters and schemas.
 
 ## Base URL
 The Shipment API lives at `https://api.myparcel.nl`. The other MyParcel APIs each have their own host:
@@ -36,10 +36,10 @@ The API follows standard REST semantics.
 Not every method is available on every endpoint. Check the [API reference](../api/myparcel.md) for the methods each path supports.
 
 ## Headers
-- **`Content-Type`** — use `application/json;charset=utf-8` for JSON bodies. See [Character encoding](./character-encoding.md).
-- **`Accept`** — set the format you expect back (e.g. `application/json`). Some endpoints use a vendor media type such as `application/vnd.shipment+json`; the [API reference](../api/myparcel.md) lists the exact type per endpoint.
-- **`Authorization`** — your API key (see [Authentication](./authentication.md)).
-- **`User-Agent`** — identifies your integration (see below).
+- **`Content-Type`**: use `application/json;charset=utf-8` for JSON bodies. See [Character encoding](./character-encoding.md).
+- **`Accept`**: set the format you expect back (e.g. `application/json`). Some endpoints use a vendor media type such as `application/vnd.shipment+json`; the [API reference](../api/myparcel.md) lists the exact type per endpoint.
+- **`Authorization`**: your API key (see [Authentication](./authentication.md)).
+- **`User-Agent`**: identifies your integration (see below).
 
 ## The User-Agent convention
 Send a `User-Agent` header that identifies your integration. This helps MyParcel support trace issues to the right plugin or backend.
@@ -59,7 +59,7 @@ Contact MyParcel so your integration can be recognised in the User-Agent string.
 :::
 
 ## Response formats
-Most endpoints return JSON. Some return binary or text instead — labels and invoices come back as **PDF**, and some exports as **CSV**. See [Responses](./responses.md) for status codes and the response envelope.
+Most endpoints return JSON. Some return binary or text instead: labels and invoices come back as **PDF**, and some exports as **CSV**. See [Responses](./responses.md) for status codes and the response envelope.
 
 ## Rate limiting
 The API applies a per-endpoint rate limit using a sliding window. When you exceed a limit you receive `429 Too Many Requests`. Wait a few minutes before retrying rather than hammering the endpoint. If you regularly hit the limits, contact MyParcel to discuss options such as webhooks.

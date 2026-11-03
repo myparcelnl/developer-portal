@@ -1,50 +1,44 @@
 ---
 title: Authentication
-description: "MyParcel uses OAuth 2.0 client credentials. Server-side integrations exchange a client_id and client_secret for a short-lived bearer token."
+description: "Every request to the MyParcel API is authenticated with your shop's API key, base64-encoded, in the Authorization header."
 ---
 
-## Obtain a bearer token
-POST your credentials to `/oauth/token`. The response contains an `access_token` (1h TTL) and a `refresh_token`.
+## Get your API key
+Log in to [backoffice.myparcel.nl](https://backoffice.myparcel.nl) and open **Shop settings → Integration**. Copy the API key, or generate one if there is none yet.
 
-```
-curl -X POST https://api.myparcel.nl/oauth/token \
-  -H "Content-Type: application/json" \
-  -d @body.json
+Keep the key on your server. Anyone who has it can create shipments and read data on behalf of your shop, so never send it to a browser or commit it to a repository.
 
-// body.json
-{
-  "grant_type": "client_credentials",
-  "client_id": "mp_client_AB12CD34",
-  "client_secret": "•••",
-  "scope": "shipments.read shipments.write"
-}
-```
-
-## Use the token
-Send the bearer token in the `Authorization` header on every request to `api.myparcel.nl`.
+## Send it with every request
+Base64-encode the key and send it in the `Authorization` header with the `bearer` scheme:
 
 ```
 GET https://api.myparcel.nl/shipments
-Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9…
+Accept: application/json;charset=utf-8
+Authorization: bearer <base64-encoded API key>
 ```
 
-## Scopes
-Scopes limit what a token can do. Request only what you need — narrower tokens reduce blast radius if they leak.
-
-- `shipments.read` — list and fetch shipments.
-- `shipments.write` — create, update, cancel shipments.
-- `orders.read` / `orders.write` — manage orders.
-- `webhooks.write` — subscribe and manage webhook endpoints.
-
-## Refreshing tokens
-Before the `access_token` expires, exchange the `refresh_token` for a new pair without re-presenting credentials.
+In a shell, use `printf` rather than `echo`, so no newline ends up inside the encoded key:
 
 ```
-POST https://api.myparcel.nl/oauth/token/refresh
-{ "refresh_token": "rft_51d5fd…" }
+curl https://api.myparcel.nl/shipments \
+  -H "Accept: application/json;charset=utf-8" \
+  -H "Authorization: bearer $(printf '%s' "$MYPARCEL_API_KEY" | base64)"
 ```
 
-## Revoking tokens
-Revoke a leaked or unused token immediately. Revoked tokens are rejected with `401` on subsequent requests.
+In PHP:
 
-Issue `DELETE /oauth/token` with the token as the `Authorization` header.
+```php
+$headers = [
+    'Authorization' => 'bearer ' . base64_encode($apiKey),
+];
+```
+
+The [PHP SDK v10](php-sdk.md) sends the same encoded key with the `basic` scheme instead. The examples in this documentation use `bearer`, as the current MyParcel plugins do.
+
+## When a request is refused
+A `401 Unauthorized` response means the key is missing, not base64-encoded, or no longer valid. Check that you encode the key itself, without spaces or a trailing newline. If the key was replaced in the Backoffice, copy the new one.
+
+## Using an SDK
+The [PHP SDK v12](php-sdk-v12.md) takes the API key as a constructor argument, or reads it from the `API_KEY` environment variable, and builds the header for you.
+
+Publishing an integration that other merchants install? Use [MyParcel Connect](php-sdk-v12.md#myparcel-connect) instead, so the merchant authorises their shop and you never handle their API key.

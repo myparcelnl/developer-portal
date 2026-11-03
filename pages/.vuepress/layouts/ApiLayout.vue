@@ -85,7 +85,7 @@ const meta = computed(() => ({
     <component :is="Sidebar" v-if="Sidebar" />
     <MpApiOverviewSidebar v-else />
 
-    <main class="mp-ref-content">
+    <main id="mp-main" tabindex="-1" class="mp-ref-content">
       <nav class="mp-breadcrumb" aria-label="Breadcrumb">
         <a href="/" class="mp-breadcrumb__link">Home</a>
         <span class="mp-breadcrumb__sep">/</span>
@@ -124,7 +124,7 @@ const meta = computed(() => ({
     </main>
 
     <aside class="mp-code-rail" id="mp-code-rail">
-      <!-- Drag-handle injected here by useApiRail (sibling of the content) -->
+      <!-- Drag-handle injected here by useRailResize (sibling of the content) -->
       <div class="mp-code-rail__content" id="mp-code-rail-content">
         <div class="mp-code-rail__empty">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

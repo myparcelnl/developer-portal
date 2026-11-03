@@ -16,7 +16,7 @@ import { attachCopyButtons } from './composables/useCodeCopy';
 import { attachEndpointAnchors } from './composables/useApiAnchors';
 import { attachDocsAnchors } from './composables/useDocsAnchors';
 import { refreshApiKeyboard } from './composables/useApiKeyboard';
-import { initApiRail } from './composables/useApiRail';
+import { initApiRail, initDocsTocRail } from './composables/useRailResize';
 import { installAutoRefresh } from './composables/useSpecCache';
 
 function refreshClientBehaviors() {
@@ -30,6 +30,7 @@ function refreshClientBehaviors() {
   attachEndpointAnchors();
   attachDocsAnchors();
   initApiRail();
+  initDocsTocRail();
   refreshApiKeyboard();
   applyTranslationsTo();
 }

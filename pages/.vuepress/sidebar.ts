@@ -37,6 +37,7 @@ export const docsSidebar: SidebarGroup[] = [
     items: [
       { text: 'PHP SDK v10', link: '/guides/php-sdk.html' },
       { text: 'PHP SDK v11', link: '/guides/php-sdk-v11.html' },
+      { text: 'PHP SDK v12', link: '/guides/php-sdk-v12.html' },
       { text: 'JavaScript SDK', link: '/guides/javascript-sdk.html' },
     ],
   },
@@ -54,8 +55,10 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'OpenCart 3', link: '/platforms/opencart3.html' },
       { text: 'Odoo', link: '/platforms/odoo.html' },
       { text: 'CCV Shop', link: '/platforms/ccvshop.html' },
+      { text: 'Ecwid', link: '/platforms/ecwid.html' },
       { text: 'bol', link: '/platforms/bol.html' },
       { text: 'Chrome extension', link: '/platforms/chrome-extension.html' },
+      { text: 'Etsy', link: '/platforms/etsy.html' },
     ],
   },
     {
@@ -74,6 +77,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Address API', link: '/api/address.html' },
       { text: 'Printing API', link: '/api/printing.html' },
       { text: 'Product API', link: '/api/product.html' },
+      { text: 'Purchase Order API', link: '/api/purchase-order.html' },
       { text: 'Data types', link: '/guides/data-types.html' },
     ],
   },
@@ -113,8 +117,10 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/opencart3.html',
   '/platforms/odoo.html',
   '/platforms/ccvshop.html',
+  '/platforms/ecwid.html',
   '/platforms/bol.html',
   '/platforms/chrome-extension.html',
+  '/platforms/etsy.html',
 ];
 
 const LOCALIZED_PATHS_BY_LANG: Record<Exclude<Lang, 'en'>, Set<string>> = {
