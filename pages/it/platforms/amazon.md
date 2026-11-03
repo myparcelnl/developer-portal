@@ -12,7 +12,7 @@ Quanto basta per collegare Amazon a MyParcel oggi. Per i dettagli, vedi [Cosa st
 
 1. **Account.** Non hai ancora un account MyParcel? Creane uno su [myparcel.nl/register](https://www.myparcel.nl/register). Attiva l'**autenticazione a due fattori** nel tuo account MyParcel prima di iniziare ([§2](#2-prima-di-iniziare)).
 2. **Trova l'app.** Accedi ad Amazon Seller Central e apri il [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore). Cerca **MyParcel**.
-3. **Autorizza l'app.** Clicca su **Manage Your Apps** (Gestisci le tue app) e autorizza MyParcel. Spunta la casella per dare l'accesso a MyParcel e clicca su **Sign up / Login to MyParcel** (Registrati / accedi a MyParcel).
+3. **Autorizza l'app.** Avvia l'autorizzazione di MyParcel in Seller Central. Spunta la casella per dare l'accesso a MyParcel e clicca su **Sign up / Login to MyParcel** (Registrati / accedi a MyParcel).
 4. **Accedi a MyParcel.** Amazon ti porta a MyParcel. Accedi con il tuo account MyParcel.
 5. **Scegli il negozio.** Seleziona il negozio MyParcel che riceve i tuoi ordini Amazon, spunta la conferma e clicca su **Approve and connect** (Approva e collega).
 6. **Conferma su Amazon.** Amazon ti chiede ancora una volta di confermare l'accesso. Confermalo.
@@ -75,7 +75,7 @@ Segui questi passaggi in una sola volta. Dal lato di MyParcel hai 5 minuti per o
 
 ![L'app MyParcel nel Selling Partner Appstore, con il pulsante Manage Your Apps in alto a destra.](../../platforms/images/amazon/01-appstore-listing.png)
 
-3. Clicca su **Manage Your Apps** (Gestisci le tue app) e autorizza MyParcel. Hai già collegato in passato? Clicca allora su **Re-Authorise** (Autorizza di nuovo) accanto a MyParcel.
+3. Avvia l'autorizzazione di MyParcel. Hai già collegato in passato? Vai allora su **Manage Your Apps** (Gestisci le tue app) e clicca su **Re-Authorise** (Autorizza di nuovo) accanto a MyParcel.
 
 ![Manage Your Apps in Seller Central, con MyParcel, il suo stato e i pulsanti Re-Authorise e Disable Authorisation.](../../platforms/images/amazon/02-manage-your-apps.png)
 

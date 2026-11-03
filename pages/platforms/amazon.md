@@ -12,7 +12,7 @@ Enough to link Amazon to MyParcel today. For the details, see [Looking for…](#
 
 1. **Account.** Don't have a MyParcel account yet? Create one at [myparcel.nl/register](https://www.myparcel.nl/register). Turn on **two-factor authentication** in your MyParcel account before you start ([§2](#2-before-you-start)).
 2. **Find the app.** Log in to Amazon Seller Central and open the [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore). Search for **MyParcel**.
-3. **Authorise the app.** Click **Manage Your Apps** and authorise MyParcel. Tick the box to give MyParcel access and click **Sign up / Login to MyParcel**.
+3. **Authorise the app.** Start the authorisation of MyParcel in Seller Central. Tick the box to give MyParcel access and click **Sign up / Login to MyParcel**.
 4. **Log in to MyParcel.** Amazon sends you to MyParcel. Log in with your MyParcel account.
 5. **Choose your shop.** Select the MyParcel shop that receives your Amazon orders, tick the confirmation and click **Approve and connect**.
 6. **Confirm at Amazon.** Amazon asks you once more to confirm the access. Confirm it.
@@ -75,7 +75,7 @@ Follow these steps in one go. On the MyParcel side you have 5 minutes for each s
 
 ![The MyParcel app in the Selling Partner Appstore, with the Manage Your Apps button at the top right.](./images/amazon/01-appstore-listing.png)
 
-3. Click **Manage Your Apps** and authorise MyParcel. Have you connected before? Then click **Re-Authorise** next to MyParcel.
+3. Start the authorisation of MyParcel. Have you connected before? Then go to **Manage Your Apps** and click **Re-Authorise** next to MyParcel.
 
 ![Manage Your Apps in Seller Central, with MyParcel, its status and the Re-Authorise and Disable Authorisation buttons.](./images/amazon/02-manage-your-apps.png)
 

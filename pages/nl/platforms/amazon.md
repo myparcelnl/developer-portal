@@ -12,7 +12,7 @@ Genoeg om Amazon vandaag aan MyParcel te koppelen. Voor de details, zie [Wat zoe
 
 1. **Account.** Heb je nog geen MyParcel-account? Maak er een aan via [myparcel.nl/register](https://www.myparcel.nl/register). Zet **tweestapsverificatie** aan in je MyParcel-account voordat je begint ([§2](#2-voordat-je-begint)).
 2. **App zoeken.** Log in op Amazon Seller Central en open de [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore). Zoek op **MyParcel**.
-3. **App autoriseren.** Klik op **Manage Your Apps** (Je apps beheren) en autoriseer MyParcel. Vink het vakje aan om MyParcel toegang te geven en klik op **Sign up / Login to MyParcel** (Aanmelden / inloggen bij MyParcel).
+3. **App autoriseren.** Start in Seller Central de autorisatie van MyParcel. Vink het vakje aan om MyParcel toegang te geven en klik op **Sign up / Login to MyParcel** (Aanmelden / inloggen bij MyParcel).
 4. **Inloggen bij MyParcel.** Amazon stuurt je door naar MyParcel. Log in met je MyParcel-account.
 5. **Shop kiezen.** Selecteer de MyParcel-shop die je Amazon-orders ontvangt, vink de bevestiging aan en klik op **Approve and connect** (Goedkeuren en koppelen).
 6. **Bevestigen bij Amazon.** Amazon vraagt je nog één keer om de toegang te bevestigen. Bevestig die.
@@ -75,7 +75,7 @@ Doorloop deze stappen in één keer. Aan de kant van MyParcel heb je voor elke s
 
 ![De MyParcel-app in de Selling Partner Appstore, met rechtsboven de knop Manage Your Apps.](../../platforms/images/amazon/01-appstore-listing.png)
 
-3. Klik op **Manage Your Apps** (Je apps beheren) en autoriseer MyParcel. Heb je al eens gekoppeld? Klik dan op **Re-Authorise** (Opnieuw autoriseren) naast MyParcel.
+3. Start de autorisatie van MyParcel. Heb je al eens gekoppeld? Ga dan naar **Manage Your Apps** (Je apps beheren) en klik op **Re-Authorise** (Opnieuw autoriseren) naast MyParcel.
 
 ![Manage Your Apps in Seller Central, met MyParcel, de status en de knoppen Re-Authorise en Disable Authorisation.](../../platforms/images/amazon/02-manage-your-apps.png)
 
