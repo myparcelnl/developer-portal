@@ -153,7 +153,7 @@ const VACANCIES = 'https://www.myparcel.nl/vacature/development/';
       <div class="mp-about__panel mp-about__panel--cert">
         <div>
           <h2 class="mp-about__h2" data-i18n="Information security">Information security</h2>
-          <p class="mp-about__text" data-i18n="The information security management system of MyParcel is certified to ISO/IEC 27001 by DNV, an independent certification body.">The information security management system of MyParcel is certified to ISO/IEC 27001 by DNV, an independent certification body.</p>
+          <p class="mp-about__text" data-i18n="The information security management system of MyParcel is certified to ISO/IEC 27001 by DNV (an accredited, independent certification body).">The information security management system of MyParcel is certified to ISO/IEC 27001 by DNV (an accredited, independent certification body).</p>
         </div>
         <div class="mp-about__cert">
           <img
