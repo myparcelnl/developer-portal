@@ -7,8 +7,10 @@ description: "Collega il tuo negozio OpenCart 3 a MyParcel con l'estensione MyPa
 L'estensione **MyParcel NL** collega il tuo negozio OpenCart 3 a MyParcel. Esporti gli ordini e stampi le etichette PostNL direttamente dall'elenco ordini di OpenCart, i tuoi clienti possono scegliere al checkout un momento di consegna o un punto di ritiro PostNL e il codice Track & Trace può essere aggiunto all'email dell'ordine. L'estensione ha tre parti: un **Modulo** con tutte le impostazioni, un **Metodo di spedizione** per il checkout e un **Order Total** che aggiunge all'ordine il supplemento delle opzioni di consegna.
 :::
 
-::: warning Estensione legacy
-Questa guida descrive la versione **1.1.17**, sviluppata per OpenCart 3.0.x e testata su OpenCart 3.0.2.0 con PHP fino alla 8.2. L'estensione supporta **solo PostNL**. Il nuovo sviluppo di MyParcel riguarda l'[estensione per OpenCart 4](./opencart.md): se stai aprendo un nuovo negozio, parti da OpenCart 4.
+::: warning Solo manutenzione
+Questa guida descrive la versione **1** dell'estensione, sviluppata per OpenCart 3.0.x e testata su OpenCart 3.0.2.0 con PHP fino alla 8.2. L'estensione supporta **solo PostNL**.
+
+MyParcel non aggiunge nuove funzioni a questa estensione. MyParcel la corregge solo quando una modifica all'API di MyParcel ne impedisce il funzionamento. Per un nuovo negozio, usa l'[estensione per OpenCart 4](./opencart.md).
 :::
 
 ## Avvio rapido, la tua prima etichetta in 20 minuti
@@ -54,7 +56,7 @@ Dall'elenco ordini invii un ordine a MyParcel (*esportazione*) e l'estensione sc
 
 ## 2 · Installazione
 1. **Fai un backup** del negozio, oppure prova prima l'estensione su una copia.
-2. Scarica `myparcel_opencart_3.0.2.0_v1.1.17.ocmod.zip` dalle [release di MyParcel per OpenCart 3](https://github.com/myparcelnl/opencart3/releases/latest).
+2. Scarica il file `.ocmod.zip` dall'[ultima release di MyParcel per OpenCart 3](https://github.com/myparcelnl/opencart3/releases/latest).
 3. Vai su **Extensions → Installer**, fai clic su **Upload** e scegli il file zip.
 4. Vai su **Extensions → Modifications** e fai clic su **Refresh** (il pulsante blu in alto a destra). Senza questo passaggio l'estensione non funziona.
 5. Vai su **Extensions → Extensions** e installa le tre parti con il pulsante verde **+**:
@@ -252,7 +254,7 @@ Scorri questa tabella dall'alto verso il basso, la maggior parte dei problemi si
 ## 10 · FAQ
 
 ### Conviene ancora usare questa estensione?
-Funziona per i negozi che restano su OpenCart 3. Il nuovo sviluppo di MyParcel riguarda l'[estensione per OpenCart 4](./opencart.md), che supporta anche più corrieri.
+Funziona per i negozi che restano su OpenCart 3. MyParcel non aggiunge nuove funzioni e la corregge solo quando una modifica all'API di MyParcel ne impedisce il funzionamento. Il nuovo sviluppo riguarda l'[estensione per OpenCart 4](./opencart.md), che supporta anche più corrieri.
 
 ### Quali corrieri posso usare?
 Solo PostNL.
@@ -273,5 +275,3 @@ MyParcel fattura una spedizione solo quando viene effettivamente consegnata a Po
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), account, chiave API, corrieri e fatturazione.
 - [Release di MyParcel per OpenCart 3 ↗](https://github.com/myparcelnl/opencart3/releases), per scaricare l'estensione.
 - [Contatta il supporto MyParcel](../../contact.md), **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
-
-Questa guida descrive l'estensione MyParcel NL 1.1.17 per OpenCart 3 così come funziona a ottobre 2026.

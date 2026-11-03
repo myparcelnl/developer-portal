@@ -7,8 +7,10 @@ description: "Connect your OpenCart 3 shop to MyParcel with the MyParcel NL exte
 The **MyParcel NL** extension connects your OpenCart 3 shop to MyParcel. You export orders and print PostNL labels straight from the OpenCart order list, your customers can pick a delivery moment or a PostNL pickup point at checkout, and the Track & Trace code can be added to the order email. The extension has three parts: a **Module** with all the settings, a **Shipping method** for the checkout, and an **Order Total** that adds delivery option surcharges to the order.
 :::
 
-::: warning Legacy extension
-This manual describes version **1.1.17**, built for OpenCart 3.0.x and tested on OpenCart 3.0.2.0 with PHP up to 8.2. The extension supports **PostNL only**. MyParcel's new development goes into the [OpenCart 4 extension](./opencart.md), so if you are setting up a new shop, start on OpenCart 4.
+::: warning Maintenance only
+This manual describes version **1** of the extension, built for OpenCart 3.0.x and tested on OpenCart 3.0.2.0 with PHP up to 8.2. The extension supports **PostNL only**.
+
+MyParcel adds no new features to this extension. MyParcel only fixes it when a change to the MyParcel API stops it from working. For a new shop, use the [OpenCart 4 extension](./opencart.md).
 :::
 
 ## Quickstart, your first label in 20 minutes
@@ -54,7 +56,7 @@ From the order list you send an order to MyParcel (*export*), and the extension 
 
 ## 2 · Installing
 1. **Make a backup** of your shop, or try the extension on a copy first.
-2. Download `myparcel_opencart_3.0.2.0_v1.1.17.ocmod.zip` from the [MyParcel OpenCart 3 releases](https://github.com/myparcelnl/opencart3/releases/latest).
+2. Download the `.ocmod.zip` file from the [latest MyParcel OpenCart 3 release](https://github.com/myparcelnl/opencart3/releases/latest).
 3. Go to **Extensions → Installer**, click **Upload** and choose the zip file.
 4. Go to **Extensions → Modifications** and click **Refresh** (the blue button at the top right). Without this step the extension does not work.
 5. Go to **Extensions → Extensions** and install the three parts with the green **+** button:
@@ -252,7 +254,7 @@ Run through this table top to bottom, most issues are fixed within a few minutes
 ## 10 · FAQ
 
 ### Should I still use this extension?
-It works for shops that stay on OpenCart 3. MyParcel's new development goes into the [OpenCart 4 extension](./opencart.md), which also supports more carriers.
+It works for shops that stay on OpenCart 3. MyParcel adds no new features and only fixes it when a change to the MyParcel API stops it from working. New development goes into the [OpenCart 4 extension](./opencart.md), which also supports more carriers.
 
 ### Which carriers can I use?
 PostNL only.
@@ -273,5 +275,3 @@ MyParcel bills a shipment once it is actually handed over to PostNL.
 - [backoffice.myparcel.nl ↗](https://backoffice.myparcel.nl), account, API key, carriers and billing.
 - [MyParcel OpenCart 3 releases ↗](https://github.com/myparcelnl/opencart3/releases), download the extension.
 - [Contact MyParcel support](../contact.md), **023 - 30 30 315** · [info@myparcel.nl](mailto:info@myparcel.nl).
-
-This manual describes the MyParcel NL extension 1.1.17 for OpenCart 3 as it works in October 2026.
