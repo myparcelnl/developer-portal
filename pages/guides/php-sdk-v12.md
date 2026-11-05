@@ -48,39 +48,66 @@ If you pass no API key to a factory, the SDK reads the `API_KEY` environment var
 
 ## Create a shipment
 
-Build a `Shipment`, put it in a `ShipmentCollection` and pass the collection to `ShipmentCreateService`:
+A shipment is the generated model `ShipmentPostShipmentsRequestV11DataShipmentsItem`. Build it with the generated models and their public properties, which PHP type-checks, and pass an array of shipments to `ShipmentCreateService`:
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefCapabilitiesSharedCarrierV2;
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefShipmentPackageTypeV2;
-use MyParcelNL\Sdk\Collection\ShipmentCollection;
-use MyParcelNL\Sdk\Model\Shipment\Shipment;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefShipmentPackageType;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefTypesCarrier;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\ShipmentPostShipmentsRequestV11DataShipmentsItem as Shipment;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\ShipmentPostShipmentsRequestV11DataShipmentsItemOptions as ShipmentOptions;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\ShipmentPostShipmentsRequestV11DataShipmentsItemRecipient as Recipient;
 use MyParcelNL\Sdk\Services\Shipment\ShipmentCreateService;
 
-$shipment = (new Shipment())
-    ->setRecipient([
-        'cc'          => 'NL',
-        'street'      => 'Antareslaan',
-        'number'      => 31,
-        'person'      => 'John Doe',
-        'city'        => 'Hoofddorp',
-        'postal_code' => '2132 JE',
-    ])
-    ->setCarrier(RefCapabilitiesSharedCarrierV2::POSTNL)
-    ->withPackageType(RefShipmentPackageTypeV2::PACKAGE);
+$recipient             = new Recipient();
+$recipient->cc         = 'NL';
+$recipient->street     = 'Antareslaan';
+$recipient->number     = '31';
+$recipient->person     = 'John Doe';
+$recipient->city       = 'Hoofddorp';
+$recipient->postalCode = '2132 JE';
 
-$collection = (new ShipmentCollection())->push($shipment);
+$options              = new ShipmentOptions();
+$options->packageType = RefShipmentPackageType::Package;
+
+$shipment            = new Shipment();
+$shipment->carrier   = RefTypesCarrier::Postnl;
+$shipment->recipient = $recipient;
+$shipment->options   = $options;
 
 $service = new ShipmentCreateService('your-api-key');
-$mapping = $service->create($collection);
+$mapping = $service->create([$shipment]);
 // [shipmentId => referenceIdentifier, ...]
 ```
 
-Use the enum classes of the generated client for carriers, package types and other fixed values, as in this example, rather than plain strings or numbers. `setCarrier()` converts the carrier name to the carrier ID the shipment API expects.
+A property has the camelCase name of the API field, such as `postalCode` for `postal_code`. Use the enum cases of the generated client for carriers, package types and other fixed values, as in this example, rather than plain numbers. The enums are PHP enums: write `RefTypesCarrier::Postnl`, not the v11 constant `::POSTNL`. The ID enums, such as `RefTypesCarrier` and `RefShipmentPackageType`, hold the IDs the shipment API expects. [Value mapping](#value-mapping) converts a v2 name such as `POSTNL` to an ID.
 
-`create()` returns the ID of each new shipment with its reference identifier. Keep the ID: every other shipment service works with it.
+You can also fill a model from an array with the API field names. `CoreApiModels::toModel()` reads a nested object, such as the recipient, from a nested array:
+
+```php
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\ShipmentPostShipmentsRequestV11DataShipmentsItem as Shipment;
+use MyParcelNL\Sdk\Client\Jane\CoreApiModels;
+
+$shipment = CoreApiModels::toModel([
+    'carrier'   => 1,
+    'options'   => ['package_type' => 1],
+    'recipient' => [
+        'cc'          => 'NL',
+        'street'      => 'Antareslaan',
+        'number'      => '31',
+        'person'      => 'John Doe',
+        'city'        => 'Hoofddorp',
+        'postal_code' => '2132 JE',
+    ],
+], Shipment::class);
+```
+
+The generated client checks each shipment against the API specification before the request goes out. A shipment that does not match, for example without a recipient, throws a `ValidationException` that lists each problem, and nothing is sent. The API still checks the shipment too.
+
+`create()` returns the ID of each new shipment with its reference identifier. Keep the ID: every other shipment service works with it. A shipment without a reference identifier gets one that starts with `sdk_`.
 
 `create()` also takes a label format (`'A4'` or `'A6'`) and, for A4, the label positions as its second and third arguments.
+
+`CoreApiModels::toArray($shipment)` gives the array with the API field names back, for example to log a shipment, and `CoreApiModels::copy($shipment)` copies a shipment with its nested models.
 
 ## Find and delete shipments
 
@@ -97,12 +124,12 @@ $shipments = $query->findByReferenceId('order-42');
 (new ShipmentDeleteService('your-api-key'))->deleteMany([12345, 12346]);
 ```
 
-A shipment you find carries its barcode (`getBarcode()`) and the link to the consumer portal (`getLinkConsumerPortal()`).
+A shipment you find is the generated `ShipmentDefsShipment`. Read its public properties: `$shipment->barcode`, `$shipment->linkConsumerPortal` and a nested object such as `$shipment->recipient->cc`. A property that the API did not send is not set: read it with `??`, such as `$shipment->recipient->street ?? null`. An enum field, such as `$shipment->carrierId`, holds the enum case, such as `RefTypesCarrier::Postnl`, or the raw value for a value the SDK does not know yet.
 
 ## Labels
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefShipmentLabelPrintingPosition;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefShipmentLabelPrintingPosition;
 use MyParcelNL\Sdk\Services\Labels\ShipmentLabelsService;
 
 $labels = new ShipmentLabelsService('your-api-key');
@@ -112,31 +139,33 @@ $labels->setPdfOfLabels([12345, 12346]);
 $pdf = $labels->getLabelPdf();
 
 // A link to the PDF
-$labels->setLinkOfLabels([12345], RefShipmentLabelPrintingPosition::TOP_LEFT_QUADRANT);
+$labels->setLinkOfLabels([12345], RefShipmentLabelPrintingPosition::TopLeftQuadrant->value);
 $url = $labels->getLinkOfLabels();
 
 // Send the PDF to the browser as a download
 $labels->downloadPdfOfLabels();
 ```
 
+An error response, such as a 404 for an unknown shipment, throws the generated exception, such as `GetShipmentsLabelsNotFoundException`.
+
 `downloadPdfOfLabels()` sends the PDF with its own headers and then ends the script with `exit`, so call it last. Pass `true` to open the PDF in the browser instead of downloading it.
 
-The second argument of `setPdfOfLabels()` and `setLinkOfLabels()` sets both the paper format and where the labels go on the page. Use the constants of `RefShipmentLabelPrintingPosition` for the positions: `TOP_LEFT_QUADRANT` (1), `TOP_RIGHT_QUADRANT` (2), `BOTTOM_LEFT_QUADRANT` (3) and `BOTTOM_RIGHT_QUADRANT` (4). The default is the top left quadrant.
+The second argument of `setPdfOfLabels()` and `setLinkOfLabels()` sets both the paper format and where the labels go on the page. Use the value of a `RefShipmentLabelPrintingPosition` case for the positions: `TopLeftQuadrant` (1), `TopRightQuadrant` (2), `BottomLeftQuadrant` (3) and `BottomRightQuadrant` (4). Pass the value, such as `RefShipmentLabelPrintingPosition::TopLeftQuadrant->value`, not the case itself: the service reads a number or an array of numbers. The default is the top left quadrant.
 
 | Value | Result |
 | --- | --- |
-| One position | A4, filling the page from that position onwards. `TOP_RIGHT_QUADRANT` prints on positions 2, 3 and 4. |
+| One position | A4, filling the page from that position onwards. `TopRightQuadrant` prints on positions 2, 3 and 4. |
 | An array of positions | A4, on exactly those positions |
 | Anything else, such as `false` | A6 |
 
 ## Printer groups
 
-`ShipmentPrintService` creates the shipments in a collection and sends their labels straight to a printer group, without a PDF in between. It does not print shipments that already exist.
+`ShipmentPrintService` creates the shipments you pass and sends their labels straight to a printer group, without a PDF in between. It does not print shipments that already exist.
 
 ```php
 use MyParcelNL\Sdk\Services\Shipment\ShipmentPrintService;
 
-$mapping = (new ShipmentPrintService('your-api-key'))->print($collection, 'your-printer-group-id');
+$mapping = (new ShipmentPrintService('your-api-key'))->print([$shipment], 'your-printer-group-id');
 // [shipmentId => referenceIdentifier, ...]
 ```
 
@@ -157,14 +186,14 @@ use MyParcelNL\Sdk\Services\TrackTrace\ShipmentTrackTraceService;
 $traces = (new ShipmentTrackTraceService('your-api-key'))->fetchTrackTraceData([12345]);
 ```
 
-Each trace holds the status, the barcode and the history of the shipment. `getLinkTracktrace()` on a trace returns the carrier's own tracking URL.
+Each trace is the generated `ShipmentDefsTrackTrace`, keyed by shipment ID, with the status, the barcode and the history of the shipment as public properties. `$trace->linkTracktrace` is the carrier's own tracking URL.
 
 ## Returns
 
 A related return is linked to a shipment you already sent. An unrelated return stands on its own:
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefTypesCarrier;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefTypesCarrier;
 use MyParcelNL\Sdk\Services\Returns\ReturnShipmentService;
 
 $returns = new ReturnShipmentService('your-api-key');
@@ -172,29 +201,30 @@ $returns = new ReturnShipmentService('your-api-key');
 $related = $returns->createRelated([
     [
         'parent'  => 12345,
-        'carrier' => RefTypesCarrier::POSTNL,
+        'carrier' => RefTypesCarrier::Postnl->value,
         'name'    => 'John Doe',
         'email'   => 'john@example.com',
     ],
 ]);
 
 $unrelated = $returns->createUnrelated([
-    ['carrier' => RefTypesCarrier::POSTNL, 'recipient' => [/* address */]],
+    ['carrier' => RefTypesCarrier::Postnl->value, 'recipient' => [/* address */]],
 ]);
 ```
 
-The rows go to the API as they are, so the carrier is a numeric carrier ID here. `RefTypesCarrier` holds those IDs. A related return needs the parent shipment, the carrier, and the name and email address of the consumer. An unrelated return needs at least the carrier.
+Each return shipment is an array with the API field names, so the carrier is a numeric carrier ID here: the value of a `RefTypesCarrier` case. The generated client checks a return shipment before it sends it. A related return needs `parent`, `carrier`, `email` and `name`, and an unrelated return needs at least the carrier; otherwise the call throws a `ValidationException` and no request goes out. Leave a field out instead of setting it to `null`, and leave out keys the API does not know, because they go into the request.
 
 `createRelated()` takes a second argument, `$sendMail`. Set it to `true` and MyParcel emails the return label to the consumer of the original shipment. It defaults to `false`. Leave it off while you test, or a real customer receives the mail.
 
 ## Multi-collo
 
-Split one shipment into several colli that travel together:
+Split one shipment into several colli that travel together. `splitShipment()` takes the generated shipment model and returns a copy with the secondary shipments, which you pass to `create()`:
 
 ```php
 use MyParcelNL\Sdk\Services\MultiCollo\MultiColloShipmentService;
 
 $multiCollo = (new MultiColloShipmentService())->splitShipment($shipment, 3);
+$mapping    = $service->create([$multiCollo]);
 ```
 
 ## Webhooks
@@ -212,6 +242,8 @@ $id = $webhooks->subscribe(
 $all = $webhooks->getAll();
 $webhooks->unsubscribe($id);
 ```
+
+`getAll()` returns Jane models: read `$subscription->hook`, `$subscription->url` and `$subscription->id`.
 
 | Constant | Fires when |
 | --- | --- |
@@ -231,6 +263,8 @@ $isValid   = $service->isValid();
 $principal = $service->getPrincipal();
 ```
 
+`getPrincipal()` returns a `PrincipalShop` or a `PrincipalUser`: Jane models with public properties, such as `$principal->shopIds`. The class tells a shop key from a user key.
+
 Use this in a settings screen, so a merchant learns that a key is wrong before the first shipment fails.
 
 ## Carrier capabilities
@@ -238,17 +272,16 @@ Use this in a settings screen, so a merchant learns that a key is wrong before t
 `CapabilitiesService` tells you what a carrier offers for a given destination, package and set of options. Describe what you want to send in a `CapabilitiesRequest` and pass it to `get()`. You do not need to build a shipment first:
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\PhysicalPropertiesWeightV2;
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefCapabilitiesSharedCarrierV2;
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\RefShipmentPackageTypeV2;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefCapabilitiesSharedCarrierV2;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefShipmentPackageTypeV2;
 use MyParcelNL\Sdk\Model\Capabilities\CapabilitiesRequest;
 use MyParcelNL\Sdk\Services\Capabilities\CapabilitiesService;
 
 $request = CapabilitiesRequest::forCountry('NL')
-    ->withCarrier(RefCapabilitiesSharedCarrierV2::POSTNL)
-    ->withPackageType(RefShipmentPackageTypeV2::PACKAGE)
+    ->withCarrier(RefCapabilitiesSharedCarrierV2::Postnl)
+    ->withPackageType(RefShipmentPackageTypeV2::Package)
     ->withPhysicalProperties([
-        'weight' => ['value' => 2000, 'unit' => PhysicalPropertiesWeightV2::UNIT_G],
+        'weight' => ['value' => 2000, 'unit' => 'g'],
     ]);
 
 $capabilities = (new CapabilitiesService())->get($request);
@@ -260,7 +293,7 @@ $capabilities->getShipmentOptions();
 
 The request also takes a delivery type, a direction, a sender, shipment options and a pickup location. The response merges every result the API returns, so set a carrier when you want the answer for one carrier. Without one, `getCarrier()` returns `null` as soon as the results span more than one carrier.
 
-If you already have a `Shipment`, `fromShipment($shipment)` builds the request from it.
+If you already have a shipment model, `fromShipment($shipment)` builds the request from its recipient and physical properties.
 
 ::: warning Known issue
 `CapabilitiesService` has no API key argument and reads the key from the `API_KEY` environment variable. Without that variable it throws an `InvalidArgumentException`. Until this changes, set `API_KEY`, or pass your own implementation of `CapabilitiesClientInterface` to the constructor.
@@ -284,16 +317,16 @@ This checks option names only. It does not check option values, and it does not 
 `CarrierContractDefinitionsService` returns, for each carrier, everything an account can use across all its contracts: the package types, delivery types, shipment options, transaction types and the maximum number of colli. It is the superset of the capabilities of the account, not a list of the contracts themselves. Use it to build carrier settings or to find out which carriers an account can use. Use `CapabilitiesService` when the answer depends on a destination, a package or a set of options.
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\CoreApi\Model\CapabilitiesPostContractDefinitionsRequestV2;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostContractDefinitionsRequestV2Carrier;
 use MyParcelNL\Sdk\Services\Capabilities\CarrierContractDefinitionsService;
 
 $service = new CarrierContractDefinitionsService('your-api-key');
 
 $all    = $service->getContractDefinitions();
-$inPost = $service->getContractDefinitions(CapabilitiesPostContractDefinitionsRequestV2::CARRIER_INPOST);
+$inPost = $service->getContractDefinitions(CapabilitiesPostContractDefinitionsRequestV2Carrier::Inpost);
 ```
 
-The service returns the generated API models as they are. Read them directly.
+The service returns the Jane models as they are. Read their public properties, such as `$definition->carrier` and `$definition->packageTypes`. A carrier, package type, delivery type or transaction type is an enum case, such as `RefCapabilitiesSharedCarrierV2::Postnl`, or the raw string for a value that the SDK does not know yet.
 
 ## Value mapping
 
@@ -317,7 +350,7 @@ Shipment option names have their own mapper. `ShipmentOptionMapper::v2PropertyFr
 
 ### Send extra headers
 
-`ShipmentApiFactory::make()` builds the generated shipment client. Its fourth argument holds headers to send on every request, such as `x-dmp-*` API feature flags. Pass the client to a service as its second constructor argument:
+`ShipmentApiFactory::make()` builds the Jane Core API client. Its fourth argument holds headers to send on every request, such as `x-dmp-*` API feature flags, and its fifth argument takes your own Symfony `HttpClientInterface`. Pass the client to a service as its second constructor argument:
 
 ```php
 use MyParcelNL\Sdk\Services\CoreApi\ShipmentApiFactory;
@@ -330,21 +363,20 @@ $service = new ShipmentCreateService('your-api-key', $api);
 
 The second and third arguments of `make()` override the API host and the user agent.
 
-This works for the services that send their requests through the generated client: creating, finding and deleting shipments, and track and trace. `CarrierContractDefinitionsService` takes the client as its third argument, after the host. The labels, print and returns services build the request with the generated client but send it with a separate HTTP client, so headers set through `make()` do not reach those requests.
+This works for every service that takes the client: creating, finding and deleting shipments, track and trace, labels, direct print, returns and webhooks. `CarrierContractDefinitionsService` takes the client as its third argument, after the host.
 
 ### Test your integration
 
-Most services take a generated API client as their second constructor argument. In your own tests, pass a mock of that client, so no test reaches the real API.
+Most services take the Jane client as their second constructor argument. In your own tests, build that client with a Symfony `MockHttpClient` as the fifth argument of `ShipmentApiFactory::make()`, so no test reaches the real API and the mock sees the request that goes out.
 
 | Service | Constructor arguments after the API key |
 | --- | --- |
-| `ShipmentCreateService`, `ShipmentQueryService`, `ShipmentDeleteService`, `ShipmentTrackTraceService` | `ShipmentApi`, host |
-| `ShipmentLabelsService`, `ShipmentPrintService`, `ReturnShipmentService` | `ShipmentApi`, PSR-18 HTTP client, host |
-| `CarrierContractDefinitionsService` | host, `ShipmentApi` |
-| `ApiKeyService` | the generated IAM `DefaultApi`, host |
-| `WebhookService` | `WebhookApi`, host |
+| `ShipmentCreateService`, `ShipmentQueryService`, `ShipmentDeleteService`, `ShipmentTrackTraceService`, `WebhookService` | Jane `Client`, host |
+| `ShipmentLabelsService`, `ShipmentPrintService`, `ReturnShipmentService` | Jane `Client`, Symfony `HttpClientInterface`, host |
+| `CarrierContractDefinitionsService` | host, Jane `Client` |
+| `ApiKeyService` | the Jane IAM `Client`, host |
 
-The labels, print and returns services send their requests with the PSR-18 client, so mock that one too. `CapabilitiesService` takes a `CapabilitiesClientInterface` as its only argument.
+`CapabilitiesService` takes a `CapabilitiesClientInterface` as its only argument, and `HttpCapabilitiesClient` takes the Jane `Client` as its second argument.
 
 ## Upgrading from v11
 
