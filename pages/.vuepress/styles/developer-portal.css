@@ -3886,6 +3886,9 @@ a.mp-logo-tile:focus-visible { outline: 2px solid var(--mp-fresh); outline-offse
 
 
 .mp-about__panel--cert { grid-template-columns: minmax(0, 1fr) auto; }
+/* The actions follow the text, so they do not float in an empty column. */
+.mp-about__panel--cta { grid-template-columns: minmax(0, 1fr); }
+.mp-about__panel--cta .mp-about__text { max-width: 62ch; }
 /* White behind the mark: DNV prefers the full-colour mark on white.
    80px keeps it above the 15 mm minimum without outgrowing the MyParcel
    logo (128 x 20px), which the guideline does not allow. */
