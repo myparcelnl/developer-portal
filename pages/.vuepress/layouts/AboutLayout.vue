@@ -58,7 +58,7 @@ const stack = [
 ];
 
 const SLACK_INVITE = 'https://join.slack.com/t/myparcel-dev/shared_invite/zt-2zvk9gfs1-h6koDUduK6ZM_kZcc247AQ/';
-const VACANCIES = 'https://www.myparcel.nl/vacature/development/';
+const VACANCIES = 'https://www.myparcel.com/nl-NL/vacatures';
 </script>
 
 <template>
