@@ -11,6 +11,10 @@ De MyParcel-extensie verbindt je OpenCart 4-shop met MyParcel. Klanten kiezen in
 De OpenCart 4-extensie is momenteel pre-release (versie `1.0.0-beta.10`) en de 1.0-lancering wordt voorbereid. Deze vereist **OpenCart 4.1.0.3 of nieuwer** en **PHP 8.2 of nieuwer**. Schermen en veldnamen kunnen tussen releases nog wijzigen.
 :::
 
+::: tip Nog op OpenCart 3?
+Deze handleiding is voor OpenCart 4. Voor OpenCart 3, zie de [OpenCart 3-handleiding](./opencart3.md).
+:::
+
 ## Snelstart, je eerste pakket in 15 minuten
 Genoeg om vandaag je eerste echte order te versturen. Dieper configureren doe je via [Wat zoek je?](#wat-zoek-je) hieronder.
 

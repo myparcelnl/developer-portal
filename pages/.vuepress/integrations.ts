@@ -359,7 +359,7 @@ export const integrationGroups: IntegrationGroup[] = [
         logo: 'opencart.svg',
         markets: NLBE,
         byMyParcel: true,
-        links: [extDocs('https://myparcelnl.github.io/opencart3')],
+        links: [docs('/platforms/opencart3.html')],
       },
       {
         name: 'VirtueMart 2',
