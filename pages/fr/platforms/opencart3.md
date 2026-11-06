@@ -17,7 +17,7 @@ MyParcel n'ajoute plus de nouvelles fonctions à cette extension. MyParcel la co
 De quoi expédier votre première commande dès aujourd'hui. Pour les détails, voir [Que cherchez-vous ?](#que-cherchez-vous) ci-dessous.
 
 1. **Compte.** Vous n'avez pas encore de compte MyParcel ? Créez-en un sur [myparcel.nl/register](https://www.myparcel.nl/register).
-2. **Copiez la clé API.** Connectez-vous à [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Paramètres de la boutique → Intégration* → copiez la clé API.
+2. **Copiez la clé API.** Connectez-vous à [backoffice.myparcel.nl](https://backoffice.myparcel.nl) → *Shop settings → Integration* → copiez la clé API.
 3. **Installez l'extension.** Téléchargez le fichier `.ocmod.zip` depuis la [dernière version](https://github.com/myparcelnl/opencart3/releases/latest), envoyez-le sous **Extensions → Installer** et cliquez sur **Refresh** sous **Extensions → Modifications**.
 4. **Activez les trois parties.** Sous **Extensions → Extensions**, installez **Myparcel NL** (type *Modules*), **MyParcel Shipping** (type *Shipping*) et **MyParcel Total** (type *Order Total*).
 5. **Collez la clé.** Ouvrez **System → MyParcel**, collez la clé dans **API** sur l'onglet **General** et enregistrez.
@@ -93,7 +93,7 @@ Ouvrez **System → MyParcel**. La page des réglages comporte trois onglets : *
 
 | Réglage | Ce qu'il fait | Recommandé |
 | --- | --- | --- |
-| **API** | Votre clé API MyParcel, depuis [backoffice.myparcel.nl](https://backoffice.myparcel.nl) sous *Paramètres de la boutique → Intégration*. | Collez-la sans espaces. |
+| **API** | Votre clé API MyParcel, depuis [backoffice.myparcel.nl](https://backoffice.myparcel.nl) sous *Shop settings → Integration*. | Collez-la sans espaces. |
 | **Admin folder** | Le nom de votre dossier admin OpenCart. Ne le modifiez que si vous avez renommé ce dossier. | `admin` |
 | **Label display** | **Download PDF** enregistre l'étiquette, **Open de PDF in a new tab** l'ouvre dans votre navigateur. | Selon votre préférence. |
 | **Paper format** | **A4** pour une imprimante classique, **A6** pour une imprimante d'étiquettes. En A4, vous choisissez la position sur la feuille au moment d'imprimer. | A6 avec une imprimante d'étiquettes. |
@@ -260,7 +260,7 @@ Elle fonctionne pour les boutiques qui restent sur OpenCart 3. MyParcel n'ajoute
 PostNL uniquement.
 
 ### Où trouver ma clé API ?
-Dans [backoffice.myparcel.nl](https://backoffice.myparcel.nl) sous *Paramètres de la boutique → Intégration*.
+Dans [backoffice.myparcel.nl](https://backoffice.myparcel.nl) sous *Shop settings → Integration*.
 
 ### Puis-je expédier plusieurs colis pour une commande ?
 Oui. Réglez le **Number of labels** dans la fenêtre d'envoi avant l'export ([§8](#une-commande)).

@@ -38,6 +38,10 @@ same path as the English page. Agents often change only the English page.
   pull request.
 - From a translated page, link to an English-only page with a relative path,
   for example `../../guides/php-sdk-v11.md`.
+- On French and Italian pages, do not translate Backoffice labels. The
+  MyParcel Backoffice has no French or Italian interface, so write each label
+  exactly as the Backoffice shows it, for example *Shop settings → Integration*.
+  Check the screenshots under `pages/platforms/images/` for the exact text.
 - `LOCALIZED_PATHS_BY_LANG` in `pages/.vuepress/sidebar.ts` and the pre-paint
   redirect script in `config.ts` list the translated paths. **Keep the two lists
   in sync**, or a visitor gets redirected to a page that does not exist.
