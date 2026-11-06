@@ -171,15 +171,15 @@ const VACANCIES = 'https://www.myparcel.nl/vacature/development/';
          JOIN US
     ============================================================ -->
     <section id="join-us" class="mp-about__sec mp-about__sec--last">
-      <div class="mp-about__panel">
+      <div class="mp-about__panel mp-about__panel--cta">
         <div>
           <h2 class="mp-about__h2" data-i18n="Join us">Join us</h2>
           <p class="mp-about__text" data-i18n="We are a fast-growing company, so we are almost always looking for new talent. Come and meet us.">We are a fast-growing company, so we are almost always looking for new talent. Come and meet us.</p>
           <p class="mp-about__text" data-i18n="Do you use our API or an SDK, and do you have a question or a tip? Talk to us on Slack.">Do you use our API or an SDK, and do you have a question or a tip? Talk to us on Slack.</p>
-        </div>
-        <div class="mp-about__links mp-about__links--stack">
-          <a class="mp-btn mp-btn--primary" :href="VACANCIES" target="_blank" rel="noopener" data-i18n="See our vacancies">See our vacancies</a>
-          <a class="mp-arrow-link" :href="SLACK_INVITE" target="_blank" rel="noopener"><span data-i18n="Join us on Slack">Join us on Slack</span></a>
+          <div class="mp-about__links">
+            <a class="mp-btn mp-btn--primary" :href="VACANCIES" target="_blank" rel="noopener" data-i18n="See our vacancies">See our vacancies</a>
+            <a class="mp-arrow-link" :href="SLACK_INVITE" target="_blank" rel="noopener"><span data-i18n="Join us on Slack">Join us on Slack</span></a>
+          </div>
         </div>
       </div>
     </section>
