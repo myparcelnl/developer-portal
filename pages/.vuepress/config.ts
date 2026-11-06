@@ -82,7 +82,6 @@ export default defineUserConfig({
   // The default theme still ships the navbar/sidebar/etc. but we hide them
   // from CSS and override its `Layout` slot with our own component.
   theme: defaultTheme({
-    logo: 'https://www.myparcel.com/images/logo.svg',
     repo: 'myparcelnl/developer',
     docsDir: 'markdown',
 
