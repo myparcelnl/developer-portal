@@ -105,7 +105,7 @@ The generated client checks each shipment against the API specification before t
 
 `create()` returns the ID of each new shipment with its reference identifier. Keep the ID: every other shipment service works with it. A shipment without a reference identifier gets one that starts with `sdk_`.
 
-`create()` also takes a label format (`'A4'` or `'A6'`) and, for A4, the label positions as its second and third arguments.
+`create()` also takes a label format (`'A4'` or `'A6'`) and, for A4, the label positions as its second and third arguments. Its fourth argument takes the other query parameters of `POST /shipments`, such as `['send_return_mail' => 0]`; the generated client rejects a name or a type that the API specification does not have.
 
 `CoreApiModels::toArray($shipment)` gives the array with the API field names back, for example to log a shipment, and `CoreApiModels::copy($shipment)` copies a shipment with its nested models.
 
@@ -124,7 +124,7 @@ $shipments = $query->findByReferenceId('order-42');
 (new ShipmentDeleteService('your-api-key'))->deleteMany([12345, 12346]);
 ```
 
-A shipment you find is the generated `ShipmentDefsShipment`. Read its public properties: `$shipment->barcode`, `$shipment->linkConsumerPortal` and a nested object such as `$shipment->recipient->cc`. A property that the API did not send is not set: read it with `??`, such as `$shipment->recipient->street ?? null`. An enum field, such as `$shipment->carrierId`, holds the enum case, such as `RefTypesCarrier::Postnl`, or the raw value for a value the SDK does not know yet.
+A shipment you find is the generated `ShipmentDefsShipment`. Read its public properties: `$shipment->barcode`, `$shipment->linkConsumerPortal` and a nested object such as `$shipment->recipient->cc`. Most properties that the API did not send are not set: read them with `??`, such as `$shipment->recipient->street ?? null`. When the API sends `null` for a field that the API specification does not allow as `null`, such as `barcode`, the read throws a PHP `TypeError`. A `TypeError` is not an `Exception`, so catch `\Throwable` if you want to handle it. An enum field, such as `$shipment->carrierId`, holds the enum case, such as `RefTypesCarrier::Postnl`, or the raw value for a value the SDK does not know yet.
 
 ## Labels
 
@@ -146,7 +146,7 @@ $url = $labels->getLinkOfLabels();
 $labels->downloadPdfOfLabels();
 ```
 
-An error response, such as a 404 for an unknown shipment, throws the generated exception, such as `GetShipmentsLabelsNotFoundException`.
+An error response, such as a 404 for an unknown shipment, throws the generated exception, such as `GetShipmentsLabelsNotFoundException`. The status and the content type of the response pick the exception: an error response that is not JSON, such as an HTML page from a proxy, throws `BadResponseException`.
 
 `downloadPdfOfLabels()` sends the PDF with its own headers and then ends the script with `exit`, so call it last. Pass `true` to open the PDF in the browser instead of downloading it.
 
@@ -263,26 +263,26 @@ $isValid   = $service->isValid();
 $principal = $service->getPrincipal();
 ```
 
-`getPrincipal()` returns a `PrincipalShop` or a `PrincipalUser`: Jane models with public properties, such as `$principal->shopIds`. The class tells a shop key from a user key.
+`getPrincipal()` returns a `PrincipalShop` or a `PrincipalUser`: Jane models with public properties, such as `$principal->shopIds`. An API key belongs to a shop, so IAM answers with a `PrincipalShop`; a `PrincipalUser` is the answer for a user token.
 
 Use this in a settings screen, so a merchant learns that a key is wrong before the first shipment fails.
 
 ## Carrier capabilities
 
-`CapabilitiesService` tells you what a carrier offers for a given destination, package and set of options. Describe what you want to send in a `CapabilitiesRequest` and pass it to `get()`. You do not need to build a shipment first:
+`CapabilitiesService` tells you what a carrier offers for a given destination, package and set of options. `get()` takes the generated request model `CapabilitiesPostCapabilitiesRequestV2`. Fill it with the camelCase field names of the capabilities API. You do not need to build a shipment first:
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefCapabilitiesSharedCarrierV2;
-use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefShipmentPackageTypeV2;
-use MyParcelNL\Sdk\Model\Capabilities\CapabilitiesRequest;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostCapabilitiesRequestV2;
+use MyParcelNL\Sdk\Client\Jane\CoreApiModels;
 use MyParcelNL\Sdk\Services\Capabilities\CapabilitiesService;
 
-$request = CapabilitiesRequest::forCountry('NL')
-    ->withCarrier(RefCapabilitiesSharedCarrierV2::Postnl)
-    ->withPackageType(RefShipmentPackageTypeV2::Package)
-    ->withPhysicalProperties([
-        'weight' => ['value' => 2000, 'unit' => 'g'],
-    ]);
+$request = CoreApiModels::toModel([
+    'recipient'          => ['countryCode' => 'NL'],
+    'carrier'            => 'POSTNL',
+    'packageType'        => 'PACKAGE',
+    'physicalProperties' => ['weight' => ['value' => 2000, 'unit' => 'g']],
+    'options'            => ['requiresSignature' => new stdClass()],
+], CapabilitiesPostCapabilitiesRequestV2::class);
 
 $capabilities = (new CapabilitiesService())->get($request);
 
@@ -291,26 +291,15 @@ $capabilities->getDeliveryTypes();
 $capabilities->getShipmentOptions();
 ```
 
-The request also takes a delivery type, a direction, a sender, shipment options and a pickup location. The response merges every result the API returns, so set a carrier when you want the answer for one carrier. Without one, `getCarrier()` returns `null` as soon as the results span more than one carrier.
+The request also takes a delivery type, a direction, a sender and a pickup location, such as `'sender' => ['countryCode' => 'NL', 'postalCode' => '2132JE']`. The generated client checks the request before it goes out: a value that the API specification does not know, such as an unknown carrier, throws a `ValidationException`. The response merges every result the API returns, so set a carrier when you want the answer for one carrier. Without one, `getCarrier()` returns `null` as soon as the results span more than one carrier.
 
-If you already have a shipment model, `fromShipment($shipment)` builds the request from its recipient and physical properties.
+If you already have a shipment model, `fromShipment($shipment)` builds the request from its recipient country and physical properties.
 
 ::: warning Known issue
-`CapabilitiesService` has no API key argument and reads the key from the `API_KEY` environment variable. Without that variable it throws an `InvalidArgumentException`. Until this changes, set `API_KEY`, or pass your own implementation of `CapabilitiesClientInterface` to the constructor.
+`CapabilitiesService` has no API key argument and reads the key from the `API_KEY` environment variable. Without that variable it throws an `InvalidArgumentException`. Until this changes, set `API_KEY`, or pass an `HttpCapabilitiesClient` with your own Jane client to the constructor.
 :::
 
-A capabilities request drops option names it does not know or the API does not support. Ask the request which names it will drop, so your application can report them:
-
-```php
-use MyParcelNL\Sdk\Model\Capabilities\CapabilitiesRequest;
-
-$request = CapabilitiesRequest::forCountry('NL')
-    ->withOptions(['signature' => null, 'tracked' => null]);
-
-$request->getUnsupportedOptions(); // ['tracked']
-```
-
-This checks option names only. It does not check option values, and it does not tell you which options a carrier offers.
+To translate an option name of your own, such as `signature`, use `ShipmentOptionMapper::v2PropertyFromName()`. It returns the property of the options model, such as `requiresSignature`, or `null` for an option that a capabilities request cannot send, such as `tracked`, so your application can report it. This checks option names only. It does not check option values, and it does not tell you which options a carrier offers.
 
 ## Contract definitions
 
@@ -344,7 +333,7 @@ $mapper->legacyNameFromV2Name('DPD');   // 'dpd'
 
 Use `forDeliveryType()` or `forPackageType()` for the other two. A conversion returns `null` when there is no mapping. `allRows()` returns the whole map for one category, and `allDomains()` returns all three.
 
-Shipment option names have their own mapper. `ShipmentOptionMapper::v2PropertyFromName()` returns the property name in the capabilities v2 model, or `null`. For example, `signature` and `requiresSignature` both map to `requires_signature`.
+Shipment option names have their own mapper. `ShipmentOptionMapper::v2PropertyFromName()` returns the property name in the capabilities v2 model, or `null`. For example, `signature`, `requires_signature` and `requiresSignature` all map to `requiresSignature`.
 
 ## Advanced
 
@@ -371,8 +360,7 @@ Most services take the Jane client as their second constructor argument. In your
 
 | Service | Constructor arguments after the API key |
 | --- | --- |
-| `ShipmentCreateService`, `ShipmentQueryService`, `ShipmentDeleteService`, `ShipmentTrackTraceService`, `WebhookService` | Jane `Client`, host |
-| `ShipmentLabelsService`, `ShipmentPrintService`, `ReturnShipmentService` | Jane `Client`, Symfony `HttpClientInterface`, host |
+| `ShipmentCreateService`, `ShipmentQueryService`, `ShipmentDeleteService`, `ShipmentTrackTraceService`, `ShipmentLabelsService`, `ShipmentPrintService`, `ReturnShipmentService`, `WebhookService` | Jane `Client`, host |
 | `CarrierContractDefinitionsService` | host, Jane `Client` |
 | `ApiKeyService` | the Jane IAM `Client`, host |
 
