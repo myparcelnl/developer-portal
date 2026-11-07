@@ -284,19 +284,27 @@ $request = CoreApiModels::toModel([
     'options'            => ['requiresSignature' => new stdClass()],
 ], CapabilitiesPostCapabilitiesRequestV2::class);
 
-$capabilities = (new CapabilitiesService())->get($request);
+$response = (new CapabilitiesService())->get($request);
 
-$capabilities->getPackageTypes();
-$capabilities->getDeliveryTypes();
-$capabilities->getShipmentOptions();
+foreach ($response->results as $result) {
+    $result->carrier;            // RefCapabilitiesSharedCarrierV2::Postnl, or the raw string
+    $result->contract->id;
+    $result->packageTypes;       // [RefShipmentPackageTypeV2::Package, ...]
+    $result->deliveryTypes;
+    $result->options;            // per option: isRequired, isSelectedByDefault, requires, excludes
+    $result->physicalProperties; // the limits, such as the maximum weight
+    $result->collo->max;
+}
 ```
 
-The request also takes a delivery type, a direction, a sender and a pickup location, such as `'sender' => ['countryCode' => 'NL', 'postalCode' => '2132JE']`. The generated client checks the request before it goes out: a value that the API specification does not know, such as an unknown carrier, throws a `ValidationException`. The response merges every result the API returns, so set a carrier when you want the answer for one carrier. Without one, `getCarrier()` returns `null` as soon as the results span more than one carrier.
+The request also takes a delivery type, a direction, a sender and a pickup location, such as `'sender' => ['countryCode' => 'NL', 'postalCode' => '2132JE']`. The generated client checks the request before it goes out: a value that the API specification does not know, such as an unknown carrier, throws a `ValidationException`.
+
+The response is the generated `CapabilitiesResponsesCapabilitiesV2`, with one result per carrier contract. A package type, a delivery type and an option in one result belong together, so read the result of the carrier and contract you want to use. A carrier, package type or delivery type is an enum case, or the raw string for a value that the SDK does not know yet. `array_keys(CoreApiModels::toArray($result->options))` gives the API names of the options, such as `requiresSignature`.
 
 If you already have a shipment model, `fromShipment($shipment)` builds the request from its recipient country and physical properties.
 
 ::: warning Known issue
-`CapabilitiesService` has no API key argument and reads the key from the `API_KEY` environment variable. Without that variable it throws an `InvalidArgumentException`. Until this changes, set `API_KEY`, or pass an `HttpCapabilitiesClient` with your own Jane client to the constructor.
+`CapabilitiesService` has no API key argument and reads the key from the `API_KEY` environment variable. Without that variable it throws an `InvalidArgumentException`. Until this changes, set `API_KEY`, or pass `new HttpCapabilitiesClient($api)`, with a Jane client from `ShipmentApiFactory::make()`, to the constructor.
 :::
 
 To translate an option name of your own, such as `signature`, use `ShipmentOptionMapper::v2PropertyFromName()`. It returns the property of the options model, such as `requiresSignature`, or `null` for an option that a capabilities request cannot send, such as `tracked`, so your application can report it. This checks option names only. It does not check option values, and it does not tell you which options a carrier offers.
@@ -364,7 +372,7 @@ Most services take the Jane client as their second constructor argument. In your
 | `CarrierContractDefinitionsService` | host, Jane `Client` |
 | `ApiKeyService` | the Jane IAM `Client`, host |
 
-`CapabilitiesService` takes a `CapabilitiesClientInterface` as its only argument, and `HttpCapabilitiesClient` takes the Jane `Client` as its second argument.
+`CapabilitiesService` takes a `CapabilitiesClientInterface` as its only argument, and `HttpCapabilitiesClient` takes the Jane `Client` as its only argument.
 
 ## Upgrading from v11
 
