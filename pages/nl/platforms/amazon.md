@@ -12,7 +12,7 @@ Genoeg om Amazon vandaag aan MyParcel te koppelen. Voor de details, zie [Wat zoe
 
 1. **Account.** Heb je nog geen MyParcel-account? Maak er een aan via [myparcel.nl/register](https://www.myparcel.nl/register). Zet **tweestapsverificatie** aan in je MyParcel-account voordat je begint ([§2](#2-voordat-je-begint)).
 2. **App zoeken.** Log in op Amazon Seller Central en open de [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore). Zoek op **MyParcel**.
-3. **App autoriseren.** Start in Seller Central de autorisatie van MyParcel. Vink het vakje aan om MyParcel toegang te geven en klik op **Sign up / Login to MyParcel** (Aanmelden / inloggen bij MyParcel).
+3. **App autoriseren.** Klik op de app-pagina van MyParcel op **Authorize Now** (Nu autoriseren). Vink het vakje aan om MyParcel toegang te geven en klik op **Sign up / Login to MyParcel** (Aanmelden / inloggen bij MyParcel).
 4. **Inloggen bij MyParcel.** Amazon stuurt je door naar MyParcel. Log in met je MyParcel-account.
 5. **Shop kiezen.** Selecteer de MyParcel-shop die je Amazon-orders ontvangt, vink de bevestiging aan en klik op **Approve and connect** (Goedkeuren en koppelen).
 6. **Bevestigen bij Amazon.** Amazon vraagt je nog één keer om de toegang te bevestigen. Bevestig die.
@@ -73,11 +73,11 @@ Doorloop deze stappen in één keer. Aan de kant van MyParcel heb je voor elke s
 1. Log in op **Amazon Seller Central** met het account van je Amazon-shop.
 2. Open de [Selling Partner Appstore ↗](https://sellercentral.amazon.nl/selling-partner-appstore) en zoek op **MyParcel**. De app is van MyParcel en is gratis.
 
-![De MyParcel-app in de Selling Partner Appstore, met rechtsboven de knop Manage Your Apps.](../../platforms/images/amazon/01-appstore-listing.png)
+![De MyParcel-app in de Selling Partner Appstore, met rechtsboven de knop Authorize Now.](../../platforms/images/amazon/01-appstore-listing.png)
 
-3. Start de autorisatie van MyParcel. Heb je al eens gekoppeld? Ga dan naar **Manage Your Apps** (Je apps beheren) en klik op **Re-Authorise** (Opnieuw autoriseren) naast MyParcel.
+3. Klik op de app-pagina op **Authorize Now** (Nu autoriseren). Heb je al eens gekoppeld? Ga dan naar **Manage Your Apps** (Je apps beheren) en klik op **Authorise** (Autoriseren) naast MyParcel. Heeft MyParcel nog de status *Active*, dan heet de knop **Re-Authorise** (Opnieuw autoriseren).
 
-![Manage Your Apps in Seller Central, met MyParcel, de status en de knoppen Re-Authorise en Disable Authorisation.](../../platforms/images/amazon/02-manage-your-apps.png)
+![Manage Your Apps in Seller Central, met MyParcel, de status en de knop Authorise.](../../platforms/images/amazon/02-manage-your-apps.png)
 
 4. Amazon toont de pagina **Authorise MyParcel** (MyParcel autoriseren) met de gegevens die MyParcel nodig heeft, zie [§4](#4-waar-je-toestemming-voor-geeft). Vink **I direct Amazon to provide MyParcel access to my account and related data.** aan (Ik geef Amazon opdracht MyParcel toegang te geven tot mijn account en de bijbehorende gegevens).
 5. Klik op **Sign up / Login to MyParcel** (Aanmelden / inloggen bij MyParcel).
