@@ -11,6 +11,10 @@ The MyParcel extension connects your OpenCart 4 shop to MyParcel. Customers pick
 The OpenCart 4 extension is currently in pre-release (version `1.0.0-beta.10`) and the 1.0 launch is being prepared. It requires **OpenCart 4.1.0.3 or newer** and **PHP 8.2 or newer**. Screens and field names may still change between releases.
 :::
 
+::: tip Still on OpenCart 3?
+This manual is for OpenCart 4. For OpenCart 3, see the [OpenCart 3 manual](./opencart3.md).
+:::
+
 ## Quickstart, your first parcel in 15 minutes
 Enough to ship your first real order today. For deeper configuration, see [Looking for…](#looking-for) below.
 
