@@ -575,7 +575,7 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'Tillox',
         logo: 'tillox.png',
         markets: NLBE,
-        links: [site('https://tillox.nl/')],
+        links: [extDocs('https://tillox.nl/integraties/myparcel/'), site('https://tillox.nl/')],
       },
     ],
   },
