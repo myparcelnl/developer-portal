@@ -537,14 +537,26 @@ use MyParcelNL\Sdk\Services\Ecommerce\EcommerceApiFactory;
 $order = new Order([
     'ordered_at' => new DateTime('now'),
     'source_id'  => 'ORDER-2026-01042',
+    'status'     => Order::STATUS_OPEN,
 ]);
 
 $problems = $order->listInvalidProperties();   // [] when the order matches the API's own limits
 
-$results = EcommerceApiFactory::make($connect)->webhookOrdersPost([$order]);
+$api     = EcommerceApiFactory::make($connect);
+$results = $api->webhookOrdersPost([$order]);
 ```
 
-`ordered_at` and `source_id` are the only required fields. Send the ID the order has in your shop as `source_id`, so you can recognise it later.
+`ordered_at`, `source_id` and `status` are required. The status is `Order::STATUS_OPEN` or `Order::STATUS_CANCELED`. The API refuses the whole request with HTTP 400 when one order has no status. Send the ID the order has in your shop as `source_id`, so you can recognise it later.
+
+To update an order, push it again with the same `source_id`. For example, when the merchant cancels the order in the shop:
+
+```php
+$order->setStatus(Order::STATUS_CANCELED);
+
+$results = $api->webhookOrdersPost([$order]);
+```
+
+MyParcel accepts the update, but does not act on it yet.
 
 From there the SDK reads the stored token, refreshes it when it is close to expiry, and signs the request. Nothing else is needed to authenticate the call.
 

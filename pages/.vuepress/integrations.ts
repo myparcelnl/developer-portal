@@ -398,7 +398,7 @@ export const integrationGroups: IntegrationGroup[] = [
         markets: NLBE,
         byMyParcel: true,
         links: [
-          oldPortal('documentation/25.amazon.html'),
+          docs('/platforms/amazon.html'),
           site('https://www.myparcel.nl/en/integrations/amazon/'),
         ],
       },
@@ -570,6 +570,12 @@ export const integrationGroups: IntegrationGroup[] = [
           extDocs('https://www.myparcel.nl/koppelingen/cm-specialist/'),
           site('https://www.cmspecialist.nl/'),
         ],
+      },
+      {
+        name: 'Tillox',
+        logo: 'tillox.png',
+        markets: NLBE,
+        links: [extDocs('https://tillox.nl/integraties/myparcel/'), site('https://tillox.nl/')],
       },
     ],
   },
