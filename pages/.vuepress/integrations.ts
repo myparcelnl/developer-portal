@@ -571,6 +571,12 @@ export const integrationGroups: IntegrationGroup[] = [
           site('https://www.cmspecialist.nl/'),
         ],
       },
+      {
+        name: 'Tillox',
+        logo: 'tillox.png',
+        markets: NLBE,
+        links: [site('https://tillox.nl/')],
+      },
     ],
   },
   {
