@@ -125,7 +125,7 @@ onBeforeUnmount(() => {
 
   <nav class="mp-nav">
     <a href="/" class="mp-nav__logo">
-      <img class="mp-nav__logo-img" src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="128" height="20" />
+      <img class="mp-nav__logo-img" src="/images/myparcel-logo.svg" alt="MyParcel" width="128" height="20" />
       <span class="mp-nav__logo-stack">
         <span class="mp-nav__logo-sub">Developers</span>
         <span class="mp-nav__logo-beta" data-i18n="Beta">Beta</span>
@@ -216,7 +216,7 @@ onBeforeUnmount(() => {
       >
         <header class="mp-mobile-drawer__head">
           <a href="/" class="mp-mobile-drawer__logo" @click="closeMobile">
-            <img src="https://www.myparcel.com/images/logo.svg" alt="MyParcel" width="112" height="18" />
+            <img src="/images/myparcel-logo.svg" alt="MyParcel" width="112" height="18" />
             <span class="mp-mobile-drawer__logo-stack">
               <span class="mp-mobile-drawer__logo-sub">Developers</span>
               <span class="mp-mobile-drawer__logo-beta" data-i18n="Beta">Beta</span>

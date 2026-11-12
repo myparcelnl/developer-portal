@@ -190,87 +190,11 @@ body.mp-rail-dragging iframe {
 //  max 50% of the tile's height and 70% of its width, object-fit contain
 //  centres the artwork.
 // ---------------------------------------------------------------------------
-.mp-logo-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
-  gap: var(--mp-space-4) !important;
-  align-items: stretch;
-}
 
-.mp-brand-logo--img {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  min-height: 96px;
-  padding: var(--mp-space-4) var(--mp-space-5) !important;
-  background: #ffffff !important;
-  border: 1px solid var(--mp-border-soft) !important;
-  border-radius: var(--mp-radius-lg) !important;
-  box-shadow: 0 1px 2px rgba(0, 38, 33, 0.04);
-  transition:
-    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.18s,
-    box-shadow 0.18s,
-    background 0.18s !important;
-  position: relative;
-  overflow: hidden;
-}
 
 // Subtle mint backdrop shimmer that appears on hover — gives the logos a
 // premium, lit-up feel without being noisy.
-.mp-brand-logo--img::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 30% 20%, var(--mp-mint), transparent 60%),
-    radial-gradient(circle at 80% 90%, rgba(15, 120, 89, 0.08), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-}
 
-.mp-brand-logo--img:hover {
-  border-color: var(--mp-fresh) !important;
-  transform: translateY(-3px) !important;
-  box-shadow: 0 12px 24px rgba(15, 120, 89, 0.12);
-}
-.mp-brand-logo--img:hover::before { opacity: 1; }
-.mp-brand-logo--img:focus-visible {
-  outline: 2px solid var(--mp-fresh);
-  outline-offset: 3px;
-}
-
-.mp-brand-logo--img img.mp-brand-logo__mark {
-  position: relative;
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 75%;
-  max-height: 48px;
-  object-fit: contain;
-  filter: saturate(1) contrast(1);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.mp-brand-logo--img:hover img.mp-brand-logo__mark {
-  transform: scale(1.04);
-}
-
-@media (max-width: 540px) {
-  .mp-logo-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: var(--mp-space-3) !important;
-  }
-  .mp-brand-logo--img {
-    min-height: 84px;
-  }
-  .mp-brand-logo--img img.mp-brand-logo__mark {
-    max-height: 38px;
-    max-width: 80%;
-  }
-}
 
 // Hub-header action row (e.g. Download OpenAPI specs button)
 .mp-ref-hub__actions {
@@ -383,8 +307,6 @@ body.mp-rail-dragging iframe {
   border-radius: 0 var(--mp-radius-md) var(--mp-radius-md) 0;
   font-size: var(--mp-fs-xs);
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 // 4. Sticky group-labels in the sidebar
@@ -398,8 +320,6 @@ body.mp-rail-dragging iframe {
   border-bottom: 1px solid rgba(15, 120, 89, 0.12);
   font-size: var(--mp-fs-xs);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--mp-monstera);
 }
 
@@ -501,8 +421,6 @@ body.mp-rail-dragging iframe {
   color: var(--mp-text-muted) !important;
   font-size: var(--mp-fs-xs) !important;
   font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
   text-align: left !important;
   padding: 6px 16px 8px 0 !important;
   border: none !important;
@@ -548,34 +466,7 @@ body.mp-rail-dragging iframe {
   font-family: var(--mp-mono);
 }
 // Required marker — small uppercase pill chip
-.mp-params__required {
-  display: inline-block !important;
-  margin-left: 8px !important;
-  padding: 2px 8px !important;
-  width: auto !important;
-  height: auto !important;
-  background: rgba(255, 140, 0, 0.12) !important;
-  color: var(--mp-text-orange) !important;
-  border: 1px solid rgba(255, 140, 0, 0.32) !important;
-  border-radius: var(--mp-radius-pill) !important;
-  font-family: var(--mp-font) !important;
-  font-size: var(--mp-fs-xs) !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.06em !important;
-  text-transform: uppercase !important;
-  vertical-align: middle;
-  line-height: 1.4 !important;
-}
-.mp-params__required::before {
-  content: '';
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--mp-goldfish);
-  margin-right: 5px;
-  vertical-align: 0.5px;
-}
+
 
 // Color-coded status pills (applied by useApiTables based on cell content)
 .mp-status {
@@ -624,11 +515,9 @@ body.mp-rail-dragging iframe {
   display: inline-block;
   margin: var(--mp-space-5) 0 var(--mp-space-2) !important;
   padding: 0 !important;
-  font-size: var(--mp-fs-xs) !important;
+  font-size: var(--mp-type-sm) !important;
   font-weight: 700 !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  color: var(--mp-text-muted) !important;
+  color: var(--mp-text) !important;
 }
 
 // 8. Code-rail empty state — multi-line with snippet + tip
@@ -926,8 +815,6 @@ pre.mp-code-block::after {
 .mp-shortcuts__title {
   font-size: var(--mp-fs-xs);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--mp-text-muted);
   margin-bottom: 8px;
 }
@@ -1026,8 +913,6 @@ pre.mp-code-block::after {
 .mp-api-toc__label {
   font-size: var(--mp-fs-xs);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--mp-text-muted);
   margin-right: 4px;
 }
@@ -1088,8 +973,6 @@ pre.mp-code-block::after {
 .mp-docs-pager__label {
   font-size: var(--mp-fs-xs);
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: var(--mp-text-muted);
 }
 .mp-docs-pager__title {
@@ -1203,36 +1086,29 @@ pre.mp-code-block::after {
 // ---------------------------------------------------------------------------
 .mp-docs-content__body,
 .mp-standalone .mp-docs-content {
-  font-size: var(--mp-fs-md);
+  font-size: var(--mp-type-md);
   line-height: 1.7;
   color: var(--mp-text-body);
 
   h2 {
     font-size: var(--mp-fs-4xl) !important;
     font-weight: 700 !important;
-    color: var(--mp-text-accent) !important;
-    letter-spacing: -0.015em;
-    line-height: 1.25;
-    margin: var(--mp-space-10) 0 var(--mp-space-3) !important;
-    padding-bottom: var(--mp-space-3);
-    border-bottom: 2px solid var(--mp-fresh) !important;
+    color: var(--mp-text) !important;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: var(--mp-space-12) 0 var(--mp-space-3) !important;
+    padding-bottom: 0;
+    border-bottom: 0 !important;
     scroll-margin-top: calc(var(--mp-nav-height) + var(--mp-space-4));
     display: flex;
     align-items: center;
     gap: 10px;
   }
-  h2::before {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 22px;
-    background: var(--mp-fresh);
-    border-radius: 2px;
-  }
   h3 {
     font-size: var(--mp-fs-2xl) !important;
     font-weight: 700 !important;
-    color: var(--mp-monstera) !important;
+    color: var(--mp-text) !important;
+    letter-spacing: -0.01em;
     margin: var(--mp-space-8) 0 var(--mp-space-2) !important;
     scroll-margin-top: calc(var(--mp-nav-height) + var(--mp-space-4));
     line-height: 1.3;
@@ -1360,8 +1236,6 @@ pre.mp-code-block::after {
     text-align: left;
     padding: 0 var(--mp-space-5) var(--mp-space-3);
     font-size: var(--mp-fs-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
     border: none;
     background: transparent;
   }
@@ -1577,8 +1451,7 @@ pre.mp-code-block::after {
 // ---------------------------------------------------------------------------
 @media (max-width: 720px) {
   // Hide the decorative hero art on phones — give the copy & CTAs full width.
-  .mp-hero__art { display: none !important; }
-  .mp-hero__inner { grid-template-columns: 1fr !important; }
+
 
   // Hub headers wrap their meta neatly on small screens
   .mp-ref-hub__meta {
@@ -1588,21 +1461,13 @@ pre.mp-code-block::after {
   }
 
   // Stats band: 2 cols instead of 4 on phones
-  .mp-stats__inner {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
+
 
   // Logo grid wraps
-  .mp-logo-grid {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--mp-space-4) !important;
-  }
+
 
   // Platform-grid: 2 cols instead of 4
-  .mp-platform-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
+
 }
 
 // Search trigger as an icon-only button on mobile. At <=768px we replace the
@@ -1653,8 +1518,8 @@ pre.mp-code-block::after {
   // A slightly smaller wordmark keeps the three 40px header buttons on screen.
   .mp-nav__logo-img { width: 112px; height: auto; }
   .mp-download-specs__menu { width: calc(100vw - 24px); }
-  .mp-hero__title { font-size: var(--mp-fs-4xl) !important; }
-  .mp-hero__sub   { font-size: var(--mp-fs-base) !important; }
+
+
 }
 
 // ---------------------------------------------------------------------------
@@ -1717,3 +1582,293 @@ pre.mp-code-block::after {
     overscroll-behavior: contain;
   }
 }
+
+// ---------------------------------------------------------------------------
+//  Portal refresh: docs, API reference and the remaining pages.
+//  Same language as the home page (see developer-portal.css section 22):
+//  rounded white cards on soft shadows, Mint panels, pill-shaped controls.
+//  Kept last in this file so it wins over the rules above.
+// ---------------------------------------------------------------------------
+
+// ---- Sidebars (docs and API reference) ------------------------------------
+.mp-docs-sidebar,
+.mp-sidebar {
+  border-right: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.mp-docs-sidebar__label {
+  padding: 18px 12px 6px;
+}
+
+.mp-docs-sidebar__item,
+.mp-sidebar__item {
+  border-left: 0;
+  border-radius: 10px;
+  margin: 1px 0;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: var(--mp-type-sm);
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.mp-docs-sidebar__item:hover,
+.mp-sidebar__item:hover {
+  background: rgb(255 255 255 / 60%);
+}
+.mp-docs-sidebar__item--active,
+.mp-sidebar__item--active {
+  background: var(--mp-card);
+  color: var(--mp-fresh);
+  font-weight: 700;
+  box-shadow: var(--mp-shadow-soft);
+}
+[data-theme="dark"] .mp-docs-sidebar__item:hover,
+[data-theme="dark"] .mp-sidebar__item:hover { background: rgb(255 255 255 / 6%); }
+[data-theme="dark"] .mp-docs-sidebar__item--active,
+[data-theme="dark"] .mp-sidebar__item--active { color: #6ee7b7; }
+
+.mp-sidebar__back { padding-left: 12px; border-radius: 10px; }
+
+// The sticky group labels inside the API sidebar: sentence case, no rule.
+.mp-sidebar__group-label {
+  border-bottom: 0;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: var(--mp-type-xs);
+  color: var(--mp-text);
+  padding: 10px 12px 4px !important;
+}
+.mp-sidebar__api { border-bottom: 0; }
+.mp-sidebar__api-summary { border-radius: 10px; }
+
+.mp-sidebar-filter__input-wrap {
+  border-radius: 999px;
+  border-width: 2px;
+  border-color: transparent;
+  background: var(--mp-card);
+}
+.mp-sidebar-filter__input-wrap:focus-within { border-color: var(--mp-fresh); box-shadow: none; }
+
+// ---- Docs content -----------------------------------------------------------
+.mp-docs-content__title {
+  font-size: var(--mp-type-2xl);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+.mp-docs-content__lede {
+  font-size: var(--mp-type-lg);
+  color: var(--mp-text-body);
+}
+
+.mp-docs-content__body,
+.mp-standalone .mp-docs-content {
+  code:not(pre code) {
+    border-radius: 6px;
+  }
+
+  div[class*='language-'] {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  // Callouts: soft rounded panels instead of a coloured left rule.
+  .hint-container {
+    border: 0;
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin: var(--mp-space-6) 0;
+  }
+  .hint-container.tip,
+  .hint-container.note,
+  .hint-container.info { background: var(--mp-panel); }
+  .hint-container.warning { background: #fff6d6; }
+  .hint-container.caution,
+  .hint-container.danger { background: #fde8e8; }
+  .hint-container-title { font-weight: 700; color: var(--mp-text); }
+
+  blockquote {
+    border-left: 0;
+    border-radius: 16px;
+    background: var(--mp-panel);
+    padding: 16px 20px;
+  }
+
+  p > img {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: var(--mp-shadow);
+    padding: 0;
+  }
+
+  th {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: var(--mp-type-xs);
+    font-weight: 700;
+  }
+}
+[data-theme="dark"] .mp-docs-content__body .hint-container.warning,
+[data-theme="dark"] .mp-standalone .mp-docs-content .hint-container.warning { background: rgb(250 216 37 / 12%); }
+[data-theme="dark"] .mp-docs-content__body .hint-container.caution,
+[data-theme="dark"] .mp-docs-content__body .hint-container.danger { background: rgb(184 27 35 / 18%); }
+
+// Previous and next page as cards
+.mp-docs-pager__link {
+  border: 0;
+  border-radius: 18px;
+  background: var(--mp-card);
+  box-shadow: var(--mp-shadow-soft);
+  transition: transform 0.25s var(--mp-ease), box-shadow 0.25s;
+}
+.mp-docs-pager__link:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--mp-shadow-lift);
+}
+.mp-docs-pager__label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--mp-type-xs);
+}
+
+// On this page
+.mp-docs-toc a {
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+.mp-docs-toc a.is-active {
+  color: var(--mp-fresh);
+  font-weight: 700;
+}
+[data-theme="dark"] .mp-docs-toc a.is-active { color: #6ee7b7; }
+
+// ---- API reference ----------------------------------------------------------
+.mp-ref-hub__title {
+  font-size: var(--mp-type-2xl);
+  letter-spacing: -0.025em;
+}
+.mp-ref-hub__lead { font-size: var(--mp-type-lg); color: var(--mp-text-body); }
+
+.mp-api-toc {
+  border: 0;
+  border-radius: 18px;
+  background: var(--mp-panel);
+  padding: 14px 16px;
+}
+.mp-api-toc__label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--mp-type-sm);
+  color: var(--mp-text);
+}
+.mp-api-toc__chip {
+  border: 2px solid transparent;
+  background: var(--mp-card);
+  color: var(--mp-monstera);
+  font-size: var(--mp-type-xs);
+  font-weight: 700;
+  text-transform: none;
+  padding: 6px 14px;
+}
+.mp-api-toc__chip:hover { border-color: var(--mp-fresh); background: var(--mp-card); }
+[data-theme="dark"] .mp-api-toc__chip { color: #ffffff; }
+
+// Group labels above the endpoints: a rounded Mint pill, sentence case.
+.mp-ref-content .mp-section-label {
+  border-left: 0;
+  border-radius: 999px;
+  width: fit-content;
+  padding: 7px 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: var(--mp-type-sm);
+  box-shadow: var(--mp-shadow-soft);
+}
+
+.mp-endpoint {
+  border: 0;
+  border-radius: 16px;
+  background: var(--mp-card);
+  box-shadow: var(--mp-shadow-soft);
+  transition: box-shadow 0.25s, transform 0.25s var(--mp-ease);
+}
+.mp-endpoint:hover {
+  border-color: transparent;
+  box-shadow: var(--mp-shadow-lift);
+}
+.mp-endpoint--open {
+  border: 0;
+  box-shadow: var(--mp-shadow-lift), inset 0 0 0 2px var(--mp-fresh);
+}
+.mp-endpoint--open .mp-endpoint__header {
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+}
+
+// API overview cards reuse the home page cards
+.mp-apis--ref {
+  margin-top: var(--mp-space-6);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.mp-apis--ref .mp-api {
+  box-shadow: var(--mp-shadow-soft);
+  background: var(--mp-card);
+}
+.mp-apis--ref .mp-api:hover { box-shadow: var(--mp-shadow-lift); }
+
+// ---- Search page ------------------------------------------------------------
+
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-docs-pager__link,
+  .mp-endpoint { transition: none; }
+}
+
+// Standalone pages (search, 404): the page hero, then the content on a
+// white card that overlaps it, like the Contact form.
+.mp-standalone--card {
+  position: relative;
+  max-width: 880px;
+  margin: -88px auto clamp(72px, 8vw, 112px);
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--mp-card);
+  border-radius: 24px;
+  box-shadow: var(--mp-shadow);
+}
+.mp-standalone--card .mp-docs-content { padding: 0; max-width: none; }
+.mp-page .mp-phero__inner .mp-breadcrumb { margin-bottom: 28px; }
+@media (max-width: 720px) {
+  .mp-standalone--card { margin: -48px var(--mp-gutter) 72px; }
+}
+
+.mp-page:has(> .mp-standalone--card) .mp-phero__inner { max-width: 880px; padding-left: 0; padding-right: 0; }
+@media (max-width: 960px) {
+  .mp-page:has(> .mp-standalone--card) .mp-phero__inner { padding-left: var(--mp-gutter); padding-right: var(--mp-gutter); }
+}
+
+// Labels in the API reference: sentence case, like the rest of the portal.
+// HTTP methods stay in capitals; that is how they are written.
+.mp-ref-layout .mp-params th,
+.mp-ref-layout .mp-code-header > span {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.mp-ref-layout .mp-params th { font-size: var(--mp-type-xs); font-weight: 700; }
+.mp-beta-banner__pill { letter-spacing: 0.02em; }
+[data-theme="dark"] .mp-ref-layout .mp-ref-content .mp-section-label {
+  background: var(--mp-raised);
+  color: #6ee7b7;
+}
+
+// Wide tables in the docs scroll inside their own box on tablets, instead
+// of pushing the whole page sideways. Phones keep the stacked rows below.
+@media (min-width: 721px) and (max-width: 1100px) {
+  .mp-docs-content__body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+}
+.mp-docs-content__body td code { overflow-wrap: anywhere; }
