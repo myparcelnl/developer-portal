@@ -12,7 +12,7 @@
 //
 // Both are optional. Specs without sidecars render as before.
 
-import yaml from 'js-yaml';
+import { load as loadYaml } from 'js-yaml';
 
 // Markdown sidecars — Vite resolves these at build time via glob import.
 // `?raw` returns the file contents as a string instead of a parsed Vue/MD
@@ -56,7 +56,7 @@ export function loadScenarios(slug: string, anchor: string): Scenario[] {
   const raw = lookup(scenarioFiles, slug, anchor);
   if (!raw) return [];
   try {
-    const parsed = yaml.load(raw) as { scenarios?: Scenario[] };
+    const parsed = loadYaml(raw) as { scenarios?: Scenario[] };
     return Array.isArray(parsed?.scenarios) ? parsed.scenarios : [];
   } catch {
     return [];
