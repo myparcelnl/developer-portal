@@ -25,14 +25,14 @@ v12 authenticates in one of two ways:
 - **An API key.** Most services on this page take the key of your MyParcel account as their first constructor argument. Use this for an integration against your own shop.
 - **MyParcel Connect.** For an integration you publish and other people install. The merchant authorises the shop in their own browser and you never handle their API key. Connect authenticates the e-commerce services only, which today means the order push. See [MyParcel Connect](#myparcel-connect).
 
-If you pass no API key to a factory, the SDK reads the `API_KEY` environment variable, and after that the older `API_KEY_NL` and `API_KEY_BE`. Without any key it throws an `InvalidArgumentException`.
+The API key is optional for a factory and for most services. Without one, the SDK reads the `API_KEY` environment variable, and after that the older `API_KEY_NL` and `API_KEY_BE`. A factory without any key throws an `InvalidArgumentException`. A service creates its client at the first request, so the first request throws that exception, not the constructor. `ApiKeyService` and `ShipmentTrackTraceService` have a required API key argument.
 
 ## Services
 
 | Service | Use it to |
 | --- | --- |
 | `ShipmentCreateService` | Create shipments, as concepts or with labels |
-| `ShipmentQueryService` | Find shipments by ID or by reference |
+| `ShipmentQueryService` | Find shipments by ID, by reference or by the query parameters of `GET /shipments` |
 | `ShipmentDeleteService` | Delete concept shipments |
 | `ShipmentLabelsService` | Get label PDFs, links or direct downloads |
 | `ShipmentPrintService` | Create shipments and print their labels on a printer group |
@@ -81,15 +81,19 @@ $mapping = $service->create([$shipment]);
 
 A property has the camelCase name of the API field, such as `postalCode` for `postal_code`. Use the enum cases of the generated client for carriers, package types and other fixed values, as in this example, rather than plain numbers. The enums are PHP enums: write `RefTypesCarrier::Postnl`, not the v11 constant `::POSTNL`. The ID enums, such as `RefTypesCarrier` and `RefShipmentPackageType`, hold the IDs the shipment API expects. [Value mapping](#value-mapping) converts a v2 name such as `POSTNL` to an ID.
 
-You can also fill a model from an array with the API field names. `CoreApiModels::toModel()` reads a nested object, such as the recipient, from a nested array:
+A flag of the options, such as `$options->signature`, takes `RefTypesIntBoolean::True` or `RefTypesIntBoolean::False`, or the int `1` or `0`. A delivery type is the ID, such as `RefTypesDeliveryType::Standard->value`.
+
+You can also fill a model from an array with the API field names. Use this for input that is already an array, such as a database record or a form. `CoreApiModels::toModel()` reads a nested object, such as the recipient, from a nested array:
 
 ```php
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefShipmentPackageType;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefTypesCarrier;
 use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\ShipmentPostShipmentsRequestV11DataShipmentsItem as Shipment;
 use MyParcelNL\Sdk\Client\Jane\CoreApiModels;
 
 $shipment = CoreApiModels::toModel([
-    'carrier'   => 1,
-    'options'   => ['package_type' => 1],
+    'carrier'   => RefTypesCarrier::Postnl->value,
+    'options'   => ['package_type' => RefShipmentPackageType::Package->value],
     'recipient' => [
         'cc'          => 'NL',
         'street'      => 'Antareslaan',
@@ -101,11 +105,13 @@ $shipment = CoreApiModels::toModel([
 ], Shipment::class);
 ```
 
+`toModel()` does not check the values. A model without additional properties, such as the recipient, drops a key that is not an API field name, also the camelCase name `postalCode`. A model with additional properties, such as the shipment options, sends such a key. A value of the wrong PHP type throws a `TypeError`. When you write a shipment by hand, build it with the generated models and enums, as in the first example: PHP then checks each type, and the enums list the values.
+
 The generated client checks each shipment against the API specification before the request goes out. A shipment that does not match, for example without a recipient, throws a `ValidationException` that lists each problem, and nothing is sent. The API still checks the shipment too.
 
 `create()` returns the ID of each new shipment with its reference identifier. Keep the ID: every other shipment service works with it. A shipment without a reference identifier gets one that starts with `sdk_`.
 
-`create()` also takes a label format (`'A4'` or `'A6'`) and, for A4, the label positions as its second and third arguments. Its fourth argument takes the other query parameters of `POST /shipments`, such as `['send_return_mail' => 0]`; the generated client rejects a name or a type that the API specification does not have.
+`create()` also takes a label format, `ShipmentParametersPaperSize::A4` or `ShipmentParametersPaperSize::A6`, or the string `'A4'` or `'A6'`, and, for A4, the label positions as its second and third arguments. Its fourth argument takes the other query parameters of `POST /shipments`, such as `['send_return_mail' => 0]`; the generated client rejects a name or a type that the API specification does not have. `send_return_mail` is the int `1` or `0`, not a `RefTypesIntBoolean` case.
 
 `CoreApiModels::toArray($shipment)` gives the array with the API field names back, for example to log a shipment, and `CoreApiModels::copy($shipment)` copies a shipment with its nested models.
 
@@ -124,7 +130,27 @@ $shipments = $query->findByReferenceId('order-42');
 (new ShipmentDeleteService('your-api-key'))->deleteMany([12345, 12346]);
 ```
 
-A shipment you find is the generated `ShipmentDefsShipment`. Read its public properties: `$shipment->barcode`, `$shipment->linkConsumerPortal` and a nested object such as `$shipment->recipient->cc`. Most properties that the API did not send are not set: read them with `??`, such as `$shipment->recipient->street ?? null`. When the API sends `null` for a field that the API specification does not allow as `null`, such as `barcode`, the read throws a PHP `TypeError`. A `TypeError` is not an `Exception`, so catch `\Throwable` if you want to handle it. An enum field, such as `$shipment->carrierId`, holds the enum case, such as `RefTypesCarrier::Postnl`, or the raw value for a value the SDK does not know yet.
+A shipment you find is the generated `ShipmentDefsShipment`. Read its public properties: `$shipment->barcode`, `$shipment->linkConsumerPortal` and a nested object such as `$shipment->recipient->cc`. Most properties that the API did not send are not set: read them with `??`, such as `$shipment->recipient->street ?? null`. When the API sends `null` for a field that the API specification does not allow as `null`, such as `barcode`, the service call throws a PHP `TypeError` and returns no shipments. A `TypeError` is not an `Exception`, so catch `\Throwable` if you want to handle it.
+
+An enum field, such as `$shipment->carrierId`, holds the enum case, such as `RefTypesCarrier::Postnl`, or the raw value for a value the SDK does not know yet. A flag, such as `$shipment->hidden` or `$shipment->options->signature`, holds `RefTypesIntBoolean::True` or `RefTypesIntBoolean::False`. A case is an object, so `if ($shipment->hidden)` is always true: compare with the case, or read `->value`.
+
+`query()` takes the query parameters of `GET /shipments` as an array:
+
+```php
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefTypesCarrier;
+
+$shipments = $query->query([
+    'carrier_id' => RefTypesCarrier::Postnl,
+    'status'     => [1, 2],
+    'hidden'     => false,
+]);
+```
+
+- An enum case goes as its value, and `false` goes as `0`.
+- `carrier_id`, `package_type`, `shipment_type`, `shop_id` and `status` also take a list of integers. The list goes as one `;`-separated value, such as `status=1;2`. An empty list for one of these keys leaves the filter out.
+- A key with a `null` value or an empty string leaves the filter out.
+- `query()` throws an `InvalidArgumentException` for a key that `GET /shipments` does not have, and for a type that the API specification does not allow, such as `'hidden' => 1`.
+- `query()` also throws an `InvalidArgumentException` for an array for another key, also for an empty array, such as `'barcode' => []`. For a list of shipment IDs, use `findMany()`.
 
 ## Labels
 
@@ -186,7 +212,7 @@ use MyParcelNL\Sdk\Services\TrackTrace\ShipmentTrackTraceService;
 $traces = (new ShipmentTrackTraceService('your-api-key'))->fetchTrackTraceData([12345]);
 ```
 
-Each trace is the generated `ShipmentDefsTrackTrace`, keyed by shipment ID, with the status, the barcode and the history of the shipment as public properties. `$trace->linkTracktrace` is the carrier's own tracking URL.
+Each trace is the generated `ShipmentDefsTrackTrace`, keyed by shipment ID, with the status and the history of the shipment as public properties: `$trace->status` and `$trace->history`. `$trace->linkTracktrace` is the carrier's own tracking URL. A trace has no barcode: read `$shipment->barcode` of a shipment from `ShipmentQueryService`.
 
 ## Returns
 
@@ -208,7 +234,7 @@ $related = $returns->createRelated([
 ]);
 
 $unrelated = $returns->createUnrelated([
-    ['carrier' => RefTypesCarrier::Postnl->value, 'recipient' => [/* address */]],
+    ['carrier' => RefTypesCarrier::Postnl->value, 'name' => 'John Doe', 'email' => 'john@example.com'],
 ]);
 ```
 
@@ -265,24 +291,44 @@ $principal = $service->getPrincipal();
 
 `getPrincipal()` returns a `PrincipalShop` or a `PrincipalUser`: Jane models with public properties, such as `$principal->shopIds`. An API key belongs to a shop, so IAM answers with a `PrincipalShop`; a `PrincipalUser` is the answer for a user token.
 
+`isValid()` returns `false` only for a 401. Another error, such as a network error, says nothing about the key, so `isValid()` throws it.
+
 Use this in a settings screen, so a merchant learns that a key is wrong before the first shipment fails.
 
 ## Carrier capabilities
 
-`CapabilitiesService` tells you what a carrier offers for a given destination, package and set of options. `get()` takes the generated request model `CapabilitiesPostCapabilitiesRequestV2`. Fill it with the camelCase field names of the capabilities API. You do not need to build a shipment first:
+`CapabilitiesService` tells you what a carrier offers for a given destination, package and set of options. `get()` takes the generated request model `CapabilitiesPostCapabilitiesRequestV2`. Build it with the generated models and enums. The properties have the camelCase field names of the capabilities API. You do not need to build a shipment first:
 
 ```php
 use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostCapabilitiesRequestV2;
-use MyParcelNL\Sdk\Client\Jane\CoreApiModels;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostCapabilitiesRequestV2Options;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostCapabilitiesRequestV2PhysicalProperties;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostCapabilitiesRequestV2PhysicalPropertiesWeight;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostCapabilitiesRequestV2PhysicalPropertiesWeightUnit;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CapabilitiesPostCapabilitiesRequestV2Recipient;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefCapabilitiesSharedCarrierV2;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\RefShipmentPackageTypeV2;
 use MyParcelNL\Sdk\Services\Capabilities\CapabilitiesService;
 
-$request = CoreApiModels::toModel([
-    'recipient'          => ['countryCode' => 'NL'],
-    'carrier'            => 'POSTNL',
-    'packageType'        => 'PACKAGE',
-    'physicalProperties' => ['weight' => ['value' => 2000, 'unit' => 'g']],
-    'options'            => ['requiresSignature' => new stdClass()],
-], CapabilitiesPostCapabilitiesRequestV2::class);
+$recipient              = new CapabilitiesPostCapabilitiesRequestV2Recipient();
+$recipient->countryCode = 'NL';
+
+$weight        = new CapabilitiesPostCapabilitiesRequestV2PhysicalPropertiesWeight();
+$weight->value = 2000;
+$weight->unit  = CapabilitiesPostCapabilitiesRequestV2PhysicalPropertiesWeightUnit::G;
+
+$physicalProperties         = new CapabilitiesPostCapabilitiesRequestV2PhysicalProperties();
+$physicalProperties->weight = $weight;
+
+$options                    = new CapabilitiesPostCapabilitiesRequestV2Options();
+$options->requiresSignature = new stdClass();
+
+$request                     = new CapabilitiesPostCapabilitiesRequestV2();
+$request->recipient          = $recipient;
+$request->carrier            = RefCapabilitiesSharedCarrierV2::Postnl;
+$request->packageType        = RefShipmentPackageTypeV2::Package;
+$request->physicalProperties = $physicalProperties;
+$request->options            = $options;
 
 $response = (new CapabilitiesService())->get($request);
 
@@ -297,14 +343,16 @@ foreach ($response->results as $result) {
 }
 ```
 
-The request also takes a delivery type, a direction, a sender and a pickup location, such as `'sender' => ['countryCode' => 'NL', 'postalCode' => '2132JE']`. The generated client checks the request before it goes out: a value that the API specification does not know, such as an unknown carrier, throws a `ValidationException`.
+The request also takes a delivery type, a direction, a sender and a pickup location: `$request->deliveryType`, `$request->direction`, `$request->sender` and `$request->pickup`. The generated client checks the request before it goes out: a value that the API specification does not know, such as an unknown carrier, throws a `ValidationException`.
+
+For input that is already an array, `CoreApiModels::toModel()` fills the request from an array with the same camelCase names, such as `['recipient' => ['countryCode' => 'NL'], 'carrier' => 'POSTNL']`.
 
 The response is the generated `CapabilitiesResponsesCapabilitiesV2`, with one result per carrier contract. A package type, a delivery type and an option in one result belong together, so read the result of the carrier and contract you want to use. A carrier, package type or delivery type is an enum case, or the raw string for a value that the SDK does not know yet. `array_keys(CoreApiModels::toArray($result->options))` gives the API names of the options, such as `requiresSignature`.
 
 If you already have a shipment model, `fromShipment($shipment)` builds the request from its recipient country and physical properties.
 
 ::: warning Known issue
-`CapabilitiesService` has no API key argument and reads the key from the `API_KEY` environment variable. Without that variable it throws an `InvalidArgumentException`. Until this changes, set `API_KEY`, or pass `new HttpCapabilitiesClient($api)`, with a Jane client from `ShipmentApiFactory::make()`, to the constructor.
+`CapabilitiesService` has no API key argument. It sends its requests through `HttpCapabilitiesClient`, which reads the key from the `API_KEY`, `API_KEY_NL` or `API_KEY_BE` environment variable at the first request. Without a key, that request throws an `InvalidArgumentException`. To pass an API key, give the service the client: `new CapabilitiesService(new HttpCapabilitiesClient('your-api-key'))`.
 :::
 
 To translate an option name of your own, such as `signature`, use `ShipmentOptionMapper::v2PropertyFromName()`. It returns the property of the options model, such as `requiresSignature`, or `null` for an option that a capabilities request cannot send, such as `tracked`, so your application can report it. This checks option names only. It does not check option values, and it does not tell you which options a carrier offers.
@@ -323,7 +371,9 @@ $all    = $service->getContractDefinitions();
 $inPost = $service->getContractDefinitions(CapabilitiesPostContractDefinitionsRequestV2Carrier::Inpost);
 ```
 
-The service returns the Jane models as they are. Read their public properties, such as `$definition->carrier` and `$definition->packageTypes`. A carrier, package type, delivery type or transaction type is an enum case, such as `RefCapabilitiesSharedCarrierV2::Postnl`, or the raw string for a value that the SDK does not know yet.
+The API key is optional. Without one, the first request reads `API_KEY`, `API_KEY_NL` or `API_KEY_BE`.
+
+The service returns the Jane models as they are. Read their public properties, such as `$definition->carrier` and `$definition->packageTypes`. A carrier, package type, delivery type or transaction type is an enum case, such as `RefCapabilitiesSharedCarrierV2::Postnl`, or the raw string for a value that the SDK does not know yet. Compare with the enum case, because `->value` fails on a raw string.
 
 ## Value mapping
 
@@ -339,9 +389,50 @@ $mapper->v2NameFromId(9);               // 'DHL_FOR_YOU'
 $mapper->legacyNameFromV2Name('DPD');   // 'dpd'
 ```
 
-Use `forDeliveryType()` or `forPackageType()` for the other two. A conversion returns `null` when there is no mapping. `allRows()` returns the whole map for one category, and `allDomains()` returns all three.
+Use `forDeliveryType()` or `forPackageType()` for the other two. A conversion returns `null` when there is no mapping. `allRows()` returns the whole map for one category, and `allDomains()` returns all three. The rows are keyed by the case name of the generated enums, such as `DhlForYou`.
 
 Shipment option names have their own mapper. `ShipmentOptionMapper::v2PropertyFromName()` returns the property name in the capabilities v2 model, or `null`. For example, `signature`, `requires_signature` and `requiresSignature` all map to `requiresSignature`.
+
+## Handle errors
+
+The shipment, label, track and trace, return, webhook, capabilities and contract definition services run on the Jane Core API client. They throw these exceptions:
+
+| Situation | Exception |
+| --- | --- |
+| A request that does not match the API specification | A `ValidationException` of the generated client. No request goes out. `getViolationList()` lists each field and the problem. |
+| An error response of the API | An exception that implements the generated `ApiException`. A status with its own response in the API specification has its own exception, such as `PostShipmentsUnprocessableEntityException` for a 422. Another 4xx status throws the exception of the range, such as `PostShipmentsClientErrorException`, and a 5xx status throws `PostShipmentsServerErrorException`. |
+| A response with a status that the API specification does not list for the request, or an error response that is not JSON | `BadResponseException`, which is an `ApiException` |
+| A connection error or a timeout | A Symfony `TransportExceptionInterface` |
+
+```php
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Exception\ApiException;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Exception\PostShipmentsUnprocessableEntityException;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CommonResponsesProblem;
+use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Runtime\Normalizer\ValidationException;
+
+try {
+    $mapping = $service->create([$shipment]);
+} catch (ValidationException $exception) {
+    $problems = $exception->getViolationList();   // No request went out.
+} catch (PostShipmentsUnprocessableEntityException $exception) {
+    $error   = $exception->getCommonResponsesProblem();
+    $message = $error instanceof CommonResponsesProblem ? $error->detail : $error->message;
+} catch (ApiException $exception) {
+    $status = $exception->getResponse()->getStatusCode();
+    $body   = $exception->getResponse()->getContent(false);
+}
+```
+
+Read the HTTP status with `getResponse()->getStatusCode()`, not with `getCode()`. `getCode()` is `0` for the exception of a status range, such as `PostShipmentsClientErrorException`, and the status for the exception of one status, such as `PostShipmentsUnprocessableEntityException`.
+
+`getCommonResponsesProblem()` returns the body of the error response as a model. The API answers with `application/json` or with `application/problem+json`, and each content type has its own model:
+
+- A 4xx exception of a status range, such as `PostShipmentsClientErrorException`, holds a `CommonResponsesUserError`, with `->message` and `->statusCode`, or a `CommonResponsesProblem`, with `->detail` and `->status`.
+- A 5xx exception, such as `PostShipmentsServerErrorException`, holds a `CommonResponsesSystemError`, with `->message` and `->statusCode`, or a `CommonResponsesProblem`.
+
+The PHP return type of `getCommonResponsesProblem()` names the models of each exception. The exception of one status can hold another model: `GetShipmentsLabelsNotFoundException` holds a `CommonResponsesUserErrorNotFound` or a `CommonResponsesProblem`. Check which one you got with `instanceof`. `BadResponseException` has no `getCommonResponsesProblem()`.
+
+`ApiKeyService` runs on the Jane IAM client, which has its own exceptions. [Upgrading to v12 ↗](https://github.com/myparcelnl/sdk/blob/beta/UPGRADE.md) in the SDK repository lists them.
 
 ## Advanced
 
@@ -358,21 +449,22 @@ $api = ShipmentApiFactory::make('your-api-key', null, null, ['x-dmp-example' => 
 $service = new ShipmentCreateService('your-api-key', $api);
 ```
 
-The second and third arguments of `make()` override the API host and the user agent.
+The second and third arguments of `make()` override the API host and the user agent. With a client, a service does not use its own API key and host arguments.
 
-This works for every service that takes the client: creating, finding and deleting shipments, track and trace, labels, direct print, returns and webhooks. `CarrierContractDefinitionsService` takes the client as its third argument, after the host.
+This works for every service that takes the client: creating, finding and deleting shipments, track and trace, labels, direct print, returns, webhooks and contract definitions. For capabilities, pass the client to `HttpCapabilitiesClient`: `new CapabilitiesService(new HttpCapabilitiesClient(null, $api))`.
+
+A client that you pass keeps its own User-Agent: `setUserAgent()` and `setUserAgentForProposition()` on the service do not change it. Give that client its User-Agent as the third argument of `make()`. Without a client, a service sends its own User-Agent, with the value at the first request, so call `setUserAgentForProposition()` before the first request. `ShipmentCreateService` and `ShipmentPrintService` also send the User-Agent of the service as `user_agent` in the request body, with every client.
 
 ### Test your integration
 
-Most services take the Jane client as their second constructor argument. In your own tests, build that client with a Symfony `MockHttpClient` as the fifth argument of `ShipmentApiFactory::make()`, so no test reaches the real API and the mock sees the request that goes out.
+Most services take the Jane client as their second constructor argument. In your own tests, build that client with a Symfony `MockHttpClient` as the fifth argument of `ShipmentApiFactory::make()`, so no test reaches the real API and the mock sees the request that goes out. For `ApiKeyService`, build the client with `IamApiFactory::make()`, which takes the same arguments.
 
-| Service | Constructor arguments after the API key |
+| Class | Constructor arguments after the API key |
 | --- | --- |
-| `ShipmentCreateService`, `ShipmentQueryService`, `ShipmentDeleteService`, `ShipmentTrackTraceService`, `ShipmentLabelsService`, `ShipmentPrintService`, `ReturnShipmentService`, `WebhookService` | Jane `Client`, host |
-| `CarrierContractDefinitionsService` | host, Jane `Client` |
+| `ShipmentCreateService`, `ShipmentQueryService`, `ShipmentDeleteService`, `ShipmentTrackTraceService`, `ShipmentLabelsService`, `ShipmentPrintService`, `ReturnShipmentService`, `WebhookService`, `CarrierContractDefinitionsService`, `HttpCapabilitiesClient` | Jane `Client`, host |
 | `ApiKeyService` | the Jane IAM `Client`, host |
 
-`CapabilitiesService` takes a `CapabilitiesClientInterface` as its only argument, and `HttpCapabilitiesClient` takes the Jane `Client` as its only argument.
+`CapabilitiesService` takes a `CapabilitiesClientInterface` as its only argument. `HttpCapabilitiesClient` implements that interface.
 
 ## Upgrading from v11
 
@@ -400,7 +492,8 @@ for those yet.
 
 The shop's MyParcel account must have order management, which is order v2. `GET /whoami` reports it
 as `ORDER_MANAGEMENT` in its `features` array, and the SDK exposes that call as
-`IamApi\Api\DefaultApi::whoamiGet()`. An account without it authorises at MyParcel and is then refused,
+`ApiKeyService::getPrincipal()`: `$principal->features ?? []` then holds the enum case
+`Feature::OrderManagement`. An account without it authorises at MyParcel and is then refused,
 so the callback returns `access_denied` rather than a token. `LEGACY_ORDER_MANAGEMENT` is a
 different feature and does not count.
 
