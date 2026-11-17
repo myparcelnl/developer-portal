@@ -11,6 +11,10 @@ L'estensione MyParcel collega il tuo shop OpenCart 4 a MyParcel. I clienti scelg
 L'estensione OpenCart 4 è attualmente in versione preliminare (versione `1.0.0-beta.10`) e il lancio della 1.0 è in preparazione. Richiede **OpenCart 4.1.0.3 o superiore** e **PHP 8.2 o superiore**. Schermate e nomi dei campi potrebbero ancora cambiare tra una release e l'altra.
 :::
 
+::: tip Usi ancora OpenCart 3?
+Questa guida è per OpenCart 4. Per OpenCart 3, consulta la [guida per OpenCart 3](./opencart3.md).
+:::
+
 ## Avvio rapido, il tuo primo pacco in 15 minuti
 Sufficiente per spedire oggi stesso il tuo primo ordine reale. Per configurazioni più approfondite vedi [Cosa stai cercando?](#cosa-stai-cercando) qui sotto.
 

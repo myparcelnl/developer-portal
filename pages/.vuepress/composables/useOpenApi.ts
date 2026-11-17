@@ -1,4 +1,4 @@
-import yaml from 'js-yaml';
+import { load as loadYaml } from 'js-yaml';
 
 export type Method = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'options' | 'head';
 export const HTTP_METHODS: Method[] = ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'];
@@ -43,7 +43,7 @@ export async function fetchOpenApi(url: string): Promise<OpenApiDoc> {
   const res = await fetch(url, { credentials: 'omit', mode: 'cors' });
   if (!res.ok) throw new Error(`Failed to fetch ${url}: HTTP ${res.status}`);
   const text = await res.text();
-  return yaml.load(text) as OpenApiDoc;
+  return loadYaml(text) as OpenApiDoc;
 }
 
 // Resolve a single $ref against the root document.

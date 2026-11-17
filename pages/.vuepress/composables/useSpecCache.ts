@@ -44,8 +44,8 @@ async function fetchWithEtag(url: string): Promise<{ spec: OpenApiDoc; changed: 
   const hash = hashString(text);
   const changed = lastBodyHash.get(url) !== hash;
   lastBodyHash.set(url, hash);
-  const { default: yaml } = await import('js-yaml');
-  const spec = yaml.load(text) as OpenApiDoc;
+  const { load: loadYaml } = await import('js-yaml');
+  const spec = loadYaml(text) as OpenApiDoc;
   return { spec, changed };
 }
 
