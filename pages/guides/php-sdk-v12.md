@@ -202,6 +202,8 @@ The account needs a working printer group before this call succeeds. Set it up t
 3. Give the shop access to the group with [`POST /allow-shops-access-to-printer-group`](../api/printing.md#post-allow-shops-access-to-printer-group).
 4. Turn on direct printing with [`POST /enable-direct-printing`](../api/printing.md#post-enable-direct-printing).
 
+The account also needs a subscription with direct printing. Without it, the API answers with a 406 and `print()` throws a `PostShipmentsClientErrorException`.
+
 The SDK has no public service to list printer groups. Read the ID of the group from [`GET /printer-groups`](../api/printing.md#get-printer-groups).
 
 ## Track and trace
@@ -409,9 +411,10 @@ use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Exception\ApiException;
 use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Exception\PostShipmentsUnprocessableEntityException;
 use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CommonResponsesProblem;
 use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Runtime\Normalizer\ValidationException;
+use MyParcelNL\Sdk\Services\Shipment\ShipmentCreateService;
 
 try {
-    $mapping = $service->create([$shipment]);
+    $mapping = (new ShipmentCreateService('your-api-key'))->create([$shipment]);
 } catch (ValidationException $exception) {
     $problems = $exception->getViolationList();   // No request went out.
 } catch (PostShipmentsUnprocessableEntityException $exception) {
