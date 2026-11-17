@@ -3,6 +3,7 @@ import { defaultTheme } from '@vuepress/theme-default';
 import { viteBundler } from '@vuepress/bundler-vite';
 import { getDirname, path } from 'vuepress/utils';
 import { Logger } from '@vuepress/helper';
+import { aiVisibilityPlugin } from './plugins/aiVisibility';
 
 const __dirname = getDirname(import.meta.url);
 
@@ -72,6 +73,8 @@ export default defineUserConfig({
 
   bundler: viteBundler(),
   clientConfigFile: path.resolve(__dirname, './client.ts'),
+
+  plugins: [aiVisibilityPlugin()],
 
   markdown: {
     anchor: { slugify },
