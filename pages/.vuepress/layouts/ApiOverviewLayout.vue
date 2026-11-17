@@ -3,7 +3,19 @@ import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
 import MpApiOverviewSidebar from '../components/MpApiOverviewSidebar.vue';
 import MpDownloadSpecs from '../components/MpDownloadSpecs.vue';
-import { apiList, apiMeta } from '../api-meta';
+import { apiList } from '../api-meta';
+
+// Same descriptions (and translation keys) as before; Shipment API first.
+const descriptions: Record<string, string> = {
+  'myparcel': 'The core shipping API: shipments, delivery options, drop-off/pickup locations, track & trace, notifications and webhooks.',
+  'order': 'Orders, packages, picklists, packing slips and assignment flows.',
+  'rule': 'Configure order rule groups to automate fulfilment decisions per shop.',
+  'address': 'Look up and validate addresses against postal data.',
+  'printing': 'Direct printing: manage printers, printer groups and sync status.',
+  'product': 'Product catalog: create, update, query products and manage inventory.',
+  'purchase-order': 'Manage purchase orders: creation, receipts, inventory intake.',
+};
+const apis = [...apiList].sort((a, b) => (a.slug === 'myparcel' ? -1 : b.slug === 'myparcel' ? 1 : 0));
 </script>
 
 <template>
@@ -20,7 +32,6 @@ import { apiList, apiMeta } from '../api-meta';
       </nav>
 
       <header class="mp-ref-hub">
-        <div class="mp-ref-hub__eyebrow" data-i18n="API REFERENCE">API REFERENCE</div>
         <h1 class="mp-ref-hub__title" data-i18n="API Overview">API Overview</h1>
         <p class="mp-ref-hub__lead" data-i18n="Every MyParcel API, in one place. Pick a service to browse its endpoints, schemas and code samples, all auto-generated from the live OpenAPI specs.">
           Every MyParcel API, in one place. Pick a service to browse its endpoints, schemas and code samples, all auto-generated from the live OpenAPI specs.
@@ -40,116 +51,13 @@ import { apiList, apiMeta } from '../api-meta';
           <p class="mp-ref-section__sub" data-i18n="Click a card to open its reference: endpoints, parameters and code samples.">Click a card to open its reference: endpoints, parameters and code samples.</p>
         </div>
 
-        <div class="mp-api-grid" style="max-width:none;">
-
-          <a href="/api/myparcel.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                  <path d="M3.3 7 12 12l8.7-5M12 22V12"/>
-                </svg>
-              </div>
-            </div>
-            <div class="mp-api-card__name">Shipment API</div>
-            <div class="mp-api-card__url">api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="The core shipping API: shipments, delivery options, drop-off/pickup locations, track & trace, notifications and webhooks.">The core shipping API: shipments, delivery options, drop-off/pickup locations, track &amp; trace, notifications and webhooks.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/myparcel.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
+        <div class="mp-apis mp-apis--ref">
+          <a v-for="a in apis" :key="a.slug" class="mp-api" :href="`/api/${a.slug}.html`">
+            <span class="mp-api__name">{{ a.name }}</span>
+            <code class="mp-api__host">{{ a.host }}</code>
+            <span class="mp-api__desc" :data-i18n="descriptions[a.slug]">{{ descriptions[a.slug] }}</span>
+            <span class="mp-api__meta">{{ a.endpoints }} <span data-i18n="endpoints">endpoints</span></span>
           </a>
-
-          <a href="/api/order.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-              </div>
-            </div>
-            <div class="mp-api-card__name">Order API</div>
-            <div class="mp-api-card__url">order.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Orders, packages, picklists, packing slips and assignment flows.">Orders, packages, picklists, packing slips and assignment flows.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/order.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
-          <a href="/api/rule.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
-              </div>
-            </div>
-            <div class="mp-api-card__name">Rule API</div>
-            <div class="mp-api-card__url">rule.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Configure order rule groups to automate fulfilment decisions per shop.">Configure order rule groups to automate fulfilment decisions per shop.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/rule.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
-          <a href="/api/address.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              </div>
-            </div>
-            <div class="mp-api-card__name">Address API</div>
-            <div class="mp-api-card__url">address.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Look up and validate addresses against postal data.">Look up and validate addresses against postal data.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/address.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
-          <a href="/api/printing.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-              </div>
-            </div>
-            <div class="mp-api-card__name">Printing API</div>
-            <div class="mp-api-card__url">printing.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Direct printing: manage printers, printer groups and sync status.">Direct printing: manage printers, printer groups and sync status.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/printing.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
-          <a href="/api/product.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg>
-              </div>
-            </div>
-            <div class="mp-api-card__name">Product API</div>
-            <div class="mp-api-card__url">product.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Product catalog: create, update, query products and manage inventory.">Product catalog: create, update, query products and manage inventory.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/product.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
-          <a href="/api/purchase-order.html" class="mp-api-card">
-            <div class="mp-api-card__top">
-              <div class="mp-api-card__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F7859" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h12v18H3V9l6-6zM9 3v6H3"/></svg>
-              </div>
-            </div>
-            <div class="mp-api-card__name">Purchase Order API</div>
-            <div class="mp-api-card__url">purchase-order.api.myparcel.nl</div>
-            <p class="mp-api-card__desc" data-i18n="Manage purchase orders: creation, receipts, inventory intake.">Manage purchase orders: creation, receipts, inventory intake.</p>
-            <div class="mp-api-card__meta">
-              <span class="mp-freshness"><span class="mp-freshness__dot"></span><span>{{ apiMeta['/api/purchase-order.html'].endpoints }} <span data-i18n="endpoints">endpoints</span></span></span>
-              <div class="mp-api-card__cta"><span data-i18n="Open reference">Open reference</span>→</div>
-            </div>
-          </a>
-
         </div>
       </section>
     </main>

@@ -131,17 +131,21 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
 <template>
   <MpHeader />
 
-  <main id="mp-main" tabindex="-1" class="mp-standalone mp-integrations">
-    <MpBreadcrumb :trail="breadcrumbTrail" />
+  <main id="mp-main" tabindex="-1" class="mp-page mp-integrations">
+    <section class="mp-phero">
+      <div class="mp-phero__inner">
+        <MpBreadcrumb :trail="breadcrumbTrail" />
+        <h1 class="mp-phero__title" data-i18n="Integrations">Integrations</h1>
+        <p class="mp-phero__lede" data-i18n="Every way to connect a shop, a warehouse or your own code to MyParcel: plug-ins, SDKs, Backoffice API integrations and utilities. Not every integration is available in every market, so filter by the market you ship in.">
+          Every way to connect a shop, a warehouse or your own code to MyParcel:
+          plug-ins, SDKs, Backoffice API integrations and utilities. Not every
+          integration is available in every market, so filter by the market you
+          ship in.
+        </p>
+      </div>
+    </section>
 
-    <h1 class="mp-docs-content__title" data-i18n="Integrations">Integrations</h1>
-    <p class="mp-docs-content__lede" data-i18n="Every way to connect a shop, a warehouse or your own code to MyParcel: plug-ins, SDKs, Backoffice API integrations and utilities. Not every integration is available in every market, so filter by the market you ship in.">
-      Every way to connect a shop, a warehouse or your own code to MyParcel:
-      plug-ins, SDKs, Backoffice API integrations and utilities. Not every
-      integration is available in every market, so filter by the market you
-      ship in.
-    </p>
-
+    <div class="mp-int-body">
     <!-- ============================================================
          TOOLBAR — sticks under the navbar, because the catalogue is
          long enough that you want to filter without scrolling back up.
@@ -271,6 +275,9 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
       <button type="button" class="mp-btn mp-btn--secondary" data-i18n="Clear filters" @click="clearFilters">Clear filters</button>
     </div>
 
+    </div>
+
+    <div class="mp-int-body mp-int-body--end">
     <!-- ============================================================
          BUILD YOUR OWN
     ============================================================ -->
@@ -283,9 +290,10 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
       </p>
       <div class="mp-int-cta__actions">
         <a class="mp-btn mp-btn--primary" :href="`${BASE}/guides/getting-started.html`" data-i18n="Getting started">Getting started</a>
-        <a class="mp-btn mp-btn--tertiary" :href="`${BASE}/contact.html`" data-i18n="Tell us about it">Tell us about it</a>
+        <a class="mp-arrow-link" :href="`${BASE}/contact.html`"><span data-i18n="Tell us about it">Tell us about it</span></a>
       </div>
     </section>
+    </div>
   </main>
 
   <MpFooter />
