@@ -60,6 +60,7 @@ export const docsSidebar: SidebarGroup[] = [
       { text: 'Amazon', link: '/platforms/amazon.html' },
       { text: 'Chrome extension', link: '/platforms/chrome-extension.html' },
       { text: 'Etsy', link: '/platforms/etsy.html' },
+      { text: 'Exact Online', link: '/platforms/exact-online.html' },
     ],
   },
     {
@@ -123,6 +124,7 @@ const CORE_PLATFORM_PATHS = [
   '/platforms/amazon.html',
   '/platforms/chrome-extension.html',
   '/platforms/etsy.html',
+  '/platforms/exact-online.html',
 ];
 
 const LOCALIZED_PATHS_BY_LANG: Record<Exclude<Lang, 'en'>, Set<string>> = {
