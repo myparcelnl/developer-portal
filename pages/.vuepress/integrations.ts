@@ -543,7 +543,7 @@ export const integrationGroups: IntegrationGroup[] = [
         logo: 'exact-online.svg',
         markets: NLBE,
         byMyParcel: true,
-        links: [extDocs('https://myparcelnl.github.io/exact-online'), site('https://www.exact.com/nl/')],
+        links: [docs('/platforms/exact-online.html'), site('https://www.exact.com/nl/')],
       },
       {
         name: 'Odoo',
