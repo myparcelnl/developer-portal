@@ -395,7 +395,7 @@ export const integrationGroups: IntegrationGroup[] = [
       {
         name: 'Amazon',
         logo: 'amazon.svg',
-        markets: NLBE,
+        markets: NLBE_IT,
         byMyParcel: true,
         links: [
           docs('/platforms/amazon.html'),
