@@ -8,12 +8,19 @@ MyParcel.
 
 ## Local development
 
+Prerequisites:
+
+- Node.js 24, version 24.21 or later
+- pnpm 12, version 12.11 or later
+
+Volta must not be installed: its `yarn` ignores `packageManager` and `devEngines`.
+
 ```bash
-npm install
-npm run docs:dev    # http://localhost:8080
+pnpm install
+pnpm docs:dev    # http://localhost:8080
 ```
 
-`npm run docs:build` produces a static site in `pages/.vuepress/dist/`.
+`pnpm docs:build` produces a static site in `pages/.vuepress/dist/`.
 
 ## Project layout
 
