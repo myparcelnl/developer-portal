@@ -132,6 +132,9 @@ layout.
   `ALL_MARKETS` in practice means "also available in Italy" or "market
   agnostic". There is deliberately no per-card market label: the filter is the
   market UI.
+- `comingSoon` lists markets where an integration is announced but not usable
+  yet. The card shows up under that market with a "Coming soon" badge. Move the
+  market to `markets` when the integration ships there.
 - `byMyParcel` renders the MyParcel mark on the logo tile
   (`pages/images/myparcel-mark.svg`, extracted from the brand wordmark). It is
   not a text badge.

@@ -66,6 +66,16 @@ export function availableIn(item: Integration, market: Market): boolean {
   return item.markets === ANY_MARKET || item.markets.includes(market);
 }
 
+/** True when an integration is announced for the given market but not yet usable there. */
+export function comingSoonIn(item: Integration, market: Market): boolean {
+  return !availableIn(item, market) && (item.comingSoon?.includes(market) ?? false);
+}
+
+/** True when an integration shows up under the given market, usable or announced. */
+export function listedIn(item: Integration, market: Market): boolean {
+  return availableIn(item, market) || comingSoonIn(item, market);
+}
+
 export interface IntegrationLink {
   /** Translated label key. */
   label: 'Documentation' | 'GitHub' | 'Website';
@@ -81,6 +91,13 @@ export interface Integration {
   logo: string;
   /** Where the integration is usable. */
   markets: MarketScope;
+  /**
+   * Markets where the integration is announced but not usable yet. The card
+   * is listed under those markets with a "Coming soon" badge. Move a market
+   * from here to `markets` once it ships. An integration with `markets: []`
+   * is coming soon everywhere and also carries the badge under "All markets".
+   */
+  comingSoon?: readonly Market[];
   /** Built and maintained by MyParcel itself. */
   byMyParcel?: boolean;
   /** Documented as end-of-life; kept listed for shops still running it. */
@@ -174,6 +191,7 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'Magento 2',
         logo: 'magento.svg',
         markets: NLBE,
+        comingSoon: ['it'],
         byMyParcel: true,
         links: [docs('/platforms/magento2.html'), github('myparcelnl/magento')],
       },
@@ -203,6 +221,7 @@ export const integrationGroups: IntegrationGroup[] = [
         name: 'Shopware',
         logo: 'shopware.svg',
         markets: NLBE,
+        comingSoon: ['it'],
         byMyParcel: true,
         links: [
           oldPortal('documentation/15.shopware.html'),
