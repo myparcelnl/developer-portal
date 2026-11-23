@@ -130,7 +130,7 @@ $shipments = $query->findByReferenceId('order-42');
 (new ShipmentDeleteService('your-api-key'))->deleteMany([12345, 12346]);
 ```
 
-A shipment you find is the generated `ShipmentDefsShipment`. Read its public properties: `$shipment->barcode`, `$shipment->linkConsumerPortal` and a nested object such as `$shipment->recipient->cc`. Most properties that the API did not send are not set: read them with `??`, such as `$shipment->recipient->street ?? null`. When the API sends `null` for a field that the API specification does not allow as `null`, such as `barcode`, the service call throws a PHP `TypeError` and returns no shipments. A `TypeError` is not an `Exception`, so catch `\Throwable` if you want to handle it.
+A shipment you find is the generated `ShipmentDefsShipment`. Read its public properties: `$shipment->barcode`, `$shipment->linkConsumerPortal` and a nested object such as `$shipment->recipient->cc`. Most properties that the API did not send are not set: read them with `??`, such as `$shipment->recipient->street ?? null`.
 
 An enum field, such as `$shipment->carrierId`, holds the enum case, such as `RefTypesCarrier::Postnl`, or the raw value for a value the SDK does not know yet. A flag, such as `$shipment->hidden` or `$shipment->options->signature`, holds `RefTypesIntBoolean::True` or `RefTypesIntBoolean::False`. A case is an object, so `if ($shipment->hidden)` is always true: compare with the case, or read `->value`.
 
@@ -146,8 +146,8 @@ $shipments = $query->query([
 ]);
 ```
 
-- An enum case goes as its value, and `false` goes as `0`.
-- `carrier_id`, `package_type`, `shipment_type`, `shop_id` and `status` also take a list of integers. The list goes as one `;`-separated value, such as `status=1;2`. An empty list for one of these keys leaves the filter out.
+- A value can be an enum case, such as `RefTypesCarrier::Postnl`, or a boolean. The SDK converts it to the value that the API expects.
+- `carrier_id`, `package_type`, `shipment_type`, `shop_id` and `status` also take a list of integers, such as `[1, 2]`. An empty list for one of these keys leaves the filter out.
 - A key with a `null` value or an empty string leaves the filter out.
 - `query()` throws an `InvalidArgumentException` for a key that `GET /shipments` does not have, and for a type that the API specification does not allow, such as `'hidden' => 1`.
 - `query()` also throws an `InvalidArgumentException` for an array for another key, also for an empty array, such as `'barcode' => []`. For a list of shipment IDs, use `findMany()`.
@@ -172,7 +172,7 @@ $url = $labels->getLinkOfLabels();
 $labels->downloadPdfOfLabels();
 ```
 
-An error response, such as a 404 for an unknown shipment, throws the generated exception, such as `GetShipmentsLabelsNotFoundException`. The status and the content type of the response pick the exception: an error response that is not JSON, such as an HTML page from a proxy, throws `BadResponseException`.
+An error response, such as a 404 for an unknown shipment, throws a generated exception, such as `GetShipmentsLabelsNotFoundException`. See [Handle errors](#handle-errors).
 
 `downloadPdfOfLabels()` sends the PDF with its own headers and then ends the script with `exit`, so call it last. Pass `true` to open the PDF in the browser instead of downloading it.
 
@@ -354,10 +354,19 @@ The response is the generated `CapabilitiesResponsesCapabilitiesV2`, with one re
 If you already have a shipment model, `fromShipment($shipment)` builds the request from its recipient country and physical properties.
 
 ::: warning Known issue
-`CapabilitiesService` has no API key argument. It sends its requests through `HttpCapabilitiesClient`, which reads the key from the `API_KEY`, `API_KEY_NL` or `API_KEY_BE` environment variable at the first request. Without a key, that request throws an `InvalidArgumentException`. To pass an API key, give the service the client: `new CapabilitiesService(new HttpCapabilitiesClient('your-api-key'))`.
+`CapabilitiesService` has no API key argument of its own. `HttpCapabilitiesClient`, which sends the requests of the service, takes the API key as its first constructor argument. To pass an API key, give the service that client:
+
+```php
+use MyParcelNL\Sdk\Services\Capabilities\CapabilitiesService;
+use MyParcelNL\Sdk\Services\CoreApi\HttpCapabilitiesClient;
+
+$service = new CapabilitiesService(new HttpCapabilitiesClient('your-api-key'));
+```
+
+Without that client, the service reads the key from the `API_KEY`, `API_KEY_NL` or `API_KEY_BE` environment variable at the first request. Without a key, that request throws an `InvalidArgumentException`.
 :::
 
-To translate an option name of your own, such as `signature`, use `ShipmentOptionMapper::v2PropertyFromName()`. It returns the property of the options model, such as `requiresSignature`, or `null` for an option that a capabilities request cannot send, such as `tracked`, so your application can report it. This checks option names only. It does not check option values, and it does not tell you which options a carrier offers.
+The options of a capabilities request have other names than the options of a shipment. `ShipmentOptionMapper::v2PropertyFromName()` takes the name of a shipment option in `POST /shipments`, such as `signature` or `only_recipient`. It returns the property of `CapabilitiesPostCapabilitiesRequestV2Options` for that option, such as `requiresSignature` or `recipientOnlyDelivery`. It returns `null` for an option that a capabilities request cannot send, such as `tracked`, so your application can report it. This checks option names only. It does not check option values, and it does not tell you which options a carrier offers.
 
 ## Contract definitions
 
@@ -379,7 +388,15 @@ The service returns the Jane models as they are. Read their public properties, s
 
 ## Value mapping
 
-The delivery options, the v1 API and the v2 API name carriers, delivery types and package types differently. `ApiMapperService` converts between them:
+The API writes one carrier, delivery type or package type in three ways. `ApiMapperService` converts between them:
+
+| Kind of value | Where the API uses it | DHL For You |
+| --- | --- | --- |
+| Legacy name | The delivery options: `GET /delivery_options` | `dhlforyou` |
+| ID | The shipments, such as `carrier` in `POST /shipments` | `9` |
+| v2 name | The capabilities and the contract definitions, such as `carrier` in a capabilities request | `DHL_FOR_YOU` |
+
+Each method names the value it returns and the value it takes: `idFromLegacyName()` takes a legacy name and returns the ID.
 
 ```php
 use MyParcelNL\Sdk\Services\Mapping\ApiMapperService;
@@ -393,55 +410,81 @@ $mapper->legacyNameFromV2Name('DPD');   // 'dpd'
 
 Use `forDeliveryType()` or `forPackageType()` for the other two. A conversion returns `null` when there is no mapping. `allRows()` returns the whole map for one category, and `allDomains()` returns all three. The rows are keyed by the case name of the generated enums, such as `DhlForYou`.
 
-Shipment option names have their own mapper. `ShipmentOptionMapper::v2PropertyFromName()` returns the property name in the capabilities v2 model, or `null`. For example, `signature`, `requires_signature` and `requiresSignature` all map to `requiresSignature`.
+Shipment options have their own mapper, because an option has a name and no ID. `ShipmentOptionMapper` takes the name of an option in `POST /shipments` and returns the property of that option in the capabilities request model `CapabilitiesPostCapabilitiesRequestV2Options`:
+
+```php
+use MyParcelNL\Sdk\Services\Mapping\ShipmentOptionMapper;
+
+$options = new ShipmentOptionMapper();
+
+$options->v2PropertyFromName('signature');          // 'requiresSignature'
+$options->v2PropertyFromName('only_recipient');     // 'recipientOnlyDelivery'
+$options->v2PropertyFromName('requires_signature'); // 'requiresSignature'
+$options->v2PropertyFromName('tracked');            // null
+```
+
+It also takes the name of the capabilities API, in camelCase or in snake_case, as the third line shows. It returns `null` for a name that it does not know, and for an option that a capabilities request cannot send.
 
 ## Handle errors
 
-The shipment, label, track and trace, return, webhook, capabilities and contract definition services run on the Jane Core API client. They throw these exceptions:
+The shipment, label, track and trace, return, webhook, capabilities and contract definition services can fail in three ways. Each way has its own exception:
 
-| Situation | Exception |
-| --- | --- |
-| A request that does not match the API specification | A `ValidationException` of the generated client. No request goes out. `getViolationList()` lists each field and the problem. |
-| An error response of the API | An exception that implements the generated `ApiException`. A status with its own response in the API specification has its own exception, such as `PostShipmentsUnprocessableEntityException` for a 422. Another 4xx status throws the exception of the range, such as `PostShipmentsClientErrorException`, and a 5xx status throws `PostShipmentsServerErrorException`. |
-| A response with a status that the API specification does not list for the request, or an error response that is not JSON | `BadResponseException`, which is an `ApiException` |
-| A connection error or a timeout | A Symfony `TransportExceptionInterface` |
+| What happened | Exception | What to do |
+| --- | --- | --- |
+| Your input does not match the API specification, for example a shipment without a recipient. | `ValidationException` | Correct the input. No request went out. `getViolationList()` gives each field and its problem. |
+| The API answered with an error. | An exception that implements `ApiException` | Read the HTTP status and the message of the response. The second table shows what each status tells you. |
+| The API did not answer, for example because of a timeout. | A Symfony `TransportExceptionInterface` | Send the request again later. |
+
+Catch them in this order:
 
 ```php
 use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Exception\ApiException;
-use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Exception\PostShipmentsUnprocessableEntityException;
-use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Model\CommonResponsesProblem;
 use MyParcelNL\Sdk\Client\Generated\Jane\CoreApi\Runtime\Normalizer\ValidationException;
 use MyParcelNL\Sdk\Services\Shipment\ShipmentCreateService;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 try {
     $mapping = (new ShipmentCreateService('your-api-key'))->create([$shipment]);
 } catch (ValidationException $exception) {
-    $problems = $exception->getViolationList();   // No request went out.
-} catch (PostShipmentsUnprocessableEntityException $exception) {
-    $error   = $exception->getCommonResponsesProblem();
-    $message = $error instanceof CommonResponsesProblem ? $error->detail : $error->message;
+    // Your input is wrong. No request went out.
+    foreach ($exception->getViolationList() as $violation) {
+        $problems[] = $violation->getPropertyPath() . ': ' . $violation->getMessage();
+    }
 } catch (ApiException $exception) {
-    $status = $exception->getResponse()->getStatusCode();
-    $body   = $exception->getResponse()->getContent(false);
+    // The API answered with an error.
+    $response = $exception->getResponse();
+    $status   = $response->getStatusCode();
+    $body     = json_decode($response->getContent(false), true);
+    $message  = $body['message'] ?? $body['detail'] ?? null;
+} catch (TransportExceptionInterface $exception) {
+    // The API did not answer. Send the request again later.
 }
 ```
 
-Read the HTTP status with `getResponse()->getStatusCode()`, not with `getCode()`. `getCode()` is `0` for the exception of a status range, such as `PostShipmentsClientErrorException`, and the status for the exception of one status, such as `PostShipmentsUnprocessableEntityException`.
+The message of an error is in `message`. An error in the `application/problem+json` format has it in `detail`, so read both, as the example does. `errors` lists the separate problems of the request.
 
-`getCommonResponsesProblem()` returns the body of the error response as a model. The API answers with `application/json` or with `application/problem+json`, and each content type has its own model:
+The HTTP status tells you what to do:
 
-- A 4xx exception of a status range, such as `PostShipmentsClientErrorException`, holds a `CommonResponsesUserError`, with `->message` and `->statusCode`, or a `CommonResponsesProblem`, with `->detail` and `->status`.
-- A 5xx exception, such as `PostShipmentsServerErrorException`, holds a `CommonResponsesSystemError`, with `->message` and `->statusCode`, or a `CommonResponsesProblem`.
+| Status | What it tells you | What to do |
+| --- | --- | --- |
+| 401 | The API does not accept the API key. | Check the key: see [Check an API key](#check-an-api-key). |
+| 422 | The API refuses the data of the request, for example a shipment that the carrier does not accept. | Show the message to the user. Send the request again with corrected data. |
+| Another 4xx | The request cannot succeed as it is, for example a 404 for a shipment that does not exist. | Do not send the same request again. |
+| 5xx | An error at MyParcel. | Send the request again later. |
 
-The PHP return type of `getCommonResponsesProblem()` names the models of each exception. The exception of one status can hold another model: `GetShipmentsLabelsNotFoundException` holds a `CommonResponsesUserErrorNotFound` or a `CommonResponsesProblem`. Check which one you got with `instanceof`. `BadResponseException` has no `getCommonResponsesProblem()`.
+Read the status with `getResponse()->getStatusCode()`, not with `getCode()`: `getCode()` is `0` for some of these exceptions.
 
-`ApiKeyService` runs on the Jane IAM client, which has its own exceptions. [Upgrading to v12 ↗](https://github.com/myparcelnl/sdk/blob/beta/UPGRADE.md) in the SDK repository lists them.
+After a timeout of `create()`, the shipments can exist in the API. Give each shipment a reference identifier, and look for it with `findByReferenceId()` before you create it again.
+
+To handle one case separately, catch its exception before `ApiException`. The class name has the request and the status: `PostShipmentsUnprocessableEntityException` is a 422 for `POST /shipments`. A status without its own class has the class of its range: `PostShipmentsClientErrorException` for another 4xx, and `PostShipmentsServerErrorException` for a 5xx.
+
+`ApiKeyService` has its own exception classes, in the namespace `MyParcelNL\Sdk\Client\Generated\Jane\IamApi\Exception`. For an API key that is not valid, `isValid()` returns `false` and `getPrincipal()` throws a `GetWhoamiUnauthorizedException`. For another error response, both methods throw an exception that implements the `ApiException` of that namespace. They throw a `TransportExceptionInterface` when the API does not answer.
 
 ## Advanced
 
 ### Send extra headers
 
-`ShipmentApiFactory::make()` builds the Jane Core API client. Its fourth argument holds headers to send on every request, such as `x-dmp-*` API feature flags, and its fifth argument takes your own Symfony `HttpClientInterface`. Pass the client to a service as its second constructor argument:
+`ShipmentApiFactory::make()` builds the generated client that the services send their requests with. Its fourth argument holds headers to send on every request, such as `x-dmp-*` API feature flags, and its fifth argument takes your own Symfony `HttpClientInterface`. Pass the client to a service as its second constructor argument:
 
 ```php
 use MyParcelNL\Sdk\Services\CoreApi\ShipmentApiFactory;
@@ -706,7 +749,7 @@ MyParcel sends commands to your plugin, for example when order lines of an order
 command is a signed `POST` request to one URL in your plugin: the command endpoint. Your plugin
 checks the request, stores the command, replies, and then does the work.
 
-Once a shop receives commands, stop listening to the shipment webhooks and events of the Core API
+Once a shop receives commands, stop listening to the shipment webhooks and events of the Shipment API
 for that shop. The commands carry the same information, and handling both ships every order twice.
 
 #### Give MyParcel your command endpoint
@@ -1011,7 +1054,7 @@ shipment.
 | -------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
 | `order.sourceId`                 | `$command->order->sourceId`                    | The order ID in your shop                                                            |
 | `order.status`                   | `$command->order->status`                      | An `OrderShipmentsOrderStatus`, or the raw string for a status the SDK does not know |
-| `shipment.shipmentId`            | `$command->shipment->shipmentId`               | The Core API shipment ID, as a string                                                |
+| `shipment.shipmentId`            | `$command->shipment->shipmentId`               | The shipment ID of the Shipment API, as a string                                     |
 | `shipment.orderLines[].sourceId` | `$command->shipment->orderLines[$i]->sourceId` | The order line ID in your shop                                                       |
 | `shipment.orderLines[].quantity` | `$command->shipment->orderLines[$i]->quantity` | The shipped quantity of that line                                                    |
 
@@ -1019,7 +1062,7 @@ Create one shipment in your shop with these order lines and quantities. If your 
 separate order lines, mark the order as shipped.
 
 The command does not hold the shipment details, such as the carrier or the barcode. To get them,
-call `GET /shipments/{ids}` of the [Core API](../api/) with the `shipmentId`. That call needs an API
+call `GET /shipments/{ids}` of the [Shipment API](../api/myparcel.md) with the `shipmentId`. That call needs an API
 key: see [Authentication](#authentication).
 
 A plugin that does not handle `ORDER_SHIPMENTS` replies `404`.
