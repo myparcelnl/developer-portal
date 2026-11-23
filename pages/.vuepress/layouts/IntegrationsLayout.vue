@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import MpHeader from '../components/MpHeader.vue';
 import MpFooter from '../components/MpFooter.vue';
 import MpBreadcrumb from '../components/MpBreadcrumb.vue';
-import { integrationGroups, availableIn, MARKETS, type Integration, type Market } from '../integrations';
+import { integrationGroups, listedIn, comingSoonIn, ANY_MARKET, MARKETS, type Integration, type Market } from '../integrations';
 import { isLocalizedPath, BASE, type Lang } from '../sidebar';
 import { lang as uiLang } from '../composables/useI18n';
 import markUrl from '../../images/myparcel-mark.svg?url';
@@ -56,7 +56,18 @@ function matchesQuery(item: Integration): boolean {
 }
 
 function matchesMarket(item: Integration, m: MarketFilter): boolean {
-  return m === 'all' || availableIn(item, m);
+  return m === 'all' || listedIn(item, m);
+}
+
+/**
+ * Coming soon in the selected market. Under "All markets" only an integration
+ * that is usable nowhere yet counts: one that already works somewhere is not
+ * "coming soon" as a whole.
+ */
+function isComingSoon(item: Integration, m: MarketFilter): boolean {
+  if (!item.comingSoon?.length) return false;
+  if (m === 'all') return item.markets !== ANY_MARKET && item.markets.length === 0;
+  return comingSoonIn(item, m);
 }
 
 function isVisible(item: Integration): boolean {
@@ -85,7 +96,7 @@ const allItems = computed(() => integrationGroups.flatMap((g) => g.items));
  * someone is typing in the filter box.
  */
 const narrowingMarkets = computed(() =>
-  MARKETS.filter((m) => allItems.value.some((item) => !availableIn(item, m.id))),
+  MARKETS.filter((m) => allItems.value.some((item) => !listedIn(item, m.id))),
 );
 
 const marketFilters = computed<{ value: MarketFilter; label: string }[]>(() => [
@@ -231,7 +242,25 @@ const breadcrumbTrail = [{ text: 'Home', link: '/' }, { text: 'Integrations' }];
           </div>
 
           <div class="mp-int-card__body">
-            <h3 class="mp-int-card__name">{{ item.name }}</h3>
+            <div class="mp-int-card__head">
+              <h3 class="mp-int-card__name">{{ item.name }}</h3>
+
+              <!-- Status beside the name: it is a property of the integration
+                   in the selected market, read together with its name.
+                   Mounted whenever the item is announced anywhere and toggled
+                   with v-show, so the runtime translator has already seen it. -->
+              <span
+                v-if="item.comingSoon?.length"
+                v-show="isComingSoon(item, market)"
+                class="mp-int-card__soon"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" />
+                </svg>
+                <span data-i18n="Coming soon">Coming soon</span>
+              </span>
+            </div>
 
             <p v-if="meta(item).length" class="mp-int-card__meta">
               <template v-for="(bit, i) in meta(item)" :key="bit">

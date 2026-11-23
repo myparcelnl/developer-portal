@@ -4601,6 +4601,32 @@ pre.mp-code-block code.hljs {
   filter: brightness(0) invert(1);
 }
 
+/* Name row: the name on the left, a status such as "Coming soon" on the
+   right. Wraps under the name when a long name leaves no room. */
+.mp-int-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 8px;
+}
+
+/* "Coming soon": Mint with Monstera text, 7.1:1. */
+.mp-int-card__soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  font-size: var(--mp-fs-xs);
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--mp-monstera);
+  background: var(--mp-mint);
+  border-radius: var(--mp-radius-pill);
+}
+.mp-int-card__soon svg { flex: none; }
+
 .mp-int-card__body {
   display: flex;
   flex-direction: column;
@@ -4759,6 +4785,10 @@ pre.mp-code-block code.hljs {
 [data-theme="dark"] .mp-int-card__logo {
   background: #f4f7f6;
   border-bottom-color: var(--mp-border);
+}
+[data-theme="dark"] .mp-int-card__soon {
+  color: #6ee7b7;
+  background: rgba(110, 231, 183, 0.12);
 }
 [data-theme="dark"] .mp-int-link { color: #6ee7b7; }
 [data-theme="dark"] .mp-int-link:hover { color: #a7f3d0; }
