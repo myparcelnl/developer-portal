@@ -695,53 +695,107 @@ cancelled.
 
 ### Push orders
 
-`EcommerceApiFactory::make()` returns the generated e-commerce client with the signing middleware already on it. Use it rather than constructing the client yourself, which would send every call unsigned:
+`EcommerceApiFactory::make()` returns the generated e-commerce client for a connected shop. The client signs every call. Do not build the client yourself: a client that you build sends its calls without a signature, and MyParcel answers 401.
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\EcommerceApi\Model\Order;
+use MyParcelNL\Sdk\Client\Generated\Jane\EcommerceApi\Model\Order;
+use MyParcelNL\Sdk\Client\Generated\Jane\EcommerceApi\Model\OrderStatus;
 use MyParcelNL\Sdk\Services\Ecommerce\EcommerceApiFactory;
 
-$order = new Order([
-    'ordered_at' => new DateTime('now'),
-    'source_id'  => 'ORDER-2026-01042',
-    'status'     => Order::STATUS_OPEN,
-]);
+$order            = new Order();
+$order->orderedAt = new DateTimeImmutable('now');
+$order->sourceId  = 'ORDER-2026-01042';
+$order->status    = OrderStatus::Open;
 
-$problems = $order->listInvalidProperties();   // [] when the order matches the API's own limits
-
-$api     = EcommerceApiFactory::make($connect);
-$results = $api->webhookOrdersPost([$order]);
+$api      = EcommerceApiFactory::make($connect);
+$response = $api->postWebhookOrder(requestBody: [$order]);
 ```
 
-`ordered_at`, `source_id` and `status` are required. The status is `Order::STATUS_OPEN` or `Order::STATUS_CANCELED`. The API refuses the whole request with HTTP 400 when one order has no status. Send the ID the order has in your shop as `source_id`, so you can recognise it later.
+`orderedAt`, `sourceId` and `status` are required. The status is `OrderStatus::Open` or `OrderStatus::Canceled`. For an order without one of them, the client throws a `ValidationException` and sends nothing. Send the ID that the order has in your shop as `sourceId`, so that you can recognize the order later.
 
-To update an order, push it again with the same `source_id`. For example, when the merchant cancels the order in the shop:
+The SDK reads the stored token, refreshes it when it is close to expiry, and signs the request. When MyParcel answers 401, the SDK refreshes the token and sends the request one more time. You do not need to do anything else to authenticate the call.
 
-```php
-$order->setStatus(Order::STATUS_CANCELED);
-
-$results = $api->webhookOrdersPost([$order]);
-```
-
-MyParcel accepts the update, but does not act on it yet.
-
-From there the SDK reads the stored token, refreshes it when it is close to expiry, and signs the request. Nothing else is needed to authenticate the call.
-
-Three things about the request and its answer:
-
-- **Up to 50 orders per request.** Send them in one array.
-- **The answer is per order.** Some orders can be accepted while others are refused in the same response, so read every item rather than only the status code. A refused item names the field that was wrong.
-- **An accepted item carries no order ID.** There is no identifier to link to, which is why `source_id` matters.
+You can send up to 50 orders in one request. Send them in one list, such as `array_values($orders)`: an array with the keys 0, 1, 2 and so on. For an empty array, and for an array without the key 0, the generated client sends the request without a body. For an array with a gap in its keys, it sends a JSON object and not a list. The client does not check how many orders the list holds.
 
 Money is expressed in whole micros, so one euro is 1,000,000:
 
 ```php
-use MyParcelNL\Sdk\Client\Generated\EcommerceApi\Model\Money;
+use MyParcelNL\Sdk\Client\Generated\Jane\EcommerceApi\Model\Money;
 
-new Money(['currency' => 'EUR', 'micros' => 24950000]);   // EUR 24.95
+$price           = new Money();
+$price->currency = 'EUR';
+$price->micros   = 24950000;   // EUR 24.95
 ```
 
-`listInvalidProperties()` is on every generated model, and it names what is wrong with the order before you spend a request on it.
+#### Read the result of each order
+
+A push that throws no exception can still contain orders that MyParcel refused. MyParcel answers the request with HTTP 202, also when it refuses some of the orders in it. The answer has one item for each order that you sent. An accepted item means that the order is in the queue of MyParcel. MyParcel processes the order later, so the order is not processed yet when you get the answer. A refused item says what is wrong with that order. Read each item, or you miss the orders that MyParcel refused.
+
+```php
+use MyParcelNL\Sdk\Services\Ecommerce\PushResultReader;
+
+foreach ((new PushResultReader())->read($response) as $result) {
+    if ($result->isAccepted()) {
+        continue;
+    }
+
+    // What MyParcel refused: $result->getStatus(), $result->getTitle() and $result->getDetail().
+    foreach ($result->getErrors() as $error) {
+        // $error['pointer'] is a JSON pointer into the request, such as /body/1 for the second order.
+        // $error['detail'] says what is wrong.
+    }
+}
+```
+
+`PushResultReader::read()` returns one `PushResult` for each item of the answer:
+
+| Method | What it returns |
+|--------|-----------------|
+| `isAccepted()` | `true` when MyParcel accepted the order |
+| `getStatus()` | The status of the item, such as `202`, `400` or `500` |
+| `getType()` | The kind of problem, such as `urn:problem:client`. `null` for an accepted order |
+| `getTitle()` | A short summary of the problem. `null` for an accepted order |
+| `getDetail()` | What is wrong with this order. `null` for an accepted order |
+| `getErrors()` | The fields that MyParcel refused, each with a `detail` and a `pointer`. An empty array when there are none |
+
+An accepted item carries no order ID. You have no identifier of MyParcel to link to, which is why `sourceId` matters.
+
+#### Update an order
+
+To update an order, push it again with the same `sourceId`. For example, when the merchant cancels the order in the shop:
+
+```php
+$order->status = OrderStatus::Canceled;
+
+$response = $api->postWebhookOrder(requestBody: [$order]);
+```
+
+MyParcel accepts the update, but does not act on it yet.
+
+#### When a push fails
+
+The client checks an order against the API specification before it sends the order. For an order that does not match, the client throws a `ValidationException`, and no request goes out:
+
+```php
+use MyParcelNL\Sdk\Client\Generated\Jane\EcommerceApi\Runtime\Normalizer\ValidationException;
+
+try {
+    $response = $api->postWebhookOrder(requestBody: [$order]);
+} catch (ValidationException $exception) {
+    foreach ($exception->getViolationList() as $violation) {
+        // $violation->getPropertyPath() names the field, such as [status].
+        // $violation->getMessage() says what is wrong.
+    }
+}
+```
+
+A push can also fail in these ways:
+
+| What happened | What the SDK throws |
+|---------------|---------------------|
+| The shop is not connected, or MyParcel no longer has the connection. | A `ConnectException`. See [Errors](#errors). |
+| MyParcel refused the whole request. | A generated exception from `MyParcelNL\Sdk\Client\Generated\Jane\EcommerceApi\Exception`, such as `PostWebhookOrderBadRequestException` for a 400. |
+| The request did not reach MyParcel, or it timed out. | A Symfony `TransportExceptionInterface`. |
 
 ### Receiving commands
 
