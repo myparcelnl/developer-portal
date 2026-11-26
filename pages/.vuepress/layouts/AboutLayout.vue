@@ -105,7 +105,7 @@ const VACANCIES = 'https://www.myparcel.com/nl-NL/vacatures';
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.3 7.2l7.4 3.6"/></svg>
         </span>
         <strong data-i18n="Trunk-based development">Trunk-based development</strong>
-        <span data-i18n="We experiment with new methods. Trunk-based development is one of them.">We experiment with new methods. Trunk-based development is one of them.</span>
+        <span data-i18n="We merge small changes into the main branch often, instead of keeping long-lived branches.">We merge small changes into the main branch often, instead of keeping long-lived branches.</span>
       </li>
     </ul>
 

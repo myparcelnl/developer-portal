@@ -273,7 +273,7 @@
   "Infrastructure as code": "Infrastructure as code",
   "We program our AWS stack with the AWS Cloud Development Kit.": "We programmeren onze AWS-stack met de AWS Cloud Development Kit.",
   "Trunk-based development": "Trunk-based development",
-  "We experiment with new methods. Trunk-based development is one of them.": "We experimenteren met nieuwe werkwijzen. Trunk-based development is daar één van.",
+  "We merge small changes into the main branch often, instead of keeping long-lived branches.": "We voegen kleine wijzigingen vaak samen in de hoofdbranch, in plaats van lang te werken op aparte branches.",
   "Tech stack": "Techstack",
   "A good SaaS platform needs good technology. Our stack lets us build, test and release continuously. Our integration team works on the best possible delivery checkout.": "Een goed SaaS-platform vraagt om goede technologie. Met onze stack bouwen, testen en releasen we continu. Ons integratieteam werkt aan de best mogelijke bezorgcheckout.",
   "Team": "Team",
