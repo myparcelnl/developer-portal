@@ -159,6 +159,7 @@ const VACANCIES = 'https://www.myparcel.com/nl-NL/vacatures';
           <img
             src="/images/dnv-iso-27001.png"
             alt="DNV certified management system, ISO/IEC 27001"
+            data-i18n-alt="DNV certified management system, ISO/IEC 27001"
             width="80"
             height="76"
             loading="lazy"

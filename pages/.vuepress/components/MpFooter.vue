@@ -33,6 +33,7 @@
           class="mp-footer__cert"
           src="/images/dnv-iso-27001.png"
           alt="DNV certified management system, ISO/IEC 27001"
+          data-i18n-alt="DNV certified management system, ISO/IEC 27001"
           data-i18n-title="ISO/IEC 27001 certified by DNV"
           title="ISO/IEC 27001 certified by DNV"
           width="72"
