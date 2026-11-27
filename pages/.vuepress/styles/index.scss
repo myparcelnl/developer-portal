@@ -1046,7 +1046,7 @@ pre.mp-code-block::after {
   outline: 2px solid var(--mp-fresh);
   outline-offset: 2px;
 }
-[data-theme="dark"] :focus-visible { outline-color: #6ee7b7; }
+[data-theme="dark"] :focus-visible { outline-color: var(--mp-accent-on-dark); }
 
 // The skip link's target takes focus programmatically; a ring around the
 // whole page would be noise.
@@ -1627,7 +1627,7 @@ pre.mp-code-block::after {
 [data-theme="dark"] .mp-docs-sidebar__item:hover,
 [data-theme="dark"] .mp-sidebar__item:hover { background: rgb(255 255 255 / 6%); }
 [data-theme="dark"] .mp-docs-sidebar__item--active,
-[data-theme="dark"] .mp-sidebar__item--active { color: #6ee7b7; }
+[data-theme="dark"] .mp-sidebar__item--active { color: var(--mp-accent-on-dark); }
 
 .mp-sidebar__back { padding-left: 12px; border-radius: 10px; }
 
@@ -1683,9 +1683,9 @@ pre.mp-code-block::after {
   .hint-container.tip,
   .hint-container.note,
   .hint-container.info { background: var(--mp-panel); }
-  .hint-container.warning { background: #fff6d6; }
+  .hint-container.warning { background: var(--mp-callout-warn-bg); }
   .hint-container.caution,
-  .hint-container.danger { background: #fde8e8; }
+  .hint-container.danger { background: var(--mp-callout-danger-bg); }
   .hint-container-title { font-weight: 700; color: var(--mp-text); }
 
   blockquote {
@@ -1709,10 +1709,6 @@ pre.mp-code-block::after {
     font-weight: 700;
   }
 }
-[data-theme="dark"] .mp-docs-content__body .hint-container.warning,
-[data-theme="dark"] .mp-standalone .mp-docs-content .hint-container.warning { background: rgb(250 216 37 / 12%); }
-[data-theme="dark"] .mp-docs-content__body .hint-container.caution,
-[data-theme="dark"] .mp-docs-content__body .hint-container.danger { background: rgb(184 27 35 / 18%); }
 
 // Previous and next page as cards
 .mp-docs-pager__link {
@@ -1741,7 +1737,7 @@ pre.mp-code-block::after {
   color: var(--mp-fresh);
   font-weight: 700;
 }
-[data-theme="dark"] .mp-docs-toc a.is-active { color: #6ee7b7; }
+[data-theme="dark"] .mp-docs-toc a.is-active { color: var(--mp-accent-on-dark); }
 
 // ---- API reference ----------------------------------------------------------
 .mp-ref-hub__title {
@@ -1772,7 +1768,7 @@ pre.mp-code-block::after {
   padding: 6px 14px;
 }
 .mp-api-toc__chip:hover { border-color: var(--mp-fresh); background: var(--mp-card); }
-[data-theme="dark"] .mp-api-toc__chip { color: #ffffff; }
+[data-theme="dark"] .mp-api-toc__chip { color: var(--mp-white); }
 
 // Group labels above the endpoints: a rounded Mint pill, sentence case.
 .mp-ref-content .mp-section-label {
@@ -1858,7 +1854,7 @@ pre.mp-code-block::after {
 .mp-beta-banner__pill { letter-spacing: 0.02em; }
 [data-theme="dark"] .mp-ref-layout .mp-ref-content .mp-section-label {
   background: var(--mp-raised);
-  color: #6ee7b7;
+  color: var(--mp-accent-on-dark);
 }
 
 // Wide tables in the docs scroll inside their own box on tablets, instead
