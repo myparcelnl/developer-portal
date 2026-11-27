@@ -137,7 +137,7 @@ const VACANCIES = 'https://www.myparcel.com/nl-NL/vacatures';
     ============================================================ -->
     <section id="team" class="mp-about__sec">
       <h2 class="mp-about__h2" data-i18n="Team">Team</h2>
-      <p class="mp-about__text mp-about__text--top" data-i18n="Seven teams build and run the MyParcel platform, each with its own part of it.">Seven teams build and run the MyParcel platform, each with its own part of it.</p>
+      <p class="mp-about__text mp-about__text--top">{{ teams.length }}&nbsp;<span data-i18n="teams build and run the MyParcel platform, each with its own part of it.">teams build and run the MyParcel platform, each with its own part of it.</span></p>
       <ul class="mp-about__teams">
         <li v-for="team in teams" :key="team" class="mp-about__team">{{ team }}</li>
       </ul>

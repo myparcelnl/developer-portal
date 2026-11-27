@@ -556,7 +556,7 @@ const sdkCount = docsSidebar.find((g) => g.label === 'SDKs')?.items.length ?? 0;
     ============================================================ -->
     <section class="mp-band" aria-labelledby="mp-apis-title">
       <div class="mp-band__inner">
-        <h2 id="mp-apis-title" class="mp-home__h2 mp-reveal" data-i18n="Seven APIs, one account">Seven APIs, one account</h2>
+        <h2 id="mp-apis-title" class="mp-home__h2 mp-reveal">{{ apis.length }}&nbsp;<span data-i18n="APIs, one account">APIs, one account</span></h2>
         <div class="mp-apis">
           <a v-for="a in apis" :key="a.slug" class="mp-api mp-reveal" :href="`/api/${a.slug}.html`">
             <span class="mp-api__name">{{ a.name }}</span>
