@@ -95,7 +95,6 @@ const meta = computed(() => ({
       </nav>
 
       <header class="mp-ref-hub">
-        <div class="mp-ref-hub__eyebrow">API REFERENCE</div>
         <h1 class="mp-ref-hub__title">{{ page.title }}</h1>
         <p v-if="fm.description" class="mp-ref-hub__lead">{{ fm.description }}</p>
         <div v-if="meta.host || meta.version || meta.endpoints" class="mp-ref-hub__meta">

@@ -120,12 +120,18 @@ const next = computed(() =>
       <MpDocsToc />
     </div>
 
-    <main v-else id="mp-main" tabindex="-1" class="mp-standalone">
-      <MpBreadcrumb :trail="breadcrumbTrail" />
-      <h1 class="mp-docs-content__title">{{ page.title }}</h1>
-      <p v-if="fm.description" class="mp-docs-content__lede">{{ fm.description }}</p>
-      <div class="mp-docs-content">
-        <Content />
+    <main v-else id="mp-main" tabindex="-1" class="mp-page">
+      <section class="mp-phero">
+        <div class="mp-phero__inner">
+          <MpBreadcrumb :trail="breadcrumbTrail" />
+          <h1 class="mp-phero__title">{{ page.title }}</h1>
+          <p v-if="fm.description" class="mp-phero__lede">{{ fm.description }}</p>
+        </div>
+      </section>
+      <div class="mp-standalone mp-standalone--card">
+        <div class="mp-docs-content">
+          <Content />
+        </div>
       </div>
     </main>
 

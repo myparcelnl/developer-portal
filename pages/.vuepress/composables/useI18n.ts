@@ -31,7 +31,7 @@ export function setLang(l: Lang) {
 
 /**
  * Walk the DOM and translate every element with `data-i18n`,
- * `data-i18n-title` or `data-i18n-placeholder` attributes. API reference pages are skipped
+ * `data-i18n-title`, `data-i18n-placeholder` or `data-i18n-alt` attributes. API reference pages are skipped
  * so endpoint paths/parameters keep their canonical English names.
  */
 export function applyTranslationsTo(scope: ParentNode = document) {
@@ -71,6 +71,16 @@ export function applyTranslationsTo(scope: ParentNode = document) {
       el.setAttribute('data-i18n-placeholder-original', original);
     }
     el.placeholder = dict[key] ?? original;
+  }
+
+  for (const el of scope.querySelectorAll<HTMLImageElement>('[data-i18n-alt]')) {
+    const key = el.getAttribute('data-i18n-alt');
+    if (!key) continue;
+    const original = el.getAttribute('data-i18n-alt-original') ?? el.alt;
+    if (!el.hasAttribute('data-i18n-alt-original')) {
+      el.setAttribute('data-i18n-alt-original', original);
+    }
+    el.alt = dict[key] ?? original;
   }
 }
 

@@ -57,8 +57,8 @@ rendered default and the lookup key:
 <span data-i18n="All markets">All markets</span>
 ```
 
-Also supported: `data-i18n-title` for tooltips and `data-i18n-placeholder` for
-inputs. Translations live in `pages/.vuepress/translations/{nl,it,fr}.json`.
+Also supported: `data-i18n-title` for tooltips, `data-i18n-placeholder` for
+inputs and `data-i18n-alt` for image alt text. Translations live in `pages/.vuepress/translations/{nl,it,fr}.json`.
 A missing key falls back to the English original, so a forgotten translation
 degrades quietly rather than showing a key.
 
